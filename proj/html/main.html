@@ -14,48 +14,38 @@
     <header>
         <div class="nav-container">
             <div class="nav-right">
-                <a href="#"><img src="search-icon.png" alt="Search"></a>
-
+                <div class="search-form">
+                    <form>
+                        <input type="text" class="search-input">
+                        <button type="button" class="search-button"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
                 <a href="#"><img src="../assets/images/찜.png" alt="hart"></a>
                 <a href="#"><img src="../assets/images/장바구니.png" alt="Cart"></a>
-
                 <a href="#"><img src="../assets/images/로그인.png" alt="Login"></a>
             </div>
         </div>
     </header>
 
     <!-- 왼쪽 고정 사이드바 -->
-    <aside class="side-bar">
-        <ul>
-            <li>
-                <a href="#"> Menu 1</a>
-                <ul>
-                    <li><a href="#">Text 1</a></li>
-                    <li><a href="#">Text 2</a></li>
-                    <li><a href="#">Text 3</a></li>
-                    <li><a href="#">Text 4</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">Menu 2</a>
-                <ul>
-                    <li><a href="#">Text 4</a></li>
-                    <li><a href="#">Text 26</a></li>
-                    <li><a href="#">Text 343</a></li>
-                    <li><a href="#">Text 41</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">Menu 3</a>
-                <ul>
-                    <li><a href="#">Text 142</a></li>
-                    <li><a href="#">Text 42</a></li>
-                    <li><a href="#">Text 23</a></li>
-                    <li><a href="#">Text 4t</a></li>
-                </ul>
-            </li>
-        </ul>
-    </aside>
+<aside class="side-bar">
+    <div class="menu-icon">
+        <!-- 메뉴 아이콘을 여기 표시합니다 (햄버거 아이콘) -->
+        <i class="fas fa-bars" style="color: white;"></i>
+    </div>
+    <ul>
+        <li>
+            <a href="#"><i class="fas fa-home"></i> <span>Home</span></a>
+        </li>
+        <li>
+            <a href="#"><i class="fas fa-info"></i> <span>About</span></a>
+        </li>
+        <li>
+            <a href="#"><i class="fas fa-envelope"></i> <span>Contact</span></a>
+        </li>
+    </ul>
+</aside>
+
 
     <!-- 메인 컨텐츠 -->
     <div class="main-content">
@@ -112,6 +102,18 @@
                 delay: 3000,
                 disableOnInteraction: false,
             },
+        });
+
+        // Search bar interaction
+        var input = document.querySelector('.search-form');
+        var searchInput = document.querySelector('.search-input');
+        var button = document.querySelector('.search-button');
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            input.classList.toggle('active');
+            if (input.classList.contains('active')) {
+                searchInput.focus(); // 검색창이 확장되면 입력에 포커스
+            }
         });
     </script>
     
