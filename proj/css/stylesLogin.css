@@ -1,0 +1,233 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 360px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.login-box {
+    padding: 10px;
+}
+
+.login-title {
+    font-size: 30px;
+    color: #31326F;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.login-options {
+    display: flex;
+    align-items: center;
+    font-size: 11px;
+    margin-bottom: 20px;
+}
+
+.checkbox {
+    margin-right: 5px;
+    border: 1px solid black;
+}
+
+.login-links {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #666;
+}
+
+.login-links a {
+    margin: 0 10px;
+    color: #666;
+    text-decoration: none;
+}
+
+.login-links a:hover {
+    text-decoration: underline;
+}
+
+
+
+/* ------------------ */
+.group { 
+position:relative; 
+margin-bottom:30px; 
+}
+.inputT {
+font-size:18px;
+padding:10px 10px 10px 0px;
+display:block;
+width:300px;
+border:none;
+border-bottom:1px solid #757575;
+}
+.inputT:focus { outline:none; }
+
+/* LABEL ======================================= */
+label 				 {
+color:#999; 
+font-size:18px;
+font-weight:normal;
+position:absolute;
+pointer-events:none;
+left:5px;
+top:10px;
+transition:0.2s ease all; 
+-moz-transition:0.2s ease all; 
+-webkit-transition:0.2s ease all;
+}
+
+/* active state */
+.inputT:focus ~ label, .inputT:valid ~ label 		{
+top:-20px;
+font-size:14px;
+color:#31326F;
+}
+
+/* BOTTOM BARS ================================= */
+.bar 	{ position:relative; display:block; width:300px; }
+.bar:before, .bar:after 	{
+content:'';
+height:2px; 
+width:0;
+bottom:1px; 
+position:absolute;
+background:#31326F; 
+transition:0.2s ease all; 
+-moz-transition:0.2s ease all; 
+-webkit-transition:0.2s ease all;
+}
+.bar:before {
+left:50%;
+}
+.bar:after {
+right:50%; 
+}
+
+/* active state */
+.inputT:focus ~ .bar:before, .inputT:focus ~ .bar:after {
+width:50%;
+}
+
+/* HIGHLIGHTER ================================== */
+.highlight {
+position:absolute;
+height:60%; 
+width:100px; 
+top:25%; 
+left:0;
+pointer-events:none;
+opacity:0.5;
+}
+
+/* active state */
+.inputT:focus ~ .highlight {
+-webkit-animation:inputHighlighter 0.3s ease;
+-moz-animation:inputHighlighter 0.3s ease;
+animation:inputHighlighter 0.3s ease;
+}
+
+/* ANIMATIONS ================ */
+@-webkit-keyframes inputHighlighter {
+    from { background:#31326F; }
+to 	{ width:0; background:transparent; }
+}
+@-moz-keyframes inputHighlighter {
+    from { background:#31326F; }
+to 	{ width:0; background:transparent; }
+}
+@keyframes inputHighlighter {
+    from { background: #31326F; }
+to 	{ width:0; background:transparent; }
+}
+
+
+/* -------------------------------- */
+
+.button_container {
+position: absolute;
+left: 0;
+right: 0;
+top: 30%;
+}
+
+.description, .link {
+font-family: 'Amatic SC', cursive;
+text-align: center;
+}
+
+.description {
+font-size: 35px;
+}
+
+.btn {
+border: none;
+display: block;
+text-align: center;
+cursor: pointer;
+text-transform: uppercase;
+outline: none;
+overflow: hidden;
+position: relative;
+color: #fff;
+font-weight: 700;
+font-size: 15px;
+background-color: #31326F;
+padding: 13px 126px;
+margin: 0 auto;
+transition: color .5s ease-in-out;
+}
+
+.btn span {
+position: relative; 
+z-index: 1;
+}
+
+.btn:after {
+content: "";
+position: absolute;
+left: 0;
+top: 0;
+height: 490%;
+width: 140%;
+background: #FFDADA;
+-webkit-transition: all .5s ease-in-out;
+transition: all .5s ease-in-out;
+-webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
+transform: translateX(-98%) translateY(-25%) rotate(45deg);
+}
+
+.btn:hover:after {
+-webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
+transform: translateX(-9%) translateY(-25%) rotate(45deg);
+}
+
+.btn:hover {
+color: #31326F;
+}
+
+.link {
+font-size: 20px;
+margin-top: 30px;
+}
+
+.link a {
+color: #000;
+font-size: 25px; 
+}
