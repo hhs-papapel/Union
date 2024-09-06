@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAVER 로그인 페이지</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 360px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-box {
+            padding: 10px;
+        }
+
+        .login-title {
+            font-size: 30px;
+            color: #31326F;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .login-form-input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .login-options {
+            display: flex;
+            align-items: center;
+            font-size: 11px;
+        }
+
+        .checkbox {
+            margin-right: 5px;
+            border: 1px solid black;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #31326F;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .login-links {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .login-links a {
+            margin: 0 10px;
+            color: #666;
+            text-decoration: none;
+        }
+
+        .login-links a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="login-container">
+    <div class="login-box">
+        <!-- 로고 -->
+        <h1 class="login-title">UNION</h1>
+
+        <!-- 로그인 입력 폼 -->
+        <form class="login-form">
+            <input type="text" class="login-form-input" placeholder="아이디" required>
+            <input type="password" class="login-form-input" placeholder="비밀번호" required>
+            <div class="login-options">
+                <input type="checkbox" class="checkbox"> 로그인 상태 유지
+            </div>
+            <button type="submit" class="login-btn login-form-input">로그인</button>
+        </form>
+
+        <!-- 기타 옵션 -->
+        <div class="login-links">
+            <a href="#">비밀번호 찾기</a>
+            <a href="#">아이디 찾기</a>
+            <a href="#">회원가입</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
