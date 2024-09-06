@@ -1,0 +1,253 @@
+/* 기본 Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 바디 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7; /* 초기 배경색 */
+    line-height: 1.6;
+    transition: background-color 0.3s ease; /* 배경색 변화 애니메이션 */
+}
+
+/* 헤더 스타일 */
+header {
+    display: flex;
+    align-items: center;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    position: fixed; /* 고정된 메뉴바 */
+    top: 0;
+    left: 0;
+    width: 100%; /* 화면 전체 너비 */
+    z-index: 1000;
+    transition: background-color 0.3s ease; /* 스크롤 시 배경색 변환 */
+}
+
+/* 사이드바 메뉴 아이콘 스타일 */
+.menu-icon {
+    font-size: 30px;
+    cursor: pointer;
+    padding-right: 20px;
+}
+
+/* 로고 스타일 */
+header .logo img {
+    width: 150px;
+    margin-right: 20px;
+}
+
+/* 메인 메뉴바 스타일 */
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: flex-start;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #ddd;
+    transform: scale(1.05); /* 호버 시 확대 효과 */
+    transition: transform 0.3s ease;
+}
+
+/* 사이드바 스타일 */
+.sidenav {
+    height: 100%; /* 화면 높이 전체 */
+    width: 0; /* 초기에는 사이드바가 보이지 않음 */
+    position: fixed; /* 고정된 위치 */
+    z-index: 1; /* 다른 요소들보다 위에 표시 */
+    top: 0;
+    left: 0;
+    background-color: #111; /* 어두운 배경색 */
+    overflow-x: hidden; /* 넘치는 내용 가리기 */
+    transition: 0.5s; /* 부드러운 애니메이션 */
+    padding-top: 60px; /* 상단 여백 */
+}
+
+.sidenav.open {
+    width: 250px; /* 사이드바가 열릴 때 너비 */
+}
+
+/* 닫기 버튼 (X) 스타일 */
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+    color: #f1f1f1;
+    cursor: pointer;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+    transform: translateX(10px); /* 호버 시 오른쪽으로 이동 */
+}
+
+/* 히어로 섹션 */
+.hero {
+    margin-top: 70px; /* 고정된 헤더 때문에 상단 여백 추가 */
+    padding: 100px;
+    text-align: center;
+    background-color: #f4f4f4;
+    transition: transform 0.3s ease; /* 스크롤 시 애니메이션 */
+}
+
+/* 스크롤 시 히어로 섹션 애니메이션 */
+.hero.scrolled {
+    transform: translateY(-20px);
+}
+
+/* 게임 섹션 */
+.games {
+    padding: 20px;
+    background-color: rgb(244,244,244,0.5);
+    text-align: center;
+}
+
+.games h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+/* 게임 리스트 슬라이더 */
+.game-list {
+    display: flex;
+    overflow-x: auto; /* 스크롤 가능하도록 auto로 설정 */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap; /* 가로로 나열되도록 설정 */
+    padding-bottom: 10px; /* 여유 공간 추가 */
+    scrollbar-width: none; /* Firefox에서 스크롤바 숨기기 */
+}
+
+.game-list::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera에서 스크롤바 숨기기 */
+}
+
+.game-item {
+    display: inline-block; /* 가로로 나란히 배치 */
+    text-align: center;
+    min-width: 200px;
+    margin-right: 10px; /* 이미지 간 간격 설정 */
+    transform: scale(1);
+    transition: transform 0.3s ease;
+}
+
+.game-item img {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: box-shadow 0.3s ease;
+}
+
+.game-item img:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* 호버 시 그림자 추가 */
+}
+
+/* 게임 세부 사항 섹션 */
+.game-details-section {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1s ease, visibility 0.5s ease;
+    background-color: #1a2b3c;
+    color: white;
+    padding: 20px;
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.game-details-section.show {
+    opacity: 1;
+    visibility: visible; /* 스크롤 후 등장 */
+    animation: bounceIn 1s ease; /* 튀는 애니메이션 */
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.game-details-section img {
+    width: 60%;
+    border-radius: 10px;
+}
+
+.game-info {
+    width: 35%;
+    padding-left: 20px;
+}
+
+.game-info h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.game-info p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.game-thumbnails {
+    display: flex;
+    gap: 10px;
+}
+
+.game-thumbnails img {
+    width: 80px;
+    border-radius: 5px;
+}
+
+.status {
+    background-color: #ff5722;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+/* 푸터 스타일 */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+    width: 100%;
+    position: relative;
+}
