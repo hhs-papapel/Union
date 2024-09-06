@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아이디 / 비밀번호 찾기</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .find-container {
+            width: 100%;
+            max-width: 400px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .find-header {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .find-header button {
+            background-color: #f3f3f3;
+            border: none;
+            padding: 10px;
+            width: 50%;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .find-header button.active {
+            background-color: #31326F;
+            color: white;
+        }
+
+        .find-box {
+            display: none;
+        }
+
+        .find-box.active {
+            display: block;
+        }
+
+        .find-form input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .find-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #31326F;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+    </style>
+    <link rel="stylesheet" href="../css/stylesLogin.css">
+</head>
+<body>
+
+<div class="find-container">
+    <div class="find-header">
+        <button id="idFindTab" class="active">아이디 찾기</button>
+        <button id="pwFindTab">비밀번호 찾기</button>
+    </div>
+
+    <!-- 아이디 찾기 -->
+    <div id="idFindBox" class="find-box active">
+        <form class="find-form">
+            <input type="text" placeholder="이름" required>
+            <input type="text" placeholder="이메일 또는 전화번호" required>
+            <button class="btn" style="padding: 13px 140px;"><span>아이디 찾기</span></button>
+            
+        </form>
+    </div>
+
+    <!-- 비밀번호 찾기 -->
+    <div id="pwFindBox" class="find-box">
+        <form class="find-form">
+            <input type="text" placeholder="아이디" required>
+            <input type="text" placeholder="이메일 또는 전화번호" required>
+            <button class="btn" style="padding: 13px 131px;"><span>비밀번호 찾기</span></button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // 탭 버튼과 내용 변경을 위한 스크립트
+    const idFindTab = document.getElementById('idFindTab');
+    const pwFindTab = document.getElementById('pwFindTab');
+    const idFindBox = document.getElementById('idFindBox');
+    const pwFindBox = document.getElementById('pwFindBox');
+
+    idFindTab.addEventListener('click', () => {
+        idFindTab.classList.add('active');
+        pwFindTab.classList.remove('active');
+        idFindBox.classList.add('active');
+        pwFindBox.classList.remove('active');
+    });
+
+    pwFindTab.addEventListener('click', () => {
+        pwFindTab.classList.add('active');
+        idFindTab.classList.remove('active');
+        pwFindBox.classList.add('active');
+        idFindBox.classList.remove('active');
+    });
+</script>
+
+</body>
+</html>
