@@ -24,9 +24,15 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
+    max-width: 2800px;
     margin: 0 auto;
     padding: 0 20px;
+}
+.nav-right {
+    margin-left: auto; /* 왼쪽 여백을 자동으로 설정하여 오른쪽으로 밀어줍니다 */
+    display: flex;
+    justify-content: flex-end; /* 오른쪽으로 정렬 */
+    align-items: center; /* 항목을 수직 중앙 정렬 */
 }
 
 .nav-right a {
