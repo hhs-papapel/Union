@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -77,59 +78,130 @@
             font-size: 16px;
             margin-top: 10px;
         }
-
     </style>
     <link rel="stylesheet" href="../css/stylesLogin.css">
 </head>
+
 <body>
 
-<div class="find-container">
-    <div class="find-header">
-        <button id="idFindTab" class="active">아이디 찾기</button>
-        <button id="pwFindTab">비밀번호 찾기</button>
+    <div class="find-container">
+        <div class="find-header">
+            <button id="idFindTab" class="active">아이디 찾기</button>
+            <button id="pwFindTab">비밀번호 찾기</button>
+        </div>
+
+        <!-- 아이디 찾기 -->
+        <div id="idFindBox" class="find-box active">
+            <form class="find-form">
+                <input type="text" placeholder="이름" id="name" required>
+                <input type="text" placeholder="이메일 또는 전화번호" id="idemlorphone" required>
+                <button class="btn" style="padding: 13px 140px;" onclick="findid()"><span>아이디 찾기</span></button>
+
+            </form>
+        </div>
+
+        <!-- 비밀번호 찾기 -->
+        <div id="pwFindBox" class="find-box">
+            <form class="find-form">
+                <input type="text" placeholder="아이디" id="id" required>
+                <input type="text" placeholder="이메일 또는 전화번호" id="pwemlorphone" required>
+                <button class="btn" style="padding: 13px 131px;" onclick="findpw()"><span>비밀번호 찾기</span></button>
+            </form>
+        </div>
     </div>
 
-    <!-- 아이디 찾기 -->
-    <div id="idFindBox" class="find-box active">
-        <form class="find-form">
-            <input type="text" placeholder="이름" required>
-            <input type="text" placeholder="이메일 또는 전화번호" required>
-            <button class="btn" style="padding: 13px 140px;"><span>아이디 찾기</span></button>
-            
-        </form>
-    </div>
+    <script src="../assets/lib/jquery-3.7.1.min.js"></script>
+    <script>
+        // 탭 버튼과 내용 변경을 위한 스크립트
+        const idFindTab = document.getElementById('idFindTab');
+        const pwFindTab = document.getElementById('pwFindTab');
+        const idFindBox = document.getElementById('idFindBox');
+        const pwFindBox = document.getElementById('pwFindBox');
 
-    <!-- 비밀번호 찾기 -->
-    <div id="pwFindBox" class="find-box">
-        <form class="find-form">
-            <input type="text" placeholder="아이디" required>
-            <input type="text" placeholder="이메일 또는 전화번호" required>
-            <button class="btn" style="padding: 13px 131px;"><span>비밀번호 찾기</span></button>
-        </form>
-    </div>
-</div>
+        idFindTab.addEventListener('click', () => {
+            idFindTab.classList.add('active');
+            pwFindTab.classList.remove('active');
+            idFindBox.classList.add('active');
+            pwFindBox.classList.remove('active');
+        });
 
-<script>
-    // 탭 버튼과 내용 변경을 위한 스크립트
-    const idFindTab = document.getElementById('idFindTab');
-    const pwFindTab = document.getElementById('pwFindTab');
-    const idFindBox = document.getElementById('idFindBox');
-    const pwFindBox = document.getElementById('pwFindBox');
+        pwFindTab.addEventListener('click', () => {
+            pwFindTab.classList.add('active');
+            idFindTab.classList.remove('active');
+            pwFindBox.classList.add('active');
+            idFindBox.classList.remove('active');
+        });
 
-    idFindTab.addEventListener('click', () => {
-        idFindTab.classList.add('active');
-        pwFindTab.classList.remove('active');
-        idFindBox.classList.add('active');
-        pwFindBox.classList.remove('active');
-    });
 
-    pwFindTab.addEventListener('click', () => {
-        pwFindTab.classList.add('active');
-        idFindTab.classList.remove('active');
-        pwFindBox.classList.add('active');
-        idFindBox.classList.remove('active');
-    });
-</script>
+
+        /*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+
+        /*아이디 찾기*/
+        function findid() {
+            event.preventDefault();  // 기본 폼 제출 동작을 막음
+            let name = document.getElementById('name').value;
+            let emlorphone = document.getElementById('idemlorphone').value;
+
+            let data = {
+                'name': name,
+                'contact': emlorphone
+            };
+
+            $.ajax({
+                url: 'http://localhost:3000/findId',  // 아이디 찾기 서버 경로
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                success: function (res) {
+                    if (res.status === 200) {
+                        alert('아이디는: ' + res.id);
+                    } else {
+                        alert('해당 정보를 가진 사용자가 없습니다.');
+                    }
+                },
+                error: function () {
+                    alert('서버 통신 오류');
+                }
+            });
+        }
+
+
+
+        /*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+
+        /*비밀번호 찾기*/
+        function findpw() {
+            event.preventDefault();  // 기본 폼 제출 동작을 막음
+            let id = document.getElementById('id').value;
+            let emlorphone = document.getElementById('pwemlorphone').value;
+
+            let data = {
+                'id': id,
+                'contact': emlorphone
+            };
+            $.ajax({
+                url: 'http://localhost:3000/findPw',  // 비밀번호 찾기 서버 경로
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                success: function (res) {
+                    if (res.status === 200) {
+                        alert('비밀번호는: ' + res.pw);
+                    } else {
+                        alert('해당 정보를 가진 사용자가 없습니다.');
+                    }
+                },
+                error: function () {
+                    alert('서버 통신 오류');
+                }
+            });
+        }
+
+        /*───────────────────────────────────────────────────────────────────────────────────────────*/
+    </script>
 
 </body>
+
 </html>
