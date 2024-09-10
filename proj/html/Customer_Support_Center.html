@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고객센터</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* 기본 스타일 초기화 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f4f6f8;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* 컨테이너 */
+        .container {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        /* 헤더 및 네비게이션 */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 2.2em;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        nav button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        nav button:hover {
+            background-color: #0056b3;
+        }
+
+        nav button:focus {
+            outline: none;
+            background-color: #004a99;
+        }
+
+        /* 탭 콘텐츠 */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-content h2 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #007bff;
+        }
+
+        .tab-content ul {
+            list-style: none;
+        }
+
+        .tab-content ul li {
+            margin: 10px 0;
+        }
+
+        .tab-content ul li a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 1.1em;
+        }
+
+        .tab-content ul li a:hover {
+            text-decoration: underline;
+        }
+
+        p {
+            font-size: 1.1em;
+            margin-top: 10px;
+        }
+
+        /* 서비스 문의 추가 콘텐츠 스타일 */
+        #service-additional {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        
+        #service-additional ul {
+            list-style: disc;
+            margin-left: 20px;
+        }
+
+        #service-additional li {
+            margin: 5px 0;
+        }
+
+        /* 문의 게시판 스타일 */
+        .question-form, .error-report-form, .ad-unsubscribe-form {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .question-form input, .question-form textarea,
+        .error-report-form input, .error-report-form textarea,
+        .ad-unsubscribe-form input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .question-form button, .error-report-form button, .ad-unsubscribe-form button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .question-form button:hover, .error-report-form button:hover, .ad-unsubscribe-form button:hover {
+            background-color: #0056b3;
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            footer {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            #searchInput {
+                width: 100%;
+            }
+
+            footer button {
+                width: 100%;
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>고객센터</h1>
+            <nav>
+                <button onclick="showTab('faq')">아이디정보</button>
+                <button onclick="showTab('service')">서비스 문의</button>
+                <button onclick="showTab('error')">오류</button>
+                <button onclick="showTab('ad')">광고성 정보 동의 해제</button>
+                <button onclick="showTab('inquiry')">문의 게시판</button>
+            </nav>
+        </header>
+
+        <section id="faq" class="tab-content">
+            <h2>아이디/비밀번호 찾기</h2>
+            <ul>
+                <li><a href="#" onclick="showFindId()">아이디 찾기</a></li>
+                <li><a href="#" onclick="showFindPassword()">비밀번호 찾기</a></li>
+            </ul>
+        </section>
+
+        <section id="service" class="tab-content">
+            <h2>서비스 문의</h2>
+            <p>서비스 관련 문의 사항을 선택하세요.</p>
+            <!-- 추가적으로 표시할 콘텐츠 영역 -->
+            <div id="service-additional"></div>
+        </section>
+
+        <section id="error" class="tab-content">
+            <h2>오류</h2>
+            <p>서비스 이용 중 발생한 오류를 신고하세요.</p>
+            <div class="error-report-form">
+                <h3>오류 신고하기</h3>
+                <input type="text" id="errorName" placeholder="이름을 입력하세요">
+                <textarea id="errorDescription" rows="5" placeholder="오류 내용을 입력하세요"></textarea>
+                <button onclick="reportError()">오류 신고하기</button>
+            </div>
+            <div class="error-list">
+                <h3>신고된 오류 목록</h3>
+                <ul id="errorList"></ul>
+            </div>
+        </section>
+
+        <section id="ad" class="tab-content">
+            <h2>광고성 정보 동의 해제</h2>
+            <p>광고성 정보 수신 동의를 해제하려면 아래 폼을 작성해 주세요.</p>
+            <div class="ad-unsubscribe-form">
+                <h3>광고성 정보 동의 해제 요청</h3>
+                <input type="text" id="unsubscribeName" placeholder="이름을 입력하세요">
+                <input type="email" id="unsubscribeEmail" placeholder="이메일을 입력하세요">
+                <button onclick="unsubscribe()">동의 해제 요청하기</button>
+            </div>
+        </section>
+
+        <section id="inquiry" class="tab-content">
+            <h2>문의 게시판</h2>
+            <div class="question-form">
+                <h3>문의하기</h3>
+                <input type="text" id="userName" placeholder="이름을 입력하세요">
+                <textarea id="userQuestion" rows="5" placeholder="문의 내용을 입력하세요"></textarea>
+                <button onclick="addQuestion()">문의 남기기</button>
+            </div>
+            <div class="question-list">
+                <h3>문의 목록</h3>
+                <ul id="questionList"></ul>
+            </div>
+        </section>
+
+        <footer>
+            <input type="text" id="searchInput" placeholder="도움말 검색">
+            <button onclick="searchFaq()">검색</button>
+        </footer>
+    </div>
+    
+    <script>
+        // 탭 전환 함수
+        function showTab(tabName) {
+            var tabs = document.getElementsByClassName('tab-content');
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
+            }
+            document.getElementById(tabName).classList.add('active');
+    
+            // 서비스 문의 탭을 클릭할 경우 관련 데이터를 추가로 보여주도록 처리
+            if (tabName === 'service') {
+                displayServiceContent();
+            }
+        }
+    
+        // 서비스 문의 탭의 추가 정보를 표시하는 함수
+        function displayServiceContent() {
+            var serviceContent = `
+                <div>
+                    <h3>서비스 이용 관련 문의 항목</h3>
+                    <ul>
+                        <li><a href="#">서비스 요금 안내</a></li>
+                        <li><a href="#">서비스 이용 시간</a></li>
+                        <li><a href="#">서비스 제한 조건</a></li>
+                        <li><a href="#">기타 문의</a></li>
+                    </ul>
+                </div>
+            `;
+    
+            document.getElementById('service-additional').innerHTML = serviceContent;
+        }
+    
+        // 문의 추가 함수
+        function addQuestion() {
+            var userName = document.getElementById('userName').value;
+            var userQuestion = document.getElementById('userQuestion').value;
+    
+            if (userName === "" || userQuestion === "") {
+                alert("이름과 문의 내용을 입력하세요.");
+                return;
+            }
+    
+            var questionList = document.getElementById('questionList');
+            var newQuestion = document.createElement('li');
+            newQuestion.innerHTML = "<strong>" + userName + ":</strong> " + userQuestion;
+            questionList.appendChild(newQuestion);
+    
+            // 입력 필드 초기화
+            document.getElementById('userName').value = "";
+            document.getElementById('userQuestion').value = "";
+        }
+    
+        // 오류 신고 함수
+        function reportError() {
+            var errorName = document.getElementById('errorName').value;
+            var errorDescription = document.getElementById('errorDescription').value;
+    
+            if (errorName === "" || errorDescription === "") {
+                alert("이름과 오류 내용을 입력하세요.");
+                return;
+            }
+    
+            var errorList = document.getElementById('errorList');
+            var newError = document.createElement('li');
+            newError.innerHTML = "<strong>" + errorName + ":</strong> " + errorDescription;
+            errorList.appendChild(newError);
+    
+            // 입력 필드 초기화
+            document.getElementById('errorName').value = "";
+            document.getElementById('errorDescription').value = "";
+    
+            // 신고 완료 알림
+            alert("신고가 완료되었습니다.");
+        }
+
+        // 광고성 정보 동의 해제 요청 함수
+        function unsubscribe() {
+            var unsubscribeName = document.getElementById('unsubscribeName').value;
+            var unsubscribeEmail = document.getElementById('unsubscribeEmail').value;
+
+            if (unsubscribeName === "" || unsubscribeEmail === "") {
+                alert("이름과 이메일을 입력하세요.");
+                return;
+            }
+
+            // 이메일 형식 검증
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(unsubscribeEmail)) {
+                alert("유효한 이메일 주소를 입력하세요.");
+                return;
+            }
+
+            // 동의 해제 요청 처리
+            alert("광고성 정보 동의 해제 요청이 완료되었습니다.");
+
+            // 입력 필드 초기화
+            document.getElementById('unsubscribeName').value = "";
+            document.getElementById('unsubscribeEmail').value = "";
+        }
+
+        // 검색 기능
+        function searchFaq() {
+            var input = document.getElementById('searchInput').value.toLowerCase();
+            var tabContents = document.getElementsByClassName('tab-content');
+            var found = false;
+
+            for (var i = 0; i < tabContents.length; i++) {
+                var tab = tabContents[i];
+                if (tab.textContent.toLowerCase().includes(input)) {
+                    tab.classList.add('active');
+                    found = true;
+                } else {
+                    tab.classList.remove('active');
+                }
+            }
+            if (!found) {
+                alert('검색 결과가 없습니다.');
+            }
+        }
+    </script>
+</body>
+</html>
