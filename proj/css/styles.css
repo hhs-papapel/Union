@@ -25,9 +25,15 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 2800px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+}
+
+.hamburger {
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
 }
 
 .nav-right {
@@ -45,10 +51,77 @@ header {
     width: 25px;
 }
 
+/* 검색창 */
+.search-form {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-form input {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    transition: width 0.5s ease;
+    width: 0; /* 검색창 기본적으로 숨김 */
+    opacity: 0;
+    visibility: hidden;
+}
+
+.search-form input.active {
+    width: 200px;
+    opacity: 1;
+    visibility: visible;
+}
+
+.search-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: white;
+    margin-left: 10px;
+}
+
+/* 사이드바 */
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    color: #f1f1f1;
+}
+
+.sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+}
+
 /* 메인 배너 슬라이더 */
 .swiper-container {
-    width: 100vw; /* 전체 너비 */
-    height: 72vh; /* 화면의 80% 높이 */
+    width: 100vw;
+    height: 72vh;
     margin-top: 70px;
 }
 
@@ -81,9 +154,8 @@ header {
     justify-content: center;
     align-items: center;
     padding: 20px 0;
-    /* background-color: #333; */
     background-image: linear-gradient(120deg,#9DDFD3,#FFDADA);
-    height: 20vh; /* 화면의 20% 높이 */
+    height: 20vh;
 }
 
 .category-item {
@@ -104,133 +176,4 @@ header {
 /* Swiper 화살표 커스터마이징 */
 .swiper-button-next, .swiper-button-prev {
     color: white;
-}
-
-/* 사이드바 */
-.side-bar {
-    position: fixed;
-    top: 10px; /* 상단에서 10px 떨어진 위치 */
-    left: 10px; /* 왼쪽에서 10px 떨어진 위치 */
-    width: 50px; /* 초기 너비를 줄임 */
-    height: 50px; /* 높이도 버튼 크기에 맞춤 */
-    background-color: #111;
-    border-radius: 10px; /* 모든 모서리를 둥글게 설정 */
-    transition: width 0.3s ease; /* 사이드바 확장 애니메이션 */
-    padding-top: 15px;
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer; /* 포인터가 사이드바 위로 갈 때 손모양 커서 */
-}
-
-/* 사이드바에 마우스를 올리면 확장 */
-.side-bar:hover {
-    width: 250px;
-    height: auto; /* 사이드바가 확장되면 높이를 자동으로 조정 */
-    border-radius: 0 30px 30px 0; /* 확장된 후 왼쪽 모서리는 직각, 오른쪽은 둥글게 */
-    transition: width 0.5s ease;
-}
-
-/* 사이드바 안의 메뉴 아이템 */
-.side-bar ul {
-    display: none;
-    list-style: none;
-    padding-left: 10px;
-}
-
-/* 마우스를 올리면 메뉴가 나타남 */
-.side-bar:hover ul {
-    display: block;
-}
-
-/* 메뉴 아이템 기본 스타일 */
-.side-bar ul li {
-    margin: 15px 0;
-}
-
-.side-bar ul li a {
-    color: white;
-    font-size: 1.2rem;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-}
-
-.side-bar ul li a i {
-    font-size: 1.5rem;
-    margin-right: 10px;
-}
-
-.side-bar ul li a span {
-    display: none; /* 기본 상태에서 텍스트 숨기기 */
-}
-
-/* 마우스를 올렸을 때 텍스트 보이기 */
-.side-bar:hover ul li a span {
-    display: inline; /* 마우스를 올렸을 때 텍스트 나타내기 */
-}
-
-/* 서브 메뉴 숨기기 */
-.side-bar ul li ul {
-    display: none;
-    position: absolute;
-    left: 100%;
-    top: 0;
-    background-color: #444;
-    min-width: 200px;
-    padding: 15px;
-    z-index: 1001;
-}
-
-/* 사이드바 확장 시 서브 메뉴 나타내기 */
-.side-bar ul li:hover > ul {
-    display: block;
-}
-
-.side-bar ul li ul li a {
-    padding-left: 20px;
-    background-color: #444;
-    font-size: 1.4rem;
-    padding: 15px 20px;
-}
-
-.side-bar ul li ul li a:hover {
-    background-color: #666;
-}
-
-/* 검색 창 스타일 */
-.search-form {
-    position: relative;
-    display: flex;
-    align-items: center;
-    transition: width 0.5s ease;
-}
-
-.search-form input {
-    width: 0;
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 20px;
-    border: 1px solid #ccc;
-    transition: width 0.5s ease;
-    opacity: 0;
-}
-
-.search-form.active input {
-    width: 200px; /* 검색창이 확장될 때 너비 */
-    opacity: 1; /* 검색창이 확장될 때 보이도록 설정 */
-}
-
-.search-button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 20px;
-    color: white;
-    margin-left: 10px;
-}
-
-.search-button i {
-    font-size: 1.5rem;
 }
