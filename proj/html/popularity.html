@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게임 리스트</title>
+
+    <!-- fullpage.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.css">
+    
+    <!-- Swiper.js CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/popularity_style.css"> <!-- 외부 CSS 파일 링크 -->
+</head>
+<body>
+
+<!-- 메뉴바 -->
+<header class="navbar">
+    <div class="container">
+        <div class="hamburger" onclick="openNav()">☰</div>
+    </div>
+</header>
+
+<!-- 사이드바 -->
+<div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+    <a href="#">홈</a>
+    <a href="#">소개</a>
+    <a href="#">서비스</a>
+    <a href="#">연락처</a>
+</div>
+
+<!-- Fullpage.js 섹션들 -->
+<div id="fullpage">
+    <!-- 첫 번째 섹션: 가로 슬라이더 구현 -->
+    <div class="section">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="../assets/images/shogun_Showdown.jpg" alt="이미지 1">
+                    <h3>제목</h3>
+                </div>
+                <div class="swiper-slide">
+                    <img src="image2.jpg" alt="이미지 2">
+                </div>
+                <div class="swiper-slide">
+                    <img src="image3.jpg" alt="이미지 3">
+                </div>
+                <div class="swiper-slide">
+                    <img src="image4.jpg" alt="이미지 4">
+                </div>
+                <div class="swiper-slide">
+                    <img src="image5.jpg" alt="이미지 5">
+                </div>
+            </div>
+            <!-- 화살표 네비게이션 -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <!-- 페이지네이션 -->
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+    
+    <!-- 두 번째 섹션: 게임 리스트 섹션 -->
+    <div class="section game-section">
+        <!-- 왼쪽 게임 리스트 -->
+        <div class="game-list">
+            <div class="game-item" onmouseover="showGameInfo('Monica')" onmouseout="hideGameInfo()">
+                <img class="game-image" src="../assets/images/shogun_Showdown.jpg" alt="Monica's Newlywed Life" />
+                <div class="game-info">
+                    <h3>Monica's Newlywed Life</h3>
+                    <span class="discount">-20%</span> <span class="price">₩ 17,200</span>
+                </div>
+            </div>
+            <div class="game-item" onmouseover="showGameInfo('Perennial')" onmouseout="hideGameInfo()">
+                <img class="game-image" src="../assets/images/perennial_order.jpg" alt="Perennial Order" />
+                <div class="game-info">
+                    <h3>Perennial Order</h3>
+                    <span class="discount">-10%</span> <span class="price">₩ 18,450</span>
+                </div>
+            </div>
+            <div class="game-item" onmouseover="showGameInfo('Shogun')" onmouseout="hideGameInfo()">
+                <img class="game-image" src="../assets/images/shogun.jpg" alt="Shogun Showdown" />
+                <div class="game-info">
+                    <h3>Shogun Showdown</h3>
+                    <span class="discount">-10%</span> <span class="price">₩ 14,850</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 오른쪽 게임 상세 정보 -->
+        <div class="game-details" id="game-details-2">
+            <h2>게임 정보를 클릭하여 확인하세요</h2>
+        </div>
+    </div>
+
+    <!-- 세 번째 섹션 -->
+    <div class="section">
+        <h1>세 번째 섹션</h1>
+    </div>
+    
+    <!-- 네 번째 섹션 -->
+    <div class="section">
+        <h1>네 번째 섹션</h1>
+    </div>
+</div>
+
+<!-- fullpage.js JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.js"></script>
+
+<!-- Swiper.js JS -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<!-- Custom JS -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // fullpage.js 초기화
+        new fullpage('#fullpage', {
+            autoScrolling: true,
+            navigation: false,
+            scrollHorizontally: true,
+            scrollOverflow: true,
+        });
+    
+        // Swiper 슬라이더 초기화
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 3,
+            spaceBetween: 30,
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    });
+
+    // 사이드바 열기
+    function openNav() {
+        document.getElementById("mySidebar").style.width = "250px";
+        document.getElementById("mySidebar").style.left = "0";
+    }
+
+    // 사이드바 닫기
+    function closeNav() {
+        document.getElementById("mySidebar").style.width = "0";
+        document.getElementById("mySidebar").style.left = "-250px";
+    }
+
+    // 게임 정보를 표시하는 함수
+    function showGameInfo(game) {
+        const gameDetails = document.getElementById('game-details-2');
+        let gameInfo = '';
+
+        switch(game) {
+            case 'Monica':
+                gameInfo = `
+                    <h2>Monica's Newlywed Life</h2>
+                    <p>RPG, JRPG, Sexual Content, 2D, Anime</p>
+                    <p>할인: -20%</p>
+                    <p>가격: ₩ 17,200</p>
+                    <img src="../assets/images/monica.jpg" alt="Monica's Newlywed Life">
+                `;
+                break;
+            case 'Perennial':
+                gameInfo = `
+                    <h2>Perennial Order</h2>
+                    <p>Souls-like, Boss Rush, Co-op, Dark Fantasy</p>
+                    <p>할인: -10%</p>
+                    <p>가격: ₩ 18,450</p>
+                    <img src="../assets/images/perennial_order.jpg" alt="Perennial Order">
+                `;
+                break;
+            case 'Shogun':
+                gameInfo = `
+                    <h2>Shogun Showdown</h2>
+                    <p>Replay Value, Strategy RPG, Turn-Based, Roguelike</p>
+                    <p>할인: -10%</p>
+                    <p>가격: ₩ 14,850</p>
+                    <img src="../assets/images/shogun.jpg" alt="Shogun Showdown">
+                `;
+                break;
+            default:
+                gameInfo = '<h2>게임 정보를 클릭하여 확인하세요</h2>';
+        }
+
+        gameDetails.innerHTML = gameInfo;
+        gameDetails.style.display = 'block'; // 게임 상세 정보를 표시
+    }
+
+    // 게임 상세 정보를 숨기는 함수
+    function hideGameInfo() {
+        const gameDetails = document.getElementById('game-details-2');
+        gameDetails.style.display = 'none'; // 게임 상세 정보를 숨김
+    }
+</script>
+
+</body>
+</html>

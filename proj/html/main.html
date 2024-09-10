@@ -6,18 +6,22 @@
     <title>게임 메인 페이지</title>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../css/styles.css"> <!-- 사용자 정의 스타일시트 -->
+    <link rel="stylesheet" href="../css/styles.css"> <!-- 분리된 스타일시트 -->
 </head>
 <body>
 
     <!-- 상단 네비게이션 -->
     <header>
         <div class="nav-container">
+            <div class="hamburger" onclick="openNav()">☰</div> <!-- 햄버거 아이콘 -->
             <div class="nav-right">
                 <div class="search-form">
                     <form>
+                        <input type="text" id="search-input" class="search-input" placeholder="검색어를 입력하세요">
+                        <button class="search-button" type="button"><i class="fas fa-search"></i></button>
                         <input type="text">
                         <button></button>
+
                     </form>
                 </div>
                 <a href="#"><img src="../assets/images/찜.png" alt="hart"></a>
@@ -27,38 +31,14 @@
         </div>
     </header>
 
-    <!-- 왼쪽 고정 사이드바 -->
-    <aside class="side-bar">
-        <ul>
-            <li>
-                <a href="#"> Menu 1</a>
-                <ul>
-                    <li><a href="#">Text 1</a></li>
-                    <li><a href="#">Text 2</a></li>
-                    <li><a href="#">Text 3</a></li>
-                    <li><a href="#">Text 4</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">Menu 2</a>
-                <ul>
-                    <li><a href="#">Text 4</a></li>
-                    <li><a href="#">Text 26</a></li>
-                    <li><a href="#">Text 343</a></li>
-                    <li><a href="#">Text 41</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">Menu 3</a>
-                <ul>
-                    <li><a href="#">Text 142</a></li>
-                    <li><a href="#">Text 42</a></li>
-                    <li><a href="#">Text 23</a></li>
-                    <li><a href="#">Text 4t</a></li>
-                </ul>
-            </li>
-        </ul>
-    </aside>
+    <!-- 사이드바 -->
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a> <!-- 닫기 버튼 -->
+        <a href="#">홈</a>
+        <a href="#">소개</a>
+        <a href="#">서비스</a>
+        <a href="#">연락처</a>
+    </div>
 
     <!-- 메인 컨텐츠 -->
     <div class="main-content">
@@ -116,6 +96,29 @@
                 disableOnInteraction: false,
             },
         });
+
+        // 검색창 슬라이드 토글
+        var searchButton = document.querySelector('.search-button');
+        var searchInput = document.getElementById('search-input');
+
+        searchButton.addEventListener('click', function() {
+            if (searchInput.classList.contains('active')) {
+                searchInput.classList.remove('active');
+            } else {
+                searchInput.classList.add('active');
+                searchInput.focus();
+            }
+        });
+
+        // 사이드바 열기
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "250px";
+        }
+
+        // 사이드바 닫기
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+        }
     </script>
     
 </body>
