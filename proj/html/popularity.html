@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>게임 리스트</title>
+    <title>할인 페이지</title>
 
     <!-- fullpage.js CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.css">
-    
+
     <!-- Swiper.js CSS -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+    <!-- Font Awesome CSS for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../css/popularity_style.css"> <!-- 외부 CSS 파일 링크 -->
@@ -17,11 +20,25 @@
 <body>
 
 <!-- 메뉴바 -->
+<!-- HTML: 검색창 영역 -->
 <header class="navbar">
     <div class="container">
         <div class="hamburger" onclick="openNav()">☰</div>
+        <div class="nav-right">
+            <div class="search-form">
+                <form>
+                    <input type="text" id="search-input" class="search-input" placeholder="검색어를 입력하세요">
+                    <button class="search-button" type="button"><i class="fas fa-search"></i></button>
+
+                </form>
+            </div>
+            <a href="#"><img src="../assets/images/찜.png" alt="hart"></a>
+            <a href="#"><img src="../assets/images/장바구니.png" alt="Cart"></a>
+            <a href="#"><img src="../assets/images/로그인.png" alt="Login"></a>
+        </div>
     </div>
 </header>
+
 
 <!-- 사이드바 -->
 <div id="mySidebar" class="sidebar">
@@ -40,10 +57,11 @@
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
                     <img src="../assets/images/shogun_Showdown.jpg" alt="이미지 1">
-                    <h3>제목</h3>
+                    <h3>Shogun Showdown</h3>
                 </div>
                 <div class="swiper-slide">
-                    <img src="image2.jpg" alt="이미지 2">
+                    <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="이미지 2">
+                    <h3>Dave the Diver</h3>
                 </div>
                 <div class="swiper-slide">
                     <img src="image3.jpg" alt="이미지 3">
@@ -97,15 +115,15 @@
     </div>
 
     <!-- 세 번째 섹션 -->
-    <div class="section">
+    <!-- <div class="section">
         <h1>세 번째 섹션</h1>
-    </div>
+    </div> -->
     
     <!-- 네 번째 섹션 -->
-    <div class="section">
+    <!-- <div class="section">
         <h1>네 번째 섹션</h1>
     </div>
-</div>
+</div> -->
 
 <!-- fullpage.js JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.js"></script>
@@ -202,6 +220,19 @@
         const gameDetails = document.getElementById('game-details-2');
         gameDetails.style.display = 'none'; // 게임 상세 정보를 숨김
     }
+
+// 검색창 슬라이드 토글
+        var searchButton = document.querySelector('.search-button');
+        var searchInput = document.getElementById('search-input');
+
+        searchButton.addEventListener('click', function() {
+            searchInput.classList.toggle('active'); // active 클래스 토글
+            if (searchInput.classList.contains('active')) {
+                searchInput.focus(); // 검색창이 열리면 포커스
+            }
+        });
+
+
 </script>
 
 </body>

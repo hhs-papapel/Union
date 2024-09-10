@@ -10,24 +10,32 @@
 <body>
 
     <!-- 헤더 영역 -->
-    <header class="header">
-        <div class="container">
-            <div class="logo">
-                <img src="steam-logo.png" alt="UNION 로고">
+<!-- 메뉴바 -->
+<header class="navbar">
+    <div class="container">
+        <div class="hamburger" onclick="openNav()">☰</div> <!-- 사이드바 열기 버튼 -->
+        <div class="nav-right">
+            <div class="search-form">
+                <form>
+                    <input type="text" id="search-input" class="search-input" placeholder="검색어를 입력하세요">
+                    <button class="search-button" type="button"><i class="fas fa-search"></i></button> <!-- 검색 버튼 -->
+                </form>
             </div>
-            <nav class="nav-menu">
-                <ul>
-                    <li><a href="#">상점</a></li>
-                    <li><a href="#">커뮤니티</a></li>
-                    <li><a href="#">정보</a></li>
-                    <li><a href="#">지원</a></li>
-                </ul>
-            </nav>
-            <div class="user-options">
-                <button>로그인</button>
-            </div>
+            <a href="#"><img src="../assets/images/찜.png" alt="hart"></a> <!-- 찜 버튼 -->
+            <a href="#"><img src="../assets/images/장바구니.png" alt="Cart"></a> <!-- 장바구니 버튼 -->
+            <a href="#"><img src="../assets/images/로그인.png" alt="Login"></a> <!-- 로그인 버튼 -->
         </div>
-    </header>
+    </div>
+</header>
+
+<!-- 사이드바 -->
+<div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a> <!-- 사이드바 닫기 버튼 -->
+    <a href="#">홈</a>
+    <a href="#">소개</a>
+    <a href="#">서비스</a>
+    <a href="#">연락처</a>
+</div>
 
     <!-- 메인 콘텐츠 -->
     <main>
@@ -53,6 +61,7 @@
                         <button class="buy-btn">구매하기 ₩19,800</button>
                         <button class="wishlist-btn"><i class="fas fa-heart"></i> 찜</button>
                         <button class="cart-btn"><i class="fas fa-shopping-cart"></i> 장바구니</button>
+                        <button class="community-btn"><i class="fas fa-users"></i> 커뮤니티</button> <!-- 커뮤니티 버튼 추가 -->
                     </div>
                 </div>
 
@@ -72,6 +81,8 @@
                         <span>전략</span>
                         <span>2D</span>
                     </div>
+                    <br>
+                    <h2>₩19,800</h2>
                 </div>
             </div>
         </section>
@@ -111,6 +122,29 @@
             video.play();
         }
     };
+
+    // 사이드바 열기
+function openNav() {
+    document.getElementById("mySidebar").style.width = "250px";
+}
+
+// 사이드바 닫기
+function closeNav() {
+    document.getElementById("mySidebar").style.width = "0";
+}
+
+// 검색창 슬라이드 토글
+var searchButton = document.querySelector('.search-button');
+var searchInput = document.getElementById('search-input');
+
+searchButton.addEventListener('click', function() {
+    searchInput.classList.toggle('active'); // active 클래스 토글
+    if (searchInput.classList.contains('active')) {
+        searchInput.focus(); // 검색창이 열리면 포커스
+    }
+});
+
+
     </script>
 
 </body>
