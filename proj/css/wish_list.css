@@ -1,0 +1,104 @@
+/* 기본 스타일 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #1b2838;
+    color: white;
+}
+
+/* 상단 네비게이션 */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #171a21;
+    padding: 15px 20px;
+}
+
+.navbar .logo img {
+    width: 100px;
+}
+
+.nav-menu a {
+    margin-right: 20px;
+    color: white;
+    text-decoration: none;
+}
+
+/* 메인 컨텐츠 */
+.main-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.wishlist-section {
+    width: 80%;
+}
+
+.wishlist-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.wishlist {
+    list-style: none;
+    padding: 0;
+}
+
+.wishlist-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #2a475e;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.wishlist-item img {
+    width: 120px;
+    height: 80px;
+    margin-right: 20px;
+}
+
+.game-info h3 {
+    margin-bottom: 5px;
+    font-size: 20px;
+}
+
+.game-info p {
+    margin-bottom: 3px;
+}
+
+.price-info {
+    text-align: right;
+}
+
+.price-info p {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.discount {
+    color: #66c0f4;
+    font-weight: bold;
+}
+
+.add-to-cart {
+    background-color: #66c0f4;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+.add-to-cart:hover {
+    background-color: #549bbd;
+}
