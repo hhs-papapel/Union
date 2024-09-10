@@ -163,6 +163,12 @@ header {
     margin: 0 20px;
 }
 
+.category-item a {
+    text-decoration: none; /* 밑줄 제거 */
+    color: inherit; /* 링크 클릭 시 기본 색상 유지 */
+}
+
+
 .category-item img {
     width: 50px;
     margin-bottom: 10px;

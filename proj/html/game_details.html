@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shogun Showdown - 게임 상세 페이지</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/game_details_style.css"> <!-- 외부 스타일시트 -->
+</head>
+<body>
+
+    <!-- 헤더 영역 -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <img src="steam-logo.png" alt="UNION 로고">
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="#">상점</a></li>
+                    <li><a href="#">커뮤니티</a></li>
+                    <li><a href="#">정보</a></li>
+                    <li><a href="#">지원</a></li>
+                </ul>
+            </nav>
+            <div class="user-options">
+                <button>로그인</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 메인 콘텐츠 -->
+    <main>
+        <section class="game-detail">
+            <div class="container">
+                <!-- 왼쪽 게임 이미지 및 비디오 -->
+                <div class="game-media">
+                    <div id="media-display">
+                        <video id="main-video" controls autoplay>
+                            <source src="../assets/movie/shogun_movie.webm" type="video/webm">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="media-thumbnails">
+                        <img src="../assets/images/shogun_Showdown2.jpg" alt="비디오 썸네일" onclick="showVideo('../assets/movie/shogun_movie.webm')">
+                        <img src="../assets/images/shogun_Showdown.jpg" alt="스크린샷 1" onclick="showImage('../assets/images/shogun_Showdown.jpg')">
+                        <img src="../assets/images/shogun_Showdown3.jpg" alt="스크린샷 2" onclick="showImage('../assets/images/shogun_Showdown3.jpg')">
+                        <img src="../assets/images/shogun_Showdown4.jpg" alt="스크린샷 3" onclick="showImage('../assets/images/shogun_Showdown4.jpg')">
+                    </div>
+
+                    <!-- 구매, 찜, 장바구니 버튼을 사진 밑으로 이동 -->
+                    <div class="buy-options">
+                        <button class="buy-btn">구매하기 ₩19,800</button>
+                        <button class="wishlist-btn"><i class="fas fa-heart"></i> 찜</button>
+                        <button class="cart-btn"><i class="fas fa-shopping-cart"></i> 장바구니</button>
+                    </div>
+                </div>
+
+                <!-- 오른쪽 게임 정보 -->
+                <div class="game-info">
+                    <h1>Shogun Showdown</h1>
+                    <p>Shogun Showdown은 로그라이크 및 턴 기반 전투가 특징인 게임입니다. 전략적인 전투와 타일을 업그레이드하고 적들과 싸우세요!</p>
+                    <ul>
+                        <li>출시일: 2024년 9월 6일</li>
+                        <li>개발사: Robotaino</li>
+                        <li>배급사: Goblinz Publishing</li>
+                        <li>장르: 턴제 RPG, 로그라이크, 2D</li>
+                    </ul>
+                    <div class="tags">
+                        <span>턴제 RPG</span>
+                        <span>로그라이크</span>
+                        <span>전략</span>
+                        <span>2D</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 하단 게임 설명 및 추가 정보 -->
+        <section class="game-description">
+            <div class="container">
+                <h2>게임 설명</h2>
+                <p>Shogun Showdown은 턴제 전략 게임입니다. 플레이어는 적들과의 전투에서 타일을 업그레이드하고 적의 움직임을 예측하며 전투를 진행해야 합니다. 아름다운 2D 그래픽과 함께 깊이 있는 전투 시스템을 경험해 보세요.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- 푸터 영역 -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Steam. 모든 권리 보유.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+    function showImage(imageSrc) {
+        var mediaDisplay = document.getElementById('media-display');
+        mediaDisplay.innerHTML = '<img src="' + imageSrc + '" alt="이미지" class="media-thumbnail">';
+    }
+
+    function showVideo(videoSrc) {
+        var mediaDisplay = document.getElementById('media-display');
+        mediaDisplay.innerHTML = '<video id="main-video" controls autoplay><source src="' + videoSrc + '" type="video/webm">Your browser does not support the video tag.</video>';
+    }
+
+    // 페이지 로드 시 비디오 자동 재생
+    window.onload = function() {
+        var video = document.getElementById('main-video');
+        if (video) {
+            video.play();
+        }
+    };
+    </script>
+
+</body>
+</html>
