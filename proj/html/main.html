@@ -359,12 +359,128 @@
         
             </div>
         </div>
+
+        <!-- 카테고리별 살펴보기 섹션 -->
+<!-- 카테고리별 살펴보기 섹션 -->
+<div class="category-container">
+    <h2>카테고리별로 살펴보기</h2>
+    <div class="swiper category-swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="category-item">
+                    <img src="../assets/images/ex.jpg" alt="애니메이션">
+                    <p>액션</p>
+                </div>
+                <div class="category-item">
+                    <img src="../assets/images/ex.jpg" alt="애니메이션">
+                    <p>모든 스포츠</p>
+                </div>
+                <div class="category-item">
+                    <img src="../assets/images/ex.jpg" alt="애니메이션">
+                    <p>퍼즐</p>
+                </div>
+                <div class="category-item">
+                    <img src="../assets/images/ex.jpg" alt="애니메이션">
+                    <p>풍부한 스토리</p>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="category-item">
+                    <img src="../assets/images/image2.jpg" alt="무료 플레이">
+                    <p>무료 플레이</p>
+                </div>
+                <div class="category-item">
+                    <img src="../assets/images/image2.jpg" alt="무료 플레이">
+                    <p>무료 플레이</p>
+                </div>
+                <div class="category-item">
+                    <img src="../assets/images/image2.jpg" alt="무료 플레이">
+                    <p>무료 플레이</p>
+                </div>
+                <div class="category-item">
+                    <img src="../assets/images/image2.jpg" alt="무료 플레이">
+                    <p>무료 플레이</p>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="category-item">
+                    <img src="../assets/images/image3.jpg" alt="모든 스포츠">
+                    <p>모든 스포츠</p>
+                </div>
+                <div class="category-item">
+                    <img src="../assets/images/image2.jpg" alt="무료 플레이">
+                    <p>무료 플레이</p>
+                </div>
+                <div class="category-item">
+                    <img src="../assets/images/image2.jpg" alt="무료 플레이">
+                    <p>무료 플레이</p>
+                </div>
+                <div class="category-item">
+                    <img src="../assets/images/image2.jpg" alt="무료 플레이">
+                    <p>무료 플레이</p>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="category-item">
+                    <img src="../assets/images/image4.jpg" alt="공상과학 및 사이버펑크">
+                    <p>공상과학 및 사이버펑크</p>
+                </div>
+                <div class="category-item">
+                    <img src="../assets/images/image2.jpg" alt="무료 플레이">
+                    <p>무료 플레이</p>
+                </div>
+                <div class="category-item">
+                    <img src="../assets/images/image2.jpg" alt="무료 플레이">
+                    <p>무료 플레이</p>
+                </div>
+                <div class="category-item">
+                    <img src="../assets/images/image2.jpg" alt="무료 플레이">
+                    <p>무료 플레이</p>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- 페이지네이션 -->
+        <div class="swiper-pagination"></div>
+    </div>
+</div>
+
+
+
+
+
             
 </div>
 
     <!-- Swiper.js 추가 -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
+// 카테고리별 살펴보기 슬라이더
+var categorySwiper = new Swiper('.category-swiper', {
+    loop: true,
+    autoplay: {
+        delay: 3000,  // 자동 슬라이드
+        disableOnInteraction: false,
+    },
+    effect: 'slide',  // 기본 슬라이드 효과
+    slidesPerView: 4,  // 한 번에 보여줄 슬라이드 수
+    spaceBetween: 30,  // 슬라이드 간 간격 설정
+    pagination: {
+        el: '.swiper-pagination',
+        clickable: true,  // 페이지네이션 클릭 가능
+    },
+    breakpoints: {
+        768: {
+            slidesPerView: 2,  // 화면이 768px 이하일 때 슬라이드 2개 보기
+        },
+        1024: {
+            slidesPerView: 4,  // 화면이 1024px 이상일 때 슬라이드 4개 보기
+        },
+    },
+});
+
+
 
 
         // 특별 할인 슬라이더
