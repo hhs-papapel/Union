@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -59,7 +60,7 @@
         }
 
 
-        .compatibility img{
+        .compatibility img {
             width: 15px;
             height: 12px;
             margin: 5px 5px;
@@ -92,6 +93,7 @@
             padding: 5px;
             color: rgb(0, 0, 0);
         }
+
         .cart-item-info .grac:hover {
             border: 2px solid rgb(145, 255, 67);
         }
@@ -115,7 +117,7 @@
             margin-bottom: 20px;
         }
 
-        .cart-item-price .sale{
+        .cart-item-price .sale {
             margin-right: 5px;
             width: 55px;
             height: 30px;
@@ -127,10 +129,12 @@
             font-weight: bold;
             color: #8bcb5a;
         }
+
         .cart-item-price div p {
             margin: 0px;
         }
-        .cart-item-price .sale-price{
+
+        .cart-item-price .sale-price {
             color: #7f8489;
             font-size: 10px;
         }
@@ -245,6 +249,7 @@ color: #000000;
 
     </style>
 </head>
+
 <body>
     <header>
         <div class="nav-container">
@@ -277,80 +282,301 @@ color: #000000;
         </div>
     </header>
 
-<div class="container">
-    <h1>나의 장바구니</h1>
+    <div class="container">
+        <h1>나의 장바구니</h1>
 
-    <div class="cart">
+        <div class="cart">
 
-        <!-- 상품 리스트 -->
-        <div class="cart-items">
+            <!-- 상품 리스트 -->
+            <div class="cart-items">
 
-            <!-- 첫 번째 아이템 -->
-            <div class="cart-item">
-                <div class="cart-item-img">
-                    <img src="../assets/images/game_header/game1_header.jpg" alt="Dustborn">
-                    <div class="compatibility">
-                        <img src="../assets/images/windows_compatibility/windows-symbol.png" alt="window">
+                <!-- 이 부분은 이제 장바구니에 추가되면 알아서 추가되기때문에 삭제 가능 -->
+
+
+                <!-- 첫 번째 아이템 -->
+                <!-- <div class="cart-item">
+                    <div class="cart-item-img">
+                        <img src="../assets/images/game_header/game1_header.jpg" alt="Dustborn">
+                        <div class="compatibility">
+                            <img src="../assets/images/windows_compatibility/windows-symbol.png" alt="window">
+                        </div>
+                    </div>
+                    <div class="cart-item-info">
+                        <h2>Placid Plastic Duck Simulator</h2>
+                        <div class="cart-item-price">
+                            ₩2,700
+                        </div>
+                        <div class="grac">
+                            <img src="../assets/images/grac/GRAC_all_68.png" alt="청소년이용불가">
+                            <p>전체이용가</p>
+                        </div>
+                        <div class="cart-actions">
+                            <a href="#">제거</a>
+                            <a href="#">위시리스트로 이동</a>
+                        </div>
                     </div>
                 </div>
-                <div class="cart-item-info">
-                    <h2>Placid Plastic Duck Simulator</h2>
-                    <div class="cart-item-price">
-                        ₩2,700
+
+                두 번째 아이템
+                <div class="cart-item">
+                    <div class="cart-item-img">
+                        <img src="../assets/images/game_header/game2_header.jpg" alt="Dustborn">
+                        <div class="compatibility">
+                            <img src="../assets/images/windows_compatibility/windows-symbol.png" alt="window">
+                        </div>
                     </div>
-                    <div class="grac">
-                        <img src="../assets/images/grac/GRAC_all_68.png" alt="청소년이용불가">
-                        <p>전체이용가</p>
+                    <div class="cart-item-info">
+                        <h2>Potion Craft: Alchemist Simulator</h2>
+                        <div class="cart-item-price">
+                            <div class="sale">
+                                -60%
+                            </div>
+                            <div>
+                                <p class="sale-price"><del>₩21,500</del></p>
+                                <p>₩8,600</p>
+                            </div>
+                        </div>
+                        <div class="grac">
+                            <img src="../assets/images/grac/GRAC_all_68.png" alt="청소년이용불가">
+                            <p>전체이용가</p>
+                        </div>
+                        <div class="cart-actions">
+                            <a href="#">제거</a>
+                            <a href="#">위시리스트로 이동</a>
+                        </div>
                     </div>
-                    <div class="cart-actions">
-                        <a href="#">제거</a>
-                        <a href="#">위시리스트로 이동</a>
-                    </div>
-                </div>
+                </div> -->
+
+
             </div>
 
-            <!-- 두 번째 아이템 -->
-            <div class="cart-item">
-                <div class="cart-item-img">
-                    <img src="../assets/images/game_header/game2_header.jpg" alt="Dustborn">
-                    <div class="compatibility">
-                        <img src="../assets/images/windows_compatibility/windows-symbol.png" alt="window">
-                    </div>
-                </div>
-                <div class="cart-item-info">
-                    <h2>Potion Craft: Alchemist Simulator</h2>
-                    <div class="cart-item-price">
-                        <div class="sale">
-                            -60%
-                        </div>
-                        <div>
-                            <p class="sale-price"><del>₩21,500</del></p>
-                            <p>₩8,600</p>
-                        </div>
-                    </div>
-                    <div class="grac">
-                        <img src="../assets/images/grac/GRAC_all_68.png" alt="청소년이용불가">
-                        <p>전체이용가</p>
-                    </div>
-                    <div class="cart-actions">
-                        <a href="#">제거</a>
-                        <a href="#">위시리스트로 이동</a>
-                    </div>
-                </div>
+            <!-- 결제 정보 -->
+            <div class="cart-summary">
+                <p>가격: ₩0</p>
+                <p>세금: 결제 시 장산됨</p>
+                <p class="total">총계: ₩0</p>
+                <button id="pay">구매하기</button>
             </div>
 
         </div>
-
-        <!-- 결제 정보 -->
-        <div class="cart-summary">
-            <p>가격: ₩110,700</p>
-            <p>세금: 결제 시 장산됨</p>
-            <p class="total">총계: ₩110,700</p>
-            <button type="button" class="btn"><span>구매하기</span></button>
-        </div>
-
     </div>
-</div>
+
+
+
+
+    <script>
+
+
+        /*───────────────────────────────────────────────────────────────────────────────────────────*/
+        /*로그인 정보 가져오는지 확인*/
+        const loggedInUser = sessionStorage.getItem('loggedInUser');  // 저장된 'loggedInUser' 값을 가져옴
+        console.log(loggedInUser);  // 콘솔에 출력하여 확인
+        /*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+
+        /*로그인정보로 장바구니 테이블에 있는 정보 가져오기*/
+        document.addEventListener('DOMContentLoaded', () => {
+            // sessionStorage에서 로그인된 사용자 ID 가져오기
+            const loggedInUser = sessionStorage.getItem('loggedInUser');
+
+            if (loggedInUser) {
+                // 장바구니 데이터를 서버에서 가져오기
+                fetch(`http://localhost:3000/api/cart?userId=${loggedInUser}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        displayCartItems(data);  // 장바구니 데이터를 화면에 표시
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            } else {
+                alert('로그인이 필요합니다.');
+                window.location.href = '/proj/html/login.html';  // 로그인 페이지로 리다이렉트
+            }
+        });
+        /*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+
+        /* 장바구니 항목을 동적으로 화면에 표시하고 결제 총 금액 표시하는 함수 */
+        function displayCartItems(cartItems) {
+            const cartContainer = document.querySelector('.cart-items');
+            const cartSummary = document.querySelector('.cart-summary .total');
+            const cartPrice = document.querySelector('.cart-summary p');
+            let totalPrice = 0;
+
+            cartContainer.innerHTML = '';  // 기존 항목 초기화
+
+            // 장바구니 항목을 하나씩 추가
+            cartItems.forEach(({ imageUrl, gameName, price, cartId, gameId }) => {  // gameId 추가
+                totalPrice += price;  // 총합 계산
+
+                // 각 cart-item에 data-cartid 및 data-gameid 추가
+                cartContainer.innerHTML += `
+            <div class="cart-item" data-cartid="${cartId}" data-gameid="${gameId}">
+                <div class="cart-item-img">
+                    <img src="${imageUrl}" alt="${gameName}">
+                </div>
+                <div class="cart-item-info">
+                    <h2>${gameName}</h2>
+                    <div class="cart-item-price">₩${price.toLocaleString()}</div>
+                    <div class="grac">
+                        <img src="../assets/images/grac/GRAC_all_68.png" alt="전체이용가">
+                        <p>전체이용가</p>
+                    </div>
+                    <div class="cart-actions">
+                        <a href="#" class="remove-item">제거</a>
+                        <a href="#" class="wishlist-item" data-gameid="${gameId}">위시리스트로 이동</a>
+                    </div>
+                </div>
+            </div>
+        `;
+            });
+
+            // 총 가격을 화면에 표시
+            cartPrice.innerHTML = `가격: ₩${totalPrice.toLocaleString()}`;
+            cartSummary.innerHTML = `총계: ₩${totalPrice.toLocaleString()}`;
+
+
+            /*───────────────────────────────────────────────────────────────────────────────────────────*/
+            // "제거" 버튼에 이벤트 리스너 추가
+            const removeButtons = document.querySelectorAll('.remove-item');
+            removeButtons.forEach(button => {
+                button.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    const cartId = this.closest('.cart-item').getAttribute('data-cartid');  // 삭제할 cartId
+
+                    console.log(`Removing cart item with cartId: ${cartId}`);
+
+                    // 장바구니에서 해당 항목 삭제 요청
+                    fetch(`http://localhost:3000/api/cart/delete`, {
+                        method: 'POST',  // POST 요청으로 cartId를 전송
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            cartId: cartId  // 삭제할 cartId
+                        })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert('항목이 제거되었습니다.');
+                                location.reload();  // 페이지 새로고침하여 최신 장바구니 데이터 로드
+                            } else {
+                                alert('항목 제거에 실패했습니다.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                });
+            });
+
+            /*───────────────────────────────────────────────────────────────────────────────────────────*/
+            // "위시리스트로 이동" 버튼에 이벤트 리스너 추가
+            const wishlistButtons = document.querySelectorAll('.wishlist-item');
+            wishlistButtons.forEach(button => {
+                button.addEventListener('click', function (event) {
+                    event.preventDefault();
+
+                    const gameId = this.getAttribute('data-gameid');  // 게임 ID 가져오기
+                    const userId = sessionStorage.getItem('loggedInUser');  // 현재 로그인된 사용자 ID 가져오기
+
+                    console.log(`Adding game with gameId: ${gameId} to wishlist for userId: ${userId}`);
+
+                    // 찜 목록에 추가 요청
+                    fetch(`http://localhost:3000/api/wishlist/add`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            userId: userId,
+                            gameId: gameId
+                        })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert('찜 목록에 추가되었습니다.');
+                                window.location.href = '/proj/html/wish_list.html';  // 위시리스트 페이지로 이동
+                            } else {
+                                alert('찜 목록 추가에 실패했습니다.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                });
+            });
+        }
+        /*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+        /* 구매하기 버튼 동작 => 결제테이블안에 넣고 장바구니 테이블 비우기 */
+        document.addEventListener('DOMContentLoaded', () => {
+            const paymentButton = document.getElementById('pay');
+
+            if (paymentButton) {
+                paymentButton.addEventListener('click', () => {
+                    const userId = sessionStorage.getItem('loggedInUser');
+
+                    fetch(`http://localhost:3000/api/cart?userId=${userId}`)
+                        .then(response => response.json())
+                        .then(cartItems => {
+                            // cartItems에서 gameId와 price를 확인
+                            console.log('cartItems:', cartItems);
+                            cartItems.forEach(item => {
+                                console.log(`gameId: ${item.gameId}, price: ${item.price}`);
+                            });
+
+                            const paymentData = cartItems.map(item => ({
+                                gameId: item.gameId,  // gameId 사용
+                                amount: item.price
+                            }));
+
+                            console.log('전송할 결제 데이터:', paymentData);
+
+                            // 결제 요청 전송
+                            fetch(`http://localhost:3000/api/payment`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    userId: userId,
+                                    paymentItems: paymentData
+                                })
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        alert('결제가 완료되었습니다!');
+                                        location.reload();  // 페이지 새로고침 또는 결제 완료 페이지로 이동
+                                    } else {
+                                        alert('결제에 실패했습니다.');
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                });
+                        })
+                        .catch(error => {
+                            console.error('장바구니 데이터를 가져오는 중 오류:', error);
+                        });
+                });
+            } else {
+                console.error('결제 버튼을 찾을 수 없습니다.');
+            }
+        });
+
+        /*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+
+
+
+    </script>
+
 
 </body>
+
 </html>
