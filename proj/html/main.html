@@ -39,7 +39,10 @@
 
     <!-- 메인 컨텐츠 -->
     <div class="main-content">
-        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        
+        <!-- 메인 배너 슬라이더 -->
+        <div class="swiper-containers">
+            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                 viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
                 <defs>
                     <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
@@ -51,10 +54,7 @@
                     <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
                 </g>
             </svg>
-        <!-- 메인 배너 슬라이더 -->
-         <div class="test">
-            
-        <div class="swiper-container2">
+        <div class="swiper-container2 swiper">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
                     <img src="../assets/images/hogwarts.jpg" alt="배너3">
@@ -68,10 +68,8 @@
                 
             </div>
         </div>
-        <div class="swiper-container3">
+        <div class="swiper-container3 swiper">
             <div class="swiper-wrapper">
-                
-                
                 <div class="swiper-slide">
                     <img src="../assets/images/shogun_Showdown.jpg" alt="배너2">
                 </div>
@@ -83,35 +81,32 @@
                 </div>
             </div>
         </div>
-        <div class="swiper-container">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="배너1">
-                    <div class="banner-text">
-                        <h2>Far Cry 6</h2>
-                        <p>혁명군이 되어 세상을 지배하는 독재자와 맞서 싸우세요.</p>
+            <div class="swiper-container swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="배너1">
+                        <div class="banner-text">
+                            <h2>Far Cry 6</h2>
+                            <p>혁명군이 되어 세상을 지배하는 독재자와 맞서 싸우세요.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="swiper-slide">
-                    <img src="../assets/images/shogun_Showdown.jpg" alt="배너2">
-                    <div class="banner-text">
-                        <h2>게임 타이틀 2</h2>
-                        <p>이 게임은 놀라운 액션을 자랑합니다.</p>
+                    <div class="swiper-slide">
+                        <img src="../assets/images/shogun_Showdown.jpg" alt="배너2">
+                        <div class="banner-text">
+                            <h2>게임 타이틀 2</h2>
+                            <p>이 게임은 놀라운 액션을 자랑합니다.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="swiper-slide">
-                    <img src="../assets/images/hogwarts.jpg" alt="배너3">
-                    <div class="banner-text">
-                        <h2>게임 타이틀 2</h2>
-                        <p>이 게임은 놀라운 액션을 자랑합니다.</p>
+                    <div class="swiper-slide">
+                        <img src="../assets/images/hogwarts.jpg" alt="배너3">
+                        <div class="banner-text">
+                            <h2>게임 타이틀 2</h2>
+                            <p>이 게임은 놀라운 액션을 자랑합니다.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        
-        
-    </div>
 
         <!-- 하단 카테고리 -->
         <div class="category-container">
@@ -139,30 +134,13 @@
     <!-- Swiper.js 추가 -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
-        var swiper = new Swiper('.swiper-container', {
+        var swiper1 = new Swiper('.swiper', {
             loop: true,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            autoplay: {
-                delay: 3000,
-                disableOnInteraction: false,
-            },
-        });
-        var swiper = new Swiper('.swiper-container2', {
-            loop: true,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            autoplay: {
-                delay: 3000,
-                disableOnInteraction: false,
-            },
-        });
-        var swiper = new Swiper('.swiper-container3', {
-            loop: true,
+            breakpoints: {
+            1023: {
+                allowTouchMove: false
+            }
+        },
             navigation: {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
