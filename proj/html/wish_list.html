@@ -5,38 +5,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>찜 목록</title>
     <link rel="stylesheet" href="../css/wish_list.css">
+    <!-- Font Awesome CDN 추가 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
+    <!-- 사이드바 -->
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        <a href="#">메뉴1</a>
+        <a href="#">메뉴2</a>
+        <a href="#">메뉴3</a>
+    </div>
+
     <!-- 상단 네비게이션 -->
-    <header class="navbar">
-        <div class="logo">
-            <img src="logo.png" alt="로고">
+    <header>
+        <div class="nav-container">
+            <div class="hamburger" onclick="openNav()">☰</div> <!-- 햄버거 아이콘 -->
+            
+            <div class="nav-right">
+                <div class="search-form">
+                    <input type="text" id="search-input" class="search-input" placeholder="검색어를 입력하세요">
+                    <button class="search-button" type="button"><i class="fas fa-search"></i></button>
+                </div>
+                <a href="#"><img src="../assets/images/찜.png" alt="hart"></a>
+                <a href="#"><img src="../assets/images/장바구니.png" alt="Cart"></a>
+                <a href="#"><img src="../assets/images/로그인.png" alt="Login"></a>
+            </div>
         </div>
-        <nav class="nav-menu">
-            <a href="#">상점</a>
-            <a href="../html/library.html">라이브러리</a>
-            <a href="#">커뮤니티</a>
-        </nav>
     </header>
+    
 
     <!-- 메인 컨텐츠 -->
     <main class="main-container">
         <!-- 사용자 정보 및 찜 목록 -->
         <section class="wishlist-section">
             <h2> 유저님의 찜 목록</h2>
+
+            <!-- 게임 검색 창 추가 -->
+            <div class="wishlist-search">
+                <input type="text" id="wishlist-search-input" placeholder="찜 목록에서 게임 검색">
+                <button id="wishlist-search-button">검색</button>
+            </div>
+
             <ul class="wishlist">
                 <li class="wishlist-item">
-                    <img src="subnautica.jpg" alt="서브노티카">
+                    <img src="../assets/images/A_DANCE_OF.jpg" alt="서브노티카">
                     <div class="game-info">
                         <h3>서브노티카</h3>
                         <p>장르: 모험, 생존</p>
                         <p>출시일: 2018년 1월 23일</p>
                         <p>평점: 매우 긍정적</p>
+                        <!-- 태그 추가 -->
+                        <div class="tags">
+                            <span>어드벤처</span>
+                            <span>서바이벌</span>
+                            <span>싱글플레이어</span>
+                        </div>
                     </div>
                     <div class="price-info">
                         <p>₩32,000</p>
                         <button class="add-to-cart">장바구니에 추가</button>
+                        <!-- 찜 취소 버튼 추가 -->
+                        <button class="remove-from-wishlist">찜 취소</button>
                     </div>
                 </li>
 
@@ -47,17 +78,47 @@
                         <p>장르: 어드벤처</p>
                         <p>출시일: 2015년 9월 10일</p>
                         <p>평점: 매우 긍정적</p>
+                        <!-- 태그 추가 -->
+                        <div class="tags">
+                            <span>어드벤처</span>
+                            <span>퍼즐</span>
+                            <span>포인트앤클릭</span>
+                        </div>
                     </div>
                     <div class="price-info">
                         <p>₩11,100 <span class="discount">-90%</span></p>
                         <button class="add-to-cart">장바구니에 추가</button>
+                        <!-- 찜 취소 버튼 추가 -->
+                        <button class="remove-from-wishlist">찜 취소</button>
                     </div>
                 </li>
-
-                <!-- 추가 게임 아이템 -->
             </ul>
         </section>
     </main>
 
+    <script>
+        // 검색창 슬라이드 토글
+        var searchButton = document.querySelector('.search-button');
+        var searchInput = document.querySelector('.search-input');
+
+        searchButton.addEventListener('click', function() {
+            if (searchInput.classList.contains('active')) {
+                searchInput.classList.remove('active');
+            } else {
+                searchInput.classList.add('active');
+                searchInput.focus();
+            }
+        });
+
+        // 사이드바 열기
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "250px";
+        }
+
+        // 사이드바 닫기
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+        }
+    </script>
 </body>
 </html>

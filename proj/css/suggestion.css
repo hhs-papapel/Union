@@ -1,0 +1,205 @@
+/* 기본 스타일 초기화 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #1b1b1b;
+    color: white;
+}
+
+header {
+    background-color: #111;
+    padding: 15px 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hamburger-menu {
+    font-size: 30px;
+    cursor: pointer;
+    color: white;
+}
+
+.logo img {
+    width: 100px;
+}
+
+nav {
+    display: flex;
+    gap: 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* 검색 영역 */
+.search-area {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    width: 0;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    background-color: #333;
+    color: white;
+    visibility: hidden;
+    opacity: 0;
+    transition: width 0.4s ease, visibility 0.4s, opacity 0.4s;
+}
+
+.search-input.active {
+    width: 200px;
+    visibility: visible;
+    opacity: 1;
+}
+
+.search-icon {
+    cursor: pointer;
+    color: white;
+}
+
+.nav-right i {
+    color: white;
+    cursor: pointer;
+}
+
+/* 사이드바 스타일 */
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    color: #f1f1f1;
+}
+
+.sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    cursor: pointer;
+}
+
+/* 필터 영역 */
+.filter-section {
+    margin-top: 80px;
+    background-color: #222;
+    padding: 10px 20px;
+}
+
+.filter-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filter-container select {
+    padding: 5px;
+    border: none;
+    background-color: #333;
+    color: white;
+    border-radius: 5px;
+}
+
+.category-icons i {
+    margin-left: 20px;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+}
+
+.category-icons i:hover {
+    color: #f39c12;
+}
+
+/* 게임 목록 */
+.game-list-section {
+    padding: 40px 20px;
+}
+
+.game-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.game-card {
+    background-color: #333;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+}
+
+.game-card img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.game-card h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.game-card p {
+    font-size: 16px;
+    color: #ddd;
+}
+
+.sale {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+/* 푸터 */
+footer {
+    background-color: #111;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 20px;
+}

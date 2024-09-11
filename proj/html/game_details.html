@@ -10,32 +10,35 @@
 <body>
 
     <!-- 헤더 영역 -->
-<!-- 메뉴바 -->
-<header class="navbar">
-    <div class="container">
-        <div class="hamburger" onclick="openNav()">☰</div> <!-- 사이드바 열기 버튼 -->
-        <div class="nav-right">
-            <div class="search-form">
-                <form>
-                    <input type="text" id="search-input" class="search-input" placeholder="검색어를 입력하세요">
-                    <button class="search-button" type="button"><i class="fas fa-search"></i></button> <!-- 검색 버튼 -->
-                </form>
+    <header class="navbar">
+        <div class="nav-container">
+        <!-- 햄버거 아이콘 -->
+        <div class="hamburger-menu" onclick="openNav()">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="logo">
+            <img src="logo.png" alt="Logo">
+        </div>
+        <div class="nav-right"> <!-- 오른쪽으로 밀려서 정렬됨 -->
+            <div class="search-area">
+                <input type="text" class="search-input" placeholder="검색어를 입력하세요">
+                <i class="fas fa-search search-icon"></i>
             </div>
-            <a href="#"><img src="../assets/images/찜.png" alt="hart"></a> <!-- 찜 버튼 -->
-            <a href="#"><img src="../assets/images/장바구니.png" alt="Cart"></a> <!-- 장바구니 버튼 -->
-            <a href="#"><img src="../assets/images/로그인.png" alt="Login"></a> <!-- 로그인 버튼 -->
+            <a href="wish_list.html"><img src="../assets/images/찜.png" alt="hart" class="nav-icon"></a>
+            <a href="#"><img src="../assets/images/장바구니.png" alt="Cart" class="nav-icon"></a>
+            <a href="#"><img src="../assets/images/로그인.png" alt="Login" class="nav-icon"></a>
         </div>
     </div>
-</header>
+    </header>
 
-<!-- 사이드바 -->
-<div id="mySidebar" class="sidebar">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a> <!-- 사이드바 닫기 버튼 -->
-    <a href="#">홈</a>
-    <a href="#">소개</a>
-    <a href="#">서비스</a>
-    <a href="#">연락처</a>
-</div>
+    <!-- 사이드바 -->
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a> <!-- 사이드바 닫기 버튼 -->
+        <a href="#">홈</a>
+        <a href="#">소개</a>
+        <a href="#">서비스</a>
+        <a href="#">연락처</a>
+    </div>
 
     <!-- 메인 콘텐츠 -->
     <main>
@@ -56,12 +59,12 @@
                         <img src="../assets/images/shogun_Showdown4.jpg" alt="스크린샷 3" onclick="showImage('../assets/images/shogun_Showdown4.jpg')">
                     </div>
 
-                    <!-- 구매, 찜, 장바구니 버튼을 사진 밑으로 이동 -->
+                    <!-- 구매, 찜, 장바구니 버튼 -->
                     <div class="buy-options">
                         <button class="buy-btn">구매하기 ₩19,800</button>
                         <button class="wishlist-btn"><i class="fas fa-heart"></i> 찜</button>
                         <button class="cart-btn"><i class="fas fa-shopping-cart"></i> 장바구니</button>
-                        <button class="community-btn"><i class="fas fa-users"></i> 커뮤니티</button> <!-- 커뮤니티 버튼 추가 -->
+                        <button class="community-btn"><i class="fas fa-users"></i> 커뮤니티</button>
                     </div>
                 </div>
 
@@ -87,11 +90,14 @@
             </div>
         </section>
 
-        <!-- 하단 게임 설명 및 추가 정보 -->
-        <section class="game-description">
+        <!-- 리뷰 작성 섹션 -->
+        <section class="review-section">
             <div class="container">
-                <h2>게임 설명</h2>
-                <p>Shogun Showdown은 턴제 전략 게임입니다. 플레이어는 적들과의 전투에서 타일을 업그레이드하고 적의 움직임을 예측하며 전투를 진행해야 합니다. 아름다운 2D 그래픽과 함께 깊이 있는 전투 시스템을 경험해 보세요.</p>
+                <div class="review-form">
+                    <img src="../assets/images/user_avatar.png" alt="유저 아바타" class="user-avatar">
+                    <textarea id="user-review" placeholder="이 게임에 대한 리뷰를 작성하세요…"></textarea>
+                    <button class="post-review-btn">리뷰 게시</button>
+                </div>
             </div>
         </section>
     </main>
@@ -99,51 +105,67 @@
     <!-- 푸터 영역 -->
     <footer>
         <div class="container">
-            <p>&copy; 2024 Steam. 모든 권리 보유.</p>
+            <p>&copy; 2024 게임 스토어. 모든 권리 보유.</p>
         </div>
     </footer>
 
     <!-- JavaScript -->
     <script>
-    function showImage(imageSrc) {
-        var mediaDisplay = document.getElementById('media-display');
-        mediaDisplay.innerHTML = '<img src="' + imageSrc + '" alt="이미지" class="media-thumbnail">';
-    }
-
-    function showVideo(videoSrc) {
-        var mediaDisplay = document.getElementById('media-display');
-        mediaDisplay.innerHTML = '<video id="main-video" controls autoplay><source src="' + videoSrc + '" type="video/webm">Your browser does not support the video tag.</video>';
-    }
-
-    // 페이지 로드 시 비디오 자동 재생
-    window.onload = function() {
-        var video = document.getElementById('main-video');
-        if (video) {
-            video.play();
+        function showImage(imageSrc) {
+            var mediaDisplay = document.getElementById('media-display');
+            mediaDisplay.innerHTML = '<img src="' + imageSrc + '" alt="이미지" class="media-thumbnail">';
         }
-    };
 
-    // 사이드바 열기
-function openNav() {
-    document.getElementById("mySidebar").style.width = "250px";
-}
+        function showVideo(videoSrc) {
+            var mediaDisplay = document.getElementById('media-display');
+            mediaDisplay.innerHTML = '<video id="main-video" controls autoplay><source src="' + videoSrc + '" type="video/webm">Your browser does not support the video tag.</video>';
+        }
 
-// 사이드바 닫기
-function closeNav() {
-    document.getElementById("mySidebar").style.width = "0";
-}
+        // 페이지 로드 시 비디오 자동 재생
+        window.onload = function() {
+            var video = document.getElementById('main-video');
+            if (video) {
+                video.play();
+            }
+        };
 
-// 검색창 슬라이드 토글
-var searchButton = document.querySelector('.search-button');
-var searchInput = document.getElementById('search-input');
+        // 사이드바 열기
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "250px";
+        }
 
-searchButton.addEventListener('click', function() {
-    searchInput.classList.toggle('active'); // active 클래스 토글
-    if (searchInput.classList.contains('active')) {
-        searchInput.focus(); // 검색창이 열리면 포커스
-    }
-});
+        // 사이드바 닫기
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+        }
 
+        // 검색창 토글
+        const searchIcon = document.querySelector('.search-icon');
+        const searchInput = document.querySelector('.search-input');
+
+        searchIcon.addEventListener('click', () => {
+            searchInput.classList.toggle('active');
+            searchInput.focus();
+        });
+
+        // 리뷰 게시 버튼 클릭 시 리뷰를 추가하는 기능
+        document.querySelector('.post-review-btn').addEventListener('click', function() {
+            var reviewText = document.getElementById('user-review').value;
+            if (reviewText) {
+                var newReview = `
+                    <div class="review-item">
+                        <img src="../assets/images/user_avatar.png" alt="리뷰 유저 아바타" class="user-avatar">
+                        <div class="review-content">
+                            <p><strong>유저:</strong> ${reviewText}</p>
+                        </div>
+                    </div>
+                `;
+                document.querySelector('.review-section').insertAdjacentHTML('beforeend', newReview);
+                document.getElementById('user-review').value = ''; // 텍스트 초기화
+            } else {
+                alert('리뷰를 작성하세요!');
+            }
+        });
 
     </script>
 
