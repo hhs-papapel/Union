@@ -357,7 +357,6 @@
                 <!-- 페이지네이션 -->
                 <div class="swiper-pagination"></div>
         
-
             </div>
         </div>
 
@@ -457,6 +456,31 @@
     <!-- Swiper.js 추가 -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
+// 카테고리별 살펴보기 슬라이더
+var categorySwiper = new Swiper('.category-swiper', {
+    loop: true,
+    autoplay: {
+        delay: 3000,  // 자동 슬라이드
+        disableOnInteraction: false,
+    },
+    effect: 'slide',  // 기본 슬라이드 효과
+    slidesPerView: 4,  // 한 번에 보여줄 슬라이드 수
+    spaceBetween: 30,  // 슬라이드 간 간격 설정
+    pagination: {
+        el: '.swiper-pagination',
+        clickable: true,  // 페이지네이션 클릭 가능
+    },
+    breakpoints: {
+        768: {
+            slidesPerView: 2,  // 화면이 768px 이하일 때 슬라이드 2개 보기
+        },
+        1024: {
+            slidesPerView: 4,  // 화면이 1024px 이상일 때 슬라이드 4개 보기
+        },
+    },
+});
+
+
 
 
         // 특별 할인 슬라이더
