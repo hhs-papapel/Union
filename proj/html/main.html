@@ -39,7 +39,50 @@
 
     <!-- 메인 컨텐츠 -->
     <div class="main-content">
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                <defs>
+                    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                </defs>
+                <g class="parallax">
+                    <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
+                    <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+                    <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+                    <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
+                </g>
+            </svg>
         <!-- 메인 배너 슬라이더 -->
+         <div class="test">
+            
+        <div class="swiper-container2">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="../assets/images/hogwarts.jpg" alt="배너3">
+                </div>
+                <div class="swiper-slide">
+                    <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="배너1">
+                </div>
+                <div class="swiper-slide">
+                    <img src="../assets/images/shogun_Showdown.jpg" alt="배너2">
+                </div>
+                
+            </div>
+        </div>
+        <div class="swiper-container3">
+            <div class="swiper-wrapper">
+                
+                
+                <div class="swiper-slide">
+                    <img src="../assets/images/shogun_Showdown.jpg" alt="배너2">
+                </div>
+                <div class="swiper-slide">
+                    <img src="../assets/images/hogwarts.jpg" alt="배너3">
+                </div>
+                <div class="swiper-slide">
+                    <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="배너1">
+                </div>
+            </div>
+        </div>
         <div class="swiper-container">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
@@ -50,17 +93,25 @@
                     </div>
                 </div>
                 <div class="swiper-slide">
-                    <img src="banner2.jpg" alt="배너2">
+                    <img src="../assets/images/shogun_Showdown.jpg" alt="배너2">
+                    <div class="banner-text">
+                        <h2>게임 타이틀 2</h2>
+                        <p>이 게임은 놀라운 액션을 자랑합니다.</p>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <img src="../assets/images/hogwarts.jpg" alt="배너3">
                     <div class="banner-text">
                         <h2>게임 타이틀 2</h2>
                         <p>이 게임은 놀라운 액션을 자랑합니다.</p>
                     </div>
                 </div>
             </div>
-            <!-- 네비게이션 화살표 -->
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
         </div>
+
+        
+        
+    </div>
 
         <!-- 하단 카테고리 -->
         <div class="category-container">
@@ -99,7 +150,28 @@
                 disableOnInteraction: false,
             },
         });
-
+        var swiper = new Swiper('.swiper-container2', {
+            loop: true,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+        });
+        var swiper = new Swiper('.swiper-container3', {
+            loop: true,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+        });
         // 검색창 슬라이드 토글
         var searchButton = document.querySelector('.search-button');
         var searchInput = document.getElementById('search-input');

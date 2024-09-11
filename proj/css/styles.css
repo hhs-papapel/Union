@@ -118,12 +118,36 @@ header {
 }
 
 /* 메인 배너 슬라이더 */
-.swiper-container {
+.test{
     width: 100vw;
-    height: 72vh;
-    margin-top: 70px;
+    height: 500px;
+    background-color: #abff76;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
 }
-
+.swiper-container {
+    position: absolute;
+    width: 700px;
+    height: 400px;
+    margin-top: 70px;
+    overflow: hidden;
+}
+.swiper-container2 {
+    opacity: 0.6;
+    width: 600px;
+    height: 300px;
+    margin-top: 70px;
+    overflow: hidden;
+}
+.swiper-container3 {
+    opacity: 0.6;
+    width: 600px;
+    height: 300px;
+    margin-top: 70px;
+    overflow: hidden;
+}
 .swiper-slide img {
     width: 100%;
     height: 100%;
@@ -181,4 +205,57 @@ header {
 /* Swiper 화살표 커스터마이징 */
 .swiper-button-next, .swiper-button-prev {
     color: white;
+}
+
+/* 파도 */
+.wave-container {
+    width: 100vw;
+    height: 700px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.waves {
+    margin-top: 560px;
+    position: relative;
+    width: 100vw;
+    height: 140px;
+    margin-bottom: -7px; /*Fix for safari gap*/
+    min-height: 100px;
+    max-height: 150px;
+}
+/* Animation */
+.parallax > use {
+    animation: move-forever 25s cubic-bezier(0.55,.5,0.45,.5) infinite;
+}
+.parallax > use:nth-child(1) {
+    animation-delay: -2s;
+    animation-duration: 7s;
+}
+.parallax > use:nth-child(2) {
+    animation-delay: -3s;
+    animation-duration: 10s;
+}
+.parallax > use:nth-child(3) {
+    animation-delay: -4s;
+    animation-duration: 13s;
+}
+.parallax > use:nth-child(4) {
+    animation-delay: -5s;
+    animation-duration: 20s;
+}
+@keyframes move-forever {
+    0% {
+        transform: translate3d(-90px, 0, 0);
+    }
+    100% {
+        transform: translate3d(85px, 0, 0);
+    }
+}
+/*Shrinking for mobile*/
+@media(max-width: 768px) {
+    .waves {
+        height: 40px;
+        min-height: 40px;
+    }
 }
