@@ -77,10 +77,13 @@
                             // 로그인 정보를 localStorage에 저장  쿠키 지워야됨
                             // 일단 지금은 sessionStorage으로 저장해서 테스트
                             //localStorage.setItem('loggedInUser', userId);
-                            sessionStorage.setItem('loggedInUser', userId);
+                            sessionStorage.setItem('loggedInUser', res.userId);
                         } else {
                             // 로그인 정보를 sessionStorage에 저장
-                            sessionStorage.setItem('loggedInUser', userId);
+                            sessionStorage.setItem('loggedInUser', res.userId);
+
+                            //테스트중
+                            window.location.href = '/proj/html/shoppingBasket.html';
                         }
 
                         // 로그인 성공 후 입력 필드를 초기화
