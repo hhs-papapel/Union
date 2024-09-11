@@ -7,14 +7,14 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #ffffff;
     overflow-x: hidden;
 }
 
 /* 상단 네비게이션 */
 header {
-    background-color: #31326F;
-    padding: 15px 0;
+    background-color: #000000;
+    padding: 5px 0;
     position: fixed;
     width: 100%;
     z-index: 100;
@@ -31,9 +31,14 @@ header {
 }
 
 .hamburger {
-    font-size: 30px;
+    font-size: 25px;
     color: white;
     cursor: pointer;
+}
+
+.logo {
+    font-size: 50px;
+    color: white;
 }
 
 .nav-right {
@@ -118,6 +123,78 @@ header {
     font-size: 36px;
 }
 
+
+/* 메인 */
+
+.slide-container{
+    width: 100vw;
+    height: 700px;
+    background-color: #abff76;
+    position: relative;
+}
+.banner1{
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    width: 1000px;
+    margin-top: -200px;
+    margin-left: -500px;
+    height: 490px;
+    border-radius: 20px;
+    background-color: white;
+}
+.wave-container {
+    width: 100vw;
+    height: 700px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.waves {
+    margin-top: 560px;
+    position: relative;
+    width: 100vw;
+    height: 140px;
+    margin-bottom: -7px; /*Fix for safari gap*/
+    min-height: 100px;
+    max-height: 150px;
+}
+/* Animation */
+.parallax > use {
+    animation: move-forever 25s cubic-bezier(0.55,.5,0.45,.5) infinite;
+}
+.parallax > use:nth-child(1) {
+    animation-delay: -2s;
+    animation-duration: 7s;
+}
+.parallax > use:nth-child(2) {
+    animation-delay: -3s;
+    animation-duration: 10s;
+}
+.parallax > use:nth-child(3) {
+    animation-delay: -4s;
+    animation-duration: 13s;
+}
+.parallax > use:nth-child(4) {
+    animation-delay: -5s;
+    animation-duration: 20s;
+}
+@keyframes move-forever {
+    0% {
+        transform: translate3d(-90px, 0, 0);
+    }
+    100% {
+        transform: translate3d(85px, 0, 0);
+    }
+}
+/*Shrinking for mobile*/
+@media(max-width: 768px) {
+    .waves {
+        height: 40px;
+        min-height: 40px;
+    }
+}
 /* 메인 배너 슬라이더 */
 .swiper-container {
     width: 100vw;
@@ -146,6 +223,36 @@ header {
 
 .banner-text p {
     font-size: 18px;
+}
+
+/* 특별할인 */
+.bigsale-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    background: white;
+    height: 500px;
+    
+}
+.sale-container{
+    width: 1000px;
+    height: 450px;
+
+    /* background: rgb(255, 130, 130); */
+    border: 1px solid red;
+}
+
+.sale-container p {
+    margin: 10px;
+    width: 100%;
+    text-align: left;
+}
+
+.sale-items {
+    width: 100%;
+    height: 80%;
+    border: 1px solid rgb(187, 255, 41);
 }
 
 /* 하단 카테고리 */
@@ -182,4 +289,5 @@ header {
 /* Swiper 화살표 커스터마이징 */
 .swiper-button-next, .swiper-button-prev {
     color: white;
+    border: 1px solid red;
 }
