@@ -192,6 +192,7 @@ header {
     width: 700px;
     height: 400px;
     overflow: hidden;
+    border: 20px solid white;
 }
 .swiper-container2 {
     position: absolute;
