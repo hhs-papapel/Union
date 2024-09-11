@@ -6,30 +6,7 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #1b2838;
-    color: #ffffff;
-    padding: 20px;
-}
-
-/* 헤더 스타일 */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #171a21;
-    padding: 20px;
-    border-bottom: 1px solid #66c0f4;
-}
-
-.navbar .logo img {
-    width: 100px;
-}
-
-.nav-menu a {
-    margin-right: 20px;
-    color: #ffffff;
-    text-decoration: none;
+    margin-top: 110px; /* 메뉴바 높이에 맞춰 여백을 줄임 */
 }
 
 .user-info {
@@ -44,7 +21,6 @@ body {
 /* 메인 컨텐츠 스타일 */
 .main-content {
     display: flex;
-    margin-top: 20px;
 }
 
 .profile-section {
@@ -107,7 +83,7 @@ body {
 }
 
 /* 사이드바 스타일 */
-.sidebar {
+.sidebars {
     width: 30%;
     padding: 20px;
     background-color: #2a475e;
@@ -115,16 +91,16 @@ body {
     margin-left: 20px;
 }
 
-.sidebar h3 {
+.sidebars h3 {
     margin-bottom: 15px;
 }
 
-.sidebar ul {
+.sidebars ul {
     list-style: none;
     padding-left: 0;
 }
 
-.sidebar li {
+.sidebars li {
     margin-bottom: 10px;
 }
 

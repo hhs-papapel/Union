@@ -12,43 +12,6 @@ html, body {
     overflow-x: hidden; /* 가로 스크롤 방지 */
 }
 
-/* 메뉴바 스타일 */
-.navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: #333;
-    color: white;
-    padding: 10px 0;
-    z-index: 1000;
-    display: flex;
-    justify-content: space-between; /* 양 끝으로 정렬 */
-    align-items: center;
-}
-
-.navbar .container {
-    width: 90%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.hamburger {
-    font-size: 1.5em;
-    cursor: pointer;
-}
-
-.nav-right {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.nav-right a img {
-    width: 25px;
-    height: 25px;
-}
 
 /* 각 섹션 스타일 */
 .section {

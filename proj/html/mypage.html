@@ -5,22 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>마이 페이지</title>
     <link rel="stylesheet" href="../css/mypage.css">
+    <script>
+        function loadHTML(file)
+        {
+            var rawFile = new XMLHttpRequest();
+            rawFile.open("GET", file, false);
+            rawFile.onreadystatechange = function ()
+            {
+                if(rawFile.readyState === 4)
+                {
+                    if(rawFile.status === 200 || rawFile.status == 0)
+                    {
+                        var allText = rawFile.responseText;
+                        document.write(allText);
+                    }
+                }
+            }
+            rawFile.send(null);
+        }
+    </script>
 </head>
 <body>
 
     <!-- 헤더 -->
-    <header class="navbar">
-        <div class="container">
-            <div class="logo">
-                <img src="https://via.placeholder.com/100x50?text=STEAM+LOGO" alt="logo">
-            </div>
-            <nav class="nav-menu">
-                <a href="#">상점</a>
-                <a href="#">커뮤니티</a>
-                <a href="#">마이 페이지</a>
-                <a href="#">지원</a>
-            </nav>
-        </div>
+    <header>
+        <script>loadHTML("./header.html")</script>
     </header>
 
     <!-- 마이 페이지 메인 컨텐츠 -->
@@ -75,7 +84,7 @@
         </section>
 
         <!-- 사이드바 -->
-        <aside class="sidebar">
+        <aside class="sidebars">
             <div class="badges">
                 <h3>배지</h3>
                 <p>3개의 배지를 보유 중</p>
