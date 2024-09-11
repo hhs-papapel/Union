@@ -6,9 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입 페이지</title>
     <link rel="stylesheet" href="../css/stylesLogin.css">
+    <script>
+        function loadHTML(file)
+        {
+            var rawFile = new XMLHttpRequest();
+            rawFile.open("GET", file, false);
+            rawFile.onreadystatechange = function ()
+            {
+                if(rawFile.readyState === 4)
+                {
+                    if(rawFile.status === 200 || rawFile.status == 0)
+                    {
+                        var allText = rawFile.responseText;
+                        document.write(allText);
+                    }
+                }
+            }
+            rawFile.send(null);
+        }
+    </script>
 </head>
 
 <body>
+    <header>
+        <script>loadHTML("./header.html")</script>
+    </header>
+    
     <div class="login-container">
         <div class="login-box">
             <!-- 로고 -->
@@ -177,7 +200,7 @@
                         resetForm();
                         location.href = 'login.html';  // 로그인 페이지로 이동
                     } else if (res.status === 409) {
-                        alert('이미 존재하는 아이디,이메일입니다.');
+                        alert('이미 아이디를 만들었습니다.');
                     }
                 },
                 error: function () {

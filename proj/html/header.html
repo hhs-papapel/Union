@@ -1,0 +1,225 @@
+<head>
+    <style>
+/* Reset 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    overflow-x: hidden;
+}
+/* 상단 네비게이션 */
+header {
+    background-color: #000000;
+    padding: 5px 0;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    top: 0;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.hamburger {
+    font-size: 25px;
+    color: white;
+    cursor: pointer;
+}
+
+.logo {
+    font-size: 50px;
+    color: white;
+}
+
+.nav-right {
+    margin-left: auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.nav-right a {
+    margin-left: 15px;
+    text-decoration: none;
+    color: white;
+}
+
+.nav-right a img {
+    width: 25px;
+}
+
+
+/* 사이드바 */
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    background-color: #abff76;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+.sidebar h3{
+    width: 230px;
+    margin-left: 25px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.sidebar a {
+    width: 230px;
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 15px;
+    color: #000000;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    color: #f1f1f1;
+}
+
+.sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+}
+
+/* -------------------- */
+
+@font-face {
+    font-family: 'KOHIBaeum';
+    font-weight: normal;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/kohi/KOHIBaeum.eot');
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/kohi/KOHIBaeum.eot?#iefix') format('embedded-opentype'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/kohi/KOHIBaeum.woff2') format('woff2'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/kohi/KOHIBaeum.woff') format('woff'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/kohi/KOHIBaeum.ttf') format("truetype");
+    font-display: swap;
+}
+svg {
+  font-family: 'KOHIBaeum';
+  font-size: 140px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  text-transform: uppercase;
+  animation: stroke 5s 1 alternate ;
+  animation-iteration-count: infinite;
+  fill: black;
+}
+@keyframes stroke {
+  0% {
+    stroke-dashoffset: 25%;
+    stroke-dasharray: 0 50%;
+    fill: rgba(72, 138, 204, 0);
+    stroke: #abff76;
+    stroke-width: 2;
+  }
+  70% {
+    fill: rgba(72, 138, 204, 0);
+    stroke: #abff76;
+  }
+  80% {
+    fill: rgba(72, 138, 204, 0);
+    stroke: #abff76;
+  }
+  100% {
+    stroke-dashoffset: -25%;
+    stroke-dasharray: 50% 0;
+    fill: #abff76;
+    stroke: rgba(54, 95, 160, 0);
+    stroke-width: 2;
+}
+}
+
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="nav-container">
+            <div class="hamburger" onclick="openNav()">☰</div> <!-- 햄버거 아이콘 -->
+            
+            <div class="nav-right">
+                <a href="#"><img src="../assets/images/로그인.png" alt="Login">상점</a>
+                <a href="#"><img src="../assets/images/로그인.png" alt="Login">커뮤니티</a>
+                <a href="#"><img src="../assets/images/로그인.png" alt="Login">지원</a>
+                <a href="#"><img src="../assets/images/로그인.png" alt="Login">로그인</a>
+            </div>
+        </div>
+        <div style="height: 70px;">
+            <svg viewBox="0 0 1320 300">
+                <text x="50%" y="21%" dy="40px" text-anchor="middle" >UNION</text>
+            </svg>
+        </div>
+        <!-- 사이드바 -->
+        <div id="mySidebar" class="sidebar">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a> <!-- 닫기 버튼 -->
+            <h3>카테고리 검색</h3>
+            <a href="#">인기 제품</a>
+            <a href="#">신규 출시</a>
+            <a href="#">vr 게임</a>
+            <a href="#">컨트롤러 지원</a>
+            <a href="#">Deck 완벽 호환</a>
+
+            <h3>장르별 검색</h3>
+            <a href="#">무료 플레이</a>
+            <a href="#">앞서 해보기</a>
+            <a href="#">MMO</a>
+            <a href="#">RPG</a>
+            <a href="#">레이싱</a>
+            <a href="#">스포츠</a>
+            <a href="#">시뮬레이션</a>
+            <a href="#">액션</a>
+            <a href="#">어드벤처</a>
+            <a href="#">인디</a>
+            <a href="#">전략</a>
+            <a href="#">캐주얼</a>
+            
+        </div>
+    </header>
+
+    
+    <script>
+
+        // 검색창 슬라이드 토글
+        var searchButton = document.querySelector('.search-button');
+        var searchInput = document.getElementById('search-input');
+
+        searchButton.addEventListener('click', function() {
+            if (searchInput.classList.contains('active')) {
+                searchInput.classList.remove('active');
+            } else {
+                searchInput.classList.add('active');
+                searchInput.focus();
+            }
+        });
+
+        // 사이드바 열기
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "250px";
+        }
+
+        // 사이드바 닫기
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+        }
+    </script>
+</body>
