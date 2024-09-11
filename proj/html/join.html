@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 페이지</title>
+    <link rel="stylesheet" href="../css/stylesLogin.css">
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <!-- 로고 -->
+            <h1 class="login-title">UNION</h1>
+
+            <!-- 로그인 입력 폼 -->
+            <form class="login-form">
+                <div class="group">
+                    <input type="text" class="inputT" id="id" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>아이디</label>
+                </div>
+                <div class="group">
+                    <input type="text" class="inputT" id="passwd" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>비밀번호</label>
+                </div>
+                <div class="group">
+                    <input type="text" class="inputT" id="passwdcheck" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>비밀번호 확인</label>
+                </div>
+                <div class="group">
+                    <input type="text" class="inputT" id="email" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>이메일</label>
+                </div>
+                <div class="group">
+                    <input type="text" class="inputT" id="name" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>이름</label>
+                </div>
+                <div class="group">
+                    <input type="text" class="inputT" id="phone" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>전화번호</label>
+                </div>
+
+                <button type="button" class="btn" style="padding: 13px 120px;"
+                    onclick="join()"><span>회원가입</span></button>
+            </form>
+
+        </div>
+    </div>
+
+    <script src="../assets/lib/jquery-3.7.1.min.js"></script>
+    <script>
+
+
+
+
+
+
+        /*회원가입 버튼*/
+        function join() {
+            let id = document.getElementById('id').value;
+            let paw = document.getElementById('passwd').value;
+            let paw2 = document.getElementById('passwdcheck').value
+            let ema = document.getElementById('email').value;
+            let name = document.getElementById('name').value;
+            let phone = document.getElementById('phone').value;
+
+
+
+
+
+
+
+            /*유효성검사부분*/
+            const idEng = /^[a-zA-Z0-9]+$/;
+            if (id == "" || id.length < 4 || id.length > 12 || !idEng.test(id)) {
+                alert("아이디를 4~12자의 영문 대소문자와 숫자로만 입력해주세요.");
+                document.getElementById('id').value = '';
+                document.getElementById('id').focus();
+                return;
+            }
+
+
+            /*이메일 유효성검사*/
+            const em = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (ema == "" || !em.test(ema)) {
+                alert("이메일형식으로 다시 입력해주세요.");
+                document.getElementById('email').value = '';
+                document.getElementById('email').focus();
+                return;
+            }
+
+            /*이름 유효성 검사*/
+            if (name == "" || name.length < 2) {
+                alert("이름을 2글자 이상 입력해주세요.");
+                document.getElementById('name').value = '';
+                document.getElementById('name').focus();
+                return;
+            }
+            /*전화번호 유효성검사*/
+            const phonecheck = /^[0-9]+$/;
+            if (phone == "" || !phonecheck.test(phone)) {
+                alert("전화번호 형식으로 적어주세요");
+                document.getElementById('phone').value = '';
+                document.getElementById('phone').focus();
+                return;
+            }
+
+
+
+            /*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+
+            /*비밀번호 유효성 검사*/
+            const pwEng = /^[a-zA-Z0-9!@#$%^&*]+$/;
+            if (paw == "" || paw.length < 4 || paw.length > 12 || !pwEng.test(paw)) {
+                alert("비밀번호를 4~12자의 영문 대소문자와 숫자로만 입력해주세요.");
+                document.getElementById('passwd').value = '';
+                document.getElementById('passwdcheck').value = '';
+                document.getElementById('passwd').focus();
+                return;
+            }
+            /*비밀번호 아이디 중복제거*/
+            if (id == paw) {
+                alert("아이디와 비밀번호를 다르게 입력해주세요");
+                document.getElementById('id').value = '';
+                document.getElementById('passwd').value = '';
+                document.getElementById('passwdcheck').value = '';
+                document.getElementById('id').focus();
+                return;
+            }
+            /*검사2*/
+            else if (paw !== paw2) {
+                alert("비밀번호와 다르게 입력하셨습니다");
+                document.getElementById('passwdcheck').value = '';
+                document.getElementById('passwdcheck').focus();
+                return;
+            }
+
+
+            /*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+
+
+
+            /* ajax 서버로 보내서 추가하는 부분 */
+            let joinData = {
+                id: id,
+                paw: paw,
+                ema: ema,
+                name: name,
+                phone: phone
+            };
+
+            // 비동기 (AJAX) 요청으로 서버에 회원 정보 전송
+            $.ajax({
+                url: 'http://localhost:3000/join',
+                type: 'POST',
+                contentType: 'application/json', // 데이터를 JSON 형식으로 전송
+                data: JSON.stringify(joinData),   // 객체를 JSON 문자열로 변환하여 전송
+                dataType: 'json',
+                success: function (res) {
+                    if (res.status === 200) {
+                        alert('회원가입 성공!');
+                        resetForm();
+                        location.href = 'login.html';  // 로그인 페이지로 이동
+                    } else if (res.status === 409) {
+                        alert('이미 존재하는 아이디,이메일입니다.');
+                    }
+                },
+                error: function () {
+                    alert('회원가입 처리 중 오류가 발생했습니다.');
+                }
+            });
+        }
+
+        /*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+
+        //초기화
+        function resetForm() {
+            document.getElementById('id').value = '';
+            document.getElementById('passwd').value = '';
+            document.getElementById('passwdcheck').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('name').value = '';
+            document.getElementById('phone').value = '';
+        }
+
+        /*───────────────────────────────────────────────────────────────────────────────────────────*/
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,185 @@
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 페이지</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/stylesLogin.css">
+</head>
+
+<body>
+    <header>
+        <div class="nav-container">
+            <div class="hamburger" onclick="openNav()">☰</div> <!-- 햄버거 아이콘 -->
+            <div class="nav-right">
+                <!-- <div class="search-form">
+                    <form>
+                        <input type="text" id="search-input" class="search-input" placeholder="검색어를 입력하세요">
+                        <button class="search-button" type="button"><i class="fas fa-search"></i></button>
+                        <input type="text">
+                        <button></button>
+
+                    </form>
+                </div> -->
+                <!-- <a href="#"><img src="../assets/images/찜.png" alt="hart"></a>
+                <a href="#"><img src="../assets/images/장바구니.png" alt="Cart"></a> -->
+                <a href="#"><img src="../assets/images/로그인.png" alt="Login"></a>
+            </div>
+        </div>
+        <div class="nav-container">
+            <div class="logo">UNION</div>
+        </div>
+        <!-- 사이드바 -->
+        <div id="mySidebar" class="sidebar">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a> <!-- 닫기 버튼 -->
+            <a href="#">홈</a>
+            <a href="#">소개</a>
+            <a href="#">서비스</a>
+            <a href="#">연락처</a>
+        </div>
+    </header>
+
+    <div class="backimg">
+        
+    </div>
+    <div class="login-container">
+        <div class="login-box">
+            <!-- 로고 -->
+            <h1 class="login-title">UNION</h1>
+
+            <!-- 로그인 입력 폼 -->
+            <form class="login-form">
+                <div class="group">
+                    <input type="text" class="inputT" id="userId" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>아이디</label>
+                </div>
+                <div class="group" style="margin-bottom:10px;">
+                    <input type="text" class="inputT" id="pwd" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>비밀번호</label>
+                </div>
+
+                <div class="login-options">
+                    <input type="checkbox" class="checkbox" id="check"> 로그인 상태 유지
+                </div>
+                <!-- <button type="submit" class="login-btn login-form-input">로그인</button> -->
+                <button type="button" class="btn" onclick="login()"><span>로그인</span></button>
+            </form>
+
+            <!-- 기타 옵션 -->
+            <div class="login-links">
+                <a href="#">비밀번호 찾기</a>
+                <a href="#">아이디 찾기</a>
+                <a href="#">회원가입</a>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            loop: true,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+        });
+
+        // 검색창 슬라이드 토글
+        var searchButton = document.querySelector('.search-button');
+        var searchInput = document.getElementById('search-input');
+
+        searchButton.addEventListener('click', function() {
+            if (searchInput.classList.contains('active')) {
+                searchInput.classList.remove('active');
+            } else {
+                searchInput.classList.add('active');
+                searchInput.focus();
+            }
+        });
+
+        // 사이드바 열기
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "250px";
+        }
+
+        // 사이드바 닫기
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+        }
+    </script>
+
+    <script src="../assets/lib/jquery-3.7.1.min.js"></script>
+    <script>
+        /*───────────────────────────────────────────────────────────────────────────────────────────*/
+        /*로그인버튼*/
+        function login() {
+            let userId = document.getElementById('userId').value;
+            let pwd = document.getElementById('pwd').value;
+            let check = document.getElementsByName('check')
+
+
+            let data1 = {
+                'userId': userId,
+                'pwd': pwd
+            };
+
+
+            $.ajax({
+                url: 'http://localhost:3000/login',
+                type: 'get',
+                data: data1,
+                dataType: 'json',
+                success: function (res) {
+                    if (res.status === 200) {
+                        // 서버에서 받은 name 값을 alert로 출력
+                        alert(res.name + '님 환영합니다!');
+
+                        // 체크박스 상태 확인
+                        const rememberMe = document.getElementById('check').checked;
+
+                        if (rememberMe) {
+                            // 로그인 정보를 localStorage에 저장  쿠키 지워야됨
+                            // 일단 지금은 sessionStorage으로 저장해서 테스트
+                            //localStorage.setItem('loggedInUser', userId);
+                            sessionStorage.setItem('loggedInUser', userId);
+                        } else {
+                            // 로그인 정보를 sessionStorage에 저장
+                            sessionStorage.setItem('loggedInUser', userId);
+                        }
+
+                        // 로그인 성공 후 입력 필드를 초기화
+                        document.getElementById('userId').value = '';
+                        document.getElementById('pwd').value = '';
+                    } else {
+                        alert('로그인 실패!');
+                    }
+                },
+                error: function () {
+                    alert('서버 통신 오류');
+                }
+            });
+        }
+        /*───────────────────────────────────────────────────────────────────────────────────────────*/
+        window.onload = function () {
+            const userId = localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser');
+
+            if (userId) {
+                //페이지 바로 다음페이지로 넘어가는 부분
+                //일단 메인페이지로 테스트
+                //location.href = 'main.html';
+            }
+        }
+    </script>
+</body>
+
+</html>
