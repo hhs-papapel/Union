@@ -15,22 +15,16 @@
         <div class="nav-container">
             <div class="hamburger" onclick="openNav()">☰</div> <!-- 햄버거 아이콘 -->
             <div class="nav-right">
-                <!-- <div class="search-form">
+                <div class="search-form">
                     <form>
                         <input type="text" id="search-input" class="search-input" placeholder="검색어를 입력하세요">
                         <button class="search-button" type="button"><i class="fas fa-search"></i></button>
-                        <input type="text">
-                        <button></button>
-
                     </form>
-                </div> -->
-                <!-- <a href="#"><img src="../assets/images/찜.png" alt="hart"></a>
-                <a href="#"><img src="../assets/images/장바구니.png" alt="Cart"></a> -->
+                </div>
+                <a href="#"><img src="../assets/images/찜.png" alt="hart"></a>
+                <a href="#"><img src="../assets/images/장바구니.png" alt="Cart"></a>
                 <a href="#"><img src="../assets/images/로그인.png" alt="Login"></a>
             </div>
-        </div>
-        <div class="nav-container">
-            <div class="logo">UNION</div>
         </div>
     </header>
 
@@ -45,10 +39,10 @@
 
     <!-- 메인 컨텐츠 -->
     <div class="main-content">
-        <div class="slide-container">
-            <div class="banner1">banner1</div>
-            <div class="wave-container">
-                <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        
+        <!-- 메인 배너 슬라이더 -->
+        <div class="swiper-containers">
+            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                 viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
                 <defs>
                     <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
@@ -60,44 +54,59 @@
                     <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
                 </g>
             </svg>
-        </div>
-    </div>
-    
-    
-    <!-- 메인 배너 슬라이더 -->
-    <!-- <div class="swiper-container">
-        <div class="swiper-wrapper">
+        <div class="swiper-container2 swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="../assets/images/hogwarts.jpg" alt="배너3">
+                </div>
                 <div class="swiper-slide">
                     <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="배너1">
-                    <div class="banner-text">
-                        <h2>Far Cry 6</h2>
-                        <p>혁명군이 되어 세상을 지배하는 독재자와 맞서 싸우세요.</p>
-                    </div>
                 </div>
                 <div class="swiper-slide">
-                    <img src="banner2.jpg" alt="배너2">
-                    <div class="banner-text">
-                        <h2>게임 타이틀 2</h2>
-                        <p>이 게임은 놀라운 액션을 자랑합니다.</p>
-                    </div>
+                    <img src="../assets/images/shogun_Showdown.jpg" alt="배너2">
                 </div>
-            </div> -->
-            <!-- 네비게이션 화살표 -->
-            <!-- <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
-        </div> -->
-
-        <!-- 특별할인 -->
-
-        <div class="bigsale-container">
-            <div class="sale-container">
-                <p>특별할인</p>
-                <div class="sale-items">
-
+                
+            </div>
+        </div>
+        <div class="swiper-container3 swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="../assets/images/shogun_Showdown.jpg" alt="배너2">
+                </div>
+                <div class="swiper-slide">
+                    <img src="../assets/images/hogwarts.jpg" alt="배너3">
+                </div>
+                <div class="swiper-slide">
+                    <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="배너1">
                 </div>
             </div>
         </div>
-
+            <div class="swiper-container swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="배너1">
+                        <div class="banner-text">
+                            <h2>Far Cry 6</h2>
+                            <p>혁명군이 되어 세상을 지배하는 독재자와 맞서 싸우세요.</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="../assets/images/shogun_Showdown.jpg" alt="배너2">
+                        <div class="banner-text">
+                            <h2>게임 타이틀 2</h2>
+                            <p>이 게임은 놀라운 액션을 자랑합니다.</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="../assets/images/hogwarts.jpg" alt="배너3">
+                        <div class="banner-text">
+                            <h2>게임 타이틀 2</h2>
+                            <p>이 게임은 놀라운 액션을 자랑합니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- 하단 카테고리 -->
         <div class="category-container">
@@ -125,8 +134,13 @@
     <!-- Swiper.js 추가 -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
-        var swiper = new Swiper('.swiper-container', {
+        var swiper1 = new Swiper('.swiper', {
             loop: true,
+            breakpoints: {
+            1023: {
+                allowTouchMove: false
+            }
+        },
             navigation: {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
@@ -136,7 +150,6 @@
                 disableOnInteraction: false,
             },
         });
-
         // 검색창 슬라이드 토글
         var searchButton = document.querySelector('.search-button');
         var searchInput = document.getElementById('search-input');

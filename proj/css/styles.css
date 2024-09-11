@@ -124,26 +124,14 @@ header {
 
 
 /* 메인 */
-
-.slide-container{
+.swiper-containers{
     width: 100vw;
     height: 700px;
     background-color: #abff76;
     position: relative;
 }
-.banner1{
-    position: absolute;
-    text-align: center;
-    top: 50%;
-    left: 50%;
-    width: 1000px;
-    margin-top: -200px;
-    margin-left: -500px;
-    height: 490px;
-    border-radius: 20px;
-    background-color: white;
-}
 .wave-container {
+    position: absolute;
     width: 100vw;
     height: 700px;
     display: flex;
@@ -196,11 +184,37 @@ header {
 }
 /* 메인 배너 슬라이더 */
 .swiper-container {
-    width: 100vw;
-    height: 72vh;
-    margin-top: 70px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -200px;
+    margin-left: -350px;
+    width: 700px;
+    height: 400px;
+    overflow: hidden;
 }
-
+.swiper-container2 {
+    position: absolute;
+    opacity: 0.6;
+    top: 50%;
+    left: 50%;
+    margin-top: -150px;
+    margin-left: -700px;
+    width: 600px;
+    height: 300px;
+    overflow: hidden;
+}
+.swiper-container3 {
+    position: absolute;
+    opacity: 0.6;
+    top: 50%;
+    left: 50%;
+    margin-top: -150px;
+    margin-left: 100px;
+    width: 600px;
+    height: 300px;
+    overflow: hidden;
+}
 .swiper-slide img {
     width: 100%;
     height: 100%;
@@ -290,3 +304,5 @@ header {
     color: white;
     border: 1px solid red;
 }
+
+

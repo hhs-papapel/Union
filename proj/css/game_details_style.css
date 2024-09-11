@@ -30,6 +30,7 @@ body {
     left: 50%;
     transform: translateX(-50%); /* 로고를 가로 중앙에 배치 */
 }
+
 .nav-menu ul {
     list-style: none;
     display: flex;
@@ -40,6 +41,7 @@ body {
     color: white;
     text-decoration: none;
 }
+
 .navbar {
     position: fixed;
     top: 0;
@@ -48,7 +50,7 @@ body {
     color: white;
     padding: 10px 0;
     display: flex;
-    justify-content: space-between; /* 양쪽 끝으로 정렬 */
+    justify-content: space-between;
     align-items: center;
     height: 60px;
 }
@@ -73,6 +75,7 @@ body {
     display: flex;
     align-items: center;
     gap: 15px;
+    margin-left: auto; /* 아이콘들을 오른쪽으로 정렬 */
 }
 
 .search-area {
@@ -216,16 +219,20 @@ body {
 }
 
 .buy-options {
-    margin-top: 20px;
+    display: flex; /* 버튼들을 가로로 정렬 */
+    gap: 10px; /* 버튼 간격 추가 */
 }
 
-.buy-btn, .wishlist-btn {
+/* 버튼 스타일 */
+.buy-btn, .wishlist-btn, .cart-btn, .community-btn {
     background-color: #5c7e10;
     color: white;
     border: none;
-    padding: 12px 20px; /* 버튼 크기 확장 */
+    padding: 15px 25px;
     cursor: pointer;
     margin-right: 10px;
+    border-radius: 5px;
+    text-decoration: none; /* 밑줄 제거 */
 }
 
 .wishlist-btn i {
@@ -237,7 +244,7 @@ body {
     background-color: #5c7e10;
     color: white;
     border: none;
-    padding: 12px 20px; /* 버튼 크기 확장 */
+    padding: 12px 20px;
     cursor: pointer;
     margin-left: 10px;
 }
@@ -245,14 +252,15 @@ body {
 .cart-btn i {
     margin-right: 5px;
 }
-/* 커뮤니티 버튼 스타일 */
+
+/* 커뮤니티 버튼 */
 .community-btn {
     background-color: #5c7e10;
     color: white;
-    border: none;
-    padding: 12px 20px; /* 버튼 크기 확장 */
+    padding: 12px 20px;
+    border-radius: 5px;
     cursor: pointer;
-    margin-left: 10px; /* 장바구니 버튼 옆에 위치 */
+    margin-left: 10px;
 }
 
 .community-btn i {
@@ -261,7 +269,7 @@ body {
 
 /* 버튼 hover 효과 */
 .buy-btn:hover, .wishlist-btn:hover, .cart-btn:hover, .community-btn:hover {
-    background-color: #549bbd; /* hover 시 색상 변경 */
+    background-color: #549bbd;
 }
 
 footer {
@@ -269,115 +277,6 @@ footer {
     text-align: center;
     padding: 20px 0;
     margin-top: 20px;
-}
-
-/* 기존 버튼 스타일 */
-.buy-btn, .wishlist-btn, .cart-btn, .community-btn {
-    background-color: #5c7e10;
-    color: white;
-    border: none;
-    padding: 12px 20px; /* 버튼 크기 확장 */
-    cursor: pointer;
-    margin-right: 10px;
-}
-
-/* 커뮤니티 버튼에 아이콘 추가 */
-.community-btn i {
-    margin-right: 5px;
-}
-
-/* 기존 메뉴바 스타일 수정 */
-.navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: #333;
-    color: white;
-    padding: 10px 0;
-    display: flex;
-    justify-content: space-between; /* 양쪽 끝으로 정렬 */
-    align-items: center;
-    height: 60px; /* 메뉴바 높이 설정 */
-}
-
-.nav-container {
-    display: flex;
-    justify-content: space-between; /* 양쪽 끝으로 정렬 */
-    align-items: center;
-    width: 100%;
-    padding: 0 20px; /* 좌우 여백 추가 */
-}
-
-.nav-right {
-    display: flex;
-    align-items: center;
-    margin-left: auto; /* 오른쪽 끝으로 밀어내기 */
-    gap: 15px;
-}
-
-.search-input {
-    width: 0;
-    padding: 5px;
-    border-radius: 5px;
-    border: none;
-    outline: none;
-    background-color: #333;
-    color: white;
-    visibility: hidden;
-    opacity: 0;
-    transition: width 0.4s ease, visibility 0.4s, opacity 0.4s;
-}
-
-.search-input.active {
-    width: 200px;
-    visibility: visible;
-    opacity: 1;
-}
-
-.search-icon {
-    cursor: pointer;
-    color: white;
-}
-
-.nav-icon {
-    width: 20px;  /* 아이콘 크기를 줄여서 적절한 크기로 조정 */
-    cursor: pointer;
-}
-
-
-/* 사이드바 스타일 */
-.sidebar {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1000;
-    top: 0;
-    left: 0;
-    background-color: #111;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
-}
-
-.sidebar a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-}
-
-.sidebar a:hover {
-    color: #f1f1f1;
-}
-
-.sidebar .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    cursor: pointer;
 }
 
 /* 리뷰 작성 섹션 */

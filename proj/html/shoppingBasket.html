@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>나의 장바구니</title>
+    <link rel="stylesheet" href="../css/styles.css">
     <style>
         * {
             margin: 0;
@@ -14,14 +15,14 @@
 
         body {
             font-family: Arial, sans-serif;
-            background-color: #1c1c1e;
-            color: white;
-            padding: 20px;
+            background-color: #ffffff;
+            color: rgb(0, 0, 0);
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            margin-top: 130px;
         }
 
         h1 {
@@ -41,7 +42,7 @@
 
         .cart-item {
             display: flex;
-            background-color: #2c2c2e;
+            background-color: #c4c4c4dd;
             border-radius: 10px;
             margin-bottom: 20px;
             padding: 15px;
@@ -90,11 +91,11 @@
             border: 2px solid #333;
             border-radius: 10px;
             padding: 5px;
-            color: white;
+            color: rgb(0, 0, 0);
         }
 
         .cart-item-info .grac:hover {
-            border: 2px solid white;
+            border: 2px solid rgb(145, 255, 67);
         }
 
         .cart-item-info .grac img {
@@ -153,7 +154,7 @@
         /* 오른쪽 섹션 (결제 정보) */
         .cart-summary {
             width: 30%;
-            background-color: #2c2c2e;
+            background-color: #ffffff;
             border-radius: 10px;
             padding: 20px;
             height: fit-content;
@@ -173,21 +174,113 @@
         .cart-summary button {
             width: 100%;
             padding: 15px;
-            background-color: #007bff;
+            background-color: #000000;
             border: none;
             border-radius: 10px;
             color: white;
+            font-weight: bold;
             font-size: 16px;
             cursor: pointer;
         }
 
-        .cart-summary button:hover {
-            background-color: #0056b3;
-        }
+        /* -------------------------------- */
+
+.button_container {
+position: absolute;
+left: 0;
+right: 0;
+top: 30%;
+}
+
+.description, .link {
+font-family: 'Amatic SC', cursive;
+text-align: center;
+}
+
+.description {
+font-size: 35px;
+}
+
+.btn {
+border: none;
+display: block;
+text-align: center;
+cursor: pointer;
+text-transform: uppercase;
+outline: none;
+overflow: hidden;
+position: relative;
+color: #fff;
+font-weight: 700;
+font-size: 15px;
+background-color: #000000;
+padding: 13px 126px;
+margin: 0 auto;
+transition: color .5s ease-in-out;
+}
+
+.btn span {
+position: relative; 
+z-index: 1;
+}
+
+.btn:after {
+content: "";
+position: absolute;
+left: 0;
+top: 0;
+height: 490%;
+width: 140%;
+background: #abff76;
+-webkit-transition: all .5s ease-in-out;
+transition: all .5s ease-in-out;
+-webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
+transform: translateX(-98%) translateY(-25%) rotate(45deg);
+}
+
+.btn:hover:after {
+-webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
+transform: translateX(-9%) translateY(-25%) rotate(45deg);
+}
+
+.btn:hover {
+color: #000000;
+}
+
     </style>
 </head>
 
 <body>
+    <header>
+        <div class="nav-container">
+            <div class="hamburger" onclick="openNav()">☰</div> <!-- 햄버거 아이콘 -->
+            <div class="nav-right">
+                <!-- <div class="search-form">
+                    <form>
+                        <input type="text" id="search-input" class="search-input" placeholder="검색어를 입력하세요">
+                        <button class="search-button" type="button"><i class="fas fa-search"></i></button>
+                        <input type="text">
+                        <button></button>
+
+                    </form>
+                </div> -->
+                <!-- <a href="#"><img src="../assets/images/찜.png" alt="hart"></a>
+                <a href="#"><img src="../assets/images/장바구니.png" alt="Cart"></a> -->
+                <a href="#"><img src="../assets/images/로그인.png" alt="Login"></a>
+            </div>
+        </div>
+        <div class="nav-container">
+            <div class="logo">UNION</div>
+        </div>
+        <!-- 사이드바 -->
+        <div id="mySidebar" class="sidebar">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a> <!-- 닫기 버튼 -->
+            <a href="#">홈</a>
+            <a href="#">소개</a>
+            <a href="#">서비스</a>
+            <a href="#">연락처</a>
+        </div>
+    </header>
 
     <div class="container">
         <h1>나의 장바구니</h1>
