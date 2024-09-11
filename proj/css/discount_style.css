@@ -1,0 +1,78 @@
+/* 기본 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #222;
+    color: #fff;
+}
+
+/* 메뉴바 */
+.navbar {
+    background-color: #333;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+/* 게임 리스트 컨테이너 */
+.game-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+/* 게임 카드 스타일 */
+.game-card {
+    background-color: #333;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 200px;
+    margin: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.game-card img {
+    width: 100%;
+    height: auto;
+}
+
+.game-card .game-info {
+    padding: 10px;
+}
+
+.game-card .game-info h3 {
+    margin: 10px 0;
+}
+
+.game-card .game-info .price {
+    text-decoration: line-through;
+    color: #aaa;
+}
+
+.game-card .game-info .discount-price {
+    color: #4caf50;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.game-card .game-info .discount {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 2px 6px;
+    border-radius: 5px;
+    font-size: 0.8em;
+}
