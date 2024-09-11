@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>추천 게임</title>
+    <!-- Font Awesome 및 스타일시트 추가 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/suggestion.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header>
+        <div class="nav-container">
+            <!-- 햄버거 아이콘 -->
+            <div class="hamburger-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+            <div class="logo">
+                <img src="logo.png" alt="Logo">
+            </div>
+            <!-- <nav>
+                <a href="#">스토어</a>
+                <a href="#">고객지원</a>
+                <a href="#">라이브러리</a>
+            </nav> -->
+            <div class="nav-right">
+                <div class="search-area">
+                    <input type="text" class="search-input" placeholder="검색어를 입력하세요">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <i class="fas fa-shopping-cart"></i>
+                <i class="fas fa-user"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- 사이드바 -->
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn">&times;</a>
+        <a href="#">스토어</a>
+        <a href="#">고객지원</a>
+        <a href="#">라이브러리</a>
+    </div>
+
+    <!-- 필터 영역 -->
+    <section class="filter-section">
+        <div class="filter-container">
+            <select>
+                <option value="recent">최근순</option>
+                <option value="popular">인기순</option>
+            </select>
+            <div class="category-icons">
+                <i class="fas fa-th-large"></i>
+                <i class="fas fa-fist-raised"></i>
+                <i class="fas fa-dice"></i>
+                <i class="fas fa-football-ball"></i>
+                <i class="fas fa-basketball-ball"></i>
+                <i class="fas fa-gamepad"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- 게임 목록 영역 -->
+    <section class="game-list-section">
+        <div class="game-list">
+            <!-- 게임 카드 -->
+            <div class="game-card">
+                <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="APEX">
+                <h3>DAVE THE DIVER</h3>
+                <p>무료</p>
+            </div>
+            <div class="game-card">
+                <img src="pubg.jpg" alt="BATTLEGROUNDS">
+                <h3>BATTLEGROUNDS</h3>
+                <p>무료</p>
+            </div>
+            <div class="game-card">
+                <img src="borderlands.jpg" alt="Borderlands2">
+                <h3>Borderlands2</h3>
+                <p><span class="sale">50%</span> ₩10,500</p>
+            </div>
+            <div class="game-card">
+                <img src="farcry.jpg" alt="FARCRY6">
+                <h3>FARCRY6</h3>
+                <p><span class="sale">30%</span> ₩45,000</p>
+            </div>
+            <div class="game-card">
+                <img src="fifa.jpg" alt="FIFA22">
+                <h3>FIFA22</h3>
+                <p><span class="sale">15%</span> ₩56,000</p>
+            </div>
+            <div class="game-card">
+                <img src="finalfantasy.jpg" alt="FINAL FANTASY VII REMAKE">
+                <h3>FINAL FANTASY VII REMAKE</h3>
+                <p>₩79,800</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 게임 스토어. 모든 권리 보유.</p>
+    </footer>
+
+    <!-- JavaScript for hamburger menu and search -->
+    <script>
+        // 사이드바 열기/닫기
+        document.querySelector('.hamburger-menu').addEventListener('click', function () {
+            document.getElementById('mySidebar').style.width = '250px';
+        });
+
+        document.querySelector('.closebtn').addEventListener('click', function () {
+            document.getElementById('mySidebar').style.width = '0';
+        });
+
+        // 검색창 토글
+        const searchIcon = document.querySelector('.search-icon');
+        const searchInput = document.querySelector('.search-input');
+
+        searchIcon.addEventListener('click', () => {
+            searchInput.classList.toggle('active');
+            searchInput.focus();
+        });
+    </script>
+</body>
+</html>
