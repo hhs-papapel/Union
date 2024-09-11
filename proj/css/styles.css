@@ -263,47 +263,299 @@ header {
     text-align: left;
 }
 
-.sale-items {
-    width: 100%;
-    height: 80%;
-    border: 1px solid rgb(187, 255, 41);
-}
-
-/* 하단 카테고리 */
-.category-container {
+.sale-item {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px 0;
-    background-image: linear-gradient(120deg,#9DDFD3,#FFDADA);
-    height: 20vh;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #f0f5db; /* 배경색 설정 */
+    padding: 10px;
+    border-radius: 8px;
+    width: 300px; /* 아이템의 너비 설정 */
+    margin: 10px;
 }
 
-.category-item {
-    text-align: center;
-    margin: 0 20px;
-}
-
-.category-item a {
-    text-decoration: none; /* 밑줄 제거 */
-    color: inherit; /* 링크 클릭 시 기본 색상 유지 */
-}
-
-
-.category-item img {
-    width: 50px;
+.sale-info {
     margin-bottom: 10px;
 }
 
-.category-item p {
-    color: white;
+.sale-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333; /* 글씨 색상 */
+    margin-bottom: 5px;
+}
+
+.sale-description {
     font-size: 14px;
+    color: #666; /* 설명 글 색상 */
 }
 
-/* Swiper 화살표 커스터마이징 */
-.swiper-button-next, .swiper-button-prev {
+.sale-discount {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #d1e5c1; /* 할인 정보 배경색 */
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.discount-rate {
+    font-size: 24px;
+    font-weight: bold;
+    color: #57a957; /* 할인율 색상 */
+}
+
+.price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #003399; /* 가격 색상 */
+    background-color: #333; /* 가격 배경색 */
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white; /* 텍스트 색상 */
+}
+
+
+
+/* 특별할인 섹션 */
+.bigsale-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    background-color: #f5f5f5;
+    padding: 50px 0;
+}
+
+.sale-container {
+    width: 1000px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.sale-container h2 {
+    color: #333;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.sale-items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3개의 열로 구성 */
+    gap: 20px; /* 카드 간격 */
+}
+
+.sale-item {
+    background-color: #2b3a47;
     color: white;
-    border: 1px solid red;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+}
+
+.sale-item.large {
+    grid-column: span 2; /* 큰 아이템은 2개의 열을 차지 */
+}
+
+.sale-item img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* 할인율과 가격을 포함하는 박스 */
+.price-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #d1e5c1; /* 초록색 배경 */
+    padding: 10px;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+}
+
+.price-info span {
+    font-size: 18px;
+    color: #a1e44d;
+}
+
+/* 할인된 가격 */
+.discounted-price {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #a1e44d; /* 밝은 초록색 */
+}
+.swiper-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+    background-color: #9DDFD3;
+    border-radius: 50%;
+    margin: 0 5px;
+    opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: #FFDADA;
+}
+.special-discount {
+    background-color: #1b2838;
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+    margin: 20px 0;
+}
+
+.discount-slider {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.item {
+    background-color: #2b3a47;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 10px;
+    text-align: center;
+    padding: 10px;
+}
+
+.item.large {
+    width: 48%;
+}
+
+.item.small {
+    width: 24%;
+}
+
+.item img {
+    width: 100%;
+    height: auto;
+}
+
+.item-info {
+    margin-top: 10px;
+}
+
+.price-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.discount-container {
+    padding: 10px;
+    background-color: #f5f4f4;
+    color: rgb(47, 47, 47);
+    border-radius: 10px;
+    margin: 10px auto; /* auto로 중앙 정렬 */
+    width: 80%; /* 너비를 80%로 조정 */
+    max-width: 1000px; /* 최대 너비를 800px로 제한 */
+    height: auto; /* 높이를 내용에 맞춰 자동 조정 */
+}
+
+.discount-grid {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    grid-template-columns: repeat(2, 1fr); /* 3개의 열로 구성 */
+    gap: 20px; /* 카드 간격 */
+}
+.grid_in{
+    display: grid;
+}
+/* 할인 정보 전체를 감싸는 박스 */
+.discount-item {
+    background-color: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    padding: 10px;
+    width: 400px; /* 화면 너비의 30%로 설정 */
+    height: auto; /* 높이를 내용에 맞춰 자동 조정 */
+    margin-bottom: 20px; /* 하단에 여백 추가 */
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+}
+
+/* 긴 박스 스타일 */
+.discount-item.large {
+    width: 500px; /* 긴 박스 너비 */
+    height: 380px; /* 긴 박스 높이 */
+    margin-bottom: 20px;
+}
+/* 작은 박스 스타일 */
+.discount-item.small {
+    width: 500px;
+    height: 380px; 
+    margin-bottom: auto;
+
+}
+/* 이미지와 박스 사이 여백 */
+.discount-item img {
+    width: 100%;
+    height: 200px; /* 원하는 높이로 조정 */
+    object-fit: cover; /* 이미지를 꽉 차게 만듦 */
+    border-radius: 10px;
 }
 
 
+/* 할인 텍스트와 정보 전체 박스 */
+.discount-info {
+    background-color: #e0f5cc; /* 초록색 배경 */
+    padding: 10px;
+    border-radius: 8px; /* 모서리 둥글게 */
+    margin-top: auto; /* 초록색 박스를 하단으로 밀기 */
+}
+
+/* 할인율과 가격을 포함하는 박스 */
+.price-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #34802f; /* 할인율과 가격 배경을 초록색으로 설정 */
+    padding: 5px;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    max-width: 250px; /* 너비를 조정 */
+    font-size: 16px;
+}
+
+/* 할인율 스타일 */
+.discount {
+    font-size: 2em; /* 할인율 크기 */
+    font-weight: bold;
+    color: #c1ff1a; /* 밝은 초록색 텍스트 */
+    background-color: transparent; /* 배경 없음 */
+    padding: 5px;
+    border-radius: 5px 0 0 5px;
+    width: 80px;
+    text-align: center;
+}
+
+/* 원래 가격 (취소선 스타일) */
+.original-price {
+    font-size: 1em;
+    color: #a1b5d8;
+    text-decoration: line-through;
+    padding-left: 10px;
+}
+
+/* 가격 스타일 */
+.price {
+    font-size: 1.6em;
+    font-weight: bold;
+    color: #e1ff72; /* 밝은 색상 */
+    background-color: #1b2b48; /* 가격 배경색 */
+    padding: 5px 10px;
+    border-radius: 0 5px 5px 0;
+    text-align: center;
+}
