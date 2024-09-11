@@ -5,6 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>아이디 / 비밀번호 찾기</title>
+    <script>
+        function loadHTML(file)
+        {
+            var rawFile = new XMLHttpRequest();
+            rawFile.open("GET", file, false);
+            rawFile.onreadystatechange = function ()
+            {
+                if(rawFile.readyState === 4)
+                {
+                    if(rawFile.status === 200 || rawFile.status == 0)
+                    {
+                        var allText = rawFile.responseText;
+                        document.write(allText);
+                    }
+                }
+            }
+            rawFile.send(null);
+        }
+    </script>
     <style>
         * {
             margin: 0;
@@ -83,7 +102,9 @@
 </head>
 
 <body>
-
+    <header>
+        <script>loadHTML("./header.html")</script>
+    </header>
     <div class="find-container">
         <div class="find-header">
             <button id="idFindTab" class="active">아이디 찾기</button>
