@@ -12,23 +12,23 @@
     <!-- 헤더 영역 -->
     <header class="navbar">
         <div class="nav-container">
-        <!-- 햄버거 아이콘 -->
-        <div class="hamburger-menu" onclick="openNav()">
-            <i class="fas fa-bars"></i>
-        </div>
-        <div class="logo">
-            <img src="logo.png" alt="Logo">
-        </div>
-        <div class="nav-right"> <!-- 오른쪽으로 밀려서 정렬됨 -->
-            <div class="search-area">
-                <input type="text" class="search-input" placeholder="검색어를 입력하세요">
-                <i class="fas fa-search search-icon"></i>
+            <!-- 햄버거 아이콘 -->
+            <div class="hamburger-menu" onclick="openNav()">
+                <i class="fas fa-bars"></i>
             </div>
-            <a href="wish_list.html"><img src="../assets/images/찜.png" alt="hart" class="nav-icon"></a>
-            <a href="#"><img src="../assets/images/장바구니.png" alt="Cart" class="nav-icon"></a>
-            <a href="#"><img src="../assets/images/로그인.png" alt="Login" class="nav-icon"></a>
+            <div class="logo">
+                <img src="logo.png" alt="Logo">
+            </div>
+            <div class="nav-right"> <!-- 오른쪽으로 밀려서 정렬됨 -->
+                <div class="search-area">
+                    <input type="text" class="search-input" placeholder="검색어를 입력하세요">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <a href="wish_list.html"><img src="../assets/images/찜.png" alt="hart" class="nav-icon"></a>
+                <a href="#"><img src="../assets/images/장바구니.png" alt="Cart" class="nav-icon"></a>
+                <a href="#"><img src="../assets/images/로그인.png" alt="Login" class="nav-icon"></a>
+            </div>
         </div>
-    </div>
     </header>
 
     <!-- 사이드바 -->
@@ -59,9 +59,9 @@
                         <img src="../assets/images/shogun_Showdown4.jpg" alt="스크린샷 3" onclick="showImage('../assets/images/shogun_Showdown4.jpg')">
                     </div>
 
-                    <!-- 구매, 찜, 장바구니 버튼 -->
+                    <!-- 구매, 찜, 장바구니, 커뮤니티 버튼 -->
                     <div class="buy-options">
-                        <button class="buy-btn">구매하기 ₩19,800</button>
+                        <a href="payment.html" class="buy-btn">구매하기 ₩19,800</a>
                         <button class="wishlist-btn"><i class="fas fa-heart"></i> 찜</button>
                         <button class="cart-btn"><i class="fas fa-shopping-cart"></i> 장바구니</button>
                         <button class="community-btn"><i class="fas fa-users"></i> 커뮤니티</button>
