@@ -5,24 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>라이브러리</title>
     <link rel="stylesheet" href="../css/library.css">
-    
+    <script>
+        function loadHTML(file)
+        {
+            var rawFile = new XMLHttpRequest();
+            rawFile.open("GET", file, false);
+            rawFile.onreadystatechange = function ()
+            {
+                if(rawFile.readyState === 4)
+                {
+                    if(rawFile.status === 200 || rawFile.status == 0)
+                    {
+                        var allText = rawFile.responseText;
+                        document.write(allText);
+                    }
+                }
+            }
+            rawFile.send(null);
+        }
+    </script>
 </head>
 <body>
 
     <!-- 상단 네비게이션 -->
-    <header class="navbar">
-        <div class="logo">
-            <img src="logo.png" alt="로고">
-        </div>
-        <nav class="nav-menu">
-            <a href="#">상점</a>
-            <a href="#">고객 지원</a>
-            <a href="#">라이브러리</a>
-            <a href="#">커뮤니티</a>
-        </nav>
-        <div class="search-bar">
-            <input type="text" placeholder="게임 검색">
-        </div>
+    <header>
+        <script>loadHTML("./header.html")</script>
     </header>
 
     <!-- 메인 컨텐츠 -->

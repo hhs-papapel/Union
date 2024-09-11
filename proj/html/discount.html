@@ -7,12 +7,31 @@
     
     <!-- CSS 파일 링크 -->
     <link rel="stylesheet" href="../css/discount_style.css">
+    <script>
+        function loadHTML(file)
+        {
+            var rawFile = new XMLHttpRequest();
+            rawFile.open("GET", file, false);
+            rawFile.onreadystatechange = function ()
+            {
+                if(rawFile.readyState === 4)
+                {
+                    if(rawFile.status === 200 || rawFile.status == 0)
+                    {
+                        var allText = rawFile.responseText;
+                        document.write(allText);
+                    }
+                }
+            }
+            rawFile.send(null);
+        }
+    </script>
 </head>
 <body>
 
     <!-- 메뉴바 -->
-    <header class="navbar">
-
+    <header>
+        <script>loadHTML("./header.html")</script>
     </header>
 
     <!-- 게임 리스트 컨테이너 -->

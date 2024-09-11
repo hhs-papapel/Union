@@ -3,124 +3,16 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    /* font-family: Arial, sans-serif; */
 }
 
-body {
-    background-color: #1b2838;
-    color: white;
-}
-
-/* 상단 네비게이션 */
-header {
-    background-color: #222;
-    padding: 15px 0;
-    position: fixed;
-    width: 100%;
-    z-index: 100;
-    top: 0;
-}
-
-.nav-container {
-    display: flex;
-    justify-content: space-between;  /* 양쪽 끝으로 정렬 */
-    align-items: center;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* 햄버거 아이콘을 왼쪽에 고정 */
-.hamburger {
-    font-size: 30px;
-    color: white;
-    cursor: pointer;
-}
-
-/* 오른쪽 메뉴를 오른쪽 끝으로 밀기 위한 조정 */
-.nav-right {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 15px;  /* 아이콘 간의 간격 */
-}
-
-.nav-right a img {
-    width: 25px;
-}
-
-/* 검색창 */
-.search-form {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.search-form input {
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 20px;
-    border: 1px solid #ccc;
-    transition: width 0.5s ease;
-    width: 0;
-    opacity: 0;
-    visibility: hidden;
-}
-
-.search-form input.active {
-    width: 200px;
-    opacity: 1;
-    visibility: visible;
-}
-
-.search-button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 20px;
-    color: white;
-    margin-left: 10px;
-}
-
-/* 사이드바 */
-.sidebar {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1000;
-    top: 0;
-    left: 0;
-    background-color: #111;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
-}
-
-.sidebar a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-}
-
-.sidebar a:hover {
-    color: #f1f1f1;
-}
-
-.sidebar .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-}
 
 /* 메인 컨텐츠 */
 .main-container {
     display: flex;
     justify-content: center;
     padding: 20px;
-    margin-top: 100px;
+    margin-top: 140px;
 }
 
 .wishlist-section {
@@ -150,7 +42,7 @@ header {
 
 .wishlist-search button {
     padding: 10px 15px;
-    background-color: #66c0f4;
+    background-color: #363636;
     color: white;
     border: none;
     border-radius: 5px;
@@ -166,7 +58,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #2a475e;
+    background: linear-gradient(#abff76, #adf4a900);
     padding: 15px;
     margin-bottom: 15px;
     border-radius: 5px;
@@ -210,7 +102,7 @@ header {
 
 .add-to-cart,
 .remove-from-wishlist {
-    background-color: #66c0f4;
+    background-color: #363636;
     border: none;
     padding: 10px 15px;
     border-radius: 5px;

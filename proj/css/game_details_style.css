@@ -6,10 +6,7 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    margin-top: 60px; /* 메뉴바 높이에 맞춰 여백을 줄임 */
-    background-color: #1b2838;
-    color: white;
+    margin-top: 110px; /* 메뉴바 높이에 맞춰 여백을 줄임 */
 }
 
 .container {
