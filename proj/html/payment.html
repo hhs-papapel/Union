@@ -29,52 +29,67 @@
     <header>
         <script>loadHTML("./header.html")</script>
     </header>
-    <!-- 결제 정보 상단 -->
-    <header class="payment-header">
-        <h2>결제 정보</h2>
-        <!-- <button class="confirm-button">확인 + 구매</button> -->
-    </header>
+    <section class="payment-top">
+        <div class="containers">
+            <div class="payment-head">
+                결제정보 > 확인+구매
+            </div>
+        </div>
+    </section>
 
     <!-- 결제 항목 리스트 -->
     <section class="payment-details">
-        <div class="item">
-            <img src="https://via.placeholder.com/100x100?text=Nine+Sols" alt="Nine Sols">
-            <div class="item-info">
-                <p class="item-name">Nine Sols</p>
-                <p class="item-price">₩ 32,000</p>
+        <div class="containers">
+            
+            <div class="container">
+                <div>
+                    <div class="cart-item">
+                        <img src="https://via.placeholder.com/80x50" alt="Potion Craft">
+                        <div class="item-details">
+                            <div>Potion Craft</div>
+                            <div>₩8,600</div>
+                        </div>
+                    </div>
+            
+                    <div class="cart-item">
+                        <img src="https://via.placeholder.com/80x50" alt="Muse Plus">
+                        <div class="item-details">
+                            <div>Muse Plus</div>
+                            <div>₩42,000</div>
+                        </div>
+                    </div>
+                    
+                </div>
+        
+                <div class="total">
+                    <p>소계: ₩50,600</p>
+                    <p>합계: ₩50,600 (모든 가격은 VAT 포함)</p>
+                </div>
+        
+                <div class="point-box">
+                    <span>이 구매로 UNION 포인트를 획득하세요</span>
+                    <span>3,768 포인트</span>
+                </div>
+        
+                <div class="payment-method">
+                    <span>결제 수단: 신용카드(한국 국내)</span>
+                    <span>UNION 계정: user01</span>
+                </div>
+        
+                <div class="terms">
+                    <span>UNION 이용 약관에 동의합니다. 마지막 업데이트: 2023년 4월 26일.</span>
+                    <span>거래를 시작하기 위한 새로운 웹 브라우저를 열기 위해 아래에 있는 버튼을 클릭하세요.</span>
+                </div>
+        
+                <a href="#" class="confirm-btn">결제</a>
             </div>
-        </div>
-        <div class="item">
-            <img src="https://via.placeholder.com/100x100?text=Persona+3" alt="Persona 3">
-            <div class="item-info">
-                <p class="item-name">페르소나3 리로드</p>
-                <p class="item-price">₩ 79,800</p>
+            <div class="container2">
+                <p>UNION에서 구매</p>
+                <p>이 거래를 완료하면 사용한 결제 수단으로 금액이 차감되며 구매가 완료됩니다.</p>
             </div>
-        </div>
-        <div class="total-price">
-            <p>합계:</p>
-            <p>₩ 111,800</p>
         </div>
     </section>
 
-    <!-- 포인트 및 결제 수단 -->
-    <section class="payment-summary">
-        <div class="steam-points">
-            <p>이 구매로 Steam 포인트를 획득하세요</p>
-            <p class="points">8,163</p>
-        </div>
-        <div class="payment-method">
-            <p>결제 수단:</p>
-            <p class="method">어떤걸로 결제.? (결제)</p>
-            <p>Steam 계정: 계정주 이름</p>
-        </div>
-    </section>
-
-    <!-- 이용 약관 -->
-    <section class="terms">
-        <p>Steam <a href="#">이용 약관</a>에 동의합니다. <br> 거래를 시작하기 위한 새로운 웹 브라우저를 열기 위해 아래에 있는 버튼을 클릭하세요.</p>
-        <button class="payment-button">구매</button>
-    </section>
     <footer>
         <script>loadHTML("./footer.html")</script>
     </footer>
