@@ -33,17 +33,19 @@
         <script>loadHTML("./header.html")</script>
     </header>
 
-    <!-- 사이드바 -->
-    <div id="mySidebar" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a> <!-- 사이드바 닫기 버튼 -->
-        <a href="#">홈</a>
-        <a href="#">소개</a>
-        <a href="#">서비스</a>
-        <a href="#">연락처</a>
-    </div>
-
     <!-- 메인 콘텐츠 -->
     <main>
+        <section class="top-game-detail">
+            <div class="container">
+                <div class="game-title-left">
+                    <p>Shogun Showdown</p>
+                </div>
+                <div class="game-title-right">
+                    <button class="wishlist-btn">커뮤니티</button>
+                </div>
+            </div>
+        </section>
+
         <section class="game-detail">
             <div class="container">
                 <!-- 왼쪽 게임 이미지 및 비디오 -->
@@ -59,38 +61,101 @@
                         <img src="../assets/images/shogun_Showdown.jpg" alt="스크린샷 1" onclick="showImage('../assets/images/shogun_Showdown.jpg')">
                         <img src="../assets/images/shogun_Showdown3.jpg" alt="스크린샷 2" onclick="showImage('../assets/images/shogun_Showdown3.jpg')">
                         <img src="../assets/images/shogun_Showdown4.jpg" alt="스크린샷 3" onclick="showImage('../assets/images/shogun_Showdown4.jpg')">
+                        <img src="../assets/images/shogun_Showdown4.jpg" alt="스크린샷 3" onclick="showImage('../assets/images/shogun_Showdown4.jpg')">
                     </div>
 
                     <!-- 구매, 찜, 장바구니, 커뮤니티 버튼 -->
                     <div class="buy-options">
-                        <a href="payment.html" class="buy-btn">구매하기 ₩19,800</a>
                         <button class="wishlist-btn"><i class="fas fa-heart"></i> 찜</button>
-                        <button class="cart-btn"><i class="fas fa-shopping-cart"></i> 장바구니</button>
-                        <button class="community-btn"><i class="fas fa-users"></i> 커뮤니티</button>
                     </div>
                 </div>
 
                 <!-- 오른쪽 게임 정보 -->
                 <div class="game-info">
-                    <h1>Shogun Showdown</h1>
-                    <p>Shogun Showdown은 로그라이크 및 턴 기반 전투가 특징인 게임입니다. 전략적인 전투와 타일을 업그레이드하고 적들과 싸우세요!</p>
+                    <img src="../assets/images/shogun_Showdown.jpg" alt="스크린샷 1" onclick="showImage('../assets/images/shogun_Showdown.jpg')">
+                    <p>Shogun Showdown은 로그라이크 및 덱 구성 요소가 포함된 턴 기반 전투 게임입니다. 위치를 선정하고 적절한 시점에 적을 공격하고, 타일을 업그레이드하고 콤보 공격을 하며 쇼군을 상대할 준비를 하세요!</p>
                     <ul>
                         <li>출시일: 2024년 9월 6일</li>
                         <li>개발사: Robotaino</li>
                         <li>배급사: Goblinz Publishing</li>
-                        <li>장르: 턴제 RPG, 로그라이크, 2D</li>
                     </ul>
+                    <p>제품의 인기 태그:</p>
                     <div class="tags">
                         <span>턴제 RPG</span>
                         <span>로그라이크</span>
                         <span>전략</span>
                         <span>2D</span>
                     </div>
-                    <br>
-                    <h2>₩19,800</h2>
                 </div>
             </div>
         </section>
+
+        <!-- 게임 정보 섹션 -->
+        <section class="game-info2">
+            <div class="container">
+                <div class="info2-left">
+
+                    <!-- 할인버전 -->
+                    <div class="game-buy">
+                        <p>Shogun Showdown 구매</p>
+                        <div class="basket">
+                            <div>
+                                <div class="cart-item-price">
+                                    <div class="sale">
+                                        -10%
+                                    </div>
+                                    <div>
+                                        <p class="sale-price"><del>₩16,500</del></p>
+                                        <p>₩14,850</p>
+                                    </div>
+                                </div>
+                                <button>장바구니에 추가</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 할인x -->
+                    <div class="game-buy">
+                        <p>Shogun Showdown 구매</p>
+                        <div class="basket">
+                            <div>
+                                <div class="cart-item-price">
+                                    <p>₩14,850</p>
+                                </div>
+                                <button>장바구니에 추가</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="info-text">
+                        <div>게임정보</div>
+                        <div></div>
+                        <pre>
+모든 행동이 중요한 턴 기반 전투. 신중하게 위치를 선정하고, 공격을 계획하고, 적절한 순간에 적을 공격하세요!
+
+공격 타일을 업그레이드하여 콤보를 기록하세요!
+새로운 기술을 얻고 최고의 덱을 구축한 후 쇼군을 직접 상대하세요.
+
+로그라이크: 죽음은 끝이 아니라 게임을 정복하기 위한 새로운 여정의 시작일 뿐입니다. 게임을 플레이하면서 새로운 캐릭터와 공격, 기술 등을 잠금 해제하세요!
+픽셀 아트 그래픽으로 완성된 일본풍 배경에 흠뻑 빠져 보세요.
+                        </pre>
+                    </div>
+                </div>
+                <div class="info2-right">
+                    <div class="quest-list">
+
+                    </div>
+                    <div class="language-table">
+
+                    </div>
+                    <div class="button-option">
+                        <button class="wishlist-btn">공유하기</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
 
         <!-- 리뷰 작성 섹션 -->
         <section class="review-section">
