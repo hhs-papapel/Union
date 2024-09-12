@@ -6,8 +6,9 @@
 }
 
 body {
-    background-color: #1b2838;
+    background: linear-gradient(to right, #ccd5b1, #78ffd6); /* 전체 배경에 그라데이션 적용 */
     color: white;
+    margin-top: 110px;
 }
 
 .search-bar-container .search-input {
@@ -40,14 +41,15 @@ body {
 /* 전체 컨테이너를 Flexbox로 설정하여 가로로 정렬 */
 .main-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+    align-items: flex-start;
     padding: 20px;
+    gap: 20px; /* 리스트와 게임 목록 사이에 간격 추가 */
+    width: 100%;
 }
-
-/* 게임 리스트 스타일 */
 /* 게임 리스트 스타일 */
 .game-list {
-    width: 25%;
+    width: 20%; /* 리스트 폭을 크게 설정 */
     background-color: #2a475e;
     padding: 20px;
     border-right: 1px solid #66c0f4;
@@ -81,46 +83,85 @@ body {
     gap: 20px; /* 섹션 사이의 간격 */
 }
 
+
+
+/* 게임 세부 정보 스타일 수정 */
+/* 게임 세부 정보 섹션 스타일 */
 .game-details {
-    width: 75%;
-    padding: 20px;
-    display: none;
+    width: 75%;  /* 나머지 75%를 상세 페이지가 차지 */
+    height: 100%;  /* 전체 높이를 차지 */
+    background-color: rgba(42, 71, 94, 0.95);  /* 반투명 배경 */
+    padding: 40px;
+    border-radius: 0;  /* 둥근 모서리를 없앰 */
+    box-shadow: none;  /* 그림자 제거 */
+    overflow-y: auto;  /* 상세 페이지도 스크롤 가능하게 */
 }
-
-.game-header {
-    text-align: center;
-}
-
-/* 게임 배너 이미지 크기 조정 */
+/* 게임 헤더 스타일 */
 .game-header img {
     width: 100%;
-    max-height: 500px;
+    max-height: 400px;  /* 배너 이미지의 최대 높이 */
     object-fit: cover;
+    border-radius: 0;  /* 둥근 모서리를 없앰 */
+}
+
+
+/* 게임 배너 이미지 크기 조정 */
+/* 게임 배너 이미지 스타일 */
+.game-header img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 10px; /* 배너 이미지 모서리 둥글게 */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* 그림자 효과 */
     margin-bottom: 20px;
 }
 
+/* 게임 제목 스타일 */
+.game-header h1 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #66c0f4; /* 게임 제목 색상 */
+}
 h1 {
     text-align: center;
     line-height: 1.8;
 }
 
 .install-btn {
-    padding: 10px 20px;
+    padding: 12px 24px;
     background-color: #66c0f4;
     border: none;
-    border-radius: 5px;
+    border-radius: 25px;
     color: white;
+    font-size: 18px;
+    margin-bottom: 20px;
     cursor: pointer;
+    width: 100%;  /* 버튼이 화면 가로를 꽉 채우게 */
+    text-align: center;  /* 텍스트 중앙 정렬 */
+    transition: background-color 0.3s ease;
+}
+
+.install-btn:hover {
+    background-color: #89d0ff;  /* 마우스 올렸을 때 색상 변화 */
+}
+.tabs {
+    display: flex;
+    justify-content: space-around;  /* 탭 버튼들을 가로로 나란히 배치 */
+    margin: 20px 0;
 }
 
 .tabs button {
-    margin-right: 10px;
     padding: 10px;
     background-color: #3b4f63;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     color: white;
+    font-size: 16px;
     cursor: pointer;
+    width: 100px;  /* 버튼 너비를 동일하게 설정 */
+    text-align: center;
+    transition: background-color 0.3s ease;
 }
 
 .activity {
@@ -152,8 +193,13 @@ h1 {
     width: 48%;
 }
 
-.recent-games-container {
-    margin-top: 0;
+/* 최근 게임 섹션을 Flexbox로 가로 정렬하지 않도록 변경 */
+.recent-games-container, .updates-container {
+    display: flex;
+    flex-direction: row; /* 가로로 나열 */
+    gap: 20px; /* 아이템 사이 간격 */
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
 .friend-activity {
@@ -206,9 +252,10 @@ h1 {
 }
 
 .recent-game img {
-    width: 80px; /* 이미지 크기 조정 */
-    height: auto;
+    width: 100%; /* 이미지 크기 조정 */
+    height: 100%;
     margin-right: 10px; /* 이미지와 텍스트 사이의 간격 */
+    object-fit: cover
 }
 
 .recent-game p {
@@ -337,11 +384,12 @@ h2 {
 /* 업데이트 및 최근 게임 섹션 */
 .updates-container, .recent-games-container {
     display: flex;
-    gap: 20px;
-    margin-top: 10px; /* 제목과 박스 사이 간격 최소화 */
-    flex-wrap: wrap;
-    justify-content: flex-start; /* 두 박스가 왼쪽 정렬되도록 설정 */
-    width: 100%;
+    gap: 10px;
+    margin-right: 300px;
+    margin-top: 10px; /* 제목과 박스 사이 간격 */
+    flex-wrap: nowrap; /* 줄 바꿈을 하지 않도록 설정 */
+    justify-content: flex-start; /* 박스를 왼쪽 정렬 */
+    width: 100%; /* 전체 화면 너비를 사용 */
 }
 
 .update, .recent-game {
@@ -351,23 +399,77 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    width: 48%; /* 한 줄에 두 개씩 배치 */
+    width: calc(33.33% - 10px); /* 한 줄에 3개 배치, 간격 포함 계산 */
+    max-width: 200px; /* 최대 너비 설정 */
+    margin-bottom: 10px; /* 아래쪽 여백 추가 */
 }
 
+
 .update img, .recent-game img {
-    width: 80px;
+    width: 150px;
     height: auto;
     margin-right: 20px;
 }
 
-.update, .recent-game {
-    display: flex;
-    align-items: center;
+.update p, .recent-game p {
+    color: white;
+    margin: 0;
 }
 
 /* 제목 스타일 */
 h2 {
-    margin-bottom: 10px; /* 제목과 박스 사이 간격을 최소화 */
-    color: white;
+    margin-bottom: 10px;
+    color: rgb(9, 9, 9);
     text-align: left;
+}
+
+/* 모든 게임 목록 가로로 배치 */
+#game-list-section {
+    margin-left: 20px; /* 리스트와의 간격 */
+}
+
+#game-list-section h2 {
+    color: white;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.game-grid {
+    display: flex;
+    justify-content: center; /* 게임 타일들을 중앙에 정렬 */
+    gap: 20px; /* 타일 사이의 간격 */
+    flex-wrap: wrap; /* 타일들이 줄 바꿈될 수 있도록 설정 */
+    margin-top: 20px; /* 상단에 여백 추가 */
+    margin-right: 210px;
+}
+
+.game-tile {
+    width: 150px; /* 타일의 너비를 지정 */
+    height: 200px; /* 타일의 높이를 지정 */
+    background-color: #2a475e; /* 배경색을 설정 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* 그림자 효과 추가 */
+    overflow: hidden; /* 이미지가 타일 밖으로 나가지 않도록 설정 */
+    
+}
+
+.game-tile img {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    object-fit: cover
+}
+
+.game-tile p {
+    color: white;
+    text-align: center;
+    margin: 0;
+    font-size: 14px;
+}
+
+.game-tile:hover {
+    transform: scale(1.05);  /* 마우스를 올리면 살짝 확대 */
 }
