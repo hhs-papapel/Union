@@ -54,7 +54,6 @@ app.get('/', (req, res) => {
 
 /*회원가입*/
 app.post('/join',(req, res) => {
-    console.log(req.body);
     let id = req.body.id;
     let paw = req.body.paw;
     let ema = req.body.ema;
@@ -63,7 +62,6 @@ app.post('/join',(req, res) => {
     let regDate = new Date();  // 회원가입 날짜 현재 시간으로 설정
     let profilePic = req.file ? req.file.filename : 'default.png';  // 이미지가 없으면 기본 이미지 설정
 
-    console.log(id, paw, ema, name, phone, profilePic);
 
     connection.query('SELECT * FROM User WHERE username = ? OR email = ?', [id, ema], (err, rows) => {
         if (err) {
@@ -174,11 +172,36 @@ app.post('/findPw', (req, res) => {
         }
     });
 });
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+// 이름 조회
+app.get('/api/user/name', (req, res) => {
+    const userId = req.query.userId;
+
+    const query = `
+        SELECT name FROM User WHERE userId = ?
+    `;
+
+    connection.query(query, [userId], (err, results) => {
+        if (err) {
+            console.error('DB 조회 중 오류 발생:', err);
+            return res.status(500).json({ message: 'DB 조회 중 오류 발생' });
+        }
+
+        if (results.length > 0) {
+            res.json({ name: results[0].name });
+        } else {
+            res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
+        }
+    });
+});
+
 /*───────────────────────────────────────────────────────────────────────────────────────────*/
     /*장바구니 항목 보기*/
 app.get('/api/cart', (req, res) => {
     const userId = req.query.userId;
-    console.log('userId:', userId);  // 로그로 확인
+
 
     const query = `
         SELECT c.cartId, g.gameName, g.price, g.imageUrl, g.gameId
@@ -191,14 +214,54 @@ app.get('/api/cart', (req, res) => {
             console.log('DB Error:', err);  // 에러 로그 추가
             return res.status(500).json({ error: 'DB Error' });
         }
-        console.log('Cart Results:', results);  // 쿼리 결과 확인
         res.json(results);  // 결과를 JSON으로 반환
     });
 });
 
+
 /*───────────────────────────────────────────────────────────────────────────────────────────*/
 
+// 장바구니 추가하기
+app.post('/api/cart/add', (req, res) => {
+    const { userId, gameId } = req.body;
 
+    if (!userId || !gameId) {
+        return res.status(400).json({ success: false, message: 'userId 또는 gameId가 필요합니다.' });
+    }
+
+    // 중복된 항목이 있는지 확인
+    const checkQuery = `
+        SELECT * FROM Cart WHERE userId = ? AND gameId = ?
+    `;
+    connection.query(checkQuery, [userId, gameId], (err, results) => {
+        if (err) {
+            console.error('DB Error:', err);
+            return res.status(500).json({ success: false, message: 'DB 에러 발생' });
+        }
+
+        // 이미 존재하면 추가하지 않음
+        if (results.length > 0) {
+            return res.status(409).json({ success: false, message: '이미 장바구니에 존재하는 게임입니다.' });
+        }
+
+        // 장바구니에 추가
+        const insertQuery = `
+            INSERT INTO Cart (gameId, userId, addedDate)
+            VALUES (?, ?, CURDATE())
+        `;
+        connection.query(insertQuery, [gameId, userId], (err, results) => {
+            if (err) {
+                console.error('DB Error:', err);
+                return res.status(500).json({ success: false, message: 'DB 에러 발생' });
+            }
+
+            res.json({ success: true, message: '장바구니에 추가되었습니다.' });
+        });
+    });
+});
+
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
 
 // 장바구니에서 항목을 삭제하는 것
 app.post('/api/cart/delete', (req, res) => {
@@ -227,12 +290,10 @@ app.post('/api/cart/delete', (req, res) => {
     });
 });
 /*───────────────────────────────────────────────────────────────────────────────────────────*/
-
+/* 구매하기 ( 결제 ) */
 app.post('/api/payment', (req, res) => {
     const { userId, paymentItems } = req.body;
 
-    // 서버에서 받은 데이터를 콘솔에 출력
-    console.log('Received paymentItems:', paymentItems);
     
     const paymentDate = new Date();  // 결제 날짜
 
@@ -242,7 +303,6 @@ app.post('/api/payment', (req, res) => {
         }
 
         const paymentQueries = paymentItems.map(item => {
-            console.log('Processing payment for gameId:', item.gameId);  // gameId 출력
             return new Promise((resolve, reject) => {
                 const query = `
                     INSERT INTO Payment (gameId, userId, amount, paymentDate)
@@ -291,32 +351,128 @@ app.post('/api/payment', (req, res) => {
 });
 
 /*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+
+/* 찜목록 리스트 */
+app.get('/api/wishlist', (req, res) => {
+    const userId = req.query.userId;
+
+    const query = `
+        SELECT w.gameId, g.gameName, g.price, g.imageUrl, g.avgRating, GROUP_CONCAT(c.categoryName) AS genres
+        FROM Wishlist w
+        JOIN Game g ON w.gameId = g.gameId
+        LEFT JOIN GameCategory gc ON g.gameId = gc.gameId
+        LEFT JOIN Category c ON gc.categoryId = c.categoryId
+        WHERE w.userId = ?
+        GROUP BY g.gameId
+    `;
+
+    connection.query(query, [userId], (err, results) => {
+        if (err) {
+            console.error('DB Error:', err);
+            return res.status(500).json({ error: 'DB Error' });
+        }
+        res.json(results);
+    });
+});
+
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
 /* 찜목록 테이블에 추가 하기 */
 app.post('/api/wishlist/add', (req, res) => {
     const { userId, gameId } = req.body;
 
-    // 필요한 값이 없는 경우 에러 반환
     if (!userId || !gameId) {
         return res.status(400).json({ success: false, message: 'userId 또는 gameId가 필요합니다.' });
     }
 
-    // Wishlist 테이블에 데이터 삽입
-    const query = `
-        INSERT INTO Wishlist (gameId, userId, addedDate)
-        VALUES (?, ?, CURDATE())
+    // 중복된 항목이 있는지 확인
+    const checkQuery = `
+        SELECT * FROM Wishlist WHERE userId = ? AND gameId = ?
     `;
-
-    connection.query(query, [gameId, userId], (err, results) => {
+    connection.query(checkQuery, [userId, gameId], (err, results) => {
         if (err) {
-            // 중복 항목 처리
-            if (err.code === 'ER_DUP_ENTRY') {
-                return res.status(409).json({ success: false, message: '이미 찜 목록에 추가되었습니다.' });
-            }
             console.error('DB Error:', err);
             return res.status(500).json({ success: false, message: 'DB 에러 발생' });
         }
 
-        res.json({ success: true, message: '찜 목록에 성공적으로 추가되었습니다.' });
+        // 이미 존재하면 추가하지 않음
+        if (results.length > 0) {
+            return res.status(409).json({ success: false, message: '이미 찜 목록에 존재하는 게임입니다.' });
+        }
+
+        // 찜 목록에 추가
+        const insertQuery = `
+            INSERT INTO Wishlist (gameId, userId, addedDate)
+            VALUES (?, ?, CURDATE())
+        `;
+        connection.query(insertQuery, [gameId, userId], (err, results) => {
+            if (err) {
+                console.error('DB Error:', err);
+                return res.status(500).json({ success: false, message: 'DB 에러 발생' });
+            }
+
+            res.json({ success: true, message: '찜 목록에 추가되었습니다.' });
+        });
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+
+/* 찜목록 삭제하기 */
+app.delete('/api/wishlist/delete', (req, res) => {
+    const { userId, gameId } = req.body;
+
+    const query = `
+        DELETE FROM Wishlist
+        WHERE userId = ? AND gameId = ?
+    `;
+
+    connection.query(query, [userId, gameId], (err, results) => {
+        if (err) {
+            console.error('DB Error:', err);
+            return res.status(500).json({ error: 'DB Error' });
+        }
+        if (results.affectedRows > 0) {
+            res.json({ success: true });
+        } else {
+            res.status(404).json({ success: false, message: '항목을 찾을 수 없습니다.' });
+        }
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+/*찜 목록 검색*/
+app.get('/api/wishlist/search', (req, res) => {
+    const userId = req.query.userId;
+    const searchTerm = req.query.q; // 클라이언트로부터 검색어를 받습니다.
+
+    if (!searchTerm) {
+        return res.status(400).json({ message: '검색어를 입력해주세요' });
+    }
+
+    const query = `
+        SELECT g.gameId, g.gameName, g.avgRating, g.price, g.imageUrl, GROUP_CONCAT(c.categoryName) AS genres, GROUP_CONCAT(t.tagName) AS tags
+        FROM Wishlist w
+        JOIN Game g ON w.gameId = g.gameId
+        LEFT JOIN GameCategory gc ON g.gameId = gc.gameId
+        LEFT JOIN Category c ON gc.categoryId = c.categoryId
+        LEFT JOIN GameTag gt ON g.gameId = gt.gameId
+        LEFT JOIN Tag t ON gt.tagId = t.tagId
+        WHERE w.userId = ? AND (g.gameName LIKE ? OR t.tagName LIKE ?)
+        GROUP BY g.gameId
+    `;
+    const searchValue = `%${searchTerm}%`; // 부분 검색을 지원하는 쿼리
+
+    connection.query(query, [userId, searchValue, searchValue], (err, results) => {
+        if (err) {
+            console.error('DB 조회 중 오류 발생:', err);
+            return res.status(500).json({ message: 'DB 조회 중 오류 발생' });
+        }
+        res.json(results); // 검색 결과를 클라이언트에 전달
     });
 });
 

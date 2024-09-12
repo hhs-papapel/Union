@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>찜 목록</title>
     <link rel="stylesheet" href="../css/wish_list.css">
-    <!-- Font Awesome CDN 추가 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
+
 <body>
 
     <!-- 사이드바 -->
@@ -21,8 +22,8 @@
     <!-- 상단 네비게이션 -->
     <header>
         <div class="nav-container">
-            <div class="hamburger" onclick="openNav()">☰</div> <!-- 햄버거 아이콘 -->
-            
+            <div class="hamburger" onclick="openNav()">☰</div>
+
             <div class="nav-right">
                 <div class="search-form">
                     <input type="text" id="search-input" class="search-input" placeholder="검색어를 입력하세요">
@@ -34,13 +35,13 @@
             </div>
         </div>
     </header>
-    
+
 
     <!-- 메인 컨텐츠 -->
     <main class="main-container">
         <!-- 사용자 정보 및 찜 목록 -->
         <section class="wishlist-section">
-            <h2> 유저님의 찜 목록</h2>
+            <h2 id="user-name"> 유저님의 찜 목록</h2>
 
             <!-- 게임 검색 창 추가 -->
             <div class="wishlist-search">
@@ -49,6 +50,8 @@
             </div>
 
             <ul class="wishlist">
+                <!-- 
+                아이디에 따라서 추가됨
                 <li class="wishlist-item">
                     <img src="../assets/images/A_DANCE_OF.jpg" alt="서브노티카">
                     <div class="game-info">
@@ -56,7 +59,7 @@
                         <p>장르: 모험, 생존</p>
                         <p>출시일: 2018년 1월 23일</p>
                         <p>평점: 매우 긍정적</p>
-                        <!-- 태그 추가 -->
+                        태그 추가 
                         <div class="tags">
                             <span>어드벤처</span>
                             <span>서바이벌</span>
@@ -66,7 +69,7 @@
                     <div class="price-info">
                         <p>₩32,000</p>
                         <button class="add-to-cart">장바구니에 추가</button>
-                        <!-- 찜 취소 버튼 추가 -->
+                         찜 취소 버튼 추가
                         <button class="remove-from-wishlist">찜 취소</button>
                     </div>
                 </li>
@@ -78,7 +81,7 @@
                         <p>장르: 어드벤처</p>
                         <p>출시일: 2015년 9월 10일</p>
                         <p>평점: 매우 긍정적</p>
-                        <!-- 태그 추가 -->
+                         태그 추가 
                         <div class="tags">
                             <span>어드벤처</span>
                             <span>퍼즐</span>
@@ -88,37 +91,215 @@
                     <div class="price-info">
                         <p>₩11,100 <span class="discount">-90%</span></p>
                         <button class="add-to-cart">장바구니에 추가</button>
-                        <!-- 찜 취소 버튼 추가 -->
+                         찜 취소 버튼 추가
                         <button class="remove-from-wishlist">찜 취소</button>
                     </div>
-                </li>
+                </li> 
+                -->
             </ul>
         </section>
     </main>
 
     <script>
-        // 검색창 슬라이드 토글
-        var searchButton = document.querySelector('.search-button');
-        var searchInput = document.querySelector('.search-input');
 
-        searchButton.addEventListener('click', function() {
-            if (searchInput.classList.contains('active')) {
-                searchInput.classList.remove('active');
+        // avgRating을 텍스트로 변환하는 함수
+        function getRatingText(avgRating) {
+            if (avgRating === null || avgRating === undefined) {
+                return '평가되지 않음';
+            } else if (avgRating >= 4) {
+                return '매우 긍정적';
+            } else if (avgRating >= 3 && avgRating < 4) {
+                return '대체로 긍정적';
+            } else if (avgRating >= 2 && avgRating < 3) {
+                return '복합적';
+            } else if (avgRating >= 1 && avgRating < 2) {
+                return '대체로 부정적';
+            } else if (avgRating >= 0 && avgRating < 1) {
+                return '매우 부정적';
             } else {
-                searchInput.classList.add('active');
-                searchInput.focus();
+                return '평가되지 않음'; // 예외적인 경우 대비
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const loggedInUser = sessionStorage.getItem('loggedInUser');
+
+            if (loggedInUser) {
+                fetch(`http://localhost:3000/api/user/name?userId=${loggedInUser}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const userNameHeader = document.querySelector('h2'); // h2 태그 선택
+                        if (data.name) {
+                            userNameHeader.innerHTML = `${data.name} 님의 찜 목록`;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('사용자 이름을 가져오는 중 오류 발생:', error);
+                    });
+
+                fetch(`http://localhost:3000/api/wishlist?userId=${loggedInUser}`)
+                    .then(response => response.json())
+                    .then(wishlistItems => {
+                        displayWishlistItems(wishlistItems);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            } else {
+                alert('로그인이 필요합니다.');
+                window.location.href = '/proj/html/login.html';
             }
         });
 
-        // 사이드바 열기
+        function displayWishlistItems(wishlistItems) {
+            const wishlistContainer = document.querySelector('.wishlist');
+            wishlistContainer.innerHTML = '';  // 기존 항목 초기화
+
+            wishlistItems.forEach(({ imageUrl, gameName, price, gameId, genres, avgRating }) => {
+                const ratingText = getRatingText(avgRating);  // 평점 텍스트 변환
+
+                const wishlistItem = `
+            <li class="wishlist-item">
+                <img src="${imageUrl}" alt="${gameName}">
+                <div class="game-info">
+                    <h3>${gameName}</h3>
+                    <p>장르: ${genres || 'N/A'}</p>
+                    <p>평점: ${ratingText}</p>
+                    <div class="tags">
+                        <span>${genres ? genres.split(', ').join('</span><span>') : ''}</span>
+                    </div>
+                </div>
+                <div class="price-info">
+                    <p>₩${price.toLocaleString()}</p>
+                    <button class="add-to-cart" data-gameid="${gameId}">장바구니에 추가</button>
+                    <button class="remove-from-wishlist" data-gameid="${gameId}">찜 취소</button>
+                </div>
+            </li>
+        `;
+
+                wishlistContainer.innerHTML += wishlistItem;
+            });
+
+            // 장바구니에 추가하는 기능 구현
+            const addToCartButtons = document.querySelectorAll('.add-to-cart');
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const gameId = this.getAttribute('data-gameid');
+
+                    fetch(`http://localhost:3000/api/cart/add`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            userId: sessionStorage.getItem('loggedInUser'),
+                            gameId: gameId
+                        })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert('장바구니에 추가되었습니다.');
+                            } else {
+                                alert('장바구니 추가에 실패했습니다.');
+                            }
+                        });
+                });
+            });
+
+            // 찜 취소 기능 구현
+            const removeFromWishlistButtons = document.querySelectorAll('.remove-from-wishlist');
+            removeFromWishlistButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const gameId = this.getAttribute('data-gameid');
+
+                    fetch(`http://localhost:3000/api/wishlist/delete`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            userId: sessionStorage.getItem('loggedInUser'),
+                            gameId: gameId
+                        })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert('찜 목록에서 삭제되었습니다.');
+                                location.reload();
+                            } else {
+                                alert('찜 목록 삭제에 실패했습니다.');
+                            }
+                        });
+                });
+            });
+        }
+
+        // 검색 기능 구현
+        document.getElementById('wishlist-search-button').addEventListener('click', () => {
+            const searchTerm = document.getElementById('wishlist-search-input').value.trim();
+            const userId = sessionStorage.getItem('loggedInUser'); // 현재 로그인한 사용자 ID
+
+            if (!searchTerm) {
+                alert('검색어를 입력하세요.');
+                return;
+            }
+
+            // 서버에 검색 요청
+            fetch(`http://localhost:3000/api/wishlist/search?userId=${userId}&q=${searchTerm}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('검색 결과:', data);
+                    displaySearchResults(data);  // 검색 결과를 화면에 표시
+                })
+                .catch(error => {
+                    console.error('검색 중 오류 발생:', error);
+                });
+        });
+
+        // 검색 결과를 화면에 표시하는 함수
+        function displaySearchResults(results) {
+            const wishlistContainer = document.querySelector('.wishlist');
+            wishlistContainer.innerHTML = '';  // 기존 목록 초기화
+
+            if (results.length === 0) {
+                wishlistContainer.innerHTML = '<p>검색 결과가 없습니다.</p>';
+                return;
+            }
+
+            results.forEach(item => {
+                const ratingText = getRatingText(item.avgRating);  // 평점을 텍스트로 변환
+
+                wishlistContainer.innerHTML += `
+        <li class="wishlist-item">
+            <img src="${item.imageUrl}" alt="${item.gameName}">
+            <div class="game-info">
+                <h3>${item.gameName}</h3>
+                <p>장르: ${item.genres || 'N/A'}</p>
+                <p>평점: ${ratingText}</p> <!-- 변환된 평점 표시 -->
+                <div class="tags">
+                    ${item.genres ? item.genres.split(', ').map(tag => `<span>${tag}</span>`).join('') : 'N/A'}
+                </div>
+            </div>
+            <div class="price-info">
+                <p>₩${item.price.toLocaleString()}</p>
+                <button class="add-to-cart" data-gameid="${item.gameId}">장바구니에 추가</button>
+                <button class="remove-from-wishlist" data-gameid="${item.gameId}">찜 취소</button>
+            </div>
+        </li>
+        `;
+            });
+        }
         function openNav() {
             document.getElementById("mySidebar").style.width = "250px";
         }
 
-        // 사이드바 닫기
         function closeNav() {
             document.getElementById("mySidebar").style.width = "0";
         }
     </script>
+
 </body>
+
 </html>
