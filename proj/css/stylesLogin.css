@@ -10,15 +10,14 @@ body {
     display: flex;
     justify-content: center;
     
-    height: 100vh;
 }
 
 .backimg{
-    margin-top: 100px;
+    
     position: absolute;
-    background-image: url('../assets/images/loginBackImg.jpg.png');
-    width: 1700px;
-    height: 700px;
+    background-image: url('../assets/images/loginBack.png');
+    width: 102vw;
+    height: 100vh;
 }
 
 .login-container {
@@ -28,7 +27,6 @@ body {
     max-width: 360px;
     background-color: white;
     padding: 20px;
-    border-radius: 10px;
     text-align: center;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -155,15 +153,15 @@ animation:inputHighlighter 0.3s ease;
 
 /* ANIMATIONS ================ */
 @-webkit-keyframes inputHighlighter {
-    from { background:#abff76; }
+    from { background:#BFFF00; }
 to 	{ width:0; background:transparent; }
 }
 @-moz-keyframes inputHighlighter {
-    from { background:#abff76; }
+    from { background:#BFFF00; }
 to 	{ width:0; background:transparent; }
 }
 @keyframes inputHighlighter {
-    from { background: #abff76; }
+    from { background: #BFFF00; }
 to 	{ width:0; background:transparent; }
 }
 
@@ -216,7 +214,7 @@ left: 0;
 top: 0;
 height: 490%;
 width: 140%;
-background: #abff76;
+background: #BFFF00;
 -webkit-transition: all .5s ease-in-out;
 transition: all .5s ease-in-out;
 -webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);

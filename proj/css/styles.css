@@ -14,123 +14,13 @@ body {
     overflow-x: hidden;
 }
 
-/* 상단 네비게이션 */
-header {
-    background-color: #000000;
-    padding: 5px 0;
-    position: fixed;
-    width: 100%;
-    z-index: 100;
-    top: 0;
-}
-
-.nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-.hamburger {
-    font-size: 25px;
-    color: white;
-    cursor: pointer;
-}
-
-.logo {
-    font-size: 50px;
-    color: white;
-}
-
-.nav-right {
-    margin-left: auto;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.nav-right a {
-    margin-left: 15px;
-}
-
-.nav-right a img {
-    width: 25px;
-}
-
-/* 검색창 */
-.search-form {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.search-form input {
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 20px;
-    border: 1px solid #ccc;
-    transition: width 0.5s ease;
-    width: 0; /* 검색창 기본적으로 숨김 */
-    opacity: 0;
-    visibility: hidden;
-}
-
-.search-form input.active {
-    width: 200px;
-    opacity: 1;
-    visibility: visible;
-}
-
-.search-button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 20px;
-    color: white;
-    margin-left: 10px;
-}
-
-/* 사이드바 */
-.sidebar {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1000;
-    top: 0;
-    left: 0;
-    background-color: #31326F;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
-}
-
-.sidebar a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-}
-
-.sidebar a:hover {
-    color: #f1f1f1;
-}
-
-.sidebar .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-}
 
 
 /* 메인 */
 .swiper-containers{
     width: 100vw;
     height: 700px;
-    background-color: #abff76;
+    background-color: #BFFF00;
     position: relative;
 }
 .wave-container {
@@ -207,6 +97,7 @@ header {
     width: 600px;
     height: 300px;
     overflow: hidden;
+    border: 10px solid white;
 }
 .swiper-container3 {
     position: absolute;
@@ -218,6 +109,7 @@ header {
     width: 600px;
     height: 300px;
     overflow: hidden;
+    border: 10px solid white;
 }
 .swiper-slide img {
     width: 100%;
@@ -805,13 +697,16 @@ header {
     margin-bottom: 20px;
 }
 
+
+
+
 .steam-logo {
     width: 80px; /* 로고 크기 */
     margin-bottom: 20px; /* 아래쪽 여백 */
 }
 
 .footer {
-    background-color: #1b2838;
+    background-color: #000000;
     color: #c5c6c7;
     text-align: center;
     padding: 20px;
@@ -828,7 +723,7 @@ header {
 }
 
 .footer a {
-    color: #58a6ff;
+    color: #BFFF00;
     text-decoration: none;
 }
 
@@ -842,5 +737,5 @@ header {
 
 .footer-links a {
     margin: 0 5px;
-    color: #58a6ff;
+    color: #BFFF00;
 }
