@@ -6,34 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>찜 목록</title>
     <link rel="stylesheet" href="../css/wish_list.css">
+
+    
+    <!-- Font Awesome CDN 추가 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+     <script>
+        function loadHTML(file)
+        {
+            var rawFile = new XMLHttpRequest();
+            rawFile.open("GET", file, false);
+            rawFile.onreadystatechange = function ()
+            {
+                if(rawFile.readyState === 4)
+                {
+                    if(rawFile.status === 200 || rawFile.status == 0)
+                    {
+                        var allText = rawFile.responseText;
+                        document.write(allText);
+                    }
+                }
+            }
+            rawFile.send(null);
+        }
+    </script>
 </head>
 
 <body>
 
-    <!-- 사이드바 -->
-    <div id="mySidebar" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-        <a href="#">메뉴1</a>
-        <a href="#">메뉴2</a>
-        <a href="#">메뉴3</a>
-    </div>
 
     <!-- 상단 네비게이션 -->
     <header>
-        <div class="nav-container">
-            <div class="hamburger" onclick="openNav()">☰</div>
-
-            <div class="nav-right">
-                <div class="search-form">
-                    <input type="text" id="search-input" class="search-input" placeholder="검색어를 입력하세요">
-                    <button class="search-button" type="button"><i class="fas fa-search"></i></button>
-                </div>
-                <a href="#"><img src="../assets/images/찜.png" alt="hart"></a>
-                <a href="#"><img src="../assets/images/장바구니.png" alt="Cart"></a>
-                <a href="#"><img src="../assets/images/로그인.png" alt="Login"></a>
-            </div>
-        </div>
+        <script>loadHTML("./header.html")</script>
     </header>
 
 
@@ -45,7 +48,7 @@
 
             <!-- 게임 검색 창 추가 -->
             <div class="wishlist-search">
-                <input type="text" id="wishlist-search-input" placeholder="찜 목록에서 게임 검색">
+                <input type="text" id="wishlist-search-input" placeholder="검색어를 입력하세요">
                 <button id="wishlist-search-button">검색</button>
             </div>
 

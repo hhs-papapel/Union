@@ -4,15 +4,12 @@
     margin: 0;
     padding: 0;
 }
-
 body {
-    font-family: Arial, sans-serif;
-    background-color: #1b2838;
-    color: #fff;
-    padding: 20px;
+    margin-top: 110px; /* 메뉴바 높이에 맞춰 여백을 줄임 */
 }
 
 .payment-header {
+    margin-top: 110px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -40,6 +37,7 @@ body {
 }
 
 .payment-details {
+    margin-top: 200px;
     background-color: #2a475e;
     padding: 20px;
     border-radius: 5px;

@@ -4,42 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인 페이지</title>
-    <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/stylesLogin.css">
+   
+    <script>
+        function loadHTML(file)
+        {
+            var rawFile = new XMLHttpRequest();
+            rawFile.open("GET", file, false);
+            rawFile.onreadystatechange = function ()
+            {
+                if(rawFile.readyState === 4)
+                {
+                    if(rawFile.status === 200 || rawFile.status == 0)
+                    {
+                        var allText = rawFile.responseText;
+                        document.write(allText);
+                    }
+                }
+            }
+            rawFile.send(null);
+        }
+    </script>
 </head>
 
 <body>
     <header>
-        <div class="nav-container">
-            <div class="hamburger" onclick="openNav()">☰</div> <!-- 햄버거 아이콘 -->
-            <div class="nav-right">
-                <!-- <div class="search-form">
-                    <form>
-                        <input type="text" id="search-input" class="search-input" placeholder="검색어를 입력하세요">
-                        <button class="search-button" type="button"><i class="fas fa-search"></i></button>
-                        <input type="text">
-                        <button></button>
-
-                    </form>
-                </div> -->
-                <!-- <a href="#"><img src="../assets/images/찜.png" alt="hart"></a>
-                <a href="#"><img src="../assets/images/장바구니.png" alt="Cart"></a> -->
-                <a href="#"><img src="../assets/images/로그인.png" alt="Login"></a>
-            </div>
-        </div>
-        <div class="nav-container">
-            <div class="logo">UNION</div>
-        </div>
-        <!-- 사이드바 -->
-        <div id="mySidebar" class="sidebar">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a> <!-- 닫기 버튼 -->
-            <a href="#">홈</a>
-            <a href="#">소개</a>
-            <a href="#">서비스</a>
-            <a href="#">연락처</a>
-        </div>
+        <script>loadHTML("./header.html")</script>
     </header>
-
     <div class="backimg">
         
     </div>
@@ -82,6 +73,7 @@
 
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
+        
         var swiper = new Swiper('.swiper-container', {
             loop: true,
             navigation: {

@@ -4,6 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게임 메인 페이지</title>
+    <script>
+        function loadHTML(file)
+        {
+            var rawFile = new XMLHttpRequest();
+            rawFile.open("GET", file, false);
+            rawFile.onreadystatechange = function ()
+            {
+                if(rawFile.readyState === 4)
+                {
+                    if(rawFile.status === 200 || rawFile.status == 0)
+                    {
+                        var allText = rawFile.responseText;
+                        document.write(allText);
+                    }
+                }
+            }
+            rawFile.send(null);
+        }
+    </script>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/styles.css"> <!-- 분리된 스타일시트 -->
@@ -12,20 +31,7 @@
 
     <!-- 상단 네비게이션 -->
     <header>
-        <div class="nav-container">
-            <div class="hamburger" onclick="openNav()">☰</div> <!-- 햄버거 아이콘 -->
-            <div class="nav-right">
-                <div class="search-form">
-                    <form>
-                        <input type="text" id="search-input" class="search-input" placeholder="검색어를 입력하세요">
-                        <button class="search-button" type="button"><i class="fas fa-search"></i></button>
-                    </form>
-                </div>
-                <a href="#"><img src="../assets/images/찜.png" alt="hart"></a>
-                <a href="#"><img src="../assets/images/장바구니.png" alt="Cart"></a>
-                <a href="#"><img src="../assets/images/로그인.png" alt="Login"></a>
-            </div>
-        </div>
+        <script>loadHTML("./header.html")</script>
     </header>
 
     <!-- 사이드바 -->
@@ -108,32 +114,288 @@
             </div>
         </div>
 
-        <!-- 하단 카테고리 -->
-        <div class="category-container">
-            <div class="category-item">
-                <a href="discount.html">
-                    <img src="../assets/images/할인.png" alt="할인게임">
-                    <p>할인게임</p>
-                </a>
-            </div>
-            <div class="category-item">
-                <a href="popularity.html">
-                    <img src="../assets/images/인기게임.png" alt="인기게임">
-                    <p>인기게임</p>
-                </a>
-            </div>
-            <div class="category-item">
-                <a href="#">
-                    <img src="../assets/images/추천게임.png" alt="추천게임">
-                    <p>추천게임</p>
-                </a>
+        <div class="discount-container">
+            <h2>특별 할인</h2>
+            <br>
+        
+            <div class="swiper discount-swiper">
+                <div class="swiper-wrapper">
+        
+                    <!-- 첫 번째 페이지 -->
+                    <div class="swiper-slide">
+                        <div class="discount-grid">
+                            <div class="discount-item large">
+                                <img src="../assets/images/A_DANCE_OF.jpg" alt="Image 1">
+                                <br>
+                                <div class="discount-info">
+                                    <p>주중 특가</p>
+                                    <p>할인 혜택은 2024년 9월 19일 오전 2시 00분에 종료됩니다.</p>
+                                    <div class="price-info">
+                                        <span class="discount">-60%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 8,600
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="discount-item large">
+                                <img src="path_to_image2.jpg" alt="Image 2">
+                                <div class="discount-info">
+                                    <p>주중 특가</p>
+                                    <p>할인 혜택은 2024년 9월 13일 오전 2시 00분에 종료됩니다.</p>
+                                    <div class="price-info">
+                                        <span class="discount">-55%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 7,420
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="discount-item small">
+                                <img src="path_to_image3.jpg" alt="Image 3">
+                                <div class="discount-info">
+                                    <p>오늘의 할인</p>
+                                    <div class="price-info">
+                                        <span class="discount">-55%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 7,420
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="discount-item small">
+                                <img src="path_to_image4.jpg" alt="Image 4">
+                                <div class="discount-info">
+                                    <p>오늘의 할인</p>
+                                    <div class="price-info">
+                                        <span class="discount">-55%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 7,420
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <!-- 두 번째 페이지 -->
+                    <div class="swiper-slide">
+                        <div class="discount-grid">
+                            <div class="discount-item large">
+                                <img src="path_to_image5.jpg" alt="Image 5">
+                                <div class="discount-info">
+                                    <p>주중 특가</p>
+                                    <p>할인 혜택은 2024년 9월 19일 오전 2시 00분에 종료됩니다.</p>
+                                    <div class="price-info">
+                                        <span class="discount">-60%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 8,600
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="discount-item large">
+                                <img src="path_to_image6.jpg" alt="Image 6">
+                                <div class="discount-info">
+                                    <p>주중 특가</p>
+                                    <p>할인 혜택은 2024년 9월 13일 오전 2시 00분에 종료됩니다.</p>
+                                    <div class="price-info">
+                                        <span class="discount">-55%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 7,420
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="discount-item small">
+                                <img src="path_to_image7.jpg" alt="Image 7">
+                                <div class="discount-info">
+                                    <p>오늘의 할인</p>
+                                    <div class="price-info">
+                                        <span class="discount">-55%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 7,420
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="discount-item small">
+                                <img src="path_to_image8.jpg" alt="Image 8">
+                                <div class="discount-info">
+                                    <p>오늘의 할인</p>
+                                    <div class="price-info">
+                                        <span class="discount">-55%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 7,420
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <!-- 세 번째 페이지 -->
+                    <div class="swiper-slide">
+                        <div class="discount-grid">
+                            <div class="discount-item large">
+                                <img src="path_to_image9.jpg" alt="Image 9">
+                                <div class="discount-info">
+                                    <p>주중 특가</p>
+                                    <p>할인 혜택은 2024년 9월 19일 오전 2시 00분에 종료됩니다.</p>
+                                    <div class="price-info">
+                                        <span class="discount">-60%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 8,600
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="discount-item large">
+                                <img src="path_to_image10.jpg" alt="Image 10">
+                                <div class="discount-info">
+                                    <p>주중 특가</p>
+                                    <p>할인 혜택은 2024년 9월 13일 오전 2시 00분에 종료됩니다.</p>
+                                    <div class="price-info">
+                                        <span class="discount">-55%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 7,420
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="discount-item small">
+                                <img src="path_to_image11.jpg" alt="Image 11">
+                                <div class="discount-info">
+                                    <p>오늘의 할인</p>
+                                    <div class="price-info">
+                                        <span class="discount">-55%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 7,420
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="discount-item small">
+                                <img src="path_to_image12.jpg" alt="Image 12">
+                                <div class="discount-info">
+                                    <p>오늘의 할인</p>
+                                    <div class="price-info">
+                                        <span class="discount">-55%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 7,420
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <!-- 네 번째 페이지 -->
+                    <div class="swiper-slide">
+                        <div class="discount-grid">
+                            <div class="discount-item large">
+                                <img src="path_to_image13.jpg" alt="Image 13">
+                                <div class="discount-info">
+                                    <p>주중 특가</p>
+                                    <p>할인 혜택은 2024년 9월 19일 오전 2시 00분에 종료됩니다.</p>
+                                    <div class="price-info">
+                                        <span class="discount">-60%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 8,600
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="discount-item large">
+                                <img src="path_to_image14.jpg" alt="Image 14">
+                                <div class="discount-info">
+                                    <p>주중 특가</p>
+                                    <p>할인 혜택은 2024년 9월 13일 오전 2시 00분에 종료됩니다.</p>
+                                    <div class="price-info">
+                                        <span class="discount">-55%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 7,420
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="discount-item small">
+                                <img src="path_to_image15.jpg" alt="Image 15">
+                                <div class="discount-info">
+                                    <p>오늘의 할인</p>
+                                    <div class="price-info">
+                                        <span class="discount">-55%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 7,420
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="discount-item small">
+                                <img src="path_to_image16.jpg" alt="Image 16">
+                                <div class="discount-info">
+                                    <p>오늘의 할인</p>
+                                    <div class="price-info">
+                                        <span class="discount">-55%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 7,420
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                </div>
+        
+                <!-- 페이지네이션 -->
+                <div class="swiper-pagination"></div>
+        
+
             </div>
         </div>
-    </div>
+            
+</div>
 
     <!-- Swiper.js 추가 -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
+        // 특별 할인 슬라이더
+        // 배너 슬라이더 (움직이지 않도록 autoplay 설정을 제거)
+        var bannerSwiper = new Swiper('.banner-container .swiper', {
+            loop: false, // 슬라이드 반복 제거
+            autoplay: false, // 자동 슬라이드 비활성화
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            }
+        });
+
+        // 특별 할인 슬라이더 (자동 슬라이드와 페이지네이션 활성화)
+        var discountSwiper = new Swiper('.discount-swiper', {
+            loop: true,
+            autoplay: {
+                delay: 3000, // 3초마다 슬라이드
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true, // 페이지네이션을 클릭할 수 있도록 설정
+            },
+        });
+
         var swiper1 = new Swiper('.swiper', {
             loop: true,
             breakpoints: {

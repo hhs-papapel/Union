@@ -6,34 +6,11 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #1b2838;
-    color: white;
-}
-
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #171a21;
-    padding: 15px 20px;
-}
-
-.nav-menu a {
-    margin-right: 20px;
-    color: white;
-    text-decoration: none;
-}
-
-.search-bar input {
-    padding: 5px;
-    border-radius: 5px;
-    border: none;
+    margin-top: 110px; /* 메뉴바 높이에 맞춰 여백을 줄임 */
 }
 
 .main-container {
     display: flex;
-    margin-top: 20px;
 }
 
 .game-list {
