@@ -106,26 +106,8 @@
             margin-top: 10px;
         }
 
-        /* 서비스 문의 추가 콘텐츠 스타일 */
-        #service-additional {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #f1f1f1;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-        }
-        
-        #service-additional ul {
-            list-style: disc;
-            margin-left: 20px;
-        }
-
-        #service-additional li {
-            margin: 5px 0;
-        }
-
         /* 문의 게시판 스타일 */
-        .question-form, .error-report-form, .ad-unsubscribe-form {
+        .question-form, .error-report-form, .ad-unsubscribe-form, .id-find-form, .password-find-form {
             margin-top: 20px;
             padding: 10px;
             background-color: #f9f9f9;
@@ -135,7 +117,7 @@
 
         .question-form input, .question-form textarea,
         .error-report-form input, .error-report-form textarea,
-        .ad-unsubscribe-form input {
+        .ad-unsubscribe-form input, .id-find-form input, .password-find-form input {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
@@ -143,7 +125,7 @@
             border-radius: 4px;
         }
 
-        .question-form button, .error-report-form button, .ad-unsubscribe-form button {
+        .question-form button, .error-report-form button, .ad-unsubscribe-form button, .id-find-form button, .password-find-form button {
             padding: 10px 20px;
             background-color: #007bff;
             border: none;
@@ -152,7 +134,7 @@
             cursor: pointer;
         }
 
-        .question-form button:hover, .error-report-form button:hover, .ad-unsubscribe-form button:hover {
+        .question-form button:hover, .error-report-form button:hover, .ad-unsubscribe-form button:hover, .id-find-form button:hover, .password-find-form button:hover {
             background-color: #0056b3;
         }
 
@@ -186,7 +168,7 @@
             <h1>고객센터</h1>
             <nav>
                 <button onclick="showTab('faq-general')">자주 묻는 질문</button>
-                <button onclick="showTab('faq')">아이디정보</button>
+                <button onclick="showTab('faq')">아이디 정보</button>
                 <button onclick="showTab('service')">서비스 문의</button>
                 <button onclick="showTab('error')">오류</button>
                 <button onclick="showTab('ad')">광고성 정보 동의 해제</button>
@@ -206,13 +188,14 @@
             <div id="faq-answer"></div>
         </section>
 
-        <!-- 기존 탭들 -->
+        <!-- 아이디 정보 탭 -->
         <section id="faq" class="tab-content">
             <h2>아이디/비밀번호 찾기</h2>
             <ul>
                 <li><a href="#" onclick="showFindId()">아이디 찾기</a></li>
                 <li><a href="#" onclick="showFindPassword()">비밀번호 찾기</a></li>
             </ul>
+            <div id="id-find-content"></div> <!-- 아이디/비밀번호 찾기 결과를 표시할 공간 -->
         </section>
 
         <!-- 서비스 문의 탭 -->
@@ -293,6 +276,71 @@
                 'q4': '이용 제한 사유는 약관 위반 및 부정 이용 등이 있을 수 있습니다.'
             };
             document.getElementById('faq-answer').innerHTML = '<p>' + answers[questionId] + '</p>';
+        }
+
+        // 아이디 찾기 기능
+        function showFindId() {
+            var idContent = `
+                <div class="id-find-form">
+                    <h3>아이디 찾기</h3>
+                    <input type="email" id="idFindEmail" placeholder="등록된 이메일 주소를 입력하세요">
+                    <button onclick="findId()">아이디 찾기</button>
+                </div>`;
+            document.getElementById('id-find-content').innerHTML = idContent;
+        }
+
+        // 비밀번호 찾기 기능
+        function showFindPassword() {
+            var passwordContent = `
+                <div class="password-find-form">
+                    <h3>비밀번호 찾기</h3>
+                    <input type="text" id="passwordFindId" placeholder="아이디를 입력하세요">
+                    <input type="email" id="passwordFindEmail" placeholder="등록된 이메일 주소를 입력하세요">
+                    <button onclick="findPassword()">비밀번호 찾기</button>
+                </div>`;
+            document.getElementById('id-find-content').innerHTML = passwordContent;
+        }
+
+        // 이메일 유효성 검사
+        function isValidEmail(email) {
+            var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            return emailPattern.test(email);
+        }
+
+        // 아이디 유효성 검사 (영문자, 숫자만 허용, 4~20자리)
+        function isValidId(id) {
+            var idPattern = /^[a-zA-Z0-9]{4,20}$/;
+            return idPattern.test(id);
+        }
+
+        // 비밀번호 찾기 로직
+        function findPassword() {
+            var id = document.getElementById('passwordFindId').value;
+            var email = document.getElementById('passwordFindEmail').value;
+
+            if (!id) {
+                alert('아이디를 입력해주세요.');
+                return;
+            } 
+            
+            if (!isValidId(id)) {
+                alert('아이디는 영문자, 숫자로 구성된 4~20자리여야 합니다.');
+                return;
+            }
+
+            if (!email) {
+                alert('이메일 주소를 입력해주세요.');
+                return;
+            } 
+            
+            if (!isValidEmail(email)) {
+                alert('아이디는 올바르지만 이메일 형식이 잘못되었습니다. 유효한 이메일 주소를 다시 입력해주세요.');
+                return;
+            }
+
+            alert('입력된 이메일 주소로 비밀번호 재설정 메일이 발송되었습니다.');
+            document.getElementById('passwordFindId').value = ''; // 입력 필드 초기화
+            document.getElementById('passwordFindEmail').value = ''; // 입력 필드 초기화
         }
 
         // 오류 신고 기능
