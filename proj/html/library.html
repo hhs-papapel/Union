@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>라이브러리</title>
     <link rel="stylesheet" href="../css/library.css">
+
     <script>
         function loadHTML(file)
         {
@@ -27,45 +28,68 @@
 </head>
 <body>
 
-    <!-- 상단 네비게이션 -->
     <header>
         <script>loadHTML("./header.html")</script>
     </header>
 
-    <!-- 메인 컨텐츠 -->
     <div class="main-container">
-        <!-- 게임 목록 -->
+        <!-- 게임 리스트 -->
         <aside class="game-list">
+            <div class="search-container">
+                <div class="tag-dropdown">
+                    <select>
+                        <option value="all">게임 및 소프트웨어</option>
+                        <option value="games">게임</option>
+                        <option value="software">소프트웨어</option>
+                    </select>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="게임 검색...">
+                </div>
+            </div>
             <ul>
-                <li onclick="showGameDetails('A Dance of Fire and Ice')">
+                <li>
                     <img src="../assets/images/A_DANCE_OF.jpg" alt="게임 이미지"> 불과 얼음의 춤
                 </li>
-                <li onclick="showGameDetails('Harry Potter')">
+                <li>
                     <img src="../assets/images/hogwarts.jpg" alt="게임 이미지"> 해리 포터: 퀴디치 챔피언
                 </li>
-                <!-- 추가 게임 목록 -->
             </ul>
         </aside>
+    
+<!-- 업데이트 및 최근 게임 -->
+<section class="content-section">
 
-        <!-- 라이브러리 개요 -->
-        <section class="library-overview" id="library-overview">
-            <h2>새로운 업데이트</h2>
-            <div class="update">
-                <img src="../assets/images/update.png" alt="업데이트 이미지">
-                <p>새로운 업데이트: Quidditch Champions 출시!</p>
-            </div>
-            <h2>최근 게임</h2>
-            <div class="recent-game">
-                <img src="../assets/images/recent_game.png" alt="최근 게임 이미지">
-                <p>One-armed Cook</p>
-            </div>
-        </section>
+    <div class="updates-container">
+        <h2>새로운 업데이트</h2>
+        <div class="update">
+            <img src="../assets/images/update.png" alt="업데이트 이미지">
+            <p>새로운 업데이트: Quidditch Champions 출시!</p>
+        </div>
+        <div class="update">
+            <img src="../assets/images/update.png" alt="업데이트 이미지">
+            <p>새로운 업데이트: Quidditch Champions 출시!</p>
+        </div>
+    </div>
+
+    <div class="recent-games-container">
+        <h2>최근 게임</h2>
+        <div class="recent-game">
+            <img src="../assets/images/recent_game.png" alt="최근 게임 이미지">
+            <p>One-armed Cook</p>
+        </div>
+        <div class="recent-game">
+            <img src="../assets/images/recent_game.png" alt="최근 게임 이미지">
+            <p>Disaster Band</p>
+        </div>
+    </div>
+</section>
+    </div>
 
         <!-- 게임 세부 정보 -->
         <section class="game-details" id="game-details">
             <div class="game-header">
                 <img src="../assets/images/A_DANCE_OF.jpg" alt="게임 배너" class="game-banner"> 
-
                 <h1>A Dance of Fire and Ice</h1>
                 <button class="install-btn">설치</button>
                 <p>필요한 공간: 1.39GB | 마지막 플레이: 3월 28일 | 플레이 시간: 3.3시간</p>
@@ -100,8 +124,9 @@
     </div>
 
     <script>
-        // 처음 화면에서 라이브러리 개요를 보여주고 게임 세부 정보는 숨김
+        // 처음에는 게임 세부 정보를 숨기고, 라이브러리 개요를 표시합니다.
         document.getElementById('game-details').style.display = 'none';
+        document.getElementById('library-overview').style.display = 'block';
 
         // 게임 데이터를 정의합니다.
         const games = {
@@ -129,35 +154,30 @@
             }
         };
 
-        // 게임 목록에서 게임을 클릭했을 때 실행되는 함수
-        function showGameDetails(gameKey) {
-            const game = games[gameKey];
+// 처음에 라이브러리 개요를 보여주고 게임 세부 정보는 숨깁니다.
+document.getElementById('library-overview').style.display = 'block';
+document.getElementById('game-details').style.display = 'none';
 
-            // 라이브러리 개요를 숨기고 게임 세부 정보를 표시
-            document.getElementById('library-overview').style.display = 'none';
-            document.getElementById('game-details').style.display = 'block';
+function showGameDetails(gameKey) {
+    // 라이브러리 개요를 숨기고 게임 세부 정보를 표시합니다.
+    document.getElementById('library-overview').style.display = 'none';
+    document.getElementById('game-details').style.display = 'block';
 
-            // 이미지 업데이트
-            const gameImage = document.querySelector('.game-header img');
-            gameImage.src = game.image;
+    // 해당 게임의 데이터를 표시
+    const game = games[gameKey];
+    document.querySelector('.game-header img').src = game.image;
+    document.querySelector('.game-header h1').textContent = game.title;
+    document.querySelector('.game-header p:nth-of-type(1)').textContent = `필요한 공간: ${game.space} | 마지막 플레이: ${game.lastPlayed} | 플레이 시간: ${game.playtime}`;
+    document.querySelector('.game-header p:nth-of-type(2)').textContent = `도전 과제: ${game.achievements}`;
+    document.querySelector('.update p').textContent = game.updateText;
+    document.querySelector('.friend-activity p').textContent = game.friendText;
+    document.querySelector('.friend-activity img').src = game.friendImage;
+}
 
-            // 이미지가 완전히 로드되었는지 확인
-            gameImage.onload = function() {
-                console.log('이미지가 성공적으로 로드되었습니다.');
-            };
-            gameImage.onerror = function() {
-                console.error('이미지 로드에 실패했습니다.');
-            };
-
-            // 게임 정보를 업데이트
-            document.querySelector('.game-header h1').textContent = game.title;
-            document.querySelector('.game-header p:nth-of-type(1)').textContent = `필요한 공간: ${game.space} | 마지막 플레이: ${game.lastPlayed} | 플레이 시간: ${game.playtime}`;
-            document.querySelector('.game-header p:nth-of-type(2)').textContent = `도전 과제: ${game.achievements}`;
-            document.querySelector('.update p').textContent = game.updateText;
-            document.querySelector('.friend-activity p').textContent = game.friendText;
-            document.querySelector('.friend-activity img').src = game.friendImage;
-        }
     </script>
 
+<footer>
+    <script>loadHTML("./footer.html")</script>
+</footer>
 </body>
 </html>

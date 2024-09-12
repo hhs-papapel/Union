@@ -6,15 +6,48 @@
 }
 
 body {
-    margin-top: 110px; /* 메뉴바 높이에 맞춰 여백을 줄임 */
+    background-color: #1b2838;
+    color: white;
 }
 
+.search-bar-container .search-input {
+    width: 100%;
+    padding: 10px 15px;
+    border: 2px solid #66c0f4; /* 테두리 색상 */
+    border-radius: 5px; /* 테두리 둥글게 */
+    background-color: #1b2838; /* 배경색 */
+    color: #ffffff; /* 텍스트 색상 */
+    font-size: 16px; /* 글자 크기 */
+    outline: none; /* 클릭했을 때 테두리 안 나옴 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* 그림자 추가 */
+    transition: all 0.3s ease; /* 부드러운 애니메이션 */
+}
+
+.search-bar-container .search-input::placeholder {
+    color: #8f98a0; /* 플레이스홀더 텍스트 색상 */
+}
+
+.search-bar-container .search-input:focus {
+    border-color: #ffffff; /* 포커스 시 테두리 색상 */
+    background-color: #2a475e; /* 포커스 시 배경색 변경 */
+}
+
+/* 검색창 스타일 */
+.search-bar-container {
+    display: flex;
+    flex-grow: 1; /* 검색창이 남은 공간을 채우도록 설정 */
+}
+/* 전체 컨테이너를 Flexbox로 설정하여 가로로 정렬 */
 .main-container {
     display: flex;
+    justify-content: space-between;
+    padding: 20px;
 }
 
+/* 게임 리스트 스타일 */
+/* 게임 리스트 스타일 */
 .game-list {
-    width: 20%;
+    width: 25%;
     background-color: #2a475e;
     padding: 20px;
     border-right: 1px solid #66c0f4;
@@ -41,31 +74,34 @@ body {
     margin-right: 10px;
 }
 
+/* 업데이트와 최근 게임을 수직 정렬 */
 .library-overview {
-    display: block;
-    width: 80%;
-    padding: 20px;
+    display: flex;
+    flex-direction: column; /* 세로 정렬 */
+    gap: 20px; /* 섹션 사이의 간격 */
 }
 
 .game-details {
-    display: none;
-    width: 80%;
+    width: 75%;
     padding: 20px;
+    display: none;
 }
 
 .game-header {
-    text-align: center; /* 글자를 가운데로 배치 */
+    text-align: center;
 }
 
+/* 게임 배너 이미지 크기 조정 */
 .game-header img {
     width: 100%;
-    height: 500px; /* 이미지 크기를 크게 설정 */
+    max-height: 500px;
+    object-fit: cover;
     margin-bottom: 20px;
 }
 
 h1 {
-    text-align: center; /* 제목을 가운데 정렬 */
-    line-height: 1.8; /* 텍스트 간격을 늘림 */
+    text-align: center;
+    line-height: 1.8;
 }
 
 .install-btn {
@@ -92,10 +128,32 @@ h1 {
 }
 
 .update {
-    margin-top: 20px;
+    display: flex;
+    align-items: center;
     background-color: #2a475e;
     padding: 10px;
     border-radius: 5px;
+    flex: 1;
+}
+.update img {
+    width: 80px; /* 이미지 크기 조정 */
+    height: auto;
+    margin-right: 10px; /* 이미지와 텍스트 사이의 간격 */
+}
+
+.update p {
+    margin: 0;
+    color: white;
+}
+
+/* Flexbox를 사용하여 업데이트 항목 가로 정렬 */
+.updates-container {
+    margin-top: 0;
+    width: 48%;
+}
+
+.recent-games-container {
+    margin-top: 0;
 }
 
 .friend-activity {
@@ -109,4 +167,204 @@ h1 {
     width: 50px;
     height: 50px;
     border-radius: 50%;
+}
+/* 홈 버튼과 검색창을 포함하는 컨테이너 */
+.home-search-container {
+    display: flex; /* 가로 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    padding: 10px;
+    background-color: #2a475e; /* 배경 색상 */
+    border-bottom: 1px solid #66c0f4;
+    width: 100%; /* 전체 너비 사용 */
+}
+/* 홈 버튼 스타일 */
+.home-button {
+    background-color: #1b2838;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+/* 최근 게임 섹션 Flexbox로 가로 정렬 */
+.recent-games-container {
+    display: flex;
+    gap: 20px; /* 최근 게임 사이의 간격 */
+}
+
+.recent-game {
+    display: flex;
+    width: 48%;
+    align-items: center;
+    background-color: #2a475e;
+    border-radius: 5px;
+    flex: 1;
+
+}
+
+.recent-game img {
+    width: 80px; /* 이미지 크기 조정 */
+    height: auto;
+    margin-right: 10px; /* 이미지와 텍스트 사이의 간격 */
+}
+
+.recent-game p {
+    margin: 0;
+    color: white;
+}
+/* 새로운 업데이트 및 최근 게임 섹션 */
+.update-container, .recent-game-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.update, .recent-game {
+    background-color: #2a475e;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    width: 30%; /* 여기서 카드의 크기를 조정할 수 있습니다 */
+    margin-left: 50px;
+    min-width: 200px; /* 카드의 최소 너비를 설정합니다 */
+    max-width: 400px; /* 카드의 최대 너비를 설정할 수도 있습니다 */
+}
+
+
+.update img, .recent-game img {
+    width: 50%;
+    height: auto;
+    border-radius: 5px;
+}
+
+h2 {
+    margin-bottom: 20px;
+    margin-left: 50px;
+    margin-top: 20px;
+    color: #fff;
+}
+/* 검색 섹션을 감싸는 컨테이너 */
+.search-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+/* 태그 선택기 드롭다운 스타일 */
+.tag-dropdown {
+    display: flex;
+    justify-content: flex-start;
+}
+
+/* 드롭다운 선택 메뉴 스타일 */
+.tag-select {
+    padding: 10px 15px;
+    border: 2px solid #66c0f4;
+    border-radius: 5px;
+    background-color: #1b2838;
+    color: #ffffff;
+    font-size: 16px;
+    outline: none;
+    cursor: pointer;
+    width: 100%; /* 태그 선택기가 검색창과 같은 너비로 설정됨 */
+    transition: all 0.3s ease;
+}
+
+.tag-select:hover {
+    border-color: #ffffff;
+    background-color: #2a475e;
+}
+
+/* 검색창 스타일 */
+.search-container .search-input {
+    width: 100%;
+    padding: 10px 15px;
+    border: 2px solid #66c0f4;
+    border-radius: 5px;
+    background-color: #1b2838;
+    color: #ffffff;
+    font-size: 16px;
+    outline: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+.search-container .search-input::placeholder {
+    color: #8f98a0;
+}
+
+.search-container .search-input:focus {
+    border-color: #ffffff;
+    background-color: #2a475e;
+}
+/* 태그 드롭다운 스타일 */
+.tag-dropdown select {
+    background-color: #1b2838;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+
+/* 검색창 스타일 */
+
+.search-bar input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #1b2838;
+    color: white;
+    margin-top: 10px; /* 태그 선택기 아래로 검색창을 내리기 위해 여백 추가 */
+}
+
+.search-bar input::placeholder {
+    color: #8f98a0; /* 플레이스홀더 텍스트 색상 */
+}
+/* 업데이트 및 최근 게임 섹션 */
+.content-section {
+    width: 70%;
+    padding-left: 20px;
+}
+
+.updates-container, .recent-games-container {
+    display: flex;
+    gap: 40px;
+    margin-top: 5px; /* 제목과 박스 사이의 여백을 줄임 */
+    flex-wrap: wrap; /* 화면에 맞춰 줄바꿈 되도록 함 */
+    width: 48%;
+}
+
+
+.update, .recent-game {
+    background-color: #2a475e;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 48%; /* 너비를 50% 이하로 설정하여 한 줄에 두 개 배치 */
+}
+
+.update img, .recent-game img {
+    width: 80px;
+    height: auto;
+    margin-right: 20px;
+}
+
+.update, .recent-game {
+    display: flex;
+    align-items: center;
+}
+/* 제목 스타일 */
+h2 {
+    margin-bottom: 10px; /* 제목과 박스 사이 간격 최소화 */
+    color: white;
+    text-align: left;
 }
