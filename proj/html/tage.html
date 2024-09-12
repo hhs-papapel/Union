@@ -5,9 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>무료 플레이 게임</title>
     <link rel="stylesheet" href="../css/tage.css">
+    <script>
+        function loadHTML(file)
+        {
+            var rawFile = new XMLHttpRequest();
+            rawFile.open("GET", file, false);
+            rawFile.onreadystatechange = function ()
+            {
+                if(rawFile.readyState === 4)
+                {
+                    if(rawFile.status === 200 || rawFile.status == 0)
+                    {
+                        var allText = rawFile.responseText;
+                        document.write(allText);
+                    }
+                }
+            }
+            rawFile.send(null);
+        }
+    </script>
 </head>
 <body>
-    <header class="top-menu">
+    <header>
+        <script>loadHTML("./header.html")</script>
+    </header>
+
+    <!-- <header class="top-menu">
         <div class="section-indicator">
             <h3>Section 3</h3>
         </div>
@@ -20,7 +43,7 @@
             </ul>
         </nav>
     </header>
-    <br><br>
+    <br><br> -->
 
     <section class="mid-menu">
         <nav class="mid-menu-bar">
@@ -93,8 +116,12 @@
         <div class="photo-item">사진 8</div>
     </section>
 
-    <footer class="footer">
+    <section class="bottomButton">
         <button id="loadMoreButton">더보기</button>
+    </section>
+
+    <footer>
+        <script>loadHTML("./footer.html")</script>
     </footer>
 
     <script>
@@ -115,5 +142,6 @@
             document.getElementById('photoGrid').insertAdjacentHTML('beforeend', morePhotos);
         });
     </script>
+    
 </body>
 </html>

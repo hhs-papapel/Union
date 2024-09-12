@@ -90,20 +90,11 @@
     </section>
 
     <footer>
-        <p>&copy; 2024 게임 스토어. 모든 권리 보유.</p>
+        <script>loadHTML("./footer.html")</script>
     </footer>
 
     <!-- JavaScript for hamburger menu and search -->
     <script>
-        // 사이드바 열기/닫기
-        document.querySelector('.hamburger-menu').addEventListener('click', function () {
-            document.getElementById('mySidebar').style.width = '250px';
-        });
-
-        document.querySelector('.closebtn').addEventListener('click', function () {
-            document.getElementById('mySidebar').style.width = '0';
-        });
-
         // 검색창 토글
         const searchIcon = document.querySelector('.search-icon');
         const searchInput = document.querySelector('.search-input');

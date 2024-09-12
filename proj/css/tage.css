@@ -11,6 +11,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    margin-top: 110px;
 }
 
 /* 상단 메뉴바 */
@@ -252,12 +253,12 @@ body {
 
 
 /* 푸터 */
-.footer {
+.bottomButton {
     text-align: center;
     margin: 40px 0;
 }
 
-.footer button {
+.bottomButton button {
     padding: 15px 30px;
     background-color: #9eec9b;
     border: none;
@@ -268,6 +269,6 @@ body {
     transition: background-color 0.3s ease;
 }
 
-.footer button:hover {
+.bottomButton button:hover {
     background-color: #78ffd6;
 }
