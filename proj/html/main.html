@@ -4,6 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게임 메인 페이지</title>
+    <script>
+        function loadHTML(file)
+        {
+            var rawFile = new XMLHttpRequest();
+            rawFile.open("GET", file, false);
+            rawFile.onreadystatechange = function ()
+            {
+                if(rawFile.readyState === 4)
+                {
+                    if(rawFile.status === 200 || rawFile.status == 0)
+                    {
+                        var allText = rawFile.responseText;
+                        document.write(allText);
+                    }
+                }
+            }
+            rawFile.send(null);
+        }
+    </script>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/styles.css"> <!-- 분리된 스타일시트 -->
@@ -12,20 +31,7 @@
 
     <!-- 상단 네비게이션 -->
     <header>
-        <div class="nav-container">
-            <div class="hamburger" onclick="openNav()">☰</div> <!-- 햄버거 아이콘 -->
-            <div class="nav-right">
-                <div class="search-form">
-                    <form>
-                        <input type="text" id="search-input" class="search-input" placeholder="검색어를 입력하세요">
-                        <button class="search-button" type="button"><i class="fas fa-search"></i></button>
-                    </form>
-                </div>
-                <a href="#"><img src="../assets/images/찜.png" alt="hart"></a>
-                <a href="#"><img src="../assets/images/장바구니.png" alt="Cart"></a>
-                <a href="#"><img src="../assets/images/로그인.png" alt="Login"></a>
-            </div>
-        </div>
+        <script>loadHTML("./header.html")</script>
     </header>
 
     <!-- 사이드바 -->
@@ -357,132 +363,134 @@
                 <!-- 페이지네이션 -->
                 <div class="swiper-pagination"></div>
         
+
             </div>
         </div>
 
-        <!-- 카테고리별 살펴보기 섹션 -->
-<!-- 카테고리별 살펴보기 섹션 -->
-<div class="category-container">
-    <h2>카테고리별로 살펴보기</h2>
-    <div class="swiper category-swiper">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <div class="category-item">
-                    <img src="../assets/images/ex.jpg" alt="애니메이션">
-                    <p>액션</p>
+        <div class="category-slider">
+            <h3>카테고리별로 살펴보기</h3>
+            <div class="category-wrapper">
+                <div class="category-item" style="background-image: url('../assets/images/ex.jpg');">
+                    <span>액션</span>
                 </div>
-                <div class="category-item">
-                    <img src="../assets/images/ex.jpg" alt="애니메이션">
-                    <p>모든 스포츠</p>
+                <div class="category-item" style="background-image: url('./path-to-image2.jpg');">
+                    <span>협동</span>
                 </div>
-                <div class="category-item">
-                    <img src="../assets/images/ex.jpg" alt="애니메이션">
-                    <p>퍼즐</p>
+                <div class="category-item" style="background-image: url('./path-to-image3.jpg');">
+                    <span>생존</span>
                 </div>
-                <div class="category-item">
-                    <img src="../assets/images/ex.jpg" alt="애니메이션">
-                    <p>풍부한 스토리</p>
+                <div class="category-item" style="background-image: url('./path-to-image4.jpg');">
+                    <span>무료 플레이</span>
                 </div>
             </div>
-            <div class="swiper-slide">
-                <div class="category-item">
-                    <img src="../assets/images/image2.jpg" alt="무료 플레이">
-                    <p>무료 플레이</p>
-                </div>
-                <div class="category-item">
-                    <img src="../assets/images/image2.jpg" alt="무료 플레이">
-                    <p>무료 플레이</p>
-                </div>
-                <div class="category-item">
-                    <img src="../assets/images/image2.jpg" alt="무료 플레이">
-                    <p>무료 플레이</p>
-                </div>
-                <div class="category-item">
-                    <img src="../assets/images/image2.jpg" alt="무료 플레이">
-                    <p>무료 플레이</p>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="category-item">
-                    <img src="../assets/images/image3.jpg" alt="모든 스포츠">
-                    <p>모든 스포츠</p>
-                </div>
-                <div class="category-item">
-                    <img src="../assets/images/image2.jpg" alt="무료 플레이">
-                    <p>무료 플레이</p>
-                </div>
-                <div class="category-item">
-                    <img src="../assets/images/image2.jpg" alt="무료 플레이">
-                    <p>무료 플레이</p>
-                </div>
-                <div class="category-item">
-                    <img src="../assets/images/image2.jpg" alt="무료 플레이">
-                    <p>무료 플레이</p>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="category-item">
-                    <img src="../assets/images/image4.jpg" alt="공상과학 및 사이버펑크">
-                    <p>공상과학 및 사이버펑크</p>
-                </div>
-                <div class="category-item">
-                    <img src="../assets/images/image2.jpg" alt="무료 플레이">
-                    <p>무료 플레이</p>
-                </div>
-                <div class="category-item">
-                    <img src="../assets/images/image2.jpg" alt="무료 플레이">
-                    <p>무료 플레이</p>
-                </div>
-                <div class="category-item">
-                    <img src="../assets/images/image2.jpg" alt="무료 플레이">
-                    <p>무료 플레이</p>
-                </div>
+            <div class="slider-pagination">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
             </div>
         </div>
 
+    <!-- 카테고리 선택 -->
+    <nav class="category-nav">
+        <ul>
+            <li><a href="#">인기 신작</a></li>
+            <li><a href="#">최고 인기게임</a></li>
+            <li><a href="#">최고 인기제품</a></li>
+            <li><a href="#">최고 인기제목</a></li>
+            <li><a href="#">최고 인기시리즈</a></li>
+        </ul>
+    </nav>
 
-        <!-- 페이지네이션 -->
-        <div class="swiper-pagination"></div>
-    </div>
-</div>
+        <!-- 게임 목록 및 상세 화면 -->
+        <div class="game-list-section">
+            <!-- 왼쪽 게임 목록 -->
+            <div class="game-list">
+                <ul>
+                    <li class="game-item" data-title="게임 1" data-price="₩ 37,800" data-img1="path-to-image1.jpg" data-img2="path-to-image2.jpg">
+                        <div class="game-info"><img src="../assets/images/A_DANCE_OF.jpg">게임 1</div>
+                    </li>
+                    <li class="game-item" data-title="게임 2" data-price="₩ 69,800" data-img1="path-to-image3.jpg" data-img2="path-to-image4.jpg">
+                        <div class="game-info">게임 2</div>
+                    </li>
+                    <li class="game-item" data-title="게임 3" data-price="₩ 20,500" data-img1="path-to-image5.jpg" data-img2="path-to-image6.jpg">
+                        <div class="game-info">게임 3</div>
+                    </li>
+                </ul>
+            </div>
+        
+            <!-- 오른쪽 게임 상세 정보 -->
+            <div class="game-detail">
+                <div id="game-detail-header">
+                    <h3 id="game-title">게임 제목</h3>
+                    <p id="game-price">가격</p>
+                </div>
+                <div class="game-screenshots">
+                    <img id="screenshot1" src="" alt="스크린샷 1">
+                    <img id="screenshot2" src="" alt="스크린샷 2">
+                </div>
+            </div>
+        </div>
+        
+        <!-- <div class="game-list-footer">
+            <p>검색을 이용해 더 많은 제품을 확인해 보세요</p>
+        </div> -->
+        
+        <div class="recommend-section">
+            <img src="path_to_steam_logo.png" alt="Steam Logo" class="steam-logo">
+            <h2>계속 스크롤해 내려가 더 많은 추천 제품을 확인해 보세요.</h2>
+            <p>아래에서 흥미로운 여러 제품을 카테고리별로 확인할 수 있습니다.</p>
+        </div>
 
-
-
-
-
-            
+        <footer class="footer">
+            <div class="footer-logo">
+                <img src="path_to_valve_logo.png" alt="Valve Logo">
+            </div>
+            <p>© 2024 Valve Corporation. All rights reserved. 모든 상표는 미국 및 기타 국가에서 해당하는 소유자의 재산입니다.</p>
+            <p>부가가치세 포함&nbsp;|&nbsp;<a href="#">개인정보 보호정책</a>&nbsp;|&nbsp;<a href="#">사용권</a>&nbsp;|&nbsp;<a href="#">Steam 이용 약관</a>&nbsp;|&nbsp;<a href="#">환불</a>&nbsp;|&nbsp;<a href="#">쿠키</a></p>
+            <div class="footer-links">
+                <a href="#">Valve 정보</a>&nbsp;|&nbsp;
+                <a href="#">채용 정보</a>&nbsp;|&nbsp;
+                <a href="#">Steamworks</a>&nbsp;|&nbsp;
+                <a href="#">Steam 배포</a>&nbsp;|&nbsp;
+                <a href="#">지원</a>&nbsp;|&nbsp;
+                <a href="#">기프트 카드</a>&nbsp;|&nbsp;
+                <a href="#">Steam</a>&nbsp;|&nbsp;
+                <a href="#">@steam</a>
+            </div>
+        </footer>
+        
+        
+    
 </div>
 
     <!-- Swiper.js 추가 -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
-// 카테고리별 살펴보기 슬라이더
-var categorySwiper = new Swiper('.category-swiper', {
-    loop: true,
-    autoplay: {
-        delay: 3000,  // 자동 슬라이드
-        disableOnInteraction: false,
-    },
-    effect: 'slide',  // 기본 슬라이드 효과
-    slidesPerView: 4,  // 한 번에 보여줄 슬라이드 수
-    spaceBetween: 30,  // 슬라이드 간 간격 설정
-    pagination: {
-        el: '.swiper-pagination',
-        clickable: true,  // 페이지네이션 클릭 가능
-    },
-    breakpoints: {
-        768: {
-            slidesPerView: 2,  // 화면이 768px 이하일 때 슬라이드 2개 보기
-        },
-        1024: {
-            slidesPerView: 4,  // 화면이 1024px 이상일 때 슬라이드 4개 보기
-        },
-    },
-});
 
-
-
-
+        document.querySelectorAll('.game-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const title = this.getAttribute('data-title');
+                const price = this.getAttribute('data-price');
+                const img1 = this.getAttribute('data-img1');
+                const img2 = this.getAttribute('data-img2');
+        
+                // 제목과 가격 업데이트
+                document.getElementById('game-title').innerText = title;
+                document.getElementById('game-price').innerText = price;
+        
+                // 스크린샷 이미지 업데이트
+                document.getElementById('screenshot1').src = img1;
+                document.getElementById('screenshot2').src = img2;
+        
+                // 상세 정보 보이기
+                document.querySelector('.game-detail').style.display = 'block';
+                document.querySelector('.game-detail').style.opacity = '1';
+            });
+        });
+        
+        
+        
         // 특별 할인 슬라이더
         // 배너 슬라이더 (움직이지 않도록 autoplay 설정을 제거)
         var bannerSwiper = new Swiper('.banner-container .swiper', {

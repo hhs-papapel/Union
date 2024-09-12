@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>무료 플레이 게임</title>
+    <link rel="stylesheet" href="../css/tage.css">
+</head>
+<body>
+    <header class="top-menu">
+        <div class="section-indicator">
+            <h3>Section 3</h3>
+        </div>
+        <nav class="menu-bar">
+            <ul>
+                <li>신규 목록</li>
+                <li>신규 목록</li>
+                <li>신규 목록</li>
+                <li>신규 목록</li>
+            </ul>
+        </nav>
+    </header>
+    <br><br>
+
+    <section class="mid-menu">
+        <nav class="mid-menu-bar">
+            <ul>
+                <li>신규 게임 목록</li>
+                <li>신규 업데이트</li>
+                <li>신규 팩 출시</li>
+                <li>신규 모드</li>
+            </ul>
+            <div class="search-bar">
+                <input type="text" placeholder="검색">
+            </div>
+        </nav>
+    </section>
+
+    <section class="main-content">
+        <div class="section-title">
+            <h2>무료 플레이 게임</h2>
+        </div>
+    
+        <div class="game-card">
+            <div class="game-image">
+                <img src="./header.jpg" alt="Team Fortress 2 이미지">
+            </div>
+            <div class="game-info">
+                <h3>Team Fortress 2</h3>
+                <p>출시일: 2007년 10월 10일</p>
+                <p class="game-reviews">매우 긍정적 | 1,117,106 User Reviews</p>
+                <div class="tags">
+                    <span>무료 플레이</span>
+                    <span>액션</span>
+                    <span>슈팅</span>
+                    <span>팀 기반</span>
+                    <span>코미디</span>
+                </div>
+                <div class="recommendation">
+                    추천 이유:
+                    <ul>
+                        <li>내가 플레이했던 게임과 비슷한 게임</li>
+                        <li>최고 인기 제품 목록에서 47위</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br>
+    
+
+    <section class="tags">
+        <div class="tag-container">
+            <button class="tag-button">특집</button>
+            <button class="tag-button">액션</button>
+            <button class="tag-button">어드밴쳐</button>
+            <button class="tag-button">캐주얼</button>
+            <button class="tag-button">RPG</button>
+            <button class="tag-button">시뮬레이션</button>
+            <button class="tag-button">스포츠 및 레이싱</button>
+            <button class="tag-button">전략</button>
+        </div>
+    </section>
+
+    <section class="photo-grid" id="photoGrid">
+        <div class="photo-item">사진 1</div>
+        <div class="photo-item">사진 2</div>
+        <div class="photo-item">사진 3</div>
+        <div class="photo-item">사진 4</div>
+        <div class="photo-item">사진 5</div>
+        <div class="photo-item">사진 6</div>
+        <div class="photo-item">사진 7</div>
+        <div class="photo-item">사진 8</div>
+    </section>
+
+    <footer class="footer">
+        <button id="loadMoreButton">더보기</button>
+    </footer>
+
+    <script>
+        // 더보기 버튼 클릭 시 실행되는 함수
+        document.getElementById('loadMoreButton').addEventListener('click', function() {
+            // 추가할 사진 아이템
+            const morePhotos = `
+                <div class="photo-item">사진 9</div>
+                <div class="photo-item">사진 10</div>
+                <div class="photo-item">사진 11</div>
+                <div class="photo-item">사진 12</div>
+                <div class="photo-item">사진 13</div>
+                <div class="photo-item">사진 14</div>
+                <div class="photo-item">사진 15</div>
+                <div class="photo-item">사진 16</div>
+            `;
+            // photoGrid에 새로운 사진 추가
+            document.getElementById('photoGrid').insertAdjacentHTML('beforeend', morePhotos);
+        });
+    </script>
+</body>
+</html>
