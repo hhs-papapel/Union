@@ -4,6 +4,9 @@
     padding: 0;
     box-sizing: border-box;
 }
+html, body {
+    overflow-x: hidden; /* 좌우 스크롤이 생기지 않도록 */
+}
 
 body {
     font-family: Arial, sans-serif;
@@ -558,4 +561,286 @@ header {
     padding: 5px 10px;
     border-radius: 0 5px 5px 0;
     text-align: center;
+}
+
+/* 카테고리 슬라이더 스타일 */
+.category-slider {
+    margin-top: 20px;
+    text-align: center;
+    background-color: #1b2838; /* 배경색을 아래 섹션과 동일하게 설정 */
+    padding: 20px 0; /* 상단, 하단 패딩을 조정하여 크기를 줄임 */
+
+    color: white;
+}
+
+.category-slider h3 {
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #a1e44d;
+}
+
+.category-wrapper {
+    display: flex;
+    justify-content: space-around; /* 공간을 균등하게 분배 */
+    padding: 0 20px; /* 좌우 패딩 */
+}
+
+
+.category-item {
+    width: 20%; /* 카드 크기를 줄임 */
+    padding-top: 25%; /* 비율을 유지하면서 크기를 줄임 */
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+.category-item span {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    font-size: 14px; /* 글씨 크기 줄임 */
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+}
+/* 카테고리 내비게이션 스타일 */
+.category-nav {
+    background-color: #1b2838; /* 배경색 */
+    padding: 10px; /* 패딩 추가 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+.category-nav ul {
+    list-style-type: none; /* 기본 리스트 스타일 제거 */
+    margin: 0;
+    padding: 0;
+}
+
+.category-nav ul li {
+    display: inline-block; /* 가로로 나열 */
+    margin-right: 15px; /* 항목 간 간격 */
+}
+
+.category-nav ul li a {
+    color: #ffffff; /* 링크 텍스트 색상 */
+    font-size: 18px; /* 글씨 크기 */
+    text-decoration: none; /* 밑줄 제거 */
+}
+
+.category-nav ul li a:hover {
+    color: #a1e44d; /* 마우스 오버 시 텍스트 색상 */
+    text-decoration: underline; /* 마우스 오버 시 밑줄 */
+}
+
+
+.slider-pagination {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    background-color: #9DDFD3;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.dot:hover, .dot.active {
+    background-color: #FFDADA;
+}
+
+/* 게임 목록 및 상세보기 */
+/* 게임 목록 섹션 레이아웃을 flex로 설정 */
+.game-list-section {
+    display: flex;
+    justify-content: space-between;
+    background-color: #1b2838;
+    padding: 30px;
+    color: white;
+    flex-wrap: nowrap; /* 요소가 줄 바꿈되지 않도록 설정 */
+    width: 100%; /* 섹션이 전체 화면을 채우도록 */
+    overflow-x: hidden; /* 좌우로 넘치는 요소를 숨기기 */
+}
+
+.game-list {
+    flex: 1;
+    padding-right: 20px;
+    border-right: 1px solid #333;
+}
+
+
+.game-list ul {
+    list-style: none;
+}
+
+.game-item {
+    padding: 10px;
+    border-bottom: 1px solid #333;
+    cursor: pointer;
+}
+
+/* .game-item:hover, .game-item.active {
+    background-color: #2a475e;
+} */
+.game-item:hover {
+    background-color: #2a475e;
+}
+
+
+.game-info {
+    display: flex;
+    align-items: center;
+}
+
+.game-info img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+/* 기본적으로 상세 화면은 숨기기 */
+.game-detail {
+    display: none;
+    flex: 1;
+    padding-left: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+/* 게임 항목에 마우스를 올리면 오른쪽에 상세 화면 표시 */
+.game-item:hover ~ .game-detail {
+    display: block;
+    opacity: 1;
+}
+.game-details h4 {
+    font-size: 16px;
+    margin: 0;
+}
+
+.game-details p {
+    margin: 0;
+    font-size: 14px;
+    color: #b5b5b5;
+}
+.game-list-footer {
+    background-color: #dfffcf; /* 연한 배경색 */
+    padding: 50px 0; /* 상하 패딩 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    font-size: 18px; /* 폰트 크기 */
+    color: #333; /* 텍스트 색상 */
+    margin-top: 20px; /* 위쪽에 여백 추가 */
+}
+
+.game-list-footer p {
+    margin: 0;
+    padding: 0;
+    font-weight: bold; /* 글씨를 더 두껍게 */
+}
+
+.discount {
+    color: #a1e44d;
+}
+
+/* 게임 상세 정보 */
+.game-detail {
+    flex: 1;
+    padding-left: 20px;
+}
+/* 게임 항목에 마우스를 올리면 상세 정보가 나타남 */
+.game-item:hover .game-detail {
+    display: block;
+    opacity: 1;
+}
+/* 스크린샷 이미지 스타일 */
+.game-detail img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+.game-detail-header h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.game-detail-header p {
+    font-size: 18px;
+    color: #a1e44d;
+}
+
+.game-screenshots {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.game-screenshots img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.recommend-section {
+    background-color: #1b2838; /* 배경 색상 */
+    color: #a1e44d; /* 텍스트 색상 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    padding: 50px 0; /* 상하 패딩 */
+    margin-top: 20px; /* 위쪽에 여백 추가 */
+}
+
+.recommend-section h2 {
+    font-size: 24px; /* 제목 크기 */
+    color: #58a6ff; /* 파란색 텍스트 */
+    margin-bottom: 10px;
+}
+
+.recommend-section p {
+    font-size: 16px; /* 본문 크기 */
+    color: #c5c6c7; /* 회색 텍스트 */
+    margin-bottom: 20px;
+}
+
+.steam-logo {
+    width: 80px; /* 로고 크기 */
+    margin-bottom: 20px; /* 아래쪽 여백 */
+}
+
+.footer {
+    background-color: #1b2838;
+    color: #c5c6c7;
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
+}
+
+.footer-logo img {
+    width: 100px;
+    margin-bottom: 10px;
+}
+
+.footer p {
+    margin: 5px 0;
+}
+
+.footer a {
+    color: #58a6ff;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.footer-links {
+    margin-top: 10px;
+}
+
+.footer-links a {
+    margin: 0 5px;
+    color: #58a6ff;
 }

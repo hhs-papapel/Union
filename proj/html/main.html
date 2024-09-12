@@ -366,12 +366,131 @@
 
             </div>
         </div>
-            
+
+        <div class="category-slider">
+            <h3>카테고리별로 살펴보기</h3>
+            <div class="category-wrapper">
+                <div class="category-item" style="background-image: url('../assets/images/ex.jpg');">
+                    <span>액션</span>
+                </div>
+                <div class="category-item" style="background-image: url('./path-to-image2.jpg');">
+                    <span>협동</span>
+                </div>
+                <div class="category-item" style="background-image: url('./path-to-image3.jpg');">
+                    <span>생존</span>
+                </div>
+                <div class="category-item" style="background-image: url('./path-to-image4.jpg');">
+                    <span>무료 플레이</span>
+                </div>
+            </div>
+            <div class="slider-pagination">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+
+    <!-- 카테고리 선택 -->
+    <nav class="category-nav">
+        <ul>
+            <li><a href="#">인기 신작</a></li>
+            <li><a href="#">최고 인기게임</a></li>
+            <li><a href="#">최고 인기제품</a></li>
+            <li><a href="#">최고 인기제목</a></li>
+            <li><a href="#">최고 인기시리즈</a></li>
+        </ul>
+    </nav>
+
+        <!-- 게임 목록 및 상세 화면 -->
+        <div class="game-list-section">
+            <!-- 왼쪽 게임 목록 -->
+            <div class="game-list">
+                <ul>
+                    <li class="game-item" data-title="게임 1" data-price="₩ 37,800" data-img1="path-to-image1.jpg" data-img2="path-to-image2.jpg">
+                        <div class="game-info"><img src="../assets/images/A_DANCE_OF.jpg">게임 1</div>
+                    </li>
+                    <li class="game-item" data-title="게임 2" data-price="₩ 69,800" data-img1="path-to-image3.jpg" data-img2="path-to-image4.jpg">
+                        <div class="game-info">게임 2</div>
+                    </li>
+                    <li class="game-item" data-title="게임 3" data-price="₩ 20,500" data-img1="path-to-image5.jpg" data-img2="path-to-image6.jpg">
+                        <div class="game-info">게임 3</div>
+                    </li>
+                </ul>
+            </div>
+        
+            <!-- 오른쪽 게임 상세 정보 -->
+            <div class="game-detail">
+                <div id="game-detail-header">
+                    <h3 id="game-title">게임 제목</h3>
+                    <p id="game-price">가격</p>
+                </div>
+                <div class="game-screenshots">
+                    <img id="screenshot1" src="" alt="스크린샷 1">
+                    <img id="screenshot2" src="" alt="스크린샷 2">
+                </div>
+            </div>
+        </div>
+        
+        <!-- <div class="game-list-footer">
+            <p>검색을 이용해 더 많은 제품을 확인해 보세요</p>
+        </div> -->
+        
+        <div class="recommend-section">
+            <img src="path_to_steam_logo.png" alt="Steam Logo" class="steam-logo">
+            <h2>계속 스크롤해 내려가 더 많은 추천 제품을 확인해 보세요.</h2>
+            <p>아래에서 흥미로운 여러 제품을 카테고리별로 확인할 수 있습니다.</p>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-logo">
+                <img src="path_to_valve_logo.png" alt="Valve Logo">
+            </div>
+            <p>© 2024 Valve Corporation. All rights reserved. 모든 상표는 미국 및 기타 국가에서 해당하는 소유자의 재산입니다.</p>
+            <p>부가가치세 포함&nbsp;|&nbsp;<a href="#">개인정보 보호정책</a>&nbsp;|&nbsp;<a href="#">사용권</a>&nbsp;|&nbsp;<a href="#">Steam 이용 약관</a>&nbsp;|&nbsp;<a href="#">환불</a>&nbsp;|&nbsp;<a href="#">쿠키</a></p>
+            <div class="footer-links">
+                <a href="#">Valve 정보</a>&nbsp;|&nbsp;
+                <a href="#">채용 정보</a>&nbsp;|&nbsp;
+                <a href="#">Steamworks</a>&nbsp;|&nbsp;
+                <a href="#">Steam 배포</a>&nbsp;|&nbsp;
+                <a href="#">지원</a>&nbsp;|&nbsp;
+                <a href="#">기프트 카드</a>&nbsp;|&nbsp;
+                <a href="#">Steam</a>&nbsp;|&nbsp;
+                <a href="#">@steam</a>
+            </div>
+        </footer>
+        
+        
+    
 </div>
 
     <!-- Swiper.js 추가 -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
+
+        document.querySelectorAll('.game-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const title = this.getAttribute('data-title');
+                const price = this.getAttribute('data-price');
+                const img1 = this.getAttribute('data-img1');
+                const img2 = this.getAttribute('data-img2');
+        
+                // 제목과 가격 업데이트
+                document.getElementById('game-title').innerText = title;
+                document.getElementById('game-price').innerText = price;
+        
+                // 스크린샷 이미지 업데이트
+                document.getElementById('screenshot1').src = img1;
+                document.getElementById('screenshot2').src = img2;
+        
+                // 상세 정보 보이기
+                document.querySelector('.game-detail').style.display = 'block';
+                document.querySelector('.game-detail').style.opacity = '1';
+            });
+        });
+        
+        
+        
         // 특별 할인 슬라이더
         // 배너 슬라이더 (움직이지 않도록 autoplay 설정을 제거)
         var bannerSwiper = new Swiper('.banner-container .swiper', {
