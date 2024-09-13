@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고객센터 - 문의 등록</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+
+    <style>
+        /* 기본 스타일 */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        /* 문의 폼 스타일 */
+        .inquiry-form {
+            background-color: #ffffff;
+            padding: 40px;
+            max-width: 600px;
+            margin: 20px auto;
+            text-align: left;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .inquiry-form label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .inquiry-form input[type="text"],
+        .inquiry-form input[type="email"],
+        .inquiry-form select,
+        .inquiry-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .inquiry-form input[type="file"] {
+            margin-bottom: 20px;
+        }
+
+        .submit-btn {
+            background-color: #ff4a4a;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background-color: #ff2a2a;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- 문의 등록 폼 -->
+    <section id="inquiry-form" class="inquiry-form">
+        <h2>문의 등록</h2>
+        <p>어떠한 내용이라도 답변드릴 준비가 되어 있습니다! 문의를 보내주세요! 가능한 한 빨리 답변 드리도록 하겠습니다.</p>
+        <form action="/submit-inquiry" method="POST">
+            <label for="category">1. 어떤 문제를 겪고 계신가요?</label>
+            <select id="category" name="category">
+                <option value="game-issue">플레이어 신고하기</option>
+                <option value="system-issue">시스템 문제 해결</option>
+                <option value="account-issue">계정 및 보안</option>
+                <option value="payment-issue">결제 및 RP 문제</option>
+            </select>
+
+            <label for="subject">문의 제목</label>
+            <input type="text" id="subject" name="subject" required>
+
+            <label for="description">문의 내용을 상세히 적어주세요</label>
+            <textarea id="description" name="description" rows="5" required></textarea>
+
+            <label for="email">이메일 주소</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="attachment">첨부 파일 (선택사항)</label>
+            <input type="file" id="attachment" name="attachment">
+
+            <button type="submit" class="submit-btn">제출</button>
+        </form>
+    </section>
+
+</body>
+</html>
