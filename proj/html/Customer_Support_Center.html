@@ -202,9 +202,20 @@
         <section id="service" class="tab-content">
             <h2>서비스 문의</h2>
             <p>서비스 관련 문의 사항을 선택하세요.</p>
-            <!-- 추가적으로 표시할 콘텐츠 영역 -->
+    
+        <!-- 드롭다운 메뉴 -->
+         <select id="serviceSelect" onchange="showServiceDetails()">
+            <option value="">문의 사항을 선택하세요</option>
+            <option value="billing">결제 문의</option>
+            <option value="technical">기술 지원</option>
+            <option value="general">일반 문의</option>
+            <option value="feedback">피드백 제출</option>
+    </select>
+
+        <!-- 추가적으로 표시할 콘텐츠 영역 -->
             <div id="service-additional"></div>
-        </section>
+    </section>
+
 
         <!-- 오류 신고 탭 -->
         <section id="error" class="tab-content">
@@ -277,17 +288,45 @@
             };
             document.getElementById('faq-answer').innerHTML = '<p>' + answers[questionId] + '</p>';
         }
+    // 아이디 찾기 기능
+    function showFindId() {
+        var idContent = `
+            <div class="id-find-form">
+            <h3>아이디 찾기</h3>
+            <input type="email" id="idFindEmail" placeholder="등록된 이메일 주소를 입력하세요">
+            <button onclick="findId()">아이디 찾기</button>
+        </div>`;
+    document.getElementById('id-find-content').innerHTML = idContent;
+}
 
-        // 아이디 찾기 기능
-        function showFindId() {
-            var idContent = `
-                <div class="id-find-form">
-                    <h3>아이디 찾기</h3>
-                    <input type="email" id="idFindEmail" placeholder="등록된 이메일 주소를 입력하세요">
-                    <button onclick="findId()">아이디 찾기</button>
-                </div>`;
-            document.getElementById('id-find-content').innerHTML = idContent;
-        }
+    // 이메일 유효성 검사
+    function isValidEmail(email) {
+        var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return emailPattern.test(email);
+}
+
+    // 아이디 찾기 로직
+    function findId() {
+        var email = document.getElementById('idFindEmail').value;
+
+        if (!email) {
+        alert('이메일 주소를 입력해주세요.');
+        return;
+    }
+
+        if (!isValidEmail(email)) {
+        alert('유효한 이메일 주소를 입력해주세요.');
+        return;
+    }
+
+        // 예시: 실제로 서버에서 이메일에 해당하는 아이디를 찾아오는 부분이 필요
+        // 여기서는 간단하게 성공 메시지만 출력합니다.
+        alert('아이디 찾기 성공: 입력하신 이메일로 아이디 정보가 발송되었습니다.');
+
+        // 입력 필드 초기화
+        document.getElementById('idFindEmail').value = '';
+}
+
 
         // 비밀번호 찾기 기능
         function showFindPassword() {
@@ -401,6 +440,37 @@
             }
         }
 
+        // 서비스 문의 선택에 따라 상세 내용을 표시하는 함수
+    function showServiceDetails() {
+        var serviceSelect = document.getElementById('serviceSelect').value;
+        var serviceContent = document.getElementById('service-additional');
+
+        // 각 문의 사항에 맞는 내용을 동적으로 변경
+        var details = {
+        billing: `
+            <h3>결제 문의</h3>
+            <p>결제 관련 문제에 대해 문의하려면, 결제 영수증 번호와 함께 고객센터에 연락해 주세요.</p>
+            <p>전화: 123-456-7890</p>
+            <p>이메일: billing@service.com</p>`,
+        technical: `
+            <h3>기술 지원</h3>
+            <p>기술적인 문제에 대해 지원이 필요하신 경우, 아래 기술 지원팀에 문의해 주세요.</p>
+            <p>전화: 123-456-7891</p>
+            <p>이메일: support@service.com</p>`,
+        general: `
+            <h3>일반 문의</h3>
+            <p>일반적인 서비스 문의 사항이 있으시면 고객센터로 연락해 주세요.</p>
+            <p>전화: 123-456-7892</p>
+            <p>이메일: info@service.com</p>`,
+        feedback: `
+            <h3>피드백 제출</h3>
+            <p>서비스에 대한 의견을 남기고 싶으시면 피드백을 보내 주세요.</p>
+            <p>이메일: feedback@service.com</p>`
+    };
+
+    // 선택한 옵션에 해당하는 내용을 표시
+    serviceContent.innerHTML = details[serviceSelect] || '';
+}
         // 검색 기능
         function searchFaq() {
             var query = document.getElementById('searchInput').value.toLowerCase();
