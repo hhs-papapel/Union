@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문의 리스트</title>
+    <style>
+        /* 전체 레이아웃 스타일 */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* 문의 리스트 테이블 스타일 */
+        .inquiry-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .inquiry-table th, .inquiry-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .inquiry-table th {
+            background-color: #66c0f4;
+            color: white;
+        }
+
+        .inquiry-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .inquiry-table tr:hover {
+            background-color: #ddd;
+        }
+
+        /* 상태별 색상 스타일 */
+        .status-processed {
+            color: green;
+            font-weight: bold;
+        }
+
+        .status-pending {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .status-completed {
+            color: blue;
+            font-weight: bold;
+        }
+
+        /* 상세보기 버튼 스타일 */
+        .details-btn {
+            background-color: #ff4a4a;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .details-btn:hover {
+            background-color: #ff2a2a;
+        }
+
+        /* 필터 섹션 스타일 */
+        .filter-section {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .filter-section select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* 검색창 스타일 */
+        .filter-section .search-input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 300px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>문의 리스트</h1>
+
+    <!-- 필터 섹션 -->
+    <div class="filter-section">
+        <div>
+            <label for="status-filter">상태별 필터:</label>
+            <select id="status-filter" name="status-filter">
+                <option value="all">전체</option>
+                <option value="pending">처리 중</option>
+                <option value="processed">접수 완료</option>
+                <option value="completed">처리 완료</option>
+            </select>
+        </div>
+        <input type="text" id="search-input" class="search-input" placeholder="검색어를 입력하세요...">
+        <div>
+            <label for="date-filter">날짜별 필터:</label>
+            <select id="date-filter" name="date-filter">
+                <option value="all">전체</option>
+                <option value="last-week">지난 주</option>
+                <option value="last-month">지난 달</option>
+                <option value="last-year">지난 해</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- 문의 리스트 테이블 -->
+    <table class="inquiry-table" id="inquiry-list">
+        <thead>
+            <tr>
+                <th>문의 제목</th>
+                <th>문의 내용</th>
+                <th>작성 날짜</th>
+                <th>상태</th>
+                <th>상세보기</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>비밀번호 변경 요청</td>
+                <td>비밀번호를 변경하고 싶습니다. 절차가 궁금합니다.</td>
+                <td>2024-09-01</td>
+                <td class="status-processed">접수 완료</td>
+                <td><a href="./inquiry3.html" class="details-btn">상세보기</a></td>
+            </tr>
+            <tr>
+                <td>계정 삭제 요청</td>
+                <td>내 계정을 삭제하고 싶습니다. 어떻게 해야 하나요?</td>
+                <td>2024-08-29</td>
+                <td class="status-pending">처리 중</td>
+                <td><a href="#" class="details-btn">상세보기</a></td>
+            </tr>
+            <tr>
+                <td>결제 문제</td>
+                <td>RP 결제가 실패합니다. 어떻게 해결하나요?</td>
+                <td>2024-08-25</td>
+                <td class="status-completed">처리 완료</td>
+                <td><a href="#" class="details-btn">상세보기</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        const searchInput = document.getElementById('search-input');
+        const statusFilter = document.getElementById('status-filter');
+        const inquiryList = document.getElementById('inquiry-list').getElementsByTagName('tbody')[0];
+        const inquiries = Array.from(inquiryList.getElementsByTagName('tr'));
+
+        // 상태 필터 적용
+        statusFilter.addEventListener('change', function() {
+            const filterValue = this.value;
+            filterInquiries(filterValue, searchInput.value);
+        });
+
+        // 검색 기능 적용
+        searchInput.addEventListener('keyup', function() {
+            const searchValue = this.value.toLowerCase();
+            filterInquiries(statusFilter.value, searchValue);
+        });
+
+        // 필터링 함수
+        function filterInquiries(status, searchQuery) {
+            inquiries.forEach(function(row) {
+                const title = row.cells[0].textContent.toLowerCase();
+                const inquiryStatus = row.cells[3].textContent.trim().toLowerCase();
+
+                const matchesStatus = status === 'all' || inquiryStatus.includes(status);
+                const matchesSearch = title.includes(searchQuery);
+
+                if (matchesStatus && matchesSearch) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,165 @@
+/* 전체 스타일 */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+/* 상단 배너와 검색창 */
+.header-banner {
+    background-image: url('header-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(172, 136, 136);
+}
+
+.search-bar-container {
+    text-align: center;
+}
+
+.search-bar-container h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    width: 500px;
+    padding: 10px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 메인 아이콘 메뉴 */
+.main-icons {
+    display: flex;
+    justify-content: space-around;
+    padding: 50px 0;
+    background-color: #fff;
+}
+
+.icon-item {
+    text-align: center;
+    font-size: 18px;
+    color: #333;
+}
+
+.icon-item img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+}
+
+/* 세부 카테고리 */
+.help-categories {
+    text-align: center;
+    padding: 40px 0;
+}
+
+.help-categories h2 {
+    font-size: 24px;
+    margin-bottom: 40px;
+    color: #333;
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 0 100px;
+}
+
+.category-item {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 18px;
+    color: #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.category-item:hover {
+    background-color: #f0f0f0;
+}
+.qa {
+    margin: 20px auto;
+    max-width: 800px;
+}
+
+.qa-item {
+    margin-bottom: 20px;
+}
+
+.question {
+    background-color: #f5f5f5;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.question:hover {
+    background-color: #e0e0e0;
+}
+
+.answer {
+    background-color: #e7f5ff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+    display: none; /* 처음엔 숨겨진 상태 */
+    border: 1px solid #66c0f4;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.answer p {
+    margin: 0;
+}
+/* 문의하기 섹션 스타일 */
+.inquiry-section {
+    text-align: center;
+    padding: 50px 0;
+    background-color: #ffffff;
+    margin-top: 50px;
+}
+
+.inquiry-section h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.inquiry-section p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.inquiry-btn {
+    background-color: #ff4a4a;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none; /* 밑줄 제거 */
+    display: inline-block; /* 버튼처럼 보이게 하기 위해 추가 */
+}
+
+.inquiry-btn:hover {
+    background-color: #ff2a2a;
+}

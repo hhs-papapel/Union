@@ -29,14 +29,13 @@
         const games = {
             "A Dance of Fire and Ice": {
                 title: "A Dance of Fire and Ice",
-                image: "../assets/images/A_DANCE_OF.jpg",
+                image: "../assets/images/ex.jpg",
                 space: "1.39GB",
                 lastPlayed: "3월 28일",
                 playtime: "3.3시간",
                 achievements: "6/47",
-                updateText: "새로운 엑스트라 세계: Party of Spirits!",
-                friendText: "친구 1명이 이전에 플레이했습니다",
-                friendImage: "../assets/images/friend.png"
+                updateText: "대충 무언가가 업데이트가 되었다는 의미의 글",
+                friendImage: ""
             },
             "Harry Potter": {
                 title: "Harry Potter: Quidditch Champions",
@@ -45,9 +44,9 @@
                 lastPlayed: "4월 10일",
                 playtime: "10시간",
                 achievements: "20/50",
-                updateText: "퀴디치 챔피언에서 새로운 마법의 세계를 경험하세요!",
-                friendText: "친구 2명이 이전에 플레이했습니다",
-                friendImage: "../assets/images/friend2.png"
+                updateText: "!",
+                friendText: "",
+                friendImage: ""
             }
         };
 
@@ -62,11 +61,11 @@
             document.querySelector('.update p').textContent = game.updateText;
             document.querySelector('.friend-activity p').textContent = game.friendText;
             document.querySelector('.friend-activity img').src = game.friendImage;
-
+        
             // 홈 화면 숨기기
             document.getElementById('home-section').style.display = 'none';
-
-            // 게임 세부 정보 섹션 표시
+        
+            // 게임 세부 정보 섹션 및 리뷰 작성 섹션 표시
             document.getElementById('game-details').style.display = 'block';
         }
 
@@ -115,14 +114,15 @@
             </ul>
         </aside>
     
+
         <!-- 홈 화면 (기본 화면) -->
         <section id="home-section">
             <h2>새로운 업데이트</h2>
-            <div class="updates-container">
-                <div class="update">
+            <div class="new-updates-container">
+                <div class="new-update">
                     <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="업데이트 이미지">
                 </div>
-                <div class="update">
+                <div class="new-update">
                     <img src="../assets/images/update.png" alt="업데이트 이미지">
                 </div>
             </div>
@@ -130,7 +130,7 @@
             <h2>최근 게임</h2>
             <div class="recent-games-container">
                 <div class="recent-game">
-                    <img src="../assets/images/recent_game.png" alt="최근 게임 이미지">
+                    <img src="../assets/images/A_DANCE_OF.jpg" alt="최근 게임 이미지">
                 </div>
                 <div class="recent-game">
                     <img src="../assets/images/A_DANCE_OF.jpg" alt="최근 게임 이미지">
@@ -171,20 +171,44 @@
             <button>창작마당</button>
             <button>지원</button>
         </div>
-        <div class="activity">
-            <h2>활동</h2>
-            <p>친구들에게 이 게임에 대해 이야기해 주세요...</p>
+        
+        <h2>주요 업데이트</h2>
+        <section class="update-container">
             <div class="update">
-                <h3>주요 업데이트</h3>
-                <p>새로운 엑스트라 세계: Party of Spirits!</p>
+                <img src="../assets/images/ex.jpg" alt="업데이트 이미지">
+                <p>주요 업데이트: 새로운 엑스트라 세계 'Party of Spirits!'을 경험하세요!</p>
             </div>
+            
+        </section>
+        
+        <!-- 리뷰 작성 섹션 -->
+        <div class="review-container">
+        <h2>이 게임에 대한 리뷰를 작성해 주세요...</h2>
+        <textarea rows="5" placeholder="이 게임에 대한 의견을 남겨 주세요..."></textarea>
+        <button type="submit">리뷰 제출</button>
+        </div>
+        
+    <!-- 플레이한 친구들 -->
+    <aside class="friend-activity-container">
+        <!-- <h2>플레이한 친구들</h2> -->
+        <div class="friend-activity">
+            <!-- <img src="../assets/images/friend.png" alt="친구 이미지"> -->
+            <!-- <p>친구 1명이 이전에 플레이했습니다</p> -->
         </div>
         <div class="friend-activity">
-            <h3>플레이한 친구들</h3>
-            <p>친구 1명이 이전에 플레이했습니다</p>
-            <img src="../assets/images/friend.png" alt="친구 이미지">
+            <img src="../assets/images/friend2.png" alt="">
+            <p></p>
         </div>
+    </aside>
+</div>
+
+
+        </div>
+
+        
     </section>
+
+    
         <!-- <footer style="position: absolute; bottom: 0px;">
             <script>loadHTML("./footer.html")</script>
         </footer> -->
