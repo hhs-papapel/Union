@@ -50,10 +50,11 @@ app.get('/', (req, res) => {
 
 
 /*───────────────────────────────────────────────────────────────────────────────────────────*/
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
 
 
 /*회원가입*/
-app.post('/join',(req, res) => {
+app.post('/join', (req, res) => {
     let id = req.body.id;
     let paw = req.body.paw;
     let ema = req.body.ema;
@@ -73,7 +74,7 @@ app.post('/join',(req, res) => {
             res.json(responseData);
         } else {
             connection.query(
-                'INSERT INTO User(username, pwd, email, name, phone, regDate, profilePic) VALUES (?, ?, ?, ?, ?, ?, ?)', 
+                'INSERT INTO User(username, pwd, email, name, phone, regDate, profilePic) VALUES (?, ?, ?, ?, ?, ?, ?)',
                 [id, paw, ema, name, phone, regDate, profilePic],
                 (err, rows) => {
                     if (err) {
@@ -150,7 +151,7 @@ app.post('/findId', (req, res) => {
 
 /* 비밀번호 찾기 기능 */
 app.post('/findPw', (req, res) => {
-    const { id, contact } = req.body;  
+    const { id, contact } = req.body;
 
     connection.query('SELECT pwd FROM User WHERE username = ? AND (email = ? OR phone = ?)', [id, contact, contact], (err, rows) => {
         if (err) {
@@ -160,12 +161,12 @@ app.post('/findPw', (req, res) => {
         if (rows.length > 0) {
             let responseData = {
                 status: 200,
-                pw: rows[0].pwd 
+                pw: rows[0].pwd
             };
             res.json(responseData);
         } else {
             let responseData = {
-                status: 404, 
+                status: 404,
                 message: 'User not found'
             };
             res.json(responseData);
@@ -197,17 +198,22 @@ app.get('/api/user/name', (req, res) => {
     });
 });
 
+
 /*───────────────────────────────────────────────────────────────────────────────────────────*/
-    /*장바구니 항목 보기*/
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+/*장바구니 항목 보기*/
 app.get('/api/cart', (req, res) => {
     const userId = req.query.userId;
-
 
     const query = `
         SELECT c.cartId, g.gameName, g.price, g.imageUrl, g.gameId
         FROM Cart c 
         JOIN Game g ON c.gameId = g.gameId 
-        WHERE c.userId = ?`;
+        LEFT JOIN GameImage gi ON g.gameId = gi.gameId
+        WHERE c.userId = ?
+        GROUP BY g.gameId
+    `;
 
     connection.query(query, [userId], (err, results) => {
         if (err) {
@@ -294,7 +300,7 @@ app.post('/api/cart/delete', (req, res) => {
 app.post('/api/payment', (req, res) => {
     const { userId, paymentItems } = req.body;
 
-    
+
     const paymentDate = new Date();  // 결제 날짜
 
     connection.beginTransaction(err => {
@@ -351,7 +357,7 @@ app.post('/api/payment', (req, res) => {
 });
 
 /*───────────────────────────────────────────────────────────────────────────────────────────*/
-
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
 
 /* 찜목록 리스트 */
 app.get('/api/wishlist', (req, res) => {
@@ -473,6 +479,124 @@ app.get('/api/wishlist/search', (req, res) => {
             return res.status(500).json({ message: 'DB 조회 중 오류 발생' });
         }
         res.json(results); // 검색 결과를 클라이언트에 전달
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+// 게임 상세 정보
+app.get('/api/game/:gameId', (req, res) => {
+    const gameId = req.params.gameId;
+
+    // 게임 기본 정보 가져오기
+    const gameQuery = 'SELECT * FROM Game WHERE gameId = ?';
+    connection.query(gameQuery, [gameId], (err, gameResults) => {
+        console.log('게임 데이터:', gameResults);  // 데이터베이스에서 가져온 게임 데이터 확인
+        if (err) {
+            console.error('게임 데이터 가져오기 오류:', err);
+            res.status(500).json({ message: '서버 오류' });
+        } else if (gameResults.length > 0) {
+            const game = gameResults[0];
+
+            // 스크린샷 가져오기
+            const screenshotsQuery = 'SELECT imageUrl FROM GameImage WHERE gameId = ?';
+            connection.query(screenshotsQuery, [gameId], (err, screenshotsResults) => {
+                if (err) {
+                    console.error('스크린샷 데이터 가져오기 오류:', err);
+                    res.status(500).json({ message: '서버 오류' });
+                } else {
+                    // 태그 가져오기
+                    const tagsQuery = `
+                        SELECT t.tagName 
+                        FROM Tag t 
+                        JOIN GameTag gt ON t.tagId = gt.tagId 
+                        WHERE gt.gameId = ?
+                    `;
+                    connection.query(tagsQuery, [gameId], (err, tagsResults) => {
+                        if (err) {
+                            console.error('태그 데이터 가져오기 오류:', err);
+                            res.status(500).json({ message: '서버 오류' });
+                        } else {
+                            // 태그 이름들만 추출
+                            const tags = tagsResults.map(row => row.tagName);
+
+                            // 게임 데이터 및 스크린샷, 태그를 클라이언트에 반환
+                            res.json({
+                                gameId: game.gameId,
+                                gameName: game.gameName,
+                                price: game.price,
+                                discountRate: game.discountRate || 0,  // 할인율이 있으면 가져오고, 없으면 0
+                                originalPrice: game.originalPrice,  // 원래 가격
+                                discountedPrice: game.discountedPrice,  // 할인된 가격
+                                developer: game.developer,
+                                publisher: game.publisher,
+                                releaseDate: game.releaseDate,
+                                description: game.description,
+                                detailedDescription: game.detailedDescription,
+                                imageUrl: game.imageUrl,  // 대표 이미지 URL
+                                tags: tags,  // 태그 리스트
+                                screenshots: screenshotsResults.map(row => row.imageUrl)  // 스크린샷 URL 리스트
+                            });
+                        }
+                    });
+                }
+            });
+        } else {
+            res.status(404).json({ message: '게임을 찾을 수 없습니다.' });
+        }
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+// 리뷰 작성
+app.post('/api/review', (req, res) => {
+    const { userId, gameId, rating, content } = req.body;
+    const reviewDate = new Date();  // 리뷰 작성 날짜
+
+    if (!rating) {
+        return res.status(400).json({ message: '평점을 입력해주세요.' });
+    }
+
+    const query = `
+        INSERT INTO Review (userId, gameId, reviewDate, rating, content)
+        VALUES (?, ?, ?, ?, ?)
+    `;
+
+    connection.query(query, [userId, gameId, reviewDate, rating, content], (err, results) => {
+        if (err) {
+            console.error('리뷰 저장 중 오류 발생:', err);
+            return res.status(500).json({ message: '리뷰 저장 중 오류 발생' });
+        }
+
+        res.json({ message: '리뷰가 성공적으로 저장되었습니다.' });
+    });
+});
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+// 리뷰 조회
+app.get('/api/review/:gameId', (req, res) => {
+    const gameId = req.params.gameId;
+
+    console.log('리뷰 조회 요청 받음:', gameId); // 로그 추가
+
+    const query = `
+        SELECT r.*, u.name AS userName 
+        FROM Review r 
+        JOIN User u ON r.userId = u.userId 
+        WHERE r.gameId = ?
+        ORDER BY r.reviewDate DESC
+    `;
+
+    connection.query(query, [gameId], (err, results) => {
+        if (err) {
+            console.error('리뷰 조회 중 오류 발생:', err);
+            return res.status(500).json({ message: '리뷰 조회 중 오류 발생' });
+        }
+
+        console.log('리뷰 조회 결과:', results); // 조회된 결과 로그 추가
+        res.json(results); // 조회된 리뷰 데이터를 JSON 형식으로 반환
     });
 });
 
