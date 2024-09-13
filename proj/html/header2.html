@@ -59,46 +59,6 @@ header {
 }
 
 
-/* 사이드바 */
-.sidebar {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1000;
-    top: 0;
-    left: 0;
-    background-color: #BFFF00;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
-}
-.sidebar h3{
-    width: 230px;
-    margin-left: 25px;
-    margin-top: 20px;
-    margin-bottom: 10px;
-}
-.sidebar a {
-    width: 230px;
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 15px;
-    color: #000000;
-    display: block;
-    transition: 0.3s;
-}
-
-.sidebar a:hover {
-    background-color: #1abc9c;
-    font-weight: bold;
-    color: #2b2b2b;
-}
-.sidebar .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-}
 
 /* -------------------- */
 
@@ -159,10 +119,7 @@ svg {
             <div class="hamburger" onclick="openNav()">☰</div> <!-- 햄버거 아이콘 -->
             
             <div class="nav-right">
-                <a href="#"><img src="../assets/images/로그인.png" alt="Login">상점</a>
-                <a href="#"><img src="../assets/images/로그인.png" alt="Login">커뮤니티</a>
-                <a href="#"><img src="../assets/images/로그인.png" alt="Login">지원</a>
-                <a href="#"><img src="../assets/images/로그인.png" alt="Login">로그인</a>
+                <a href="#"><img src="../assets/images/로그인.png" alt="Login">로그아웃</a>
             </div>
         </div>
         <div style="height: 70px;">
@@ -170,31 +127,7 @@ svg {
                 <text x="50%" y="21%" dy="40px" text-anchor="middle" >UNION</text>
             </svg>
         </div>
-        <!-- 사이드바 -->
-        <div id="mySidebar" class="sidebar">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a> <!-- 닫기 버튼 -->
-            <h3>카테고리 검색</h3>
-            <a href="#">인기 제품</a>
-            <a href="#">신규 출시</a>
-            <a href="#">vr 게임</a>
-            <a href="#">컨트롤러 지원</a>
-            <a href="#">Deck 완벽 호환</a>
-
-            <h3>장르별 검색</h3>
-            <a href="#">무료 플레이</a>
-            <a href="#">앞서 해보기</a>
-            <a href="#">MMO</a>
-            <a href="#">RPG</a>
-            <a href="#">레이싱</a>
-            <a href="#">스포츠</a>
-            <a href="#">시뮬레이션</a>
-            <a href="#">액션</a>
-            <a href="#">어드벤처</a>
-            <a href="#">인디</a>
-            <a href="#">전략</a>
-            <a href="#">캐주얼</a>
-            
-        </div>
+        
     </header>
 
     
