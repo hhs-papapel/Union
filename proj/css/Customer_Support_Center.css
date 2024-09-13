@@ -115,12 +115,12 @@ body {
 }
 
 .answer {
-    background-color: #e7f5ff;
+    background-color: #b4ffc4;
     padding: 15px;
     border-radius: 8px;
     margin-top: 10px;
     display: none; /* 처음엔 숨겨진 상태 */
-    border: 1px solid #66c0f4;
+    border: 1px solid #82c9c3;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 

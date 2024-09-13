@@ -19,6 +19,7 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
 
         h1 {
@@ -41,6 +42,28 @@
             color: green;
         }
 
+        /* 수정 및 삭제 버튼 스타일 */
+        .btn-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .btn-container button {
+            background-color: #66c0f4;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-left: 10px; /* 버튼 간격 */
+        }
+
+        .btn-container button:hover {
+            background-color: #ff4a4a;
+        }
+
         .back-btn {
             display: inline-block;
             background-color: #66c0f4;
@@ -54,11 +77,19 @@
         .back-btn:hover {
             background-color: #ff4a4a;
         }
+
     </style>
 </head>
 <body>
 
     <div class="container">
+
+        <!-- 수정 및 삭제 버튼 컨테이너 -->
+        <div class="btn-container">
+            <button>수정</button>
+            <button>삭제</button>
+        </div>
+
         <h1>문의 상세보기</h1>
 
         <div class="details">

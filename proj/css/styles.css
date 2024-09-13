@@ -457,12 +457,10 @@ body {
 
 /* 카테고리 슬라이더 스타일 */
 .category-slider {
-    margin-top: 20px;
     text-align: center;
-    background-color: #1b2838; /* 배경색을 아래 섹션과 동일하게 설정 */
-    padding: 20px 0; /* 상단, 하단 패딩을 조정하여 크기를 줄임 */
-
+    background-color: #1b2838;
     color: white;
+    padding: 20px;
 }
 
 .category-slider h3 {
@@ -473,29 +471,30 @@ body {
 
 .category-wrapper {
     display: flex;
-    justify-content: space-around; /* 공간을 균등하게 분배 */
-    padding: 0 20px; /* 좌우 패딩 */
+    overflow: hidden;
+    width: 80%; /* 한 페이지에 4개가 들어가도록 설정 */
+    margin: 0 auto;
+    scroll-behavior: smooth;
 }
 
 
 .category-item {
-    width: 20%; /* 카드 크기를 줄임 */
-    padding-top: 25%; /* 비율을 유지하면서 크기를 줄임 */
-    position: relative;
+    min-width: 25%; /* 화면 너비의 25%로 4개가 보이도록 설정 */
+    padding-top: 25%;
     background-size: cover;
     background-position: center;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
+    margin: 0 10px;
+    position: relative;
 }
+
 .category-item span {
     position: absolute;
     bottom: 10px;
     left: 10px;
-    font-size: 14px; /* 글씨 크기 줄임 */
+    font-size: 16px;
     font-weight: bold;
     color: white;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
 }
 /* 카테고리 내비게이션 스타일 */
 .category-nav {
@@ -504,27 +503,32 @@ body {
     text-align: center; /* 텍스트 가운데 정렬 */
 }
 
+/* 카테고리 내비게이션 */
 .category-nav ul {
-    list-style-type: none; /* 기본 리스트 스타일 제거 */
-    margin: 0;
+    list-style-type: none;
     padding: 0;
+    text-align: center;
 }
 
 .category-nav ul li {
-    display: inline-block; /* 가로로 나열 */
-    margin-right: 15px; /* 항목 간 간격 */
+    display: inline-block;
+    margin-right: 20px;
 }
 
 .category-nav ul li a {
-    color: #ffffff; /* 링크 텍스트 색상 */
-    font-size: 18px; /* 글씨 크기 */
-    text-decoration: none; /* 밑줄 제거 */
+    color: #ffffff;
+    font-size: 18px;
+    text-decoration: none;
+    padding: 10px 15px;
+    background-color: #333;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
 .category-nav ul li a:hover {
-    color: #a1e44d; /* 마우스 오버 시 텍스트 색상 */
-    text-decoration: underline; /* 마우스 오버 시 밑줄 */
+    background-color: #777;
 }
+
 
 
 .slider-pagination {
@@ -533,17 +537,23 @@ body {
     justify-content: center;
     gap: 10px;
 }
-
 .dot {
     width: 12px;
     height: 12px;
     background-color: #9DDFD3;
     border-radius: 50%;
+    display: inline-block;
+    margin: 0 5px;
     cursor: pointer;
 }
 
-.dot:hover, .dot.active {
+.dot.active {
     background-color: #FFDADA;
+}
+
+
+.dot:hover {
+    background-color: #151515;
 }
 
 /* 게임 목록 및 상세보기 */
@@ -559,21 +569,22 @@ body {
     overflow-x: hidden; /* 좌우로 넘치는 요소를 숨기기 */
 }
 
+/* 왼쪽 게임 목록 */
 .game-list {
     flex: 1;
-    padding-right: 20px;
-    border-right: 1px solid #333;
+    max-width: 40%;
+    margin-right: 20px;
 }
-
 
 .game-list ul {
     list-style: none;
+    padding: 0;
 }
 
 .game-item {
-    padding: 10px;
-    border-bottom: 1px solid #333;
+    margin-bottom: 15px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 /* .game-item:hover, .game-item.active {
@@ -581,8 +592,8 @@ body {
 } */
 .game-item:hover {
     background-color: #2a475e;
+    border-radius: 10px;
 }
-
 
 .game-info {
     display: flex;
@@ -590,19 +601,25 @@ body {
 }
 
 .game-info img {
-    width: 50px;
+    width: 80px;
     height: 50px;
-    margin-right: 10px;
-    border-radius: 5px;
+    margin-right: 15px;
+    border-radius: 10px;
+    object-fit: cover;
 }
 
-/* 기본적으로 상세 화면은 숨기기 */
+.game-info span {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* 오른쪽 게임 상세 정보 */
 .game-detail {
-    display: none;
     flex: 1;
-    padding-left: 20px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    background-color: #2b3e50;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 50%;
 }
 /* 게임 항목에 마우스를 올리면 오른쪽에 상세 화면 표시 */
 .game-item:hover ~ .game-detail {
@@ -738,4 +755,64 @@ body {
 .footer-links a {
     margin: 0 5px;
     color: #BFFF00;
+}
+/* 화살표 버튼을 카테고리 양쪽에 배치 */
+.prev-btn, .next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    color: #333;
+    font-size: 24px;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+}
+
+/* 버튼 호버 효과 */
+.prev-btn:hover, .next-btn:hover {
+    background-color: rgba(255, 255, 255, 1);
+}
+
+/* 왼쪽 화살표 버튼 위치 */
+.prev-btn {
+    left: 20px;
+}
+
+/* 오른쪽 화살표 버튼 위치 */
+.next-btn {
+    right: 20px;
+}
+#game-detail-header h3 {
+    font-size: 28px;
+    color: #a1e44d;
+}
+
+#game-detail-header p {
+    font-size: 20px;
+    color: #ffffff;
+}
+
+.game-screenshots img {
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+#game-description {
+    font-size: 16px;
+    color: #c5c5c5;
+    margin-top: 15px;
+}
+
+/* 게임 상세 설명 텍스트 스타일 */
+#game-description {
+    font-size: 16px;
+    color: #dddddd;
+    line-height: 1.6;
+    margin-top: 20px;
 }
