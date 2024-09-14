@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,16 +8,12 @@
     <link rel="stylesheet" href="../css/library.css">
 
     <script>
-                function loadHTML(file)
-        {
+        function loadHTML(file) {
             var rawFile = new XMLHttpRequest();
             rawFile.open("GET", file, false);
-            rawFile.onreadystatechange = function ()
-            {
-                if(rawFile.readyState === 4)
-                {
-                    if(rawFile.status === 200 || rawFile.status == 0)
-                    {
+            rawFile.onreadystatechange = function () {
+                if (rawFile.readyState === 4) {
+                    if (rawFile.status === 200 || rawFile.status == 0) {
                         var allText = rawFile.responseText;
                         document.write(allText);
                     }
@@ -61,10 +58,10 @@
             document.querySelector('.update p').textContent = game.updateText;
             document.querySelector('.friend-activity p').textContent = game.friendText;
             document.querySelector('.friend-activity img').src = game.friendImage;
-        
+
             // 홈 화면 숨기기
             document.getElementById('home-section').style.display = 'none';
-        
+
             // 게임 세부 정보 섹션 및 리뷰 작성 섹션 표시
             document.getElementById('game-details').style.display = 'block';
         }
@@ -77,6 +74,7 @@
 
     </script>
 </head>
+
 <body>
 
     <header>
@@ -89,8 +87,9 @@
         <!-- 게임 리스트 -->
         <aside class="game-list">
             <!-- 홈 버튼 추가 -->
-            <button onclick="goHome()" style="margin-bottom: 20px; padding: 10px; background-color: #66c0f4; color: white; border: none; border-radius: 5px; cursor: pointer;">Home</button>
-            
+            <button onclick="goHome()"
+                style="margin-bottom: 20px; padding: 10px; background-color: #66c0f4; color: white; border: none; border-radius: 5px; cursor: pointer;">Home</button>
+
             <div class="search-container">
                 <div class="tag-dropdown">
                     <select>
@@ -113,7 +112,7 @@
                 </li>
             </ul>
         </aside>
-    
+
 
         <!-- 홈 화면 (기본 화면) -->
         <section id="home-section">
@@ -152,67 +151,71 @@
         </section>
 
 
-     <!-- 게임 세부 정보 (초기에는 숨겨진 상태) -->
-     <section class="game-details" id="game-details" style="display: none;">
-        <div class="game-header">
-            <img src="../assets/images/A_DANCE_OF.jpg" alt="게임 배너" class="game-banner"> 
-            <h1>Game Title</h1>
-            <button class="install-btn">설치</button>
-            <p>필요한 공간: 1.39GB | 마지막 플레이: 3월 28일 | 플레이 시간: 3.3시간</p>
-            <p>도전 과제: 6/47</p>
-        </div>
-
-        <div class="tabs">
-            <button>상점 페이지</button>
-            <button>DLC</button>
-            <button>커뮤니티 허브</button>
-            <button>토론</button>
-            <button>가이드</button>
-            <button>창작마당</button>
-            <button>지원</button>
-        </div>
-        
-        <h2>주요 업데이트</h2>
-        <section class="update-container">
-            <div class="update">
-                <img src="../assets/images/ex.jpg" alt="업데이트 이미지">
-                <p>주요 업데이트: 새로운 엑스트라 세계 'Party of Spirits!'을 경험하세요!</p>
+        <!-- 게임 세부 정보 (초기에는 숨겨진 상태) -->
+        <section class="game-details" id="game-details" style="display: none;">
+            <div class="game-header">
+                <img src="../assets/images/A_DANCE_OF.jpg" alt="게임 배너" class="game-banner">
+                <h1>Game Title</h1>
+                <button class="install-btn">설치</button>
+                <p>필요한 공간: 1.39GB | 마지막 플레이: 3월 28일 | 플레이 시간: 3.3시간</p>
+                <p>도전 과제: 6/47</p>
             </div>
-            
-        </section>
-        
-        <!-- 리뷰 작성 섹션 -->
-        <div class="review-container">
-        <h2>이 게임에 대한 리뷰를 작성해 주세요...</h2>
-        <textarea rows="5" placeholder="이 게임에 대한 의견을 남겨 주세요..."></textarea>
-        <button type="submit">리뷰 제출</button>
-        </div>
-        
-    <!-- 플레이한 친구들 -->
-    <aside class="friend-activity-container">
-        <!-- <h2>플레이한 친구들</h2> -->
-        <div class="friend-activity">
-            <!-- <img src="../assets/images/friend.png" alt="친구 이미지"> -->
-            <!-- <p>친구 1명이 이전에 플레이했습니다</p> -->
-        </div>
-        <div class="friend-activity">
-            <img src="../assets/images/friend2.png" alt="">
-            <p></p>
-        </div>
-    </aside>
-</div>
+
+            <div class="tabs">
+                <button>상점 페이지</button>
+                <button>DLC</button>
+                <button>커뮤니티 허브</button>
+                <button>토론</button>
+                <button>가이드</button>
+                <button>창작마당</button>
+                <button>지원</button>
+            </div>
+
+            <h2>주요 업데이트</h2>
+            <section class="update-container">
+                <div class="update">
+                    <img src="../assets/images/ex.jpg" alt="업데이트 이미지">
+                    <p>주요 업데이트: 새로운 엑스트라 세계 'Party of Spirits!'을 경험하세요!</p>
+                </div>
+
+            </section>
+
+            <!-- 리뷰 작성 섹션 -->
+            <div class="review-container">
+                <h2>이 게임에 대한 리뷰를 작성해 주세요...</h2>
+                <textarea rows="5" placeholder="이 게임에 대한 의견을 남겨 주세요..."></textarea>
+                <button type="submit">리뷰 제출</button>
+            </div>
+
+            <!-- 플레이한 친구들 -->
+            <aside class="friend-activity-container">
+                <!-- <h2>플레이한 친구들</h2> -->
+                <div class="friend-activity">
+                    <!-- <img src="../assets/images/friend.png" alt="친구 이미지"> -->
+                    <!-- <p>친구 1명이 이전에 플레이했습니다</p> -->
+                </div>
+                <div class="friend-activity">
+                    <img src="../assets/images/friend2.png" alt="">
+                    <p></p>
+                </div>
+            </aside>
+    </div>
 
 
-        </div>
+    </div>
 
-        
+
     </section>
 
-    
-        <!-- <footer style="position: absolute; bottom: 0px;">
+
+    <!-- <footer style="position: absolute; bottom: 0px;">
             <script>loadHTML("./footer.html")</script>
         </footer> -->
     </div>
 
+    <!-- 로그인 체크 js 추가 -->
+    <script src="../assets/js/checkLogin.js"></script>
+    
 </body>
+
 </html>

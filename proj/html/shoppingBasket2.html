@@ -185,88 +185,84 @@
 
         /* -------------------------------- */
 
-.button_container {
-position: absolute;
-left: 0;
-right: 0;
-top: 30%;
-}
+        .button_container {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 30%;
+        }
 
-.description, .link {
-font-family: 'Amatic SC', cursive;
-text-align: center;
-}
+        .description,
+        .link {
+            font-family: 'Amatic SC', cursive;
+            text-align: center;
+        }
 
-.description {
-font-size: 35px;
-}
+        .description {
+            font-size: 35px;
+        }
 
-.btn {
-border: none;
-display: block;
-text-align: center;
-cursor: pointer;
-text-transform: uppercase;
-outline: none;
-overflow: hidden;
-position: relative;
-color: #fff;
-font-weight: 700;
-font-size: 15px;
-background-color: #000000;
-padding: 13px 126px;
-margin: 0 auto;
-transition: color .5s ease-in-out;
-}
+        .btn {
+            border: none;
+            display: block;
+            text-align: center;
+            cursor: pointer;
+            text-transform: uppercase;
+            outline: none;
+            overflow: hidden;
+            position: relative;
+            color: #fff;
+            font-weight: 700;
+            font-size: 15px;
+            background-color: #000000;
+            padding: 13px 126px;
+            margin: 0 auto;
+            transition: color .5s ease-in-out;
+        }
 
-.btn span {
-position: relative; 
-z-index: 1;
-}
+        .btn span {
+            position: relative;
+            z-index: 1;
+        }
 
-.btn:after {
-content: "";
-position: absolute;
-left: 0;
-top: 0;
-height: 490%;
-width: 140%;
-background: #abff76;
--webkit-transition: all .5s ease-in-out;
-transition: all .5s ease-in-out;
--webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
-transform: translateX(-98%) translateY(-25%) rotate(45deg);
-}
+        .btn:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 490%;
+            width: 140%;
+            background: #abff76;
+            -webkit-transition: all .5s ease-in-out;
+            transition: all .5s ease-in-out;
+            -webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
+            transform: translateX(-98%) translateY(-25%) rotate(45deg);
+        }
 
-.btn:hover:after {
--webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
-transform: translateX(-9%) translateY(-25%) rotate(45deg);
-}
+        .btn:hover:after {
+            -webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
+            transform: translateX(-9%) translateY(-25%) rotate(45deg);
+        }
 
-.btn:hover {
-color: #000000;
-}
-
+        .btn:hover {
+            color: #000000;
+        }
     </style>
-        <script>
-            function loadHTML(file)
-            {
-                var rawFile = new XMLHttpRequest();
-                rawFile.open("GET", file, false);
-                rawFile.onreadystatechange = function ()
-                {
-                    if(rawFile.readyState === 4)
-                    {
-                        if(rawFile.status === 200 || rawFile.status == 0)
-                        {
-                            var allText = rawFile.responseText;
-                            document.write(allText);
-                        }
+    <script>
+        function loadHTML(file) {
+            var rawFile = new XMLHttpRequest();
+            rawFile.open("GET", file, false);
+            rawFile.onreadystatechange = function () {
+                if (rawFile.readyState === 4) {
+                    if (rawFile.status === 200 || rawFile.status == 0) {
+                        var allText = rawFile.responseText;
+                        document.write(allText);
                     }
                 }
-                rawFile.send(null);
             }
-        </script>
+            rawFile.send(null);
+        }
+    </script>
 </head>
 
 <body>
@@ -309,7 +305,7 @@ color: #000000;
                     </div>
                 </div>
 
-                               <div class="cart-item">
+                <div class="cart-item">
                     <div class="cart-item-img">
                         <img src="../assets/images/game_header/game2_header.jpg" alt="Dustborn">
                         <div class="compatibility">
@@ -336,7 +332,7 @@ color: #000000;
                             <a href="#">위시리스트로 이동</a>
                         </div>
                     </div>
-                </div> 
+                </div>
 
             </div>
 
@@ -353,7 +349,8 @@ color: #000000;
 
 
 
-
+    <!-- 로그인 체크 js 추가 -->
+    <script src="../assets/js/checkLogin.js"></script>
 
 </body>
 

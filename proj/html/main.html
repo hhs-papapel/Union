@@ -487,7 +487,10 @@
 
     <!-- Swiper.js 추가 -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <!-- 로그인 체크 js 추가 -->
+    <script src="../assets/js/checkLogin.js"></script>
     <script>
+        console.log(sessionStorage.getItem('loggedInUser'));
 const categoryWrapper = document.querySelector('.category-wrapper');
 const nextBtn = document.querySelector('.next-btn');
 const prevBtn = document.querySelector('.prev-btn');

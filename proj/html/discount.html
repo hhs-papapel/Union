@@ -1,23 +1,20 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>할인 페이지</title>
-    
+
     <!-- CSS 파일 링크 -->
     <link rel="stylesheet" href="../css/discount_style.css">
     <script>
-        function loadHTML(file)
-        {
+        function loadHTML(file) {
             var rawFile = new XMLHttpRequest();
             rawFile.open("GET", file, false);
-            rawFile.onreadystatechange = function ()
-            {
-                if(rawFile.readyState === 4)
-                {
-                    if(rawFile.status === 200 || rawFile.status == 0)
-                    {
+            rawFile.onreadystatechange = function () {
+                if (rawFile.readyState === 4) {
+                    if (rawFile.status === 200 || rawFile.status == 0) {
                         var allText = rawFile.responseText;
                         document.write(allText);
                     }
@@ -27,6 +24,7 @@
         }
     </script>
 </head>
+
 <body>
 
     <!-- 메뉴바 -->
@@ -102,5 +100,8 @@
     <footer>
         <script>loadHTML("./footer.html")</script>
     </footer>
+    <!-- 로그인 체크 js 추가 -->
+    <script src="../assets/js/checkLogin.js"></script>
 </body>
+
 </html>
