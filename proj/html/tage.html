@@ -52,17 +52,16 @@
                 <li>신규 모드</li>
             </ul>
             <div class="search-bar">
-                <input type="text" placeholder="검색">
+                <input type="text" id="searchInput" placeholder="검색">
             </div>
         </nav>
     </section>
-
     <section class="main-content">
         <div class="section-title">
             <h2 id="tagtitlee"></h2>
         </div>
 
-        <div class="game-card">
+        <div class="game-card"  id="searchResults">
             <div class="game-image">
                 <img src="./header.jpg" alt="Team Fortress 2 이미지" id="taggameimg">
             </div>
@@ -196,7 +195,7 @@
 
 
 
-
+        /*───────────────────────────────────────────────────────────────────────────────────────────*/
 
         document.addEventListener('DOMContentLoaded', () => {
             const tagId = getTagIdFromURL();
@@ -223,8 +222,14 @@
                     document.getElementById('taggamedate').innerText = `출시일: ${new Date(game.releaseDate).toLocaleDateString()}`;
 
                     // 이미지 변경
-                    document.getElementById('taggameimg').src = game.imageUrl;
-                    document.getElementById('taggameimg').alt = `${game.gameName} 이미지`;
+                    const gameImage = document.getElementById('taggameimg');
+                    gameImage.src = game.imageUrl;
+                    gameImage.alt = `${game.gameName} 이미지`;
+
+                    // 이미지를 클릭하면 해당 게임의 상세 페이지로 이동
+                    gameImage.addEventListener('click', () => {
+                        window.location.href = `/proj/html/game_details.html?gameId=${game.gameId}`;
+                    });
 
                     fetchGameTags(game.gameId);
                 })
@@ -249,7 +254,7 @@
                 .catch(error => console.error('태그를 가져오는 중 오류:', error));
         }
 
-
+        /*───────────────────────────────────────────────────────────────────────────────────────────*/
 
         const recommendations = [
             "흥미진진한 게임 플레이가 당신을 사로잡을 것입니다.",
@@ -317,16 +322,11 @@
 
         // 게임 목록을 서버에서 가져오는 함수
         function loadGames(page, tagId) {
+            console.log(`Loading games for page: ${page}, tagId: ${tagId}`);  // 디버깅용 로그 추가
             fetch(`http://localhost:3000/api/games?tagId=${tagId}&page=${page}&limit=${itemsPerPage}`)
                 .then(response => response.json())
                 .then(games => {
                     const photoGrid = document.getElementById('photoGrid');
-
-                    // 게임이 없으면 더보기 버튼 숨기기
-                    if (games.length === 0) {
-                        document.getElementById('loadMoreButton').style.display = 'none';
-                        return;
-                    }
 
                     // 게임 목록을 순회하며 이미지 추가
                     games.forEach(game => {
@@ -347,24 +347,127 @@
                         gameLink.appendChild(gameItem);
                         photoGrid.appendChild(gameLink);
                     });
+
+                    console.log(`Loaded ${games.length} games.`);  // 로드된 게임 수 로그 출력
                 })
                 .catch(error => {
                     console.error('게임 목록을 불러오는 중 오류 발생:', error);
                 });
         }
 
-        // 페이지 로드 시 초기 게임 목록을 태그에 맞게 가져옴
+        // DOMContentLoaded 이벤트 이후에 "더보기" 버튼 이벤트 리스너 추가
         document.addEventListener('DOMContentLoaded', () => {
             const tagId = getTagIdFromURL();
+            let currentPage = 1;  // 현재 페이지 번호
+            const itemsPerPage = 8;  // 한 페이지에 표시할 게임 수
+
             if (tagId) {
+                // 첫 페이지의 게임 목록 로드
                 loadGames(currentPage, tagId);
             }
+
+            // "더보기" 버튼 이벤트 리스너 추가
+            const loadMoreButton = document.getElementById('loadMoreButton');
+            loadMoreButton.addEventListener('click', () => {
+                currentPage++;  // 페이지 번호 증가
+                console.log(`Loading next page: ${currentPage}`);  // 디버깅용 로그 추가
+                loadGames(currentPage, tagId);  // 다음 페이지의 게임 목록 로드
+            });
         });
+
 
         document.getElementById('loadMoreButton').addEventListener('click', () => {
             currentPage++;
             loadGames(currentPage);
         });
+
+        /*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('searchInput');
+
+            searchInput.addEventListener('keypress', function (event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();  // 엔터키 기본 동작 막음
+                    const searchQuery = searchInput.value;
+                    if (searchQuery) {
+                        searchGames(searchQuery);  // 검색 함수 호출
+                    }
+                }
+            });
+
+            // 검색어에 맞는 게임을 서버에서 가져오는 함수
+            function searchGames(query) {
+                fetch(`http://localhost:3000/api/games/search?query=${encodeURIComponent(query)}`)
+                    .then(response => response.json())
+                    .then(games => {
+                        const searchResults = document.getElementById('searchResults');
+                        if (!searchResults) {
+                            console.error('searchResults 요소를 찾을 수 없습니다.');
+                            return;
+                        }
+
+                        searchResults.innerHTML = '';  // 기존 검색 결과 초기화
+
+                        if (games.length === 0) {
+                            searchResults.innerHTML = '<p>검색 결과가 없습니다.</p>';
+                            return;
+                        }
+
+                        // 검색 결과가 있을 때마다 해당 게임 정보를 동적으로 추가
+                        games.forEach(game => {
+                            
+                            // game.tags가 null 또는 undefined인 경우 빈 배열로 대체하고, 쉼표로 구분된 문자열을 배열로 변환
+                            const gameTags = game.tags ? game.tags.split(',').map(tag => `<span>${tag}</span>`).join(' ') : '';
+
+                            // 추천 이유를 무작위로 두 개 선택
+                            const shuffledRecommendations = shuffleArray(recommendations);
+                            const randomReasons = `
+                        <li>${shuffledRecommendations[0]}</li>
+                        <li>${shuffledRecommendations[1]}</li>
+                    `;
+
+                            const gameCard = `
+                        <div class="game-card">
+                            <div class="game-image">
+                                <img src="${game.imageUrl || './default.jpg'}" alt="${game.gameName} 이미지">
+                            </div>
+                            <div class="game-info">
+                                <h3>${game.gameName}</h3>
+                                <p>출시일: ${new Date(game.releaseDate).toLocaleDateString()}</p>
+                                <div class="tags">
+                                    ${gameTags}
+                                </div>
+                                <div class="recommendation">
+                                    추천 이유:
+                                    <ul>
+                                        ${randomReasons}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                            // 게임 카드 요소를 동적으로 searchResults에 추가
+                            searchResults.innerHTML += gameCard;
+                        });
+
+                        // 검색 결과에 맞는 제목도 업데이트 (첫 번째 검색 결과에 맞는 제목으로 변경)
+                        
+                    })
+                    .catch(error => {
+                        console.error('검색 중 오류 발생:', error);
+                        const searchResults = document.getElementById('searchResults');
+                        if (searchResults) {
+                            searchResults.innerHTML = '<p>검색 중 오류가 발생했습니다.</p>';
+                        }
+                    });
+            }
+        });
+
+
     </script>
 
 </body>
