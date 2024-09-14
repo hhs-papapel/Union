@@ -770,3 +770,38 @@ app.get('/api/games', (req, res) => {
         res.json(results);
     });
 });
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+// 게임 검색 엔드포인트 추가
+app.get('/api/games/search', (req, res) => {
+    const query = req.query.query; // 검색어를 query로 받음
+
+    if (!query) {
+        return res.status(400).json({ message: '검색어가 필요합니다.' });
+    }
+
+    const searchQuery = `
+        SELECT g.gameId, g.gameName, g.imageUrl, g.releaseDate, GROUP_CONCAT(t.tagName) AS tags
+        FROM Game g
+        LEFT JOIN GameTag gt ON g.gameId = gt.gameId
+        LEFT JOIN Tag t ON gt.tagId = t.tagId
+        WHERE g.gameName LIKE ?
+        GROUP BY g.gameId
+        LIMIT 1
+    `;
+    const searchValue = `%${query}%`; // 검색어를 부분 검색으로 사용
+
+    connection.query(searchQuery, [searchValue], (err, results) => {
+        if (err) {
+            console.error('DB 검색 오류:', err);
+            return res.status(500).json({ message: '서버 오류' });
+        }
+
+        if (results.length > 0) {
+            res.json(results); // 검색 결과를 클라이언트로 반환
+        } else {
+            res.status(404).json({ message: '검색 결과가 없습니다.' });
+        }
+    });
+});

@@ -139,19 +139,19 @@
 픽셀 아트 그래픽으로 완성된 일본풍 배경에 흠뻑 빠져 보세요.
                         </pre>
                     </div> -->
-                </div>
-                <div class="info2-right">
-                    <div class="quest-list">
+                    </div>
+                    <div class="info2-right">
+                        <div class="quest-list">
 
-                    </div>
-                    <div class="language-table">
+                        </div>
+                        <div class="language-table">
 
-                    </div>
-                    <div class="button-option">
-                        <button class="wishlist-btn">공유하기</button>
+                        </div>
+                        <div class="button-option">
+                            <button class="wishlist-btn">공유하기</button>
+                        </div>
                     </div>
                 </div>
-            </div>
         </section>
 
 
@@ -183,6 +183,8 @@
 
     <!-- JavaScript -->
     <script src="../assets/lib/jquery-3.7.1.min.js"></script>
+    <!-- 로그인 체크 js 추가 -->
+    <script src="../assets/js/checkLogin.js"></script>
     <script>
         // function showImage(imageSrc) {
         //     var mediaDisplay = document.getElementById('media-display');
@@ -230,19 +232,22 @@
         /*─────────────────────────────────────── 김기현 코드 ────────────────────────────────────────────────────*/
         /* ─────────────────────────────────────────────────────────────────────────────────────────── */
 
+        document.addEventListener('DOMContentLoaded', function () {
+            const userId = sessionStorage.getItem('loggedInUser');
+            console.log(userId);  // 여기에 저장된 값을 확인
+        });
         // 리뷰 게시 버튼 클릭 시 리뷰를 추가하는 기능
         const postReviewBtn = document.querySelector('.post-review-btn');
         if (postReviewBtn) {
             postReviewBtn.addEventListener('click', function () {
                 var reviewText = document.getElementById('user-review').value;
                 var rating = document.getElementById('rating').value; // 평점 값 가져오기
-                var userId = sessionStorage.getItem('userId'); // sessionStorage에서 userId 가져오기
+                var userId = sessionStorage.getItem('loggedInUser'); // sessionStorage에서 userId 가져오기
                 var gameId = getGameIdFromURL(); // 현재 게임의 gameId 가져오기
-
                 if (!userId) {
                     // 비로그인 상태일 경우
                     alert('리뷰를 작성하려면 로그인이 필요합니다.');
-                    window.location.href = '/login';  // 로그인 페이지로 리디렉션
+                    window.location.href = '/proj/html/login.html';  // 로그인 페이지로 리디렉션
                     return;
                 }
 
@@ -281,6 +286,7 @@
                 }
             });
         }
+
         /* ─────────────────────────────────────────────────────────────────────────────────────────── */
         // 리뷰 목록 불러오기 기능
         function loadReviews() {
@@ -482,7 +488,7 @@
         const wishlistBtn = document.getElementById('wishlistbtn');
         if (wishlistBtn) {
             wishlistBtn.addEventListener('click', function () {
-                const userId = sessionStorage.getItem('userId');  // sessionStorage에서 userId 가져오기
+                const userId = sessionStorage.getItem('loggedInUser');  // sessionStorage에서 userId 가져오기
 
                 if (userId) {
                     const gameId = getGameIdFromURL();  // URL에서 gameId를 가져오기
@@ -510,6 +516,7 @@
                 }
             });
         }
+
         /* ─────────────────────────────────────────────────────────────────────────────────────────── */
 
 
@@ -517,7 +524,7 @@
         const purchaseBtn = document.getElementById('shopping');
         if (purchaseBtn) {
             purchaseBtn.addEventListener('click', function () {
-                const userId = sessionStorage.getItem('userId');  // sessionStorage에서 userId 가져오기
+                const userId = sessionStorage.getItem('loggedInUser');  // sessionStorage에서 userId 가져오기
 
                 if (userId) {
                     const gameId = getGameIdFromURL();
@@ -541,7 +548,7 @@
                 } else {
                     // 비로그인 상태일 경우
                     alert('장바구니를 이용하고 싶으면 로그인이 필요합니다.');
-                    window.location.href = '/proj/html/login';  // 로그인 페이지로 리디렉션
+                    window.location.href = '/proj/html/login.html';  // 로그인 페이지로 리디렉션
                 }
             });
         }

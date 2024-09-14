@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>결제 창</title>
     <link rel="stylesheet" href="../css/payment.css">
     <script>
-        function loadHTML(file)
-        {
+        function loadHTML(file) {
             var rawFile = new XMLHttpRequest();
             rawFile.open("GET", file, false);
-            rawFile.onreadystatechange = function ()
-            {
-                if(rawFile.readyState === 4)
-                {
-                    if(rawFile.status === 200 || rawFile.status == 0)
-                    {
+            rawFile.onreadystatechange = function () {
+                if (rawFile.readyState === 4) {
+                    if (rawFile.status === 200 || rawFile.status == 0) {
                         var allText = rawFile.responseText;
                         document.write(allText);
                     }
@@ -25,6 +22,7 @@
         }
     </script>
 </head>
+
 <body>
     <header>
         <script>loadHTML("./header.html")</script>
@@ -40,7 +38,7 @@
     <!-- 결제 항목 리스트 -->
     <section class="payment-details">
         <div class="containers">
-            
+
             <div class="container">
                 <div>
                     <div class="cart-item">
@@ -50,7 +48,7 @@
                             <div>₩8,600</div>
                         </div>
                     </div>
-            
+
                     <div class="cart-item">
                         <img src="https://via.placeholder.com/80x50" alt="Muse Plus">
                         <div class="item-details">
@@ -58,29 +56,29 @@
                             <div>₩42,000</div>
                         </div>
                     </div>
-                    
+
                 </div>
-        
+
                 <div class="total">
                     <p>소계: ₩50,600</p>
                     <p>합계: ₩50,600 (모든 가격은 VAT 포함)</p>
                 </div>
-        
+
                 <div class="point-box">
                     <span>이 구매로 UNION 포인트를 획득하세요</span>
                     <span>3,768 포인트</span>
                 </div>
-        
+
                 <div class="payment-method">
                     <span>결제 수단: 신용카드(한국 국내)</span>
                     <span>UNION 계정: user01</span>
                 </div>
-        
+
                 <div class="terms">
                     <span>UNION 이용 약관에 동의합니다. 마지막 업데이트: 2023년 4월 26일.</span>
                     <span>거래를 시작하기 위한 새로운 웹 브라우저를 열기 위해 아래에 있는 버튼을 클릭하세요.</span>
                 </div>
-        
+
                 <a href="#" class="confirm-btn">결제</a>
             </div>
             <div class="container2">
@@ -93,5 +91,8 @@
     <footer>
         <script>loadHTML("./footer.html")</script>
     </footer>
+    <!-- 로그인 체크 js 추가 -->
+    <script src="../assets/js/checkLogin.js"></script>
 </body>
+
 </html>
