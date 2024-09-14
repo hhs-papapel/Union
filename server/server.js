@@ -299,8 +299,6 @@ app.post('/api/cart/delete', (req, res) => {
 /* 구매하기 ( 결제 ) */
 app.post('/api/payment', (req, res) => {
     const { userId, paymentItems } = req.body;
-
-
     const paymentDate = new Date();  // 결제 날짜
 
     connection.beginTransaction(err => {
@@ -310,12 +308,11 @@ app.post('/api/payment', (req, res) => {
 
         const paymentQueries = paymentItems.map(item => {
             return new Promise((resolve, reject) => {
-                const query = `
+                const paymentQuery = `
                     INSERT INTO Payment (gameId, userId, amount, paymentDate)
                     VALUES (?, ?, ?, ?)
                 `;
-
-                connection.query(query, [item.gameId, userId, item.amount, paymentDate], (err, result) => {
+                connection.query(paymentQuery, [item.gameId, userId, item.amount, paymentDate], (err, result) => {
                     if (err) {
                         return reject(err);
                     }
@@ -324,13 +321,28 @@ app.post('/api/payment', (req, res) => {
             });
         });
 
-        // 처리 완료 후 Cart에서 항목 삭제
-        Promise.all(paymentQueries)
-            .then(() => {
-                const deleteQuery = `
-                    DELETE FROM Cart WHERE userId = ?
+        // 결제 후 Library에 추가
+        const libraryQueries = paymentItems.map(item => {
+            return new Promise((resolve, reject) => {
+                const libraryQuery = `
+                    INSERT INTO Library (userId, gameId, purchaseDate)
+                    VALUES (?, ?, ?)
+                    ON DUPLICATE KEY UPDATE purchaseDate = VALUES(purchaseDate)
                 `;
-                connection.query(deleteQuery, [userId], (err, result) => {
+                connection.query(libraryQuery, [userId, item.gameId, paymentDate], (err, result) => {
+                    if (err) {
+                        return reject(err);
+                    }
+                    resolve(result);
+                });
+            });
+        });
+
+        Promise.all([...paymentQueries, ...libraryQueries])
+            .then(() => {
+                // 장바구니에서 삭제
+                const deleteCartQuery = `DELETE FROM Cart WHERE userId = ?`;
+                connection.query(deleteCartQuery, [userId], (err, result) => {
                     if (err) {
                         return connection.rollback(() => {
                             res.status(500).json({ success: false, message: 'Cart 삭제 오류' });
@@ -349,8 +361,8 @@ app.post('/api/payment', (req, res) => {
             })
             .catch(err => {
                 connection.rollback(() => {
-                    console.error('Payment Error:', err);
-                    res.status(500).json({ success: false, message: 'Payment 처리 오류' });
+                    console.error('Payment 또는 Library 처리 오류:', err);
+                    res.status(500).json({ success: false, message: '처리 오류 발생' });
                 });
             });
     });
@@ -490,7 +502,14 @@ app.get('/api/game/:gameId', (req, res) => {
     const gameId = req.params.gameId;
 
     // 게임 기본 정보 가져오기
-    const gameQuery = 'SELECT * FROM Game WHERE gameId = ?';
+    const gameQuery = `
+        SELECT g.*, d.discountRate
+        FROM Game g
+        LEFT JOIN GameDiscount gd ON g.gameId = gd.gameId
+        LEFT JOIN Discount d ON gd.discountId = d.discountId
+        WHERE g.gameId = ?
+    `;
+
     connection.query(gameQuery, [gameId], (err, gameResults) => {
         console.log('게임 데이터:', gameResults);  // 데이터베이스에서 가져온 게임 데이터 확인
         if (err) {
@@ -498,6 +517,9 @@ app.get('/api/game/:gameId', (req, res) => {
             res.status(500).json({ message: '서버 오류' });
         } else if (gameResults.length > 0) {
             const game = gameResults[0];
+
+            const discountRate = game.discountRate || 0;
+            const discountedPrice = game.price - (game.price * discountRate / 100); // 할인된 가격 계산
 
             // 스크린샷 가져오기
             const screenshotsQuery = 'SELECT imageUrl FROM GameImage WHERE gameId = ?';
@@ -525,10 +547,9 @@ app.get('/api/game/:gameId', (req, res) => {
                             res.json({
                                 gameId: game.gameId,
                                 gameName: game.gameName,
-                                price: game.price,
-                                discountRate: game.discountRate || 0,  // 할인율이 있으면 가져오고, 없으면 0
-                                originalPrice: game.originalPrice,  // 원래 가격
-                                discountedPrice: game.discountedPrice,  // 할인된 가격
+                                originalPrice: game.price,  // 원래 가격
+                                discountRate: discountRate, // 할인율
+                                discountedPrice: discountedPrice,  // 할인된 가격
                                 developer: game.developer,
                                 publisher: game.publisher,
                                 releaseDate: game.releaseDate,
@@ -548,6 +569,43 @@ app.get('/api/game/:gameId', (req, res) => {
     });
 });
 
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+// 게임 할인 정보
+app.get('/api/game/:gameId/discount', (req, res) => {
+    const gameId = req.params.gameId;
+
+    const discountQuery = `
+        SELECT g.gameName, g.price, d.discountRate
+        FROM Game g
+        LEFT JOIN GameDiscount gd ON g.gameId = gd.gameId
+        LEFT JOIN Discount d ON gd.discountId = d.discountId
+        WHERE g.gameId = ?
+    `;
+
+    connection.query(discountQuery, [gameId], (err, results) => {
+        if (err) {
+            console.error('할인 정보 가져오기 오류:', err);
+            return res.status(500).json({ message: '서버 오류' });
+        }
+
+        if (results.length > 0) {
+            const game = results[0];
+            const discountRate = game.discountRate || 0;
+            const discountedPrice = game.price - (game.price * discountRate / 100);
+
+            res.json({
+                gameName: game.gameName,
+                originalPrice: game.price,
+                discountRate: discountRate,
+                discountedPrice: discountedPrice
+            });
+        } else {
+            res.status(404).json({ message: '게임을 찾을 수 없습니다.' });
+        }
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
 /*───────────────────────────────────────────────────────────────────────────────────────────*/
 
 // 리뷰 작성
