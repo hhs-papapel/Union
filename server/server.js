@@ -659,3 +659,114 @@ app.get('/api/review/:gameId', (req, res) => {
 });
 
 /*───────────────────────────────────────────────────────────────────────────────────────────*/
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+// 랜덤 게임 가져오기
+app.get('/api/games/tag/:tagId/random', (req, res) => {
+    const tagId = req.params.tagId;
+
+    const query = `
+        SELECT g.*, GROUP_CONCAT(t.tagName) AS tags
+        FROM Game g
+        JOIN GameTag gt ON g.gameId = gt.gameId
+        JOIN Tag t ON gt.tagId = t.tagId
+        WHERE gt.tagId = ?
+        GROUP BY g.gameId
+        ORDER BY RAND() LIMIT 1
+    `;
+
+    connection.query(query, [tagId], (err, results) => {
+        if (err) {
+            console.error('게임 데이터를 가져오는 중 오류 발생:', err);
+            res.status(500).json({ message: '서버 오류' });
+        } else {
+            if (results.length > 0) {
+                console.log('랜덤 게임 및 태그 데이터:', results[0]);
+                res.json(results[0]);  // 게임 데이터 및 태그 함께 반환
+            } else {
+                res.status(404).json({ message: '해당 태그의 게임을 찾을 수 없습니다.' });
+            }
+        }
+    });
+});
+
+
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+// 태그이름 가져오기
+
+app.get('/api/tag/:tagId', (req, res) => {
+    const tagId = req.params.tagId;
+
+    const query = `SELECT * FROM Tag WHERE tagId = ?`;
+
+    connection.query(query, [tagId], (err, results) => {
+        if (err) {
+            console.error('태그 정보를 가져오는 중 오류 발생:', err);
+            res.status(500).json({ message: '서버 오류' });
+        } else if (results.length > 0) {
+            res.json(results[0]);  // 태그 데이터 반환
+        } else {
+            res.status(404).json({ message: '해당 태그를 찾을 수 없습니다.' });
+        }
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+// 해당 게임의 모든 태그 가져오기
+app.get('/api/games/:gameId/tags', (req, res) => {
+    const gameId = req.params.gameId;
+
+    console.log('태그 요청 - 게임 ID:', gameId);  // 로그 추가
+
+    const query = `
+        SELECT t.tagName
+        FROM Tag t
+        JOIN GameTag gt ON t.tagId = gt.tagId
+        WHERE gt.gameId = ?
+    `;
+
+    connection.query(query, [gameId], (err, results) => {
+        if (err) {
+            console.error('태그 데이터를 가져오는 중 오류 발생:', err);
+            res.status(500).json({ message: '서버 오류' });
+        } else {
+            const tags = results.map(row => row.tagName);
+            console.log('게임의 태그:', tags);  // 가져온 태그 로그 출력
+            res.json(tags);  // 태그 목록 반환
+        }
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+// 게임목록보여주기
+app.get('/api/games', (req, res) => {
+    const { tagId, page = 1, limit = 8 } = req.query;
+    const offset = (page - 1) * limit;
+
+    let query = `
+        SELECT g.gameId, g.gameName, g.imageUrl 
+        FROM Game g
+        JOIN GameTag gt ON g.gameId = gt.gameId
+    `;
+
+    const params = [];
+
+    if (tagId) {
+        query += ` WHERE gt.tagId = ?`;
+        params.push(tagId);
+    }
+
+    query += ` LIMIT ?, ?`;
+    params.push(offset, parseInt(limit));
+
+    connection.query(query, params, (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: 'DB 조회 중 오류 발생' });
+        }
+        res.json(results);
+    });
+});
