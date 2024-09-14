@@ -1,0 +1,286 @@
+/* 기본 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e5ffd5; /* 밝은 라임색 배경 */
+    color: #333333; /* 텍스트를 어두운 회색으로 설정 */
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4 {
+    margin: 0;
+}
+
+/* 커뮤니티 활동 헤더 */
+.community-header {
+    padding: 30px;
+    background-color: #82e27a; /* 귀여운 라임색 계열로 변경 */
+    text-align: center;
+    border-radius: 10px;
+}
+
+.community-header h1 {
+    font-size: 32px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.community-header p {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #f7fff0;
+}
+
+/* 주요 커뮤니티 섹션 */
+.community-main {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    gap: 20px;
+    background-color: #dfffe0; /* 라임색 배경 */
+    border-radius: 10px;
+}
+
+/* 이미지 크기 조정 */
+.recently-visited img, .popular-hubs img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 50%; /* 이미지 둥글게 */
+    border: 2px solid #b3e7b0; /* 귀여운 라임색 테두리 */
+}
+
+.recently-visited, .popular-hubs {
+    width: 45%;
+}
+
+.recently-visited h2, .popular-hubs h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333333;
+    font-weight: bold;
+}
+
+.recently-visited ul, .popular-hubs ul {
+    list-style: none;
+    padding: 0;
+}
+
+.recently-visited li, .popular-hubs li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    background-color: #f0fff0;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.recently-visited strong, .popular-hubs strong {
+    color: #27AE60; /* 라임색 강조 */
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* 검색 섹션 */
+.search-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 300px;
+    margin: 0 auto;
+    background-color: #a7e2a8; /* 밝은 라임색 */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 살짝 그림자 */
+}
+
+.search-container label {
+    color: #333333;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    background-color: #f7fff7;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid #27AE60; /* 라임색 테두리 */
+}
+
+.search-bar {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    outline: none;
+    background-color: #f7fff7;
+    color: #333333;
+    font-size: 14px;
+    border-radius: 10px;
+}
+
+.search-bar::placeholder {
+    color: #27AE60; /* 라임색 */
+}
+
+.search-button {
+    background-color: #f7fff7;
+    border: none;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+.search-button img {
+    width: 16px;
+    height: 16px;
+}
+
+/* 구분선 */
+hr {
+    border: none;
+    border-top: 1px solid #27AE60;
+    margin: 20px 0;
+}
+
+/* 탭 메뉴 */
+.tabs {
+    background-color: #82e27a;
+    padding: 15px 0;
+    border-radius: 10px;
+}
+
+.tabs ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    padding: 0;
+    margin: 0;
+}
+
+.tabs ul li a {
+    color: #333333;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.tabs ul li a:hover {
+    background-color: #a7e2a8;
+}
+
+/* 콘텐츠 영역 */
+.content-section {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #dfffe0; /* 연한 라임색 */
+    border-radius: 10px;
+}
+
+.main-video {
+    width: 100%;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.main-video img, .main-video video {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.main-video h3 {
+    font-size: 24px;
+    margin-top: 10px;
+    color: #333333;
+}
+
+.main-video p {
+    font-size: 16px;
+    color: #82e27a; /* 연한 라임색 */
+}
+
+/* 리뷰 섹션 */
+.review-section {
+    padding: 20px;
+    background-color: #82e27a;
+    border-radius: 10px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 900px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.review-box {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.review-container {
+    margin-top: 20px;
+}
+
+/* 개별 리뷰 박스 */
+.review-item {
+    background-color: #16A085;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    align-items: center; /* 아이템들을 세로 중앙 정렬 */
+    justify-content: flex-start; /* 아이템들을 왼쪽 정렬 */
+    width: 50%;
+    border: 1px solid #1ABC9C;
+}
+.review-item img {
+    width: 40px; /* 따봉 이미지 크기 조정 */
+    height: 40px;
+    margin-right: 15px; /* 이미지와 텍스트 사이 간격 */
+}
+.review-info strong {
+    color: #333333;
+    font-size: 18px;
+}
+
+.review-info span {
+    color: #27AE60;
+    font-size: 14px;
+}
+
+.review-content p {
+    color: #333333;
+}
+
+.game-title {
+    font-size: 14px;
+    color: #333333;
+    margin-top: 10px;
+}
+.guide-item {
+    background-color: #ffffff; /* 박스 내부를 흰색으로 설정 */
+    padding: 20px; /* 박스 안쪽 여백 설정 */
+    margin-bottom: 20px; /* 박스 간 간격 설정 */
+    border-radius: 10px; /* 박스 모서리를 둥글게 설정 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 박스에 그림자 추가 */
+    border: 2px solid #27AE60; /* 라임색 테두리 */
+}
+.game-info a {
+    font-size: 16px;
+    color: #2ECC71; /* 라임색 */
+    text-decoration: none; /* 밑줄 제거 */
+    font-weight: bold;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.game-info a:hover {
+    text-decoration: underline; /* 마우스를 올릴 때만 밑줄 표시 */
+}
