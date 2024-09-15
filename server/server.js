@@ -772,6 +772,7 @@ app.get('/api/games', (req, res) => {
 });
 
 /*───────────────────────────────────────────────────────────────────────────────────────────*/
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
 
 // 게임 검색 엔드포인트 추가
 app.get('/api/games/search', (req, res) => {
@@ -805,3 +806,37 @@ app.get('/api/games/search', (req, res) => {
         }
     });
 });
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+// 인기 게임 기본 데이터를 가져오는 엔드포인트
+app.get('/api/popular-games', (req, res) => {
+    const gameIds = [1, 2, 3, 4, 5, 6, 7, 263]; // 게임 ID 목록
+
+    const query = `
+    SELECT 
+        g.gameId, 
+        g.gameName, 
+        g.imageUrl, 
+        g.price, 
+        MAX(d.discountRate) AS discount,  -- 가장 높은 할인율 가져오기
+        GROUP_CONCAT(t.tagName SEPARATOR ', ') AS tags  -- 태그 이름들을 ','로 구분하여 한 줄로 묶기
+    FROM Game g
+    LEFT JOIN GameDiscount gd ON g.gameId = gd.gameId
+    LEFT JOIN Discount d ON gd.discountId = d.discountId
+    LEFT JOIN GameTag gt ON g.gameId = gt.gameId
+    LEFT JOIN Tag t ON gt.tagId = t.tagId
+    WHERE g.gameId IN (?)
+    GROUP BY g.gameId
+    `;
+
+    connection.query(query, [gameIds], (error, results) => {
+        if (error) {
+            console.error('게임 데이터를 가져오는 중 오류 발생:', error);
+            return res.status(500).json({ error: '데이터를 가져오는 중 오류 발생' });
+        }
+
+        res.json(results); // 게임 데이터를 클라이언트에 반환
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
