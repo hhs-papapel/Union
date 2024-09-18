@@ -999,3 +999,17 @@ app.get('/api/user/username', (req, res) => {
         }
     });
 });
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+// 랜덤 5개의 게임을 가져오는 API
+app.get('/api/games/random', (req, res) => {
+    const query = `SELECT * FROM Game ORDER BY RAND() LIMIT 5`; // 랜덤으로 5개의 게임을 선택
+    connection.query(query, (error, results) => {
+        if (error) {
+            console.error('Error fetching random games:', error);
+            return res.status(500).json({ error: 'DB Error' });
+        }
+        res.json(results); // 결과를 JSON으로 반환
+    });
+});
