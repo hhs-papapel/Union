@@ -230,9 +230,8 @@
     </footer>
 
 
+    <!-- 사용자 목록을 동적으로 생성 -->
     <script>
-
-        
         document.addEventListener('DOMContentLoaded', () => {
             fetch('http://localhost:3000/api/users')
                 .then(response => response.json())
@@ -245,24 +244,98 @@
         });
 
         function displayUsers(users) {
-            const userTableBody = document.querySelector('#user-management tbody');
+            const userTableBody = document.querySelector('tbody');
             userTableBody.innerHTML = ''; // 기존 내용을 비움
 
             users.forEach(user => {
-                const row = `
-            <tr>
+                const row = document.createElement('tr');
+
+                // 각 사용자 데이터를 <td>로 추가
+                row.innerHTML = `
                 <td>${user.username}</td>
                 <td>${user.name}</td>
                 <td>${user.email}</td>
                 <td>${new Date(user.regDate).toLocaleDateString()}</td>
                 <td>${user.lastLogin ? new Date(user.lastLogin).toLocaleDateString() : '없음'}</td>
-                <td><button class="btn">수정</button></td>
-            </tr>
-        `;
-                userTableBody.innerHTML += row;
+                <td><button class="btn edit-btn">수정</button></td>
+            `;
+
+                // 버튼에 이벤트 리스너 추가
+                row.querySelector('.edit-btn').addEventListener('click', () => editRow(row, user));
+
+                // 테이블에 추가
+                userTableBody.appendChild(row);
             });
         }
+
+        function editRow(row, user) {
+            const cells = row.getElementsByTagName('td');
+
+            if (row.dataset.editing === 'true') {
+                saveRow(row, user.userId);
+            } else {
+                // 기존 내용을 input 필드로 변환
+                cells[0].innerHTML = `<input type="text" value="${user.username}" />`;
+                cells[1].innerHTML = `<input type="text" value="${user.name}" />`;
+                cells[2].innerHTML = `<input type="email" value="${user.email}" />`;
+                cells[3].innerHTML = `<input type="date" value="${new Date(user.regDate).toISOString().substring(0, 10)}" />`;
+                cells[4].innerHTML = `<input type="datetime-local" value="${user.lastLogin ? new Date(user.lastLogin).toISOString().substring(0, 16) : ''}" />`;
+
+                // 버튼을 저장으로 변경
+                row.querySelector('.edit-btn').innerText = '저장';
+
+                // 수정 상태 플래그 설정
+                row.dataset.editing = 'true';
+            }
+        }
+
+        function saveRow(row, userId) {
+            const cells = row.getElementsByTagName('td');
+
+            const updatedUser = {
+                username: cells[0].querySelector('input').value,
+                name: cells[1].querySelector('input').value,
+                email: cells[2].querySelector('input').value,
+                regDate: cells[3].querySelector('input').value,
+                lastLogin: cells[4].querySelector('input').value
+            };
+
+            // 서버로 업데이트된 데이터를 전송 (AJAX 사용)
+            fetch(`http://localhost:3000/api/users/${userId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedUser)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('수정이 완료되었습니다.');
+
+                        // 수정 후 td로 다시 변경
+                        cells[0].innerText = updatedUser.username;
+                        cells[1].innerText = updatedUser.name;
+                        cells[2].innerText = updatedUser.email;
+                        cells[3].innerText = new Date(updatedUser.regDate).toLocaleDateString();
+                        cells[4].innerText = updatedUser.lastLogin ? new Date(updatedUser.lastLogin).toLocaleString('ko-KR', { month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '없음';
+
+                        // 저장 버튼을 수정 버튼으로 전환
+                        row.querySelector('.edit-btn').innerText = '수정';
+
+                        // 수정 상태 플래그 해제
+                        row.dataset.editing = 'false';
+                    } else {
+                        alert('수정에 실패했습니다.');
+                    }
+                })
+                .catch(error => {
+                    console.error('오류 발생:', error);
+                    alert('오류가 발생했습니다.');
+                });
+        }
     </script>
+
 </body>
 
 </html>

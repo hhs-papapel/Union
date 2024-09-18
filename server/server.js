@@ -1045,3 +1045,29 @@ app.get('/api/users', (req, res) => {
         res.json(rows); // 사용자 데이터를 클라이언트로 전달
     });
 });
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+app.put('/api/users/:userId', (req, res) => {
+    const userId = req.params.userId;
+    const { username, name, email, regDate, lastLogin } = req.body;
+
+    const query = `
+        UPDATE User 
+        SET username = ?, name = ?, email = ?, regDate = ?, lastLogin = ? 
+        WHERE userId = ?
+    `;
+
+    connection.query(query, [username, name, email, regDate, lastLogin, userId], (err, result) => {
+        if (err) {
+            console.error('사용자 업데이트 중 오류 발생:', err);
+            return res.status(500).json({ success: false, message: '사용자 업데이트 실패' });
+        }
+
+        if (result.affectedRows > 0) {
+            res.json({ success: true, message: '사용자 정보가 업데이트되었습니다.' });
+        } else {
+            res.status(404).json({ success: false, message: '사용자를 찾을 수 없습니다.' });
+        }
+    });
+});
