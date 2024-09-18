@@ -36,42 +36,27 @@
     </section>
 
     <!-- 결제 항목 리스트 -->
+    <!-- 결제 항목 리스트 -->
     <section class="payment-details">
         <div class="containers">
 
             <div class="container">
-                <div>
-                    <div class="cart-item">
-                        <img src="https://via.placeholder.com/80x50" alt="Potion Craft">
-                        <div class="item-details">
-                            <div>Potion Craft</div>
-                            <div>₩8,600</div>
-                        </div>
-                    </div>
-
-                    <div class="cart-item">
-                        <img src="https://via.placeholder.com/80x50" alt="Muse Plus">
-                        <div class="item-details">
-                            <div>Muse Plus</div>
-                            <div>₩42,000</div>
-                        </div>
-                    </div>
-
-                </div>
+                <!-- 추가된 cart-items 요소 -->
+                <div class="cart-items"></div> <!-- 장바구니 항목이 추가될 부분 -->
 
                 <div class="total">
-                    <p>소계: ₩50,600</p>
-                    <p>합계: ₩50,600 (모든 가격은 VAT 포함)</p>
+                    <p>소계: ₩0</p>
+                    <p>합계: ₩0 (모든 가격은 VAT 포함)</p>
                 </div>
 
                 <div class="point-box">
                     <span>이 구매로 UNION 포인트를 획득하세요</span>
-                    <span>3,768 포인트</span>
+                    <span>0 포인트</span>
                 </div>
 
                 <div class="payment-method">
                     <span>결제 수단: 신용카드(한국 국내)</span>
-                    <span>UNION 계정: user01</span>
+                    <span>UNION 계정: </span>
                 </div>
 
                 <div class="terms">
@@ -79,7 +64,7 @@
                     <span>거래를 시작하기 위한 새로운 웹 브라우저를 열기 위해 아래에 있는 버튼을 클릭하세요.</span>
                 </div>
 
-                <a href="#" class="confirm-btn">결제</a>
+                <a href="#" class="confirm-btn" id="pay">결제</a>
             </div>
             <div class="container2">
                 <p>UNION에서 구매</p>
@@ -93,6 +78,90 @@
     </footer>
     <!-- 로그인 체크 js 추가 -->
     <script src="../assets/js/checkLogin.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loggedInUser = sessionStorage.getItem('loggedInUser');
+
+            if (loggedInUser) {
+                // 장바구니 데이터를 서버에서 가져오기
+                fetch(`http://localhost:3000/api/cart?userId=${loggedInUser}`)
+                    .then(response => response.json())
+                    .then(cartItems => {
+                        displayCartItems(cartItems);  // 장바구니 데이터를 화면에 표시
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            } else {
+                alert('로그인이 필요합니다.');
+                window.location.href = '/proj/html/login.html';  // 로그인 페이지로 리다이렉트
+            }
+        });
+
+        function displayCartItems(cartItems) {
+            const cartContainer = document.querySelector('.cart-items');
+            const subtotalElement = document.querySelector('.total p:first-child'); // 소계
+            const totalElement = document.querySelector('.total p:last-child'); // 합계
+            const pointBox = document.querySelector('.point-box span:last-child'); // 포인트 표시할 부분
+            let totalPrice = 0;
+
+            cartContainer.innerHTML = '';  // 기존 항목 초기화
+
+            // 장바구니 항목을 동적으로 추가
+            cartItems.forEach(({ imageUrl, gameName, price }) => {
+                totalPrice += price;
+
+                cartContainer.innerHTML += `
+        <div class="cart-item">
+            <img src="${imageUrl}" alt="${gameName}" class="game-image">
+            <div class="item-details">
+                <div>${gameName}</div>
+                <div>₩${price.toLocaleString()}</div>
+            </div>
+        </div>`;
+            });
+
+            // 소계와 합계 텍스트 업데이트
+            if (subtotalElement && totalElement) {
+                subtotalElement.innerHTML = `소계: ₩${totalPrice.toLocaleString()}`;
+                totalElement.innerHTML = `합계: ₩${totalPrice.toLocaleString()} (모든 가격은 VAT 포함)`;
+            } else {
+                console.error('소계 또는 합계 요소를 찾을 수 없습니다.');
+            }
+
+            // 포인트 계산 및 업데이트 (12.3%)
+            const points = Math.floor(totalPrice * 0.123);  // 소수점 버림 처리
+            if (pointBox) {
+                pointBox.innerHTML = `${points.toLocaleString()} 포인트`;
+            } else {
+                console.error('포인트 표시 요소를 찾을 수 없습니다.');
+            }
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            const userId = sessionStorage.getItem('loggedInUser');
+
+            if (userId) {
+                // 서버에서 username을 가져오기
+                fetch(`http://localhost:3000/api/user/username?userId=${userId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // 결제 수단 및 사용자 계정 정보 업데이트
+                        const usernameSpan = document.querySelector('.payment-method span:last-child');
+                        if (usernameSpan) {
+                            usernameSpan.innerHTML = `UNION 계정: ${data.username}`;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching username:', error);
+                    });
+            } else {
+                alert('로그인이 필요합니다.');
+                window.location.href = '/proj/html/login.html';  // 로그인 페이지로 리다이렉트
+            }
+        });
+    </script>
+
     <script>
         /* 구매하기 버튼 동작 => 결제테이블안에 넣고 장바구니 테이블 비우기 */
         document.addEventListener('DOMContentLoaded', () => {
@@ -100,51 +169,54 @@
 
             if (paymentButton) {
                 paymentButton.addEventListener('click', () => {
-                    const userId = sessionStorage.getItem('loggedInUser');
+                    const confirmPurchase = window.confirm('정말로 결제를 진행하시겠습니까?');
 
-                    fetch(`http://localhost:3000/api/cart?userId=${userId}`)
-                        .then(response => response.json())
-                        .then(cartItems => {
-                            cartItems.forEach(item => {
-                            });
+                    if (confirmPurchase) {
+                        const userId = sessionStorage.getItem('loggedInUser');
 
-                            const paymentData = cartItems.map(item => ({
-                                gameId: item.gameId,
-                                amount: item.price
-                            }));
+                        fetch(`http://localhost:3000/api/cart?userId=${userId}`)
+                            .then(response => response.json())
+                            .then(cartItems => {
+                                const paymentData = cartItems.map(item => ({
+                                    gameId: item.gameId,
+                                    amount: item.price
+                                }));
 
-
-                            // 결제 요청 전송
-                            fetch(`http://localhost:3000/api/payment`, {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                },
-                                body: JSON.stringify({
-                                    userId: userId,
-                                    paymentItems: paymentData
+                                // 결제 요청 전송
+                                fetch(`http://localhost:3000/api/payment`, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        userId: userId,
+                                        paymentItems: paymentData
+                                    })
                                 })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data.success) {
+                                            alert('결제가 완료되었습니다!');
+                                            // 결제가 완료되면 다른 페이지로 이동 (예: 라이브러리 페이지)
+                                            window.location.href = '/proj/html/library.html';
+                                        } else {
+                                            alert('결제에 실패했습니다.');
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error('Error:', error);
+                                    });
                             })
-                                .then(response => response.json())
-                                .then(data => {
-                                    if (data.success) {
-                                        alert('결제가 완료되었습니다!');
-
-
-                                    } else {
-                                        alert('결제에 실패했습니다.');
-                                    }
-                                })
-                                .catch(error => {
-                                    console.error('Error:', error);
-                                });
-                        })
-                        .catch(error => {
-                            console.error('장바구니 데이터를 가져오는 중 오류:', error);
-                        });
+                            .catch(error => {
+                                console.error('장바구니 데이터를 가져오는 중 오류:', error);
+                            });
+                    } else {
+                        alert('결제가 취소되었습니다.');
+                    }
                 });
             }
         });
+
     </script>
 </body>
 
