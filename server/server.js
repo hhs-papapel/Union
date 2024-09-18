@@ -1071,3 +1071,25 @@ app.put('/api/users/:userId', (req, res) => {
         }
     });
 });
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+app.get('/api/user/library', (req, res) => {
+    const userId = req.query.userId;  // 로그인된 사용자의 ID를 받아옴
+    const query = `
+        SELECT g.gameId, g.gameName, g.imageUrl 
+        FROM Library l
+        JOIN Game g ON l.gameId = g.gameId
+        WHERE l.userId = ?
+    `;
+
+    connection.query(query, [userId], (err, results) => {
+        if (err) {
+            console.error('라이브러리 데이터를 가져오는 중 오류 발생:', err);
+            return res.status(500).json({ error: 'DB 오류' });
+        }
+
+        res.json(results); // 게임 데이터를 클라이언트로 전달
+    });
+});
