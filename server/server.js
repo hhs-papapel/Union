@@ -320,6 +320,7 @@ app.post('/api/payment', (req, res) => {
                 `;
                 connection.query(paymentQuery, [item.gameId, userId, item.amount, paymentDate], (err, result) => {
                     if (err) {
+                        console.error('Payment 테이블 삽입 오류:', err);
                         return reject(err);
                     }
                     resolve(result);
@@ -327,7 +328,6 @@ app.post('/api/payment', (req, res) => {
             });
         });
 
-        // 결제 후 Library에 추가
         const libraryQueries = paymentItems.map(item => {
             return new Promise((resolve, reject) => {
                 const libraryQuery = `
@@ -337,6 +337,7 @@ app.post('/api/payment', (req, res) => {
                 `;
                 connection.query(libraryQuery, [userId, item.gameId, paymentDate], (err, result) => {
                     if (err) {
+                        console.error('Library 테이블 삽입 오류:', err);
                         return reject(err);
                     }
                     resolve(result);
@@ -346,10 +347,10 @@ app.post('/api/payment', (req, res) => {
 
         Promise.all([...paymentQueries, ...libraryQueries])
             .then(() => {
-                // 장바구니에서 삭제
                 const deleteCartQuery = `DELETE FROM Cart WHERE userId = ?`;
                 connection.query(deleteCartQuery, [userId], (err, result) => {
                     if (err) {
+                        console.error('Cart 삭제 오류:', err);
                         return connection.rollback(() => {
                             res.status(500).json({ success: false, message: 'Cart 삭제 오류' });
                         });
@@ -357,6 +358,7 @@ app.post('/api/payment', (req, res) => {
 
                     connection.commit(err => {
                         if (err) {
+                            console.error('트랜잭션 커밋 오류:', err);
                             return connection.rollback(() => {
                                 res.status(500).json({ success: false, message: '트랜잭션 커밋 오류' });
                             });
@@ -366,13 +368,15 @@ app.post('/api/payment', (req, res) => {
                 });
             })
             .catch(err => {
+                console.error('Payment 또는 Library 처리 오류:', err);
                 connection.rollback(() => {
-                    console.error('Payment 또는 Library 처리 오류:', err);
                     res.status(500).json({ success: false, message: '처리 오류 발생' });
                 });
             });
     });
 });
+
+
 
 /*───────────────────────────────────────────────────────────────────────────────────────────*/
 /*───────────────────────────────────────────────────────────────────────────────────────────*/
@@ -970,6 +974,28 @@ app.get('/api/games/detail/:gameId', (req, res) => {
             res.status(404).send('해당 게임을 찾을 수 없습니다.');
         } else {
             res.json(results[0]); // 게임 목록을 하나의 객체로 응답
+        }
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+// User 테이블에서 username 가져오기
+app.get('/api/user/username', (req, res) => {
+    const userId = req.query.userId;
+
+    const query = 'SELECT username FROM User WHERE userId = ?';
+
+    connection.query(query, [userId], (error, results) => {
+        if (error) {
+            console.error('DB에서 username을 가져오는 중 오류 발생:', error);
+            res.status(500).send('서버 오류');
+        } else {
+            if (results.length > 0) {
+                res.json({ username: results[0].username });
+            } else {
+                res.status(404).send('사용자를 찾을 수 없습니다.');
+            }
         }
     });
 });
