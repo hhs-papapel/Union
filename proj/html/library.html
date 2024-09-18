@@ -22,55 +22,55 @@
             rawFile.send(null);
         }
 
-        // 전역으로 게임 데이터 정의
-        const games = {
-            "A Dance of Fire and Ice": {
-                title: "A Dance of Fire and Ice",
-                image: "../assets/images/ex.jpg",
-                space: "1.39GB",
-                lastPlayed: "3월 28일",
-                playtime: "3.3시간",
-                achievements: "6/47",
-                updateText: "대충 무언가가 업데이트가 되었다는 의미의 글",
-                friendImage: ""
-            },
-            "Harry Potter": {
-                title: "Harry Potter: Quidditch Champions",
-                image: "../assets/images/hogwarts.jpg",
-                space: "2.5GB",
-                lastPlayed: "4월 10일",
-                playtime: "10시간",
-                achievements: "20/50",
-                updateText: "!",
-                friendText: "",
-                friendImage: ""
-            }
-        };
+        // // 전역으로 게임 데이터 정의
+        // const games = {
+        //     "A Dance of Fire and Ice": {
+        //         title: "A Dance of Fire and Ice",
+        //         image: "../assets/images/ex.jpg",
+        //         space: "1.39GB",
+        //         lastPlayed: "3월 28일",
+        //         playtime: "3.3시간",
+        //         achievements: "6/47",
+        //         updateText: "대충 무언가가 업데이트가 되었다는 의미의 글",
+        //         friendImage: ""
+        //     },
+        //     "Harry Potter": {
+        //         title: "Harry Potter: Quidditch Champions",
+        //         image: "../assets/images/hogwarts.jpg",
+        //         space: "2.5GB",
+        //         lastPlayed: "4월 10일",
+        //         playtime: "10시간",
+        //         achievements: "20/50",
+        //         updateText: "!",
+        //         friendText: "",
+        //         friendImage: ""
+        //     }
+        // };
 
         // 게임 세부 정보를 불러오는 함수
-        function showGameDetails(gameKey) {
-            // 해당 게임의 데이터를 게임 상세 화면에 반영
-            const game = games[gameKey];
-            document.querySelector('.game-header img').src = game.image;
-            document.querySelector('.game-header h1').textContent = game.title;
-            document.querySelector('.game-header p:nth-of-type(1)').textContent = `필요한 공간: ${game.space} | 마지막 플레이: ${game.lastPlayed} | 플레이 시간: ${game.playtime}`;
-            document.querySelector('.game-header p:nth-of-type(2)').textContent = `도전 과제: ${game.achievements}`;
-            document.querySelector('.update p').textContent = game.updateText;
-            document.querySelector('.friend-activity p').textContent = game.friendText;
-            document.querySelector('.friend-activity img').src = game.friendImage;
+        // function showGameDetails(gameKey) {
+        //     // 해당 게임의 데이터를 게임 상세 화면에 반영
+        //     const game = games[gameKey];
+        //     document.querySelector('.game-header img').src = game.image;
+        //     document.querySelector('.game-header h1').textContent = game.title;
+        //     document.querySelector('.game-header p:nth-of-type(1)').textContent = `필요한 공간: ${game.space} | 마지막 플레이: ${game.lastPlayed} | 플레이 시간: ${game.playtime}`;
+        //     document.querySelector('.game-header p:nth-of-type(2)').textContent = `도전 과제: ${game.achievements}`;
+        //     document.querySelector('.update p').textContent = game.updateText;
+        //     document.querySelector('.friend-activity p').textContent = game.friendText;
+        //     document.querySelector('.friend-activity img').src = game.friendImage;
 
-            // 홈 화면 숨기기
-            document.getElementById('home-section').style.display = 'none';
+        //     // 홈 화면 숨기기
+        //     document.getElementById('home-section').style.display = 'none';
 
-            // 게임 세부 정보 섹션 및 리뷰 작성 섹션 표시
-            document.getElementById('game-details').style.display = 'block';
-        }
+        //     // 게임 세부 정보 섹션 및 리뷰 작성 섹션 표시
+        //     document.getElementById('game-details').style.display = 'block';
+        // }
 
-        // 게임 세부 정보 숨기는 함수
-        function hideGameDetails() {
-            document.getElementById('game-details').style.display = 'none';
-            document.getElementById('home-section').style.display = 'block';
-        }
+        // // 게임 세부 정보 숨기는 함수
+        // function hideGameDetails() {
+        //     document.getElementById('game-details').style.display = 'none';
+        //     document.getElementById('home-section').style.display = 'block';
+        // }
 
     </script>
 </head>
@@ -102,7 +102,7 @@
                     <input type="text" placeholder="게임 검색...">
                 </div>
             </div>
-            <ul>
+            <ul id="game-list">
                 <!-- 게임 클릭 시 showGameDetails 함수 호출 -->
                 <li onclick="showGameDetails('A Dance of Fire and Ice')">
                     <img src="../assets/images/A_DANCE_OF.jpg" alt="게임 이미지"> 불과 얼음의 춤
@@ -160,15 +160,15 @@
                 <p>필요한 공간: 1.39GB | 마지막 플레이: 3월 28일 | 플레이 시간: 3.3시간</p>
                 <p>도전 과제: 6/47</p>
             </div>
-
+<!-- 일단 주석 -->
             <div class="tabs">
-                <button>상점 페이지</button>
+                <!-- <button>상점 페이지</button>
                 <button>DLC</button>
                 <button>커뮤니티 허브</button>
                 <button>토론</button>
                 <button>가이드</button>
                 <button>창작마당</button>
-                <button>지원</button>
+                <button>지원</button> -->
             </div>
 
             <h2>주요 업데이트</h2>
@@ -215,7 +215,139 @@
 
     <!-- 로그인 체크 js 추가 -->
     <script src="../assets/js/checkLogin.js"></script>
-    
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const userId = sessionStorage.getItem('loggedInUser');
+            if (userId) {
+                fetch(`http://localhost:3000/api/user/library?userId=${userId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        games = {};  // 전역 객체 초기화
+
+                        const gameList = document.getElementById('game-list');
+                        gameList.innerHTML = '';  // 기존 리스트 초기화
+
+                        data.forEach(game => {
+                            games[game.gameName] = game;  // 서버에서 받아온 데이터를 games 객체에 저장
+
+                            const listItem = `
+                        <li onclick="showGameDetails('${game.gameName}')">
+                            <img src="${game.imageUrl}" alt="${game.gameName}"> ${game.gameName}
+                        </li>
+                    `;
+                            gameList.innerHTML += listItem; // 동적으로 게임 리스트 추가
+                        });
+
+                        const gameGrid = document.querySelector('.game-grid');
+                        gameGrid.innerHTML = '';  // 기존 내용 초기화
+
+                        data.forEach(game => {
+                            const gameTile = `
+                        <div class="game-tile">
+                            <img src="${game.imageUrl}" alt="${game.gameName}">
+                        </div>
+                    `;
+                            gameGrid.innerHTML += gameTile;  // 게임 그리드에 추가
+                        });
+                    })
+                    .catch(error => {
+                        console.error('라이브러리 데이터를 불러오는 중 오류 발생:', error);
+                    });
+            } else {
+                console.error('로그인 정보가 없습니다.');
+                // window.location.href = '/proj/html/login.html';  // 로그인 페이지로 리디렉션
+            }
+        });
+
+
+
+        // 게임 세부 정보를 불러오는 함수
+        function showGameDetails(gameKey) {
+            // 해당 게임의 데이터를 게임 상세 화면에 반영
+            const game = games[gameKey];  // 전역 객체에서 게임 정보 가져옴
+            document.querySelector('.game-header img').src = game.imageUrl;
+            document.querySelector('.game-header h1').textContent = game.gameName;
+            document.querySelector('.game-header p:nth-of-type(1)').textContent =
+                `필요한 공간: ${getRandomValue(spaceOptions)} | 마지막 플레이: ${getRandomValue(lastPlayedOptions)} | 플레이 시간: ${getRandomValue(playtimeOptions)}`;
+            document.querySelector('.game-header p:nth-of-type(2)').textContent = `도전 과제: ${getRandomValue(achievementsOptions)}`;
+            document.querySelector('.update p').textContent = getRandomValue(updateTextOptions);
+
+            // 홈 화면 숨기기
+            document.getElementById('home-section').style.display = 'none';
+
+            // 게임 세부 정보 섹션 및 리뷰 작성 섹션 표시
+            document.getElementById('game-details').style.display = 'block';
+        }
+        // 설치 버튼 클릭 이벤트 처리
+        document.querySelector('.install-btn').addEventListener('click', function () {
+            // 확인 창 표시
+            const confirmInstall = confirm("설치하시겠습니까?");
+            if (confirmInstall) {
+                // 설치를 확인하면 여기에서 추가 작업을 수행할 수 있습니다.
+                alert("설치가 진행됩니다.");
+            } else {
+                // 설치를 취소하면 여기에서 추가 작업을 수행할 수 있습니다.
+                alert("설치가 취소되었습니다.");
+            }
+        });
+
+    </script>
+
+
+    <script>
+
+        // 전역으로 게임 데이터 저장
+        let games = {};
+
+        // 랜덤 데이터를 위한 10가지 값 배열
+        const spaceOptions = ["1.2GB", "2.4GB", "3.1GB", "500MB", "5GB", "10GB", "15GB", "20GB", "8GB", "12GB"];
+        const lastPlayedOptions = ["어제", "3일 전", "한 달 전", "1주일 전", "1년 전", "2주 전", "6개월 전", "2일 전", "4일 전", "5일 전"];
+        const playtimeOptions = ["5시간", "10시간", "20시간", "100시간", "50시간", "30시간", "15시간", "8시간", "12시간", "3시간"];
+        const achievementsOptions = ["3/10", "6/12", "10/20", "2/5", "8/15", "7/10", "12/20", "5/8", "9/14", "11/13"];
+        const updateTextOptions = [
+            "새로운 기능 추가!",
+            "버그 수정",
+            "성능 개선",
+            "시즌 업데이트",
+            "그래픽 향상",
+            "캐릭터 밸런스 조정",
+            "신규 맵 추가",
+            "이벤트 시작",
+            "UI 개선",
+            "최근 업데이트 정보가 없습니다."
+        ];
+
+        // 랜덤 값 선택 함수
+        function getRandomValue(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        // 게임 세부 정보를 불러오는 함수
+        function showGameDetails(gameKey) {
+            // 해당 게임의 데이터를 게임 상세 화면에 반영
+            const game = games[gameKey];  // 전역 객체에서 게임 정보 가져옴
+            document.querySelector('.game-header img').src = game.imageUrl;
+            document.querySelector('.game-header h1').textContent = game.gameName;
+            document.querySelector('.game-header p:nth-of-type(1)').textContent =
+                `필요한 공간: ${getRandomValue(spaceOptions)} | 마지막 플레이: ${getRandomValue(lastPlayedOptions)} | 플레이 시간: ${getRandomValue(playtimeOptions)}`;
+            document.querySelector('.game-header p:nth-of-type(2)').textContent = `도전 과제: ${getRandomValue(achievementsOptions)}`;
+            document.querySelector('.update p').textContent = getRandomValue(updateTextOptions);
+
+            // 홈 화면 숨기기
+            document.getElementById('home-section').style.display = 'none';
+
+            // 게임 세부 정보 섹션 및 리뷰 작성 섹션 표시
+            document.getElementById('game-details').style.display = 'block';
+        }
+
+        // 게임 세부 정보 숨기는 함수
+        function hideGameDetails() {
+            document.getElementById('game-details').style.display = 'none';
+            document.getElementById('home-section').style.display = 'block';
+        }
+
+    </script>
 </body>
 
 </html>
