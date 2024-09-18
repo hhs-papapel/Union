@@ -93,6 +93,59 @@
     </footer>
     <!-- 로그인 체크 js 추가 -->
     <script src="../assets/js/checkLogin.js"></script>
+    <script>
+        /* 구매하기 버튼 동작 => 결제테이블안에 넣고 장바구니 테이블 비우기 */
+        document.addEventListener('DOMContentLoaded', () => {
+            const paymentButton = document.getElementById('pay');
+
+            if (paymentButton) {
+                paymentButton.addEventListener('click', () => {
+                    const userId = sessionStorage.getItem('loggedInUser');
+
+                    fetch(`http://localhost:3000/api/cart?userId=${userId}`)
+                        .then(response => response.json())
+                        .then(cartItems => {
+                            cartItems.forEach(item => {
+                            });
+
+                            const paymentData = cartItems.map(item => ({
+                                gameId: item.gameId,
+                                amount: item.price
+                            }));
+
+
+                            // 결제 요청 전송
+                            fetch(`http://localhost:3000/api/payment`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    userId: userId,
+                                    paymentItems: paymentData
+                                })
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        alert('결제가 완료되었습니다!');
+
+
+                                    } else {
+                                        alert('결제에 실패했습니다.');
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                });
+                        })
+                        .catch(error => {
+                            console.error('장바구니 데이터를 가져오는 중 오류:', error);
+                        });
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>

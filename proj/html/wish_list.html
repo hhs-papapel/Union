@@ -13,7 +13,7 @@
 
     <!-- 로그인 체크 js 추가 -->
     <script src="../assets/js/checkLogin.js"></script>
-    
+
     <script>
         function loadHTML(file) {
             var rawFile = new XMLHttpRequest();
@@ -183,6 +183,8 @@
                 wishlistContainer.innerHTML += wishlistItem;
             });
 
+            /*───────────────────────────────────────────────────────────────────────────────────────────*/
+
             // 장바구니에 추가하는 기능 구현
             const addToCartButtons = document.querySelectorAll('.add-to-cart');
             addToCartButtons.forEach(button => {
@@ -202,14 +204,22 @@
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
-                                alert('장바구니에 추가되었습니다.');
+                                // 장바구니 추가 성공 시 확인 메시지와 함께 장바구니 이동 여부 묻기
+                                if (confirm('장바구니에 추가되었습니다. 장바구니로 이동하시겠습니까?')) {
+                                    window.location.href = '/proj/html/shoppingBasket.html';  // "예" 선택 시 장바구니 페이지로 이동
+                                } else {
+                                    alert('장바구니에 추가되었습니다.');
+                                }
                             } else {
                                 alert('장바구니 추가에 실패했습니다.');
                             }
+                        })
+                        .catch(error => {
+                            console.error('장바구니 추가 중 오류 발생:', error);
                         });
                 });
             });
-
+            /*───────────────────────────────────────────────────────────────────────────────────────────*/
             // 찜 취소 기능 구현
             const removeFromWishlistButtons = document.querySelectorAll('.remove-from-wishlist');
             removeFromWishlistButtons.forEach(button => {

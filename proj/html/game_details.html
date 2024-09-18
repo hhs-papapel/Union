@@ -489,9 +489,10 @@
         if (wishlistBtn) {
             wishlistBtn.addEventListener('click', function () {
                 const userId = sessionStorage.getItem('loggedInUser');  // sessionStorage에서 userId 가져오기
+                console.log('userId:', userId);  // 이 시점에 userId가 올바르게 출력되는지 확인
+                const gameId = getGameIdFromURL();  // URL에서 gameId 가져오기
 
-                if (userId) {
-                    const gameId = getGameIdFromURL();  // URL에서 gameId를 가져오기
+                if (userId && gameId) {
                     // 로그인된 경우 찜 목록 추가 API 호출
                     fetch('http://localhost:3000/api/wishlist/add', {
                         method: 'POST',
@@ -501,13 +502,16 @@
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
-                                alert('찜 목록에 추가되었습니다.');
+                                // 찜 목록 추가 성공 시 확인 메시지와 함께 장바구니 이동 여부 묻기
+                                if (confirm('찜 목록에 추가되었습니다. 찜 목록 페이지로 이동하시겠습니까?')) {
+                                    window.location.href = '/proj/html/wish_list.html';  // "예" 선택 시 찜 목록 페이지로 이동
+                                }
                             } else {
                                 alert(data.message || '찜 목록 추가 중 문제가 발생했습니다.');
                             }
                         })
                         .catch(error => {
-                            console.error('찜 목록 추가 중 오류:', error);
+                            console.error('찜 목록 추가 중 오류 발생:', error);
                         });
                 } else {
                     // 비로그인 상태일 경우
@@ -517,6 +521,7 @@
             });
         }
 
+
         /* ─────────────────────────────────────────────────────────────────────────────────────────── */
 
 
@@ -525,33 +530,38 @@
         if (purchaseBtn) {
             purchaseBtn.addEventListener('click', function () {
                 const userId = sessionStorage.getItem('loggedInUser');  // sessionStorage에서 userId 가져오기
+                console.log('userId:', userId);  // 이 시점에 userId가 올바르게 출력되는지 확인
+                const gameId = getGameIdFromURL();  // URL에서 gameId 가져오기
 
-                if (userId) {
-                    const gameId = getGameIdFromURL();
-                    // 로그인된 경우 구매 API 호출
-                    fetch('http://localhost:3000/api/payment', {
+                if (userId && gameId) {
+                    // 로그인된 경우 장바구니 추가 API 호출
+                    fetch('http://localhost:3000/api/cart/add', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ userId, paymentItems: [{ gameId, amount: 1 }] })
+                        body: JSON.stringify({ userId, gameId })
                     })
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
-                                alert('장바구니에 추가 완료되었습니다.');
+                                // 장바구니 추가 성공 시 확인 메시지와 함께 장바구니 이동 여부 묻기
+                                if (confirm('장바구니에 추가 완료되었습니다. 장바구니로 이동하시겠습니까?')) {
+                                    window.location.href = '/proj/html/shoppingBasket.html';  // "예" 선택 시 장바구니로 이동
+                                }
                             } else {
-                                alert(data.message || '구매 중 문제가 발생했습니다.');
+                                alert(data.message || '장바구니 추가 중 문제가 발생했습니다.');
                             }
                         })
                         .catch(error => {
-                            console.error('장바구니 추가중 처리 중 오류:', error);
+                            console.error('장바구니 추가 중 오류 발생:', error);
                         });
                 } else {
                     // 비로그인 상태일 경우
-                    alert('장바구니를 이용하고 싶으면 로그인이 필요합니다.');
+                    alert('장바구니를 이용하시려면 로그인이 필요합니다.');
                     window.location.href = '/proj/html/login.html';  // 로그인 페이지로 리디렉션
                 }
             });
         }
+
 
 
     </script>
