@@ -100,16 +100,31 @@ app.get('/login', (req, res) => {
     connection.query('SELECT * FROM User WHERE username = ? AND pwd = ?', [userName, pwd], (err, rows) => {
         if (err) {
             console.log('err: ', err);
+            return res.status(500).json({ error: '서버 오류 발생' });
         }
-        console.log(rows);
+
         if (rows.length > 0) {
-            let responseData = {
-                status: 200,
-                userId: rows[0].userId,
-                name: rows[0].name // 유저의 이름을 rows[0]에서 가져옵니다.
-            };
-            res.json(responseData); // 클라이언트에게 전달
+            // 로그인 성공 시 lastLogin 필드 업데이트
+            let userId = rows[0].userId;
+            let currentTime = new Date(); // 현재 시간
+
+            connection.query('UPDATE User SET lastLogin = ? WHERE userId = ?', [currentTime, userId], (updateErr) => {
+                if (updateErr) {
+                    console.log('err: ', updateErr);
+                    return res.status(500).json({ error: '로그인 시간 업데이트 실패' });
+                }
+
+                // 로그인 성공 시 응답 데이터
+                let responseData = {
+                    status: 200,
+                    userId: rows[0].userId,
+                    name: rows[0].name // 유저의 이름을 rows[0]에서 가져옴
+                };
+                res.json(responseData); // 클라이언트에게 전달
+            });
+
         } else {
+            // 로그인 실패 시 응답 데이터
             let responseData = {
                 status: 409
             };
@@ -117,6 +132,7 @@ app.get('/login', (req, res) => {
         }
     });
 });
+
 /*───────────────────────────────────────────────────────────────────────────────────────────*/
 
 
@@ -1002,7 +1018,7 @@ app.get('/api/user/username', (req, res) => {
 
 /*───────────────────────────────────────────────────────────────────────────────────────────*/
 
-// 랜덤 5개의 게임을 가져오는 API
+// 추천게임 5가지
 app.get('/api/games/random', (req, res) => {
     const query = `SELECT * FROM Game ORDER BY RAND() LIMIT 5`; // 랜덤으로 5개의 게임을 선택
     connection.query(query, (error, results) => {
@@ -1011,5 +1027,21 @@ app.get('/api/games/random', (req, res) => {
             return res.status(500).json({ error: 'DB Error' });
         }
         res.json(results); // 결과를 JSON으로 반환
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+//관리자 유저목록
+app.get('/api/users', (req, res) => {
+    const query = 'SELECT * FROM User';
+
+    connection.query(query, (err, rows) => {
+        if (err) {
+            console.error('사용자 목록을 가져오는 중 오류 발생:', err);
+            return res.status(500).json({ error: 'DB 오류' });
+        }
+
+        res.json(rows); // 사용자 데이터를 클라이언트로 전달
     });
 });
