@@ -810,15 +810,6 @@
 
 
 
-        document.querySelectorAll('.category-item').forEach(item => {
-            item.addEventListener('click', function () {
-                const tagId = this.getAttribute('data-tag-id');
-                window.location.href = `/proj/html/tage.html?tagId=${tagId}`;
-            });
-        });
-
-
-
 
 
         let currentPage = 1; // 현재 페이지 번호
@@ -900,6 +891,48 @@
                     console.error('게임 상세 정보를 불러오는 중 오류 발생:', error);
                 });
         }
+
+        const categories = [
+            { id: 1, name: '액션', imageUrl: '../assets/images/ex.jpg' },
+            { id: 2, name: '어드벤처', imageUrl: '../assets/images/ex.jpg' },
+            { id: 3, name: '롤플레잉 게임', imageUrl: '../assets/images/ex.jpg' },
+            { id: 4, name: '전략', imageUrl: '../assets/images/ex.jpg' },
+            { id: 5, name: '인디', imageUrl: '../assets/images/ex.jpg' },
+            { id: 6, name: '캐주얼', imageUrl: '../assets/images/ex.jpg' },
+            { id: 7, name: '시뮬레이션', imageUrl: '../assets/images/ex.jpg' },
+            { id: 8, name: '공포', imageUrl: '../assets/images/ex.jpg' },
+            { id: 9, name: '멀티플레이어', imageUrl: '../assets/images/ex.jpg' },
+            { id: 10, name: '협동 플레이', imageUrl: '../assets/images/ex.jpg' },
+            { id: 11, name: '싱글플레이어', imageUrl: '../assets/images/ex.jpg' },
+            { id: 12, name: '오픈 월드', imageUrl: '../assets/images/ex.jpg' },
+            { id: 13, name: '퍼즐', imageUrl: '../assets/images/ex.jpg' },
+            { id: 14, name: '생존', imageUrl: '../assets/images/ex.jpg' },
+            { id: 15, name: 'SF', imageUrl: '../assets/images/ex.jpg' },
+            { id: 16, name: '판타지', imageUrl: '../assets/images/ex.jpg' },
+            { id: 17, name: '플랫포머', imageUrl: '../assets/images/ex.jpg' },
+            { id: 18, name: '1인칭', imageUrl: '../assets/images/ex.jpg' },
+            { id: 19, name: '3인칭', imageUrl: '../assets/images/ex.jpg' },
+            { id: 20, name: '샌드박스', imageUrl: '../assets/images/ex.jpg' },
+            { id: 21, name: '스포츠', imageUrl: '../assets/images/ex.jpg' },
+            { id: 22, name: '무료 플레이', imageUrl: '../assets/images/ex.jpg' }
+        ];
+
+        const categoryContainer = document.querySelector('.category-wrapper'); // 'category' -> 'categoryContainer'로 변경
+        categories.forEach(category => {
+            const categoryItem = `
+        <div class="category-item" data-tag-id="${category.id}" style="background-image: url('${category.imageUrl}');">
+            <span>${category.name}</span>
+        </div>
+    `;
+            categoryContainer.innerHTML += categoryItem;
+        });
+        // 이미지 클릭 시 페이지 이동 이벤트 추가
+        document.querySelectorAll('.category-item').forEach(item => {
+            item.addEventListener('click', function () {
+                const tagId = this.getAttribute('data-tag-id');
+                window.location.href = `/proj/html/tage.html?tagId=${tagId}`;
+            });
+        });
 
     </script>
 
