@@ -353,8 +353,8 @@
         <script>loadHTML("./footer.html")</script>
     </footer>
 
-        <!-- 로그인 체크 js 추가 -->
-        <script src="../assets/js/checkLogin.js"></script>
+    <!-- 로그인 체크 js 추가 -->
+    <script src="../assets/js/checkLogin.js"></script>
     <script>
 
 
@@ -520,51 +520,18 @@
 
             if (paymentButton) {
                 paymentButton.addEventListener('click', () => {
-                    const userId = sessionStorage.getItem('loggedInUser');
-
-                    fetch(`http://localhost:3000/api/cart?userId=${userId}`)
-                        .then(response => response.json())
-                        .then(cartItems => {
-                            cartItems.forEach(item => {
-                            });
-
-                            const paymentData = cartItems.map(item => ({
-                                gameId: item.gameId,
-                                amount: item.price
-                            }));
-
-
-                            // 결제 요청 전송
-                            fetch(`http://localhost:3000/api/payment`, {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                },
-                                body: JSON.stringify({
-                                    userId: userId,
-                                    paymentItems: paymentData
-                                })
-                            })
-                                .then(response => response.json())
-                                .then(data => {
-                                    if (data.success) {
-                                        alert('결제가 완료되었습니다!');
-
-
-                                    } else {
-                                        alert('결제에 실패했습니다.');
-                                    }
-                                })
-                                .catch(error => {
-                                    console.error('Error:', error);
-                                });
-                        })
-                        .catch(error => {
-                            console.error('장바구니 데이터를 가져오는 중 오류:', error);
-                        });
+                    try {
+                        window.location.href = 'payment.html';  // 결제 페이지로 이동
+                    } catch (error) {
+                        console.error('결제 페이지로 이동 중 오류 발생:', error);
+                        alert('결제 페이지로 이동하는 중 문제가 발생했습니다. 다시 시도해주세요.');
+                    }
                 });
+            } else {
+                console.error('결제 버튼을 찾을 수 없습니다.');
             }
         });
+
 
         /*───────────────────────────────────────────────────────────────────────────────────────────*/
 

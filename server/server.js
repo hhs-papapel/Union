@@ -212,7 +212,7 @@ app.get('/api/cart', (req, res) => {
         JOIN Game g ON c.gameId = g.gameId 
         LEFT JOIN GameImage gi ON g.gameId = gi.gameId
         WHERE c.userId = ?
-        GROUP BY g.gameId
+        GROUP BY c.cartId, g.gameName, g.price, g.imageUrl, g.gameId
     `;
 
     connection.query(query, [userId], (err, results) => {
@@ -225,12 +225,18 @@ app.get('/api/cart', (req, res) => {
 });
 
 
+
 /*───────────────────────────────────────────────────────────────────────────────────────────*/
 
 // 장바구니 추가하기
 app.post('/api/cart/add', (req, res) => {
     const { userId, gameId } = req.body;
 
+
+        // 디버그: 로그로 데이터가 제대로 들어오는지 확인
+        console.log('userId:', userId);
+        console.log('gameId:', gameId);
+        
     if (!userId || !gameId) {
         return res.status(400).json({ success: false, message: 'userId 또는 gameId가 필요합니다.' });
     }
