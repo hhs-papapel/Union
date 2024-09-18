@@ -102,6 +102,42 @@
     </footer>
     <!-- 로그인 체크 js 추가 -->
     <script src="../assets/js/checkLogin.js"></script>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('http://localhost:3000/api/discount-games')
+                .then(response => response.json())
+                .then(discountedGames => {
+                    displayDiscountedGames(discountedGames);
+                })
+                .catch(error => {
+                    console.error('Error fetching discounted games:', error);
+                });
+        });
+
+        function displayDiscountedGames(discountedGames) {
+            const gameContainer = document.querySelector('.game-container');
+            gameContainer.innerHTML = ''; // 기존 항목 초기화
+
+            discountedGames.forEach(game => {
+                const gameCard = `
+            <div class="game-card">
+                <img src="${game.imageUrl}" alt="${game.gameName}">
+                <div class="game-info">
+                    <h3>${game.gameName}</h3>
+                    <span class="discount">${game.discountRate}%</span>
+                    <div>
+                        <span class="price">₩${game.price.toLocaleString()}원</span>
+                        <span class="discount-price">₩${Math.floor(game.discountPrice).toLocaleString()}</span>
+                    </div>
+                </div>
+            </div>
+        `;
+                gameContainer.innerHTML += gameCard;
+            });
+        }
+    </script>
 </body>
 
 </html>

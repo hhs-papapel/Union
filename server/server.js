@@ -233,10 +233,10 @@ app.post('/api/cart/add', (req, res) => {
     const { userId, gameId } = req.body;
 
 
-        // 디버그: 로그로 데이터가 제대로 들어오는지 확인
-        console.log('userId:', userId);
-        console.log('gameId:', gameId);
-        
+    // 디버그: 로그로 데이터가 제대로 들어오는지 확인
+    console.log('userId:', userId);
+    console.log('gameId:', gameId);
+
     if (!userId || !gameId) {
         return res.status(400).json({ success: false, message: 'userId 또는 gameId가 필요합니다.' });
     }
@@ -846,3 +846,130 @@ app.get('/api/popular-games', (req, res) => {
 });
 
 /*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+// 할인페이지
+app.get('/api/discount-games', (req, res) => {
+    const query = `
+        SELECT g.gameId, g.gameName, g.price, g.imageUrl, 
+               (g.price - (g.price * d.discountRate / 100)) AS discountPrice, 
+               d.discountRate
+        FROM Game g
+        JOIN GameDiscount gd ON g.gameId = gd.gameId
+        JOIN Discount d ON gd.discountId = d.discountId
+        WHERE d.discountRate > 0
+        ORDER BY RAND()
+        LIMIT 5;
+    `;
+
+    connection.query(query, (err, results) => {
+        if (err) {
+            console.error('Error fetching discount games:', err);
+            return res.status(500).json({ error: 'Database error' });
+        }
+        res.json(results);
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+// 메인페이지 배너
+app.get('/api/games/banner', (req, res) => {
+    const query = `
+        SELECT gameId, gameName, imageUrl 
+        FROM Game 
+        WHERE gameId IN (1, 2, 3)
+    `;
+
+    connection.query(query, (err, results) => {
+        if (err) {
+            console.error('DB 조회 중 오류 발생:', err);
+            return res.status(500).json({ message: 'DB 조회 중 오류 발생' });
+        }
+        res.json(results); // 게임 데이터를 JSON으로 반환
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+//메인 페이지 할인
+app.get('/api/discounted-games', (req, res) => {
+    const query = `
+        SELECT g.gameId, g.gameName, g.imageUrl, g.price, d.discountRate, d.discountEnd
+        FROM Game g
+        JOIN GameDiscount gd ON g.gameId = gd.gameId
+        JOIN Discount d ON gd.discountId = d.discountId
+        WHERE d.discountEnd >= CURDATE()
+        LIMIT 16; -- 16개 가져오기
+    `;
+
+    connection.query(query, (err, results) => {
+        if (err) {
+            console.error('DB 조회 중 오류 발생:', err);
+            return res.status(500).json({ message: 'DB 조회 중 오류 발생' });
+        }
+        res.json(results); // 게임 데이터를 JSON으로 반환
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+// 게임 목록
+app.get('/api/games/list', (req, res) => {
+    const page = parseInt(req.query.page) || 1; // 기본 페이지는 1
+    const limit = 10; // 한 페이지당 10개의 게임을 반환
+    const offset = (page - 1) * limit; // 시작 인덱스
+
+    const query = 'SELECT * FROM Game LIMIT ? OFFSET ?';
+
+    connection.query(query, [limit, offset], (error, results) => {
+        if (error) {
+            console.error('데이터베이스에서 게임 목록을 가져오는 중 오류 발생:', error);
+            res.status(500).send('서버 오류');
+        } else {
+            res.json(results); // 게임 목록을 클라이언트로 응답
+        }
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+//게임 상세정보 들고오기
+app.get('/api/games/detail/:gameId', (req, res) => {
+    const gameId = req.params.gameId;
+
+    const query = 'SELECT gameName, price, description, imageUrl FROM Game WHERE gameId = ?';
+
+    connection.query(query, [gameId], (error, results) => {
+        if (error) {
+            console.error('게임 상세 정보를 가져오는 중 오류 발생:', error);
+            return res.status(500).json({ message: '서버 오류' }); // 서버 오류는 JSON으로 반환
+        }
+
+        if (results.length === 0) {
+            return res.status(404).json({ message: '게임을 찾을 수 없습니다.' }); // 404 에러도 JSON으로 반환
+        }
+
+        res.json(results[0]); // 게임 상세 정보를 반환
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+// 게임 리스트 디테일
+app.get('/api/games/detail/:gameId', (req, res) => {
+    const gameId = req.params.gameId;
+
+    const query = 'SELECT * FROM Game WHERE gameId = ?';
+
+    connection.query(query, [gameId], (error, results) => {
+        if (error) {
+            console.error('데이터베이스에서 게임 목록을 가져오는 중 오류 발생:', error);
+            res.status(500).send('서버 오류');
+        } else if (results.length === 0) {
+            // 결과가 없을 경우
+            res.status(404).send('해당 게임을 찾을 수 없습니다.');
+        } else {
+            res.json(results[0]); // 게임 목록을 하나의 객체로 응답
+        }
+    });
+});
