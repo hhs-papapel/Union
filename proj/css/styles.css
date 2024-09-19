@@ -486,6 +486,7 @@ body {
     border-radius: 10px;
     margin: 0 10px;
     position: relative;
+    margin-right: 15px;
 }
 
 .category-item span {
@@ -567,6 +568,7 @@ body {
     flex-wrap: nowrap; /* 요소가 줄 바꿈되지 않도록 설정 */
     width: 100%; /* 섹션이 전체 화면을 채우도록 */
     overflow-x: hidden; /* 좌우로 넘치는 요소를 숨기기 */
+    gap: 30px;
 }
 
 /* 왼쪽 게임 목록 */
@@ -580,6 +582,11 @@ body {
 .game-list ul {
     list-style: none;
     padding: 0;
+}
+
+/* 게임 리스트 간격 */
+.game-list ul li {
+    margin-bottom: 20px; /* 게임 리스트 아이템 사이의 간격 */
 }
 
 .game-item {
