@@ -827,3 +827,73 @@ body {
 .game-price{
     margin-left: 20px;
 }
+
+
+
+
+.update-sale-section {
+    width: 100%;
+    padding: 20px;
+    background-color: #1b2838;
+    color: #fff;
+}
+
+.update-sale-section h2 {
+    color: #c6d4df;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 세 개의 열을 생성 */
+    gap: 20px;
+}
+
+.game-card {
+    background-color: #2a475e;
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.large-card {
+    grid-column: span 2; /* 두 칸을 차지하는 카드 */
+    grid-row: span 2; /* 두 줄을 차지하는 카드 */
+}
+
+.game-card img {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #c6d4df;
+}
+
+.game-details {
+    padding: 15px;
+}
+
+.game-details p {
+    margin: 0;
+    font-size: 14px;
+    color: #c6d4df;
+}
+
+.discount-tag {
+    display: block;
+    color: #66c0f4;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.game-price {
+    display: block;
+    margin-top: 10px;
+    font-size: 18px;
+    color: #66c0f4;
+    font-weight: bold;
+}
+
+.game-card:hover {
+    transform: scale(1.05); /* 마우스를 올렸을 때 확대 효과 */
+}
