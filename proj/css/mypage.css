@@ -9,7 +9,8 @@
 body {
     background-color: #BFFF00; /* 밝은 연두색 배경 */
     color: #333; /* 다크 그레이 텍스트로 가독성 향상 */
-    margin-top: 150px; /* 메뉴바 높이에 맞춰 여백 조정 */
+    margin: 0; /* 기본 여백 제거 */
+    padding: 0; /* 기본 패딩 제거 */
 }
 
 .user-info {
@@ -25,12 +26,15 @@ body {
 .main-content {
     display: flex;
     justify-content: space-between;
+    max-width: 1200px; /* 전체 너비 제한 */
+    margin: 150px auto 50px; /* 가운데 정렬 및 상단 여백 */
     padding: 20px;
+    gap: 20px; /* 사이 간격 */
 }
 
 /* 프로필 섹션 */
 .profile-section {
-    width: 65%;
+    flex: 1 1 65%; /* 메인 프로필 섹션의 비율 */
     padding: 20px;
     background-color: #E6FFB3; /* 더 밝은 연두색으로 카드 배경 */
     border-radius: 15px;
@@ -44,8 +48,8 @@ body {
 }
 
 .profile-header img {
-    width: 150px;
-    height: 150px;
+    width: 100px; /* 이미지 크기 축소 */
+    height: 100px;
     border-radius: 50%;
     object-fit: cover;
     margin-right: 20px;
@@ -53,7 +57,7 @@ body {
 }
 
 .profile-header h1 {
-    font-size: 2.5em;
+    font-size: 2em;
     margin-bottom: 5px;
     color: #333; /* 진한 텍스트 */
 }
@@ -83,7 +87,7 @@ body {
 }
 
 .recent-activity h2 {
-    border-bottom: 2px solid #ffb570; /* 황금색 구분선 */
+    border-bottom: 2px solid #36ce63; 
     padding-bottom: 10px;
     margin-bottom: 20px;
     color: #333;
@@ -100,15 +104,15 @@ body {
 }
 
 .activity-item img {
-    width: 200px;
-    height: 100px;
+    width: 120px; /* 이미지 크기 조정 */
+    height: 80px;
     margin-right: 20px;
     border-radius: 5px;
     object-fit: cover;
 }
 
 .activity-details h3 {
-    font-size: 1.5em;
+    font-size: 1.3em;
     color: #333;
 }
 
@@ -118,16 +122,16 @@ body {
 
 /* 사이드바 스타일 */
 .sidebars {
-    width: 30%;
+    flex: 1 1 30%; /* 사이드바의 비율 */
     padding: 20px;
-    background-color: #f3f586; /* 프로필 섹션과 동일한 배경색 */
+    background-color: #fdf5a0; /* 프로필 섹션과 동일한 배경색 */
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .sidebars h3 {
     margin-bottom: 15px;
-    border-bottom: 2px solid #70dbb8; /* 구분선 황금색 */
+    border-bottom: 2px solid #f9a4a5; 
     padding-bottom: 10px;
     color: #333;
 }
@@ -143,20 +147,36 @@ body {
 }
 
 /* 댓글 섹션 */
+/* 댓글 섹션 스타일 */
 .comments-section {
-    margin-left: 30px;
-    margin-top: 30px;
+    padding: 20px;
+    background-color: #b9f6b9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    margin-top: 20px;
 }
-
 .comments-section h3 {
-    border-bottom: 2px solid #ffb570; /* 댓글 구분선도 황금색 */
+    border-bottom: 2px solid #36ce63; /* 댓글 구분선도 황금색 */
     padding-bottom: 10px;
     margin-bottom: 10px;
     color: #333;
 }
 
+.comments-section .comment-input-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.comments-section .comment-profile-image {
+    width: 40px; /* 프로필 이미지 크기 조정 */
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
 .comments-section input {
-    width: 70%;
+    flex: 1;
     padding: 15px;
     border-radius: 10px;
     border: none;
@@ -168,4 +188,75 @@ body {
 
 .comments-section input::placeholder {
     color: #999; /* 부드러운 그레이로 플레이스홀더 텍스트 */
+}
+
+.comments-section .edit-button {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.comments-section .edit-button:hover {
+    background-color: #45a049;
+}
+
+/* 댓글 아이템 스타일 */
+/* 댓글 아이템 스타일 */
+.comment-item {
+    display: flex; /* 수평 정렬을 위해 flex 사용 */
+    align-items: center;
+    background-color: #f1f1f1;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    position: relative; /* 삭제 버튼 위치를 위해 relative 사용 */
+}
+
+.comment-item img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.comment-item .comment-content {
+    display: flex;
+    flex-direction: column; /* 이름과 글쓴 내용을 수직으로 배치 */
+    flex: 1;
+}
+
+.comment-item .comment-author {
+    font-weight: bold;
+    color: #333;
+}
+
+.comment-item .comment-text {
+    color: #666;
+    margin-top: 5px;
+}
+
+/* 삭제 버튼 스타일을 이미지로 대체 */
+/* 삭제 아이콘 이미지 스타일 */
+.delete-image {
+    width: 24px; /* 이미지의 너비 */
+    height: 24px; /* 이미지의 높이 */
+    cursor: pointer; /* 커서가 포인터 모양으로 변경 */
+    margin-left: 10px; /* 아이콘과 댓글 내용 사이의 간격 */
+    transition: transform 0.2s; /* 클릭 시 애니메이션 효과 */
+}
+
+.delete-image:hover {
+    transform: scale(1.1); /* 호버 시 크기 확대 효과 */
+}
+
+/* 전체 페이지 레이아웃 조정 */
+.wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 30px;
 }

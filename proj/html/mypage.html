@@ -7,38 +7,36 @@
     <title>마이 페이지</title>
     <link rel="stylesheet" href="../css/mypage.css">
     <script>
-        function loadHTML(file) {
+        function loadHTML(file, elementId) {
             var rawFile = new XMLHttpRequest();
-            rawFile.open("GET", file, false);
+            rawFile.open("GET", file, true);
             rawFile.onreadystatechange = function () {
-                if (rawFile.readyState === 4) {
-                    if (rawFile.status === 200 || rawFile.status == 0) {
-                        var allText = rawFile.responseText;
-                        document.write(allText);
-                    }
+                if (rawFile.readyState === 4 && (rawFile.status === 200 || rawFile.status == 0)) {
+                    document.getElementById(elementId).innerHTML = rawFile.responseText;
                 }
-            }
+            };
             rawFile.send(null);
         }
     </script>
 </head>
 
 <body>
-
     <!-- 헤더 -->
-    <header>
-        <script>loadHTML("./header.html")</script>
+    <header id="header">
+        <script>loadHTML("./header.html", "header")</script>
     </header>
 
     <!-- 마이 페이지 메인 컨텐츠 -->
     <main class="main-content">
         <section class="profile-section">
             <div class="profile-header">
-                <img src="../assets/images/ex.jpg" alt="프로필 아이콘" class="profile-image">
+                <img src="../assets/images/ex.jpg" alt="프로필 아이콘" class="profile-image" id="profileImage">
                 <div class="profile-info">
                     <h1>유저네임</h1>
-                    <p>상태 메시지: 프로필 소개를 여기에 입력하세요.</p>
-                    <button class="edit-button">프로필 수정</button>
+                    <p id="statusMessage">상태 메시지: 프로필 소개를 여기에 입력하세요.</p>
+                    <button class="edit-button" id="editProfile">프로필 수정</button>
+                    <!-- 숨겨진 파일 입력 요소 -->
+                    <input type="file" id="profileFileInput" style="display: none;" accept="image/*">
                 </div>
             </div>
 
@@ -46,7 +44,7 @@
             <section class="recent-activity">
                 <h2>최근 활동</h2>
                 <div class="activity-item">
-                    <img src="https://via.placeholder.com/200x100?text=Game+1" alt="Game 1">
+                    <img src="../assets/images/A_DANCE_OF.jpg" alt="Game 1">
                     <div class="activity-details">
                         <h3>게임 1</h3>
                         <p>기록상 2.9시간</p>
@@ -55,7 +53,7 @@
                     </div>
                 </div>
                 <div class="activity-item">
-                    <img src="https://via.placeholder.com/200x100?text=Game+2" alt="Game 2">
+                    <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="Game 2">
                     <div class="activity-details">
                         <h3>게임 2</h3>
                         <p>기록상 15.4시간</p>
@@ -64,7 +62,7 @@
                     </div>
                 </div>
                 <div class="activity-item">
-                    <img src="https://via.placeholder.com/200x100?text=Game+3" alt="Game 3">
+                    <img src="../assets/images/ex.jpg" alt="Game 3">
                     <div class="activity-details">
                         <h3>게임 3</h3>
                         <p>기록상 58시간</p>
@@ -77,8 +75,14 @@
             <!-- 댓글 섹션 -->
             <section class="comments-section">
                 <h3>댓글</h3>
-                <input type="text" placeholder="댓글 남기기">
-                <button class="edit-button">등록</button>
+                <div class="comment-input-container">
+                    <img src="../assets/images/ex.jpg" alt="프로필 이미지" class="comment-profile-image">
+                    <input type="text" placeholder="댓글 남기기" id="commentInput">
+                    <button class="edit-button" id="submitComment">등록</button>
+                </div>
+                <div id="commentList">
+                    <!-- 댓글이 여기에 추가될 것입니다. -->
+                </div>
             </section>
         </section>
 
@@ -114,11 +118,122 @@
         </aside>
     </main>
 
-    <footer>
-        <script>loadHTML("./footer.html")</script>
+    <footer id="footer">
+        <script>loadHTML("./footer.html", "footer")</script>
     </footer>
+
     <!-- 로그인 체크 js 추가 -->
     <script src="../assets/js/checkLogin.js"></script>
+
+    <!-- 댓글 및 프로필 수정 기능 스크립트 -->
+    <script>
+        // 프로필 수정 버튼 클릭 시 파일 입력 창 열기
+        document.getElementById('editProfile').addEventListener('click', function() {
+            document.getElementById('profileFileInput').click();
+        });
+
+        // 파일 입력 시 프로필 이미지 변경
+        document.getElementById('profileFileInput').addEventListener('change', function(event) {
+    var file = event.target.files[0];
+    if (file) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var imageDataUrl = e.target.result;
+            document.getElementById('profileImage').src = imageDataUrl; // 이미지 소스 변경
+            localStorage.setItem('profileImage', imageDataUrl); // 이미지 데이터를 로컬 스토리지에 저장
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+// 페이지 로드 시 로컬 스토리지에서 이미지 불러오기
+window.onload = function() {
+    var savedImage = localStorage.getItem('profileImage');
+    if (savedImage) {
+        document.getElementById('profileImage').src = savedImage; // 저장된 이미지가 있으면 로드
+    }
+};
+
+        // 페이지가 로드될 때 로컬 스토리지에서 댓글을 불러오는 함수
+        function loadComments() {
+            var commentList = document.getElementById('commentList');
+            var comments = JSON.parse(localStorage.getItem('comments')) || []; // 저장된 댓글 목록
+
+            comments.forEach(function(comment, index) {
+                var newComment = document.createElement('div');
+                newComment.classList.add('comment-item');
+                newComment.innerHTML = `
+                    <img src="../assets/images/ex.jpg" alt="프로필 이미지">
+                    <div class="comment-content">
+                        <span class="comment-author">${comment.author}</span>
+                        <div class="comment-text">${comment.text}</div>
+                    </div>
+                    <img src="../assets/images/de.png" alt="삭제 아이콘" class="delete-image" onclick="deleteComment(${index})">
+                `;
+                commentList.appendChild(newComment);
+            });
+        }
+
+        // 댓글을 로컬 스토리지에 저장하는 함수
+        function saveComment(author, text) {
+            var comments = JSON.parse(localStorage.getItem('comments')) || [];
+            comments.push({ author: author, text: text });
+            localStorage.setItem('comments', JSON.stringify(comments));
+        }
+
+        // 댓글을 로컬 스토리지에서 삭제하는 함수
+        function deleteComment(index) {
+            var comments = JSON.parse(localStorage.getItem('comments')) || [];
+            comments.splice(index, 1); // 해당 인덱스의 댓글 삭제
+            localStorage.setItem('comments', JSON.stringify(comments));
+            loadCommentList(); // 새로고침 없이 댓글 목록 갱신
+        }
+
+        // 댓글 목록을 새로고침 없이 업데이트하는 함수
+        function loadCommentList() {
+            var commentList = document.getElementById('commentList');
+            commentList.innerHTML = ""; // 기존 댓글 초기화
+            loadComments(); // 댓글 목록 다시 로드
+        }
+
+        // 댓글 등록 버튼 클릭 시 실행
+        document.getElementById('submitComment').addEventListener('click', function () {
+            var commentInput = document.getElementById('commentInput');
+            var commentText = commentInput.value.trim();
+
+            if (commentText !== "") { // 댓글이 공백이 아닐 때만 실행
+                var commentList = document.getElementById('commentList');
+
+                // 새로운 댓글 요소 생성
+                var newComment = document.createElement('div');
+                newComment.classList.add('comment-item'); // 스타일을 위한 클래스 추가
+
+                // 댓글 내용 설정
+                newComment.innerHTML = `
+                    <img src="../assets/images/ex.jpg" alt="프로필 이미지">
+                    <div class="comment-content">
+                        <span class="comment-author">userName</span>
+                        <div class="comment-text">${commentText}</div>
+                    </div>
+                    <img src="../assets/images/de.png" alt="삭제 아이콘" class="delete-image" onclick="deleteComment(${JSON.parse(localStorage.getItem('comments')).length})">
+                `;
+
+                // 댓글 목록에 추가
+                commentList.appendChild(newComment);
+
+                // 로컬 스토리지에 댓글 저장
+                saveComment('userName', commentText);
+
+                // 입력 필드 비우기
+                commentInput.value = "";
+            } else {
+                alert("댓글을 입력해 주세요."); // 공백일 경우 알림 표시
+            }
+        });
+
+        // 페이지 로드 시 댓글 불러오기
+        document.addEventListener('DOMContentLoaded', loadComments);
+    </script>
 </body>
 
 </html>
