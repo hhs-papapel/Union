@@ -100,10 +100,39 @@
         <a href="./inquiry.html" class="inquiry-btn">문의하기</a> <!-- <a> 태그 사용 -->
     </section>
 
+        <!-- 페이지 맨 위로 이동 버튼 -->
+        <button id="scrollToTopBtn" class="scroll-to-top-btn">▲</button>
 
     <!-- 로그인 체크 js 추가 -->
     <script src="../assets/js/checkLogin.js"></script>
     <script>
+
+            // 페이지가 로드되면 함수 실행
+    document.addEventListener('DOMContentLoaded', function () {
+        // 버튼 요소 선택
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+        // 스크롤 이벤트 리스너 추가
+        window.addEventListener('scroll', () => {
+            // 현재 스크롤 위치가 300px을 넘으면 버튼 표시
+            if (window.scrollY > 300) {
+                scrollToTopBtn.style.display = 'flex'; // 버튼 보이기
+            } else {
+                scrollToTopBtn.style.display = 'none'; // 버튼 숨기기
+            }
+        });
+
+        // 버튼 클릭 이벤트 리스너 추가
+        scrollToTopBtn.addEventListener('click', () => {
+            // 페이지 상단으로 부드럽게 스크롤
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    });
+
+
         // 모든 질문을 선택
         const questions = document.querySelectorAll('.question');
 
