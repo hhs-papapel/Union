@@ -6,17 +6,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>고객센터</title>
     <link rel="stylesheet" href="../css/Customer_Support_Center.CSS">
+    <link rel="stylesheet" href="../css/inquiry.css">
+    <script>
+        function loadHTML(file) {
+            var rawFile = new XMLHttpRequest();
+            rawFile.open("GET", file, false);
+            rawFile.onreadystatechange = function () {
+                if (rawFile.readyState === 4) {
+                    if (rawFile.status === 200 || rawFile.status == 0) {
+                        var allText = rawFile.responseText;
+                        document.write(allText);
+                    }
+                }
+            }
+            rawFile.send(null);
+        }
+    </script>
 </head>
 
 <body>
+
+    <div class="cd-popup" id="cd-popup" role="alert">
+        <div class="cd-popup-container">
+              <!-- 문의 등록 폼 -->
+              <section id="inquiry-form" class="inquiry-form">
+                  <h2>문의 등록</h2>
+                  <p>어떠한 내용이라도 답변드릴 준비가 되어 있습니다! 문의를 보내주세요! 가능한 한 빨리 답변 드리도록 하겠습니다.</p>
+                  <!-- <form action="/submit-inquiry" method="POST"> -->
+                      <label for="category">1. 어떤 문제를 겪고 계신가요?</label>
+                      <select id="category" name="category">
+                          <option value="game-issue">플레이어 신고하기</option>
+                          <option value="system-issue">시스템 문제 해결</option>
+                          <option value="account-issue">계정 및 보안</option>
+                          <option value="payment-issue">결제 및 RP 문제</option>
+                      </select>
+          
+                      <label for="subject">문의 제목</label>
+                      <input type="text" id="subject" name="subject" required>
+          
+                      <label for="description">문의 내용을 상세히 적어주세요</label>
+                      <textarea id="description" name="description" rows="5" required></textarea>
+
+                      <button type="button" class="submit-btn" onclick="supportAdd()">제출</button>
+                  <!-- </form> -->
+              </section>
+          <a href="#0" class="cd-popup-close img-replace"></a>
+        </div> <!-- cd-popup-container -->
+      </div> <!-- cd-popup -->
+
+      
+
+    <header>
+        <script>loadHTML("./header.html")</script>
+    </header>
     <!-- 상단 배너와 검색창 -->
-    <header class="header-banner">
+    <div class="header-banner">
         <div class="search-bar-container">
             <h1>무엇을 도와드릴까요?</h1>
             <input type="text" class="search-input" placeholder="검색어를 입력하세요..." oninput="searchFAQs()">
         </div>
-    </header>
-
+    </div>
+    
     <!-- 아이콘 메뉴
     <section class="main-icons">
         <div class="icon-item">
@@ -69,52 +119,37 @@
 
     <!-- 문의하기 -->
     <!-- 문의하기 버튼 섹션 추가 -->
-    <section class="inquiry-section">
+    <section class="inquiry-section" id="inquiry-section">
         <h2>원하는 내용을 찾을 수 없으셨나요?</h2>
-        <p>어떠한 내용이라도 답변드릴 준비가 되어 있습니다! 문의를 보내주세요! 가능한 한 빨리 답변 드리도록 하겠습니다.</p>
-        <a href="./inquiry.html" class="inquiry-btn">문의하기</a> <!-- <a> 태그 사용 -->
+        <p>어떠한 내용이라도 답변드릴 준비가 되어 있습니다! 문의를 보내주세요! 가능한 한 빨리 답변 드리도록 하겠습니다.<br>
+            문의하신 기록을 보고싶으시다면 <a href="/proj/html/inquiry2.html">이곳</a>을 클릭해주세요
+        </p>
+        
+        <a class=" inquiry-btn btn " id="cd-popup-trigger" onclick="popup()"><span>문의하기</span></a> <!-- <a> 태그 사용 -->
+        
     </section>
 
-    <!-- 페이지 맨 위로 이동 버튼 -->
-    <button id="scrollToTopBtn" class="scroll-to-top-btn">▲</button>
+    <footer>
+        <script>loadHTML("./footer.html")</script>
+    </footer>
+
+
 
     <!-- 로그인 체크 js 추가 -->
     <script src="../assets/js/checkLogin.js"></script>
-    =======
+
     <script>
-
-        // 페이지가 로드되면 함수 실행
-        document.addEventListener('DOMContentLoaded', function () {
-            // 버튼 요소 선택
-            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
-
-            // 스크롤 이벤트 리스너 추가
-            window.addEventListener('scroll', () => {
-                // 현재 스크롤 위치가 300px을 넘으면 버튼 표시
-                if (window.scrollY > 300) {
-                    scrollToTopBtn.style.display = 'flex'; // 버튼 보이기
-                } else {
-                    scrollToTopBtn.style.display = 'none'; // 버튼 숨기기
-                }
-            });
-
-            // 버튼 클릭 이벤트 리스너 추가
-            scrollToTopBtn.addEventListener('click', () => {
-                // 페이지 상단으로 부드럽게 스크롤
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-
+        
         // 모든 질문을 선택
         const questions = document.querySelectorAll('.question');
 
     </script>
     <script>
+        
         document.addEventListener('DOMContentLoaded', function () {
+           
+
+
             // 카테고리를 선택하면 FAQ 데이터를 불러와서 갱신하는 함수
             function loadFAQByCategory(startId, endId, categoryTitle = '많이 하는 질문 TOP4') {
                 const qaSection = document.querySelector('.qa');
@@ -166,6 +201,15 @@
                     .catch(error => {
                         console.error('FAQ 데이터를 불러오는 중 오류 발생:', error);
                     });
+
+                    const userId = sessionStorage.getItem('loggedInUser');
+                    console.log(userId);
+                    const inquirySection = document.getElementById('inquiry-section');
+                    if (userId) {
+                        inquirySection.style.display = 'inline';
+                    }else{
+                        inquirySection.style.display = 'none';
+                    }
             }
 
             // 카테고리 클릭 이벤트 추가
@@ -248,7 +292,74 @@
                 });
         }
     </script>
+<script src="/proj/assets/lib/jquery-3.7.1.min.js"></script>
+<script>
+    jQuery(document).ready(function($){
+  //open popup
+  $('#cd-popup-trigger').on('click', function(event){
+    event.preventDefault();
+    $('.cd-popup').addClass('is-visible');
+  });
+  
+  //close popup
+  $('.cd-popup').on('click', function(event){
+    if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') ) {
+      event.preventDefault();
+      $(this).removeClass('is-visible');
+    }
+  });
+  //close popup when clicking the esc keyboard button
+  $(document).keyup(function(event){
+      if(event.which=='27'){
+        $('.cd-popup').removeClass('is-visible');
+      }
+    });
+});
 
+    function supportAdd(){
+        const id = sessionStorage.getItem('loggedInUser');
+
+        const subject = document.getElementById('subject');
+        const content = document.getElementById('description');
+
+        if(subject.value==''){
+                alert('제목을 입력해주세요');
+                subject.focus();
+                return;
+            }
+            if(content.value==''){
+                alert('내용을 입력해주세요');
+                content.focus();
+                return;
+            }
+
+        let supportData = {
+                id: id,
+                subject: subject.value,
+                content: content.value
+            };
+        $.ajax({
+            url: 'http://localhost:3000/support/add',
+            type: 'POST',
+            contentType: 'application/json', // 데이터를 JSON 형식으로 전송
+            data: JSON.stringify(supportData),   // 객체를 JSON 문자열로 변환하여 전송
+            dataType: 'json',
+            success: function (res) {
+                if (res.status === 200) {
+                    alert('문의등록 성공!');
+                    subject.value = "";
+                    content.value = "";
+                    $('.cd-popup').removeClass('is-visible');
+                } else if (res.status === 409) {
+                    alert('문의등록 중 오류가 발생했습니다.');
+                }
+            },
+            error: function () {
+                alert('문의등록 중 오류가 발생했습니다.');
+            }
+        });
+    }
+</script>
 </body>
 
 </html>
