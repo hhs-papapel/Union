@@ -23,7 +23,7 @@ xnugget info
 .cd-nugget-info a {
   position: relative;
   font-size: 14px;
-  color: #000000;
+  color: #5e6e8d;
   -webkit-transition: all 0.2s;
   -moz-transition: all 0.2s;
   transition: all 0.2s;
@@ -39,14 +39,9 @@ xnugget info
   display: block;
 }
 .cd-nugget-info .cd-nugget-info-arrow {
-  fill: #000000;
+  fill: #5e6e8d;
 }
 
-/* -------------------------------- 
-
-Main components 
-
--------------------------------- */
 
 /* -------------------------------- 
 
@@ -54,13 +49,14 @@ xpopup
 
 -------------------------------- */
 .cd-popup {
-  margin-top: 110px;
+    z-index: 2;
+    margin-top: 100px;
   position: fixed;
   left: 0;
   top: 0;
   height: 100%;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.566);
+  background-color: rgba(0, 0, 0, 0.811);
   opacity: 0;
   visibility: hidden;
   -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
@@ -98,7 +94,16 @@ xpopup
   transition-duration: 0.3s;
 }
 .cd-popup-container p {
-  padding: 0px 0px;
+  width: 500px;
+  text-align: left;
+  padding: 10px 30px;
+}
+#inquiry-subject {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+#description {
+  margin-bottom: 20px;
 }
 .cd-popup-container .cd-buttons:after {
   content: "";
@@ -188,16 +193,45 @@ xpopup
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-        .details {
+
+        .inquiry-form label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .inquiry-form input[type="text"],
+        .inquiry-form input[type="email"],
+        .inquiry-form select,
+        .inquiry-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .inquiry-form input[type="file"] {
             margin-bottom: 20px;
         }
 
-        .details p {
-            margin: 10px 0;
-            font-size: 16px;
+        .submit-btn {
+            background-color: #000000;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.5s;
         }
 
-        .status {
+        .submit-btn:hover {
             font-weight: bold;
-            color: green;
+            color: black;
+            background-color: #bfff00;
         }
