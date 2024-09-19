@@ -1583,7 +1583,7 @@ app.get('/admin/support/list', (req, res) => {
     const query = `
         SELECT supportId, userId, subject, supportDate, status
         FROM CustomerSupport
-        ORDER BY supportDate DESC
+        ORDER BY supportDate ASC
     `;
 
     connection.query(query, (err, results) => {
@@ -1592,5 +1592,53 @@ app.get('/admin/support/list', (req, res) => {
             return res.status(500).json({ message: '서버 오류 발생' });
         }
         res.json(results); // 결과를 클라이언트로 반환
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+app.get('/admin/support/detail', (req, res) => {
+    const supportId = req.query.supportId; // 지원 ID 가져오기
+
+    const query = `
+        SELECT supportId, subject, content, supportDate, status
+        FROM CustomerSupport
+        WHERE supportId = ?
+    `;
+
+    connection.query(query, [supportId], (err, results) => {
+        if (err) {
+            console.error('상세 문의 내역을 가져오는 중 오류 발생:', err);
+            return res.status(500).json({ message: '서버 오류 발생' });
+        }
+
+        // 문의 내역이 있으면 해당 데이터를 전달
+        if (results.length > 0) {
+            res.json(results[0]); // 첫 번째 결과만 전달
+        } else {
+            res.status(404).json({ message: '문의 내역을 찾을 수 없습니다.' });
+        }
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+app.post('/admin/support/answer', (req, res) => {
+    const { supportId, answer } = req.body;
+
+    console.log('Received supportId:', supportId);
+    console.log('Received answer:', answer);
+
+    // 문의 답변과 상태를 업데이트하는 쿼리
+    const query = `UPDATE CustomerSupport SET response = ?, status = '완료' WHERE supportId = ?`;
+
+    connection.query(query, [answer, supportId], (err, result) => {
+        if (err) {
+            console.error('답변 저장 중 오류 발생:', err);
+            return res.status(500).json({ success: false, message: '서버 오류 발생' });
+        }
+
+        console.log('Query Result:', result);
+        res.json({ success: true });
     });
 });

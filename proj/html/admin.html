@@ -206,16 +206,31 @@
             </table>
         </div>
 
+
+
+
+
         <!-- 상세 보기 팝업 -->
-        <div class="cd-popup" id="cd-popup" role="alert">
+        <div class="cd-popup" id="cd-popup" role="alert" data-support-id="">
             <div class="cd-popup-container">
-                <h2 id="inquiry-subject">문의 제목</h2>
-                <p><strong>문의 내용:</strong> <span id="inquiry-content"></span></p>
-                <p><strong>문의 날짜:</strong> <span id="inquiry-date"></span></p>
-                <p><strong>상태:</strong> <span id="inquiry-status"></span></p>
-                <button class="cd-popup-close">닫기</button>
+                <h2 id="inquiry-subject"><label for="subject">문의 제목</label></h2>
+                <p><label for="description">문의 내용: </label> <span id="inquiry-content"></span></p>
+                <p><label for="description">문의 날짜: </label> <span id="inquiry-date"></span></p>
+                <p><label for="description">문의 상태: </label> <span id="inquiry-status"></span></p>
+
+                <label for="description">문의 답변: </label>
+                <textarea id="description" name="description" rows="5" style="width: 90%;" required></textarea>
+
+                <button type="button" class="submit-btn">제출</button>
+
+                <a href="#0" class="cd-popup-close img-replace"></a>
             </div>
         </div>
+
+
+
+
+
 
         <!-- 커뮤니티 관리 섹션 -->
         <div id="community-management" class="content table-section">
@@ -437,81 +452,7 @@
         });
 
 
-        // 문의 리스트를 로드하는 함수
-        function loadInquiryList() {
-            fetch('http://localhost:3000/support/list?userId=1')  // userId에 맞게 변경
-                .then(response => response.json())
-                .then(data => {
-                    const inquiryList = document.getElementById('inquiry-list');
-                    inquiryList.innerHTML = ''; // 기존 목록 비우기
 
-                    data.forEach(inquiry => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                    <td>${inquiry.supportId}</td>
-                    <td>${inquiry.userId}</td>
-                    <td>${inquiry.subject}</td>
-                    <td>${new Date(inquiry.supportDate).toLocaleDateString()}</td>
-                    <td>${inquiry.status}</td>
-                    <td><button class="btn" onclick="showInquiryDetail(${inquiry.supportId})">상세 보기</button></td>
-                `;
-                        inquiryList.appendChild(row);
-                    });
-                })
-                .catch(error => console.error('문의 내역을 불러오는 중 오류 발생:', error));
-        }
-
-        // 상세 보기 팝업을 보여주는 함수
-        function showInquiryDetail(supportId) {
-            fetch(`http://localhost:3000/support/detail?supportId=${supportId}`)
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('inquiry-subject').innerText = data.subject;
-                    document.getElementById('inquiry-content').innerText = data.content;
-                    document.getElementById('inquiry-date').innerText = new Date(data.supportDate).toLocaleDateString();
-                    document.getElementById('inquiry-status').innerText = data.status;
-
-                    // 팝업을 보여줌
-                    document.querySelector('.cd-popup').classList.add('is-visible');
-                })
-                .catch(error => console.error('상세 문의 내역을 불러오는 중 오류 발생:', error));
-        }
-
-        // 팝업 닫기 기능
-        document.querySelector('.cd-popup-close').addEventListener('click', function () {
-            document.querySelector('.cd-popup').classList.remove('is-visible');
-        });
-
-        // 페이지 로드 시 문의 리스트 로드
-        document.addEventListener('DOMContentLoaded', loadInquiryList);
-
-
-        // 페이지 로드 시 문의 내역을 서버에서 가져와서 테이블에 추가하는 함수
-        document.addEventListener('DOMContentLoaded', function () {
-            fetch('http://localhost:3000/admin/support/list') // 서버의 API 경로에 맞게 수정
-                .then(response => response.json())
-                .then(data => {
-                    const tableBody = document.getElementById('inquiry-table-body');
-                    tableBody.innerHTML = ''; // 테이블 초기화
-
-                    // 문의 내역 데이터를 반복하며 테이블에 추가
-                    data.forEach(item => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                        <td>${item.supportId}</td>
-                        <td>${item.userId}</td>
-                        <td>${item.subject}</td>
-                        <td>${new Date(item.supportDate).toLocaleDateString()}</td>
-                        <td>${item.status}</td>
-                        <td><a class="inquiry-btn btn" id="cd-popup-trigger" onclick="popup(${item.supportId})"><span>상세 보기</span></a></td>
-                    `;
-                        tableBody.appendChild(row);
-                    });
-                })
-                .catch(error => {
-                    console.error('문의 내역을 불러오는 중 오류 발생:', error);
-                });
-        });
 
     </script>
 
@@ -526,71 +467,116 @@
 
     <script src="/proj/assets/lib/jquery-3.7.1.min.js"></script>
     <script>
-        jQuery(document).ready(function ($) {
-            //open popup
-            $('#cd-popup-trigger').on('click', function (event) {
-                event.preventDefault();
-                $('.cd-popup').addClass('is-visible');
-            });
+        // 페이지 로드 시 문의 내역을 서버에서 가져와서 테이블에 추가하는 함수
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('http://localhost:3000/admin/support/list') // 서버의 API 경로에 맞게 수정
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById('inquiry-table-body');
+                    tableBody.innerHTML = ''; // 테이블 초기화
 
-            //close popup
-            $('.cd-popup').on('click', function (event) {
-                if ($(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup')) {
-                    event.preventDefault();
-                    $(this).removeClass('is-visible');
-                }
-            });
-            //close popup when clicking the esc keyboard button
-            $(document).keyup(function (event) {
-                if (event.which == '27') {
-                    $('.cd-popup').removeClass('is-visible');
-                }
-            });
+                    // 문의 내역 데이터를 반복하며 테이블에 추가
+                    data.forEach(item => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                    <td>${item.supportId}</td>
+                    <td>${item.userId}</td>
+                    <td>${item.subject}</td>
+                    <td>${new Date(item.supportDate).toLocaleDateString()}</td>
+                    <td>${item.status}</td>
+                    <td><a class="inquiry-btn btn" onclick="showInquiryDetail(${item.supportId})"><span>상세 보기</span></a></td>
+                `;
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('문의 내역을 불러오는 중 오류 발생:', error);
+                });
         });
 
-        function supportAdd() {
-            const id = sessionStorage.getItem('loggedInUser');
-
-            const subject = document.getElementById('subject');
-            const content = document.getElementById('description');
-
-            if (subject.value == '') {
-                alert('제목을 입력해주세요');
-                subject.focus();
-                return;
-            }
-            if (content.value == '') {
-                alert('내용을 입력해주세요');
-                content.focus();
-                return;
-            }
-
-            let supportData = {
-                id: id,
-                subject: subject.value,
-                content: content.value
-            };
-            $.ajax({
-                url: 'http://localhost:3000/support/add',
-                type: 'POST',
-                contentType: 'application/json', // 데이터를 JSON 형식으로 전송
-                data: JSON.stringify(supportData),   // 객체를 JSON 문자열로 변환하여 전송
-                dataType: 'json',
-                success: function (res) {
-                    if (res.status === 200) {
-                        alert('문의등록 성공!');
-                        subject.value = "";
-                        content.value = "";
-                        $('.cd-popup').removeClass('is-visible');
-                    } else if (res.status === 409) {
-                        alert('문의등록 중 오류가 발생했습니다.');
+        // 상세 보기 팝업을 보여주는 함수
+        function showInquiryDetail(supportId) {
+            fetch(`http://localhost:3000/admin/support/detail?supportId=${supportId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === '완료') {
+                        alert('이미 답변이 완료된 문의입니다.');
+                        return;
                     }
-                },
-                error: function () {
-                    alert('문의등록 중 오류가 발생했습니다.');
-                }
-            });
+                    // 팝업의 제목, 내용, 날짜, 상태를 동적으로 업데이트
+                    document.getElementById('inquiry-subject').innerText = data.subject;
+                    document.getElementById('inquiry-content').innerText = data.content;
+                    document.getElementById('inquiry-date').innerText = new Date(data.supportDate).toLocaleDateString();
+                    document.getElementById('inquiry-status').innerText = data.status;
+
+                    // supportId를 팝업의 data-support-id에 설정
+                    document.querySelector('.cd-popup').setAttribute('data-support-id', supportId);
+
+                    // 팝업을 열기
+                    document.querySelector('.cd-popup').classList.add('is-visible');
+                })
+                .catch(error => {
+                    console.error('상세 문의 내역을 불러오는 중 오류 발생:', error);
+                });
         }
+
+        // 팝업 닫기 기능
+        document.querySelector('.cd-popup-close').addEventListener('click', function () {
+            document.querySelector('.cd-popup').classList.remove('is-visible');
+        });
+
+        // 팝업 닫기 (esc 키 눌렀을 때)
+        document.addEventListener('keyup', function (event) {
+            if (event.which === 27) { // esc 키
+                document.querySelector('.cd-popup').classList.remove('is-visible');
+            }
+        });
+        function saveAnswer(supportId) {
+            const answer = document.getElementById('description').value;
+
+            if (answer.trim() === '') {
+                alert('답변을 입력해주세요.');
+                return;
+            }
+
+            const answerData = {
+                supportId: supportId,
+                answer: answer
+            };
+
+            // 서버로 답변 데이터를 전송
+            fetch(`http://localhost:3000/admin/support/answer`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(answerData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('답변이 성공적으로 저장되었습니다.');
+                        location.reload();
+                        document.querySelector('.cd-popup').classList.remove('is-visible');
+                    } else {
+                        alert('답변 저장 중 오류가 발생했습니다.');
+                    }
+                })
+                .catch(error => {
+                    console.error('답변 저장 중 오류 발생:', error);
+                });
+        }
+
+        // 팝업에서 답변 저장 버튼 클릭 시 실행
+        document.querySelector('.submit-btn').addEventListener('click', function () {
+            const supportId = document.querySelector('.cd-popup').getAttribute('data-support-id');
+            if (supportId) {
+                saveAnswer(supportId);
+            } else {
+                console.error('supportId를 찾을 수 없습니다.');
+                alert('지원 ID를 찾을 수 없습니다.');
+            }
+        });
     </script>
 
 </body>
