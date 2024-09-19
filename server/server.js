@@ -1401,6 +1401,7 @@ app.get('/api/community/search', (req, res) => {
     });
 });
 
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
 
 app.get('/api/community/search/game', (req, res) => {
     const gameName = req.query.gameName; // 검색할 사용자 이름
@@ -1423,5 +1424,62 @@ app.get('/api/community/search/game', (req, res) => {
         }
         console.log(results)
         res.json(results); // 검색 결과를 클라이언트에 전달
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+// 커뮤니티 관리 
+app.get('/api/community-management', (req, res) => {
+    const limit = parseInt(req.query.limit) || 10;
+    const offset = parseInt(req.query.offset) || 0;
+
+    const query = `
+        SELECT 
+            c.postId, 
+            u.username, 
+            g.gameName, 
+            c.content, 
+            c.postDate
+        FROM 
+            Community c
+        JOIN 
+            User u ON c.userId = u.userId
+        JOIN 
+            Game g ON c.gameId = g.gameId
+        ORDER BY 
+            c.postDate DESC
+        LIMIT ? OFFSET ?
+    `;
+
+    connection.query(query, [limit, offset], (err, results) => {
+        if (err) {
+            console.error('커뮤니티 관리 데이터를 가져오는 중 오류 발생:', err);
+            return res.status(500).json({ message: '서버 오류 발생' });
+        }
+
+        res.json(results); // 데이터를 JSON 형식으로 클라이언트에 전달
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+// 게시물 삭제 API
+app.delete('/api/community-management/:postId', (req, res) => {
+    const postId = req.params.postId;
+
+    const query = 'DELETE FROM Community WHERE postId = ?';
+
+    connection.query(query, [postId], (err, result) => {
+        if (err) {
+            console.error('커뮤니티 게시물을 삭제하는 중 오류 발생:', err);
+            return res.status(500).json({ message: '서버 오류 발생' });
+        }
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: '해당 게시물을 찾을 수 없습니다.' });
+        }
+
+        res.json({ message: '게시물이 성공적으로 삭제되었습니다.' });
     });
 });
