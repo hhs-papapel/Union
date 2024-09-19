@@ -1,4 +1,8 @@
 const express = require('express');
+const multer = require('multer');  // multer 모듈 임포트 추가
+const path = require('path');
+const fs = require('fs');
+
 
 const app = express();
 
@@ -1091,5 +1095,139 @@ app.get('/api/user/library', (req, res) => {
         }
 
         res.json(results); // 게임 데이터를 클라이언트로 전달
+    });
+});
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+// 내 프로필보기
+app.get('/api/profile/:userId', (req, res) => {
+    const userId = req.params.userId;
+
+    const query = `SELECT * FROM User WHERE userId = ?`;
+
+    connection.query(query, [userId], (err, results) => {
+        if (err) {
+            console.error('DB에서 사용자 정보를 가져오는 중 오류 발생:', err);
+            return res.status(500).json({ error: 'DB 오류' });
+        }
+
+        if (results.length > 0) {
+            res.json(results[0]);  // 사용자의 정보를 반환
+        } else {
+            res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
+        }
+    });
+});
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+// 파일 번호를 가져오는 함수 (예시로 데이터베이스를 사용하지 않고 파일 디렉터리 내 파일 개수로 처리)
+function getNextFileNumber(callback) {
+    const directory = path.join(__dirname, 'profile');
+    fs.readdir(directory, (err, files) => {
+        if (err) return callback(err);
+        const fileNumber = files.length + 1;  // 파일 개수에 1을 더해서 새 파일 번호 결정
+        callback(null, fileNumber);
+    });
+}
+
+// 프로필 사진 업로드 라우트
+app.post('/api/users/profile-pic', (req, res) => {
+    getNextFileNumber((err, fileNumber) => {
+        if (err) {
+            return res.status(500).json({ success: false, message: '파일 번호를 가져오는 중 오류 발생' });
+        }
+
+        const upload = multer({
+            storage: multer.diskStorage({
+                destination: (req, file, cb) => {
+                    const uploadPath = path.join(__dirname, 'profile');
+                    if (!fs.existsSync(uploadPath)) {
+                        fs.mkdirSync(uploadPath, { recursive: true });
+                    }
+                    cb(null, uploadPath); // 'profile' 폴더에 저장
+                },
+                filename: (req, file, cb) => {
+                    const newFileName = `profile-${fileNumber}${path.extname(file.originalname)}`;
+                    cb(null, newFileName);  // 파일명: profile-1.jpg, profile-2.jpg 형태로 저장
+                }
+            })
+        }).single('profilePic');
+
+        // 파일 업로드 처리
+        upload(req, res, function (err) {
+            if (err) {
+                console.error('파일 업로드 중 오류 발생:', err);
+                return res.status(500).json({ success: false, message: '파일 업로드 실패' });
+            }
+
+            const profilePicUrl = `/profile/${req.file.filename}`;  // 파일 경로 설정
+
+            // DB 업데이트 쿼리
+            const query = 'UPDATE User SET profilePic = ?, statusMessage = ? WHERE userId = ?';
+            connection.query(query, [profilePicUrl, req.body.statusMessage, req.body.userId], (err) => {
+                if (err) {
+                    console.error('프로필 사진 및 상태 메시지 업데이트 중 오류:', err);
+                    return res.status(500).json({ success: false, message: '프로필 사진 및 상태 메시지 업데이트 실패' });
+                }
+
+                // 성공 시 응답
+                res.json({ success: true, profilePicUrl });
+            });
+        });
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+// 구매한 게임 가져오기
+app.get('/api/users/games', (req, res) => {
+    const userId = req.query.userId;  // 로그인된 사용자의 ID를 받아옴
+
+    if (!userId) {
+        return res.status(400).json({ error: 'userId가 필요합니다.' });
+    }
+
+    const query = `
+        SELECT g.gameName, g.imageUrl
+        FROM Library l
+        JOIN Game g ON l.gameId = g.gameId
+        WHERE l.userId = ?
+    `;
+
+    connection.query(query, [userId], (err, results) => {
+        if (err) {
+            console.error('라이브러리 데이터를 가져오는 중 오류 발생:', err);
+            return res.status(500).json({ error: 'DB 오류' });
+        }
+
+        if (results.length === 0) {
+            return res.status(404).json({ message: '라이브러리에 게임이 없습니다.' });
+        }
+
+        res.json(results);  // 게임 데이터를 클라이언트로 전달
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+app.get('/api/users/games/recent', (req, res) => {
+    const userId = req.query.userId;
+
+    const query = `
+        SELECT g.gameName, g.imageUrl
+        FROM Library l
+        JOIN Game g ON l.gameId = g.gameId
+        WHERE l.userId = ?
+        ORDER BY l.purchaseDate DESC
+        LIMIT 3
+    `;
+
+    connection.query(query, [userId], (err, results) => {
+        if (err) {
+            console.error('DB 오류 발생:', err);
+            return res.status(500).json({ error: 'DB 오류' });
+        }
+        res.json(results);
     });
 });
