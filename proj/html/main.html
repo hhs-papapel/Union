@@ -207,113 +207,6 @@
             </div>
         </div>
 
-        <div class="category-slider">
-            <h3>카테고리별로 살펴보기</h3>
-            <div class="slider-navigation">
-                <!-- 왼쪽 화살표 버튼 -->
-                <button class="prev-btn">←</button>
-
-                <div class="category-wrapper">
-                    <div class="category-item" style="background-image: url('../assets/images/ex.jpg');">
-                        <span>액션</span>
-                    </div>
-                    <div class="category-item" style="background-image: url('./path-to-image2.jpg');">
-                        <span>협동</span>
-                    </div>
-                    <div class="category-item" style="background-image: url('./path-to-image3.jpg');">
-                        <span>생존</span>
-                    </div>
-                    <div class="category-item" style="background-image: url('./path-to-image4.jpg');">
-                        <span>무료 플레이</span>
-                    </div>
-                    <div class="category-item" style="background-image: url('./path-to-image5.jpg');">
-                        <span>레이싱</span>
-                    </div>
-                    <div class="category-item" style="background-image: url('./path-to-image6.jpg');">
-                        <span>롤플레잉</span>
-                    </div>
-                    <div class="category-item" style="background-image: url('./path-to-image7.jpg');">
-                        <span>전략</span>
-                    </div>
-                    <div class="category-item" style="background-image: url('./path-to-image8.jpg');">
-                        <span>퍼즐</span>
-                    </div>
-
-                </div>
-
-                <!-- 오른쪽 화살표 버튼 -->
-                <button class="next-btn">→</button>
-            </div>
-
-            <div class="slider-pagination">
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-            </div>
-        </div>
-
-
-
-
-        <!-- 카테고리 선택 -->
-
-        <nav class="category-nav">
-            <ul>
-                <li><a href="#">인기 신작</a></li>
-                <li><a href="#">최고 인기게임</a></li>
-                <li><a href="#">최고 인기제품</a></li>
-                <li><a href="#">최고 인기제목</a></li>
-                <li><a href="#">최고 인기시리즈</a></li>
-            </ul>
-        </nav>
-
-        <!-- 게임 목록 및 상세 화면 -->
-        <div class="game-list-section">
-            <!-- 왼쪽 게임 목록 -->
-            <div class="game-list">
-                <ul>
-                    <li class="game-item" data-title="게임 1" data-price="₩ 37,800"
-                        data-img1="../assets/images/A_DANCE_OF.jpg" data-description="게임 1은 매우 흥미로운 모험 게임입니다.">
-                        <div class="game-info">
-                            <img src="../assets/images/A_DANCE_OF.jpg" alt="게임 1 이미지">
-                            <span>게임 1</span>
-                            <span class="game-price">₩ 37,800</span>
-                        </div>
-                    </li>
-                    <li class="game-item" data-title="게임 2" data-price="₩ 69,800"
-                        data-img1="../assets/images/DAVE_THE_DIVER.jpg" data-description="게임 2는 심해를 탐험하는 게임입니다.">
-                        <div class="game-info">
-                            <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="게임 2 이미지">
-                            <span>게임 2</span>
-                            <span class="game-price">₩ 69,800</span>
-                        </div>
-                    </li>
-                    <li class="game-item" data-title="게임 3" data-price="₩ 20,500"
-                        data-img1="../assets/images/shogun_Showdown.jpg" data-description="게임 3은 전략적인 RPG 게임입니다.">
-                        <div class="game-info">
-                            <img src="../assets/images/shogun_Showdown.jpg" alt="게임 3 이미지">
-                            <span>게임 3</span>
-                            <span class="game-price">₩ 20,500</span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- 오른쪽 게임 상세 정보 (처음에는 숨김) -->
-            <div class="game-detail" style="display: none;">
-                <div id="game-detail-header">
-                    <h3 id="game-title">게임 제목</h3>
-                    <p id="game-price">가격</p>
-                </div>
-                <div class="game-screenshots">
-                    <img id="screenshot1" src="" alt="스크린샷 1">
-                    <p id="game-description">게임 설명</p>
-                </div>
-            </div>
-        </div>
-
-
         <div class="update-sale-section">
             <h2>업데이트 및 할인</h2>
 
@@ -323,7 +216,7 @@
                     <img src="../assets/images/hogwarts.jpg" alt="FC 25 이미지">
                     <div class="game-details">
                         <p>지금 예약 구매하세요</p>
-                        <span class="game-price">₩ 80,000</span>
+                        <span class="game-price">₩ 85,000</span>
                     </div>
                 </div>
 
@@ -338,7 +231,7 @@
                 </div>
 
                 <div class="game-card">
-                    <img src="path_to_game2_image.jpg" alt="할인 게임 2 이미지">
+                    <img src="../assets/images/" alt="할인 게임 2 이미지">
                     <div class="game-details">
                         <p>주중 특가</p>
                         <span class="discount-tag">최대 -85% 할인</span>
@@ -364,170 +257,454 @@
             </div>
         </div>
 
+        <!-- 최근 업데이트된 제품 섹션 -->
+        <div class="recent-update-section">
+            <h2>최근에 업데이트된 제품</h2>
+            <div class="update-products">
+                <div class="product-card">
+                    <div class="live-badge">🔴 실시간 방송</div>
+                    <div class="product-image">
+                        <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="House Builder">
+                    </div>
+                    <div class="product-info">
+                        <div class="discount-tag">-40%</div>
+                        <div class="price">
+                            <span class="original-price">₩ 21,500</span>
+                            <span class="discounted-price">₩ 12,900</span>
+                        </div>
+                        <p class="product-title">House Builder</p>
+                        <p class="product-description">협동 플레이와 다양한 신규 기능이 포함된 업데이트 2.0이 도입되었습니다.</p>
+                        <a href="#" class="detail-link">업데이트 상세 내역 보기</a>
+                    </div>
+                </div>
 
+                <div class="product-card">
+                    <div class="library-badge">📚 라이브러리에 있음</div>
+                    <div class="product-image">
+                        <img src="biped.jpg" alt="Biped">
+                    </div>
+                    <div class="product-info">
+                        <div class="price">
+                            <span class="discounted-price">₩ 15,500</span>
+                        </div>
+                        <p class="product-title">Biped</p>
+                        <p class="product-description">온라인 협동 모드 및 새로운 안정성 업데이트가 도입된 v2.0 버전입니다.</p>
+                        <a href="#" class="detail-link">업데이트 상세 내역 보기</a>
+                    </div>
+                </div>
 
-        <div class="recommend-section">
-            <img src="../assets/images/logo4.png" alt="Steam Logo" class="steam-logo">
-            <h2>계속 스크롤해 내려가 더 많은 추천 제품을 확인해 보세요.</h2>
-            <p>아래에서 흥미로운 여러 제품을 카테고리별로 확인할 수 있습니다.</p>
+                <div class="product-card">
+                    <div class="wishlist-badge">📋 찜 목록에 있음</div>
+                    <div class="product-image">
+                        <img src="forest.jpg" alt="비밀의 숲">
+                    </div>
+                    <div class="product-info">
+                        <div class="discount-tag">-20%</div>
+                        <div class="price">
+                            <span class="original-price">₩ 24,000</span>
+                            <span class="discounted-price">₩ 19,200</span>
+                        </div>
+                        <p class="product-title">비밀의 숲</p>
+                        <p class="product-description">새로운 랜덤 인카운터와 편의성 개선이 반영된 v1.1 업데이트.</p>
+                        <a href="#" class="detail-link">업데이트 상세 내역 보기</a>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="new-badge">🌟 신규 업데이트</div>
+                    <div class="product-image">
+                        <img src="../assets/images/A_DANCE_OF.jpg" alt="Nine Souls">
+                    </div>
+                    <div class="product-info">
+                        <div class="price">
+                            <span class="discounted-price">₩ 32,000</span>
+                        </div>
+                        <p class="product-title">Nine Souls</p>
+                        <p class="product-description">6개의 새로운 언어 지원 및 다양한 버그 수정이 포함된 업데이트.</p>
+                        <a href="#" class="detail-link">업데이트 상세 내역 보기</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="new-badge">🌟 신규 업데이트</div>
+                    <div class="product-image">
+                        <img src="../assets/images/A_DANCE_OF.jpg" alt="Nine Souls">
+                    </div>
+                    <div class="product-info">
+                        <div class="price">
+                            <span class="discounted-price">₩ 32,000</span>
+                        </div>
+                        <p class="product-title">Nine Souls</p>
+                        <p class="product-description">6개의 새로운 언어 지원 및 다양한 버그 수정이 포함된 업데이트.</p>
+                        <a href="#" class="detail-link">업데이트 상세 내역 보기</a>
+                    </div>
+                </div>
+
+            </div>
+            <!-- <button class="view-all-btn">모두 보기</button> -->
         </div>
 
-        <footer>
-            <script>loadHTML("./footer.html")</script>
-        </footer>
-    </div>
 
-    <!-- Swiper.js 추가 -->
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script src="../assets/js/checkLogin.js"></script>
+        <div class="category-slider">
+            <h3>카테고리별로 살펴보기</h3>
+            <div class="slider-navigation">
+                <<<<<<< HEAD <!-- 왼쪽 화살표 버튼 -->
+                    <button class="prev-btn">←</button>
 
-    <script>
-        const categoryWrapper = document.querySelector('.category-wrapper');
-        const nextBtn = document.querySelector('.next-btn');
-        const prevBtn = document.querySelector('.prev-btn');
-        const dots = document.querySelectorAll('.dot');
+                    =======
 
-        let currentIndex = 0;
-        const itemsPerPage = 4; // 한 페이지에 보여질 카테고리 수
-        const totalItems = document.querySelectorAll('.category-item').length;
-        const totalPages = Math.ceil(totalItems / itemsPerPage); // 총 페이지 수
+                    >>>>>>> main
+                    <div class="category-wrapper">
+                        <div class="category-item" style="background-image: url('../assets/images/ex.jpg');">
+                            <span>액션</span>
+                        </div>
+                        <div class="category-item" style="background-image: url('./path-to-image2.jpg');">
+                            <span>협동</span>
+                        </div>
+                        <div class="category-item" style="background-image: url('./path-to-image3.jpg');">
+                            <span>생존</span>
+                        </div>
+                        <div class="category-item" style="background-image: url('./path-to-image4.jpg');">
+                            <span>무료 플레이</span>
+                        </div>
+                        <div class="category-item" style="background-image: url('./path-to-image5.jpg');">
+                            <span>레이싱</span>
+                        </div>
+                        <div class="category-item" style="background-image: url('./path-to-image6.jpg');">
+                            <span>롤플레잉</span>
+                        </div>
+                        <div class="category-item" style="background-image: url('./path-to-image7.jpg');">
+                            <span>전략</span>
+                        </div>
+                        <div class="category-item" style="background-image: url('./path-to-image8.jpg');">
+                            <span>퍼즐</span>
+                        </div>
 
-        // 카테고리 슬라이더의 너비 가져오기
-        const categoryWrapperWidth = categoryWrapper.offsetWidth;
+                    </div>
+                    <<<<<<< HEAD <!-- 오른쪽 화살표 버튼 -->
+                        <button class="next-btn">→</button>
+                        =======
+                        >>>>>>> main
+            </div>
 
-        // 슬라이더 초기화
-        updateDots();
+            <div class="slider-pagination">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
 
-        // 다음 버튼 클릭 이벤트
-        nextBtn.addEventListener('click', () => {
-            if (currentIndex < totalPages - 1) {
-                currentIndex++;
-                categoryWrapper.scrollLeft = categoryWrapperWidth * currentIndex;
+        <<<<<<< HEAD=======<!-- 카테고리 선택 -->
+            >>>>>>> main
+
+
+            <!-- 카테고리 선택 -->
+
+            <nav class="category-nav">
+                <ul>
+                    <li><a href="#">인기 신작</a></li>
+                    <li><a href="#">최고 인기게임</a></li>
+                    <li><a href="#">최고 인기제품</a></li>
+                    <li><a href="#">최고 인기제목</a></li>
+                    <li><a href="#">최고 인기시리즈</a></li>
+                </ul>
+            </nav>
+
+            <!-- 게임 목록 및 상세 화면 -->
+            <div class="game-list-section">
+                <!-- 왼쪽 게임 목록 -->
+                <div class="game-list">
+                    <ul>
+                        <li class="game-item" data-title="게임 1" data-price="₩ 37,800"
+                            data-img1="../assets/images/A_DANCE_OF.jpg" data-description="게임 1은 매우 흥미로운 모험 게임입니다.">
+                            <div class="game-info">
+                                <img src="../assets/images/A_DANCE_OF.jpg" alt="게임 1 이미지">
+                                <span>게임 1</span>
+                                <span class="game-price">₩ 37,800</span>
+                            </div>
+                        </li>
+                        <li class="game-item" data-title="게임 2" data-price="₩ 69,800"
+                            data-img1="../assets/images/DAVE_THE_DIVER.jpg" data-description="게임 2는 심해를 탐험하는 게임입니다.">
+                            <div class="game-info">
+                                <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="게임 2 이미지">
+                                <span>게임 2</span>
+                                <span class="game-price">₩ 69,800</span>
+                            </div>
+                        </li>
+                        <li class="game-item" data-title="게임 3" data-price="₩ 20,500"
+                            data-img1="../assets/images/shogun_Showdown.jpg" data-description="게임 3은 전략적인 RPG 게임입니다.">
+                            <div class="game-info">
+                                <img src="../assets/images/shogun_Showdown.jpg" alt="게임 3 이미지">
+                                <span>게임 3</span>
+                                <span class="game-price">₩ 20,500</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 오른쪽 게임 상세 정보 (처음에는 숨김) -->
+                <div class="game-detail" style="display: none;">
+                    <div id="game-detail-header">
+                        <h3 id="game-title">게임 제목</h3>
+                        <p id="game-price">가격</p>
+                    </div>
+                    <div class="game-screenshots">
+                        <img id="screenshot1" src="" alt="스크린샷 1">
+                        <p id="game-description">게임 설명</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="update-sale-section">
+                <h2>업데이트 및 할인</h2>
+
+                <div class="game-grid">
+                    <!-- FC 25 - 더 큰 타일 -->
+                    <div class="game-card large-card">
+                        <img src="../assets/images/hogwarts.jpg" alt="FC 25 이미지">
+                        <div class="game-details">
+                            <p>지금 예약 구매하세요</p>
+                            <span class="game-price">₩ 80,000</span>
+                        </div>
+                    </div>
+
+                    <!-- 나머지 게임 타일 -->
+                    <div class="game-card">
+                        <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="할인 게임 1 이미지">
+                        <div class="game-details">
+                            <p>주중 특가</p>
+                            <span class="discount-tag">최대 -90% 할인</span>
+                            <span class="game-price">₩ 32,000</span>
+                        </div>
+                    </div>
+
+                    <div class="game-card">
+                        <img src="path_to_game2_image.jpg" alt="할인 게임 2 이미지">
+                        <div class="game-details">
+                            <p>주중 특가</p>
+                            <span class="discount-tag">최대 -85% 할인</span>
+                            <span class="game-price">₩ 69,800</span>
+                        </div>
+                    </div>
+
+                    <div class="game-card">
+                        <img src="path_to_game3_image.jpg" alt="할인 게임 3 이미지">
+                        <div class="game-details">
+                            <p>주중 특가</p>
+                            <span class="game-price">₩ 62,880</span>
+                        </div>
+                    </div>
+
+                    <div class="game-card">
+                        <img src="../assets/images/A_DANCE_OF.jpg" alt="할인 게임 4 이미지">
+                        <div class="game-details">
+                            <p>주중 특가</p>
+                            <span class="game-price">₩ 58,800</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="recommend-section">
+                <div class="recommend-section">
+
+                    <img src="../assets/images/logo4.png" alt="Steam Logo" class="steam-logo">
+                    <h2>계속 스크롤해 내려가 더 많은 추천 제품을 확인해 보세요.</h2>
+                    <p>아래에서 흥미로운 여러 제품을 카테고리별로 확인할 수 있습니다.</p>
+                </div>
+
+                <footer>
+                    <script>loadHTML("./footer.html")</script>
+                </footer>
+
+
+                <!-- 페이지 맨 위로 이동 버튼 -->
+                <button id="scrollToTopBtn" class="scroll-to-top-btn">▲</button>
+
+            </div>
+
+            <!-- Swiper.js 추가 -->
+            <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+            <script src="../assets/js/checkLogin.js"></script>
+
+            <script>
+                const categoryWrapper = document.querySelector('.category-wrapper');
+                const nextBtn = document.querySelector('.next-btn');
+                const prevBtn = document.querySelector('.prev-btn');
+                const dots = document.querySelectorAll('.dot');
+
+
+                // 페이지가 로드되면 함수 실행
+                document.addEventListener('DOMContentLoaded', function () {
+                    // 버튼 요소 선택
+                    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+                    // 스크롤 이벤트 리스너 추가
+                    window.addEventListener('scroll', () => {
+                        // 현재 스크롤 위치가 300px을 넘으면 버튼 표시
+                        if (window.scrollY > 300) {
+                            scrollToTopBtn.style.display = 'flex'; // 버튼 보이기
+                        } else {
+                            scrollToTopBtn.style.display = 'none'; // 버튼 숨기기
+                        }
+                    });
+
+                    // 버튼 클릭 이벤트 리스너 추가
+                    scrollToTopBtn.addEventListener('click', () => {
+                        // 페이지 상단으로 부드럽게 스크롤
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                    });
+                });
+
+
+
+                let currentIndex = 0;
+                const itemsPerPage = 4; // 한 페이지에 보여질 카테고리 수
+                const totalItems = document.querySelectorAll('.category-item').length;
+                const totalPages = Math.ceil(totalItems / itemsPerPage); // 총 페이지 수
+
+                // 카테고리 슬라이더의 너비 가져오기
+                const categoryWrapperWidth = categoryWrapper.offsetWidth;
+
+                // 슬라이더 초기화
                 updateDots();
-            }
-        });
 
-        // 이전 버튼 클릭 이벤트
-        prevBtn.addEventListener('click', () => {
-            if (currentIndex > 0) {
-                currentIndex--;
-                categoryWrapper.scrollLeft = categoryWrapperWidth * currentIndex;
-                updateDots();
-            }
-        });
+                // 다음 버튼 클릭 이벤트
+                nextBtn.addEventListener('click', () => {
+                    if (currentIndex < totalPages - 1) {
+                        currentIndex++;
+                        categoryWrapper.scrollLeft = categoryWrapperWidth * currentIndex;
+                        updateDots();
+                    }
+                });
 
-        // 페이지네이션 업데이트
-        function updateDots() {
-            dots.forEach((dot, index) => {
-                if (index === currentIndex) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
+                // 이전 버튼 클릭 이벤트
+                prevBtn.addEventListener('click', () => {
+                    if (currentIndex > 0) {
+                        currentIndex--;
+                        categoryWrapper.scrollLeft = categoryWrapperWidth * currentIndex;
+                        updateDots();
+                    }
+                });
+
+                // 페이지네이션 업데이트
+                function updateDots() {
+                    dots.forEach((dot, index) => {
+                        if (index === currentIndex) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
                 }
-            });
-        }
 
-        // 페이지네이션 클릭 이벤트
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                currentIndex = index;
-                categoryWrapper.scrollLeft = categoryWrapperWidth * currentIndex;
-                updateDots();
-            });
-        });
+                // 페이지네이션 클릭 이벤트
+                dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => {
+                        currentIndex = index;
+                        categoryWrapper.scrollLeft = categoryWrapperWidth * currentIndex;
+                        updateDots();
+                    });
+                });
 
 
-        // 게임 목록 클릭 이벤트 처리
-        document.querySelectorAll('.game-item').forEach(item => {
-            item.addEventListener('click', function () {
-                const title = this.getAttribute('data-title');
-                const price = this.getAttribute('data-price');
-                const img1 = this.getAttribute('data-img1');
-                const description = this.getAttribute('data-description');
+                // 게임 목록 클릭 이벤트 처리
+                document.querySelectorAll('.game-item').forEach(item => {
+                    item.addEventListener('click', function () {
+                        const title = this.getAttribute('data-title');
+                        const price = this.getAttribute('data-price');
+                        const img1 = this.getAttribute('data-img1');
+                        const description = this.getAttribute('data-description');
 
-                // 제목과 가격 업데이트
-                document.getElementById('game-title').innerText = title;
-                document.getElementById('game-price').innerText = price;
+                        // 제목과 가격 업데이트
+                        document.getElementById('game-title').innerText = title;
+                        document.getElementById('game-price').innerText = price;
 
-                // 스크린샷 이미지 업데이트
-                document.getElementById('screenshot1').src = img1;
+                        // 스크린샷 이미지 업데이트
+                        document.getElementById('screenshot1').src = img1;
 
-                // 설명 업데이트
-                document.getElementById('game-description').innerText = description;
+                        // 설명 업데이트
+                        document.getElementById('game-description').innerText = description;
 
-                // 상세 정보 보이기
-                document.querySelector('.game-detail').style.display = 'block';
-            });
-        });
+                        // 상세 정보 보이기
+                        document.querySelector('.game-detail').style.display = 'block';
+                    });
+                });
 
 
 
-        // 특별 할인 슬라이더
-        // 배너 슬라이더 (움직이지 않도록 autoplay 설정을 제거)
-        var bannerSwiper = new Swiper('.banner-container .swiper', {
-            loop: false, // 슬라이드 반복 제거
-            autoplay: false, // 자동 슬라이드 비활성화
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            }
-        });
+                // 특별 할인 슬라이더
+                // 배너 슬라이더 (움직이지 않도록 autoplay 설정을 제거)
+                var bannerSwiper = new Swiper('.banner-container .swiper', {
+                    loop: false, // 슬라이드 반복 제거
+                    autoplay: false, // 자동 슬라이드 비활성화
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    }
+                });
 
-        // 특별 할인 슬라이더 (자동 슬라이드와 페이지네이션 활성화)
-        var discountSwiper = new Swiper('.discount-swiper', {
-            loop: true,
-            autoplay: {
-                delay: 3000, // 3초마다 슬라이드
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true, // 페이지네이션을 클릭할 수 있도록 설정
-            },
-        });
+                // 특별 할인 슬라이더 (자동 슬라이드와 페이지네이션 활성화)
+                var discountSwiper = new Swiper('.discount-swiper', {
+                    loop: true,
+                    autoplay: {
+                        delay: 3000, // 3초마다 슬라이드
+                        disableOnInteraction: false,
+                    },
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true, // 페이지네이션을 클릭할 수 있도록 설정
+                    },
+                });
 
-        var swiper1 = new Swiper('.swiper', {
-            loop: true,
-            breakpoints: {
-                1023: {
-                    allowTouchMove: false
-                }
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            autoplay: {
-                delay: 3000,
-                disableOnInteraction: false,
-            },
-        });
-    </script>
+                var swiper1 = new Swiper('.swiper', {
+                    loop: true,
+                    breakpoints: {
+                        1023: {
+                            allowTouchMove: false
+                        }
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                    autoplay: {
+                        delay: 3000,
+                        disableOnInteraction: false,
+                    },
+                });
+            </script>
 
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            fetch('http://localhost:3000/api/games/banner')
-                .then(response => response.json())
-                .then(data => {
-                    // 각 슬라이드 컨테이너에 게임 데이터를 할당
-                    const swiperWrapper = document.querySelector('.swiper-container .swiper-wrapper');
-                    const swiperWrapper2 = document.querySelector('.swiper-container2 .swiper-wrapper');
-                    const swiperWrapper3 = document.querySelector('.swiper-container3 .swiper-wrapper');
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    fetch('http://localhost:3000/api/games/banner')
+                        .then(response => response.json())
+                        .then(data => {
+                            // 각 슬라이드 컨테이너에 게임 데이터를 할당
+                            const swiperWrapper = document.querySelector('.swiper-container .swiper-wrapper');
+                            const swiperWrapper2 = document.querySelector('.swiper-container2 .swiper-wrapper');
+                            const swiperWrapper3 = document.querySelector('.swiper-container3 .swiper-wrapper');
 
-                    swiperWrapper.innerHTML = '';  // 중앙 슬라이드 초기화
-                    swiperWrapper2.innerHTML = ''; // 왼쪽 슬라이드 초기화
-                    swiperWrapper3.innerHTML = ''; // 오른쪽 슬라이드 초기화
+                            swiperWrapper.innerHTML = '';  // 중앙 슬라이드 초기화
+                            swiperWrapper2.innerHTML = ''; // 왼쪽 슬라이드 초기화
+                            swiperWrapper3.innerHTML = ''; // 오른쪽 슬라이드 초기화
 
-                    // 슬라이드에 데이터 배정 - 중복 방지
-                    // 인덱스를 순환하여 다른 게임을 각 슬라이드에 배치합니다
-                    for (let i = 0; i < data.length; i++) {
-                        const centerIndex = i % data.length;            // 중앙 슬라이드 (현재 게임)
-                        const leftIndex = (i + 1) % data.length;        // 왼쪽 슬라이드 (다음 게임)
-                        const rightIndex = (i + 2) % data.length;       // 오른쪽 슬라이드 (다다음 게임)
+                            // 슬라이드에 데이터 배정 - 중복 방지
+                            // 인덱스를 순환하여 다른 게임을 각 슬라이드에 배치합니다
+                            for (let i = 0; i < data.length; i++) {
+                                const centerIndex = i % data.length;            // 중앙 슬라이드 (현재 게임)
+                                const leftIndex = (i + 1) % data.length;        // 왼쪽 슬라이드 (다음 게임)
+                                const rightIndex = (i + 2) % data.length;       // 오른쪽 슬라이드 (다다음 게임)
 
-                        // 중앙 슬라이드 (swiper-container)
-                        swiperWrapper.innerHTML += `
+                                // 중앙 슬라이드 (swiper-container)
+                                swiperWrapper.innerHTML += `
                         <div class="swiper-slide">
                              <img src="${data[centerIndex].imageUrl}" alt="${data[centerIndex].gameName}" class="game-image" data-game-id="${data[centerIndex].gameId}">
                             <div class="banner-text">
@@ -537,52 +714,52 @@
                         </div>
                     `;
 
-                        // 왼쪽 슬라이드 (swiper-container2)
-                        swiperWrapper3.innerHTML += `
+                                // 왼쪽 슬라이드 (swiper-container2)
+                                swiperWrapper3.innerHTML += `
                         <div class="swiper-slide">
                             <img src="${data[leftIndex].imageUrl}" alt="${data[leftIndex].gameName}">
                         </div>
                     `;
 
-                        // 오른쪽 슬라이드 (swiper-container3)
-                        swiperWrapper2.innerHTML += `
+                                // 오른쪽 슬라이드 (swiper-container3)
+                                swiperWrapper2.innerHTML += `
                         <div class="swiper-slide">
                             <img src="${data[rightIndex].imageUrl}" alt="${data[rightIndex].gameName}">
                         </div>
                     `;
-                    }
+                            }
 
-                    // 중앙 슬라이드의 이미지를 클릭하면 상세 페이지로 이동
-                    document.querySelectorAll('.swiper-container .game-image').forEach(image => {
-                        image.addEventListener('click', function () {
-                            const gameId = this.getAttribute('data-game-id');
-                            window.location.href = `/proj/html/game_details.html?gameId=${gameId}`;
+                            // 중앙 슬라이드의 이미지를 클릭하면 상세 페이지로 이동
+                            document.querySelectorAll('.swiper-container .game-image').forEach(image => {
+                                image.addEventListener('click', function () {
+                                    const gameId = this.getAttribute('data-game-id');
+                                    window.location.href = `/proj/html/game_details.html?gameId=${gameId}`;
+                                });
+                            });
+                        })
+                        .catch(error => {
+                            console.error('게임 데이터를 불러오는 중 오류 발생:', error);
                         });
-                    });
-                })
-                .catch(error => {
-                    console.error('게임 데이터를 불러오는 중 오류 발생:', error);
                 });
-        });
 
 
 
-        document.addEventListener('DOMContentLoaded', function () {
-            fetch('http://localhost:3000/api/discounted-games')
-                .then(response => response.json())
-                .then(data => {
-                    const discountSwiperWrapper = document.querySelector('.discount-swiper .swiper-wrapper');
-                    discountSwiperWrapper.innerHTML = ''; // 기존 배너 초기화
+                document.addEventListener('DOMContentLoaded', function () {
+                    fetch('http://localhost:3000/api/discounted-games')
+                        .then(response => response.json())
+                        .then(data => {
+                            const discountSwiperWrapper = document.querySelector('.discount-swiper .swiper-wrapper');
+                            discountSwiperWrapper.innerHTML = ''; // 기존 배너 초기화
 
-                    // 데이터를 5개씩 나누기
-                    const chunkSize = 5;
-                    for (let i = 0; i < data.length; i += chunkSize) {
-                        const chunk = data.slice(i, i + chunkSize); // 5개씩 자름
-                        let gameSlides = '<div class="swiper-slide"><div class="discount-grid">';
+                            // 데이터를 5개씩 나누기
+                            const chunkSize = 5;
+                            for (let i = 0; i < data.length; i += chunkSize) {
+                                const chunk = data.slice(i, i + chunkSize); // 5개씩 자름
+                                let gameSlides = '<div class="swiper-slide"><div class="discount-grid">';
 
-                        chunk.forEach(game => {
-                            const discountedPrice = game.price * (1 - game.discountRate / 100); // 할인 후 가격 계산
-                            gameSlides += `
+                                chunk.forEach(game => {
+                                    const discountedPrice = game.price * (1 - game.discountRate / 100); // 할인 후 가격 계산
+                                    gameSlides += `
                     <div class="discount-item large do">
                                 <img src="${game.imageUrl}" class="game-image" data-game-id="${game.gameId}">
                                 <span class="discount">${game.discountRate}%</span>
@@ -596,55 +773,55 @@
                                 </div>
                             </div>
                     `;
-                        });
+                                });
 
-                        gameSlides += '</div></div>';
-                        discountSwiperWrapper.innerHTML += gameSlides;
-                    }
+                                gameSlides += '</div></div>';
+                                discountSwiperWrapper.innerHTML += gameSlides;
+                            }
 
-                    // 이미지 클릭 시 상세 페이지로 이동하는 이벤트 추가
-                    document.querySelectorAll('.game-image').forEach(image => {
-                        image.addEventListener('click', function () {
-                            const gameId = this.getAttribute('data-game-id');
-                            window.location.href = `/proj/html/game_details.html?gameId=${gameId}`;
+                            // 이미지 클릭 시 상세 페이지로 이동하는 이벤트 추가
+                            document.querySelectorAll('.game-image').forEach(image => {
+                                image.addEventListener('click', function () {
+                                    const gameId = this.getAttribute('data-game-id');
+                                    window.location.href = `/proj/html/game_details.html?gameId=${gameId}`;
+                                });
+                            });
+                        })
+                        .catch(error => {
+                            console.error('할인 게임 데이터를 불러오는 중 오류 발생:', error);
                         });
-                    });
-                })
-                .catch(error => {
-                    console.error('할인 게임 데이터를 불러오는 중 오류 발생:', error);
                 });
-        });
 
 
 
 
 
-        let currentPage = 1; // 현재 페이지 번호
-        let isLoading = false; // 데이터 로딩 중인지 여부 확인
+                let currentPage = 1; // 현재 페이지 번호
+                let isLoading = false; // 데이터 로딩 중인지 여부 확인
 
-        document.addEventListener('DOMContentLoaded', function () {
-            loadGames(currentPage); // 첫 번째 페이지 로드
+                document.addEventListener('DOMContentLoaded', function () {
+                    loadGames(currentPage); // 첫 번째 페이지 로드
 
-            // 스크롤 이벤트 감지
-            window.addEventListener('scroll', () => {
-                // 페이지의 스크롤이 끝에 도달했는지 확인
-                if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100 && !isLoading) {
-                    currentPage++; // 페이지 번호 증가
-                    loadGames(currentPage); // 다음 페이지 로드
-                }
-            });
-        });
+                    // 스크롤 이벤트 감지
+                    window.addEventListener('scroll', () => {
+                        // 페이지의 스크롤이 끝에 도달했는지 확인
+                        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100 && !isLoading) {
+                            currentPage++; // 페이지 번호 증가
+                            loadGames(currentPage); // 다음 페이지 로드
+                        }
+                    });
+                });
 
 
-        // 게임 목록을 서버에서 가져오는 함수
-        function loadGames(page) {
-            isLoading = true;
-            fetch(`http://localhost:3000/api/games/list?page=${page}`)
-                .then(response => response.json())
-                .then(data => {
-                    const gameList = document.querySelector('.game-list ul');
-                    data.forEach(game => {
-                        const listItem = `
+                // 게임 목록을 서버에서 가져오는 함수
+                function loadGames(page) {
+                    isLoading = true;
+                    fetch(`http://localhost:3000/api/games/list?page=${page}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            const gameList = document.querySelector('.game-list ul');
+                            data.forEach(game => {
+                                const listItem = `
                 <li class="game-item" data-game-id="${game.gameId}">
                     <div class="game-info">
                         <img src="${game.imageUrl}" alt="${game.gameName}">
@@ -652,96 +829,96 @@
                     </div>
                 </li>
             `;
-                        gameList.innerHTML += listItem;
-                    });
+                                gameList.innerHTML += listItem;
+                            });
 
-                    // 각 게임 항목에 클릭 이벤트 추가
-                    document.querySelectorAll('.game-item').forEach(item => {
-                        item.addEventListener('click', function () {
-                            const gameId = this.getAttribute('data-game-id'); // 게임 ID 가져오기
-                            loadGameDetail(gameId); // 게임 상세 정보 로드 함수 호출
+                            // 각 게임 항목에 클릭 이벤트 추가
+                            document.querySelectorAll('.game-item').forEach(item => {
+                                item.addEventListener('click', function () {
+                                    const gameId = this.getAttribute('data-game-id'); // 게임 ID 가져오기
+                                    loadGameDetail(gameId); // 게임 상세 정보 로드 함수 호출
+                                });
+                            });
+
+                            isLoading = false;
+                        })
+                        .catch(error => {
+                            console.error('게임 목록을 불러오는 중 오류 발생:', error);
+                            isLoading = false;
                         });
-                    });
-
-                    isLoading = false;
-                })
-                .catch(error => {
-                    console.error('게임 목록을 불러오는 중 오류 발생:', error);
-                    isLoading = false;
-                });
-        }
+                }
 
 
-        function loadGameDetail(gameId) {
-            fetch(`http://localhost:3000/api/games/detail/${gameId}`)
-                .then(response => response.json())
-                .then(data => {
-                    // 가격이 0일 때 "무료"로 표시
-                    const priceText = data.price === 0 ? '무료' : `₩${data.price}`;
+                function loadGameDetail(gameId) {
+                    fetch(`http://localhost:3000/api/games/detail/${gameId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            // 가격이 0일 때 "무료"로 표시
+                            const priceText = data.price === 0 ? '무료' : `₩${data.price}`;
 
-                    // 게임 상세 정보 업데이트
-                    document.getElementById('game-title').innerText = data.gameName;
-                    document.getElementById('game-price').innerText = priceText;
-                    document.getElementById('screenshot1').src = data.imageUrl;
-                    document.getElementById('game-description').innerText = data.description;
+                            // 게임 상세 정보 업데이트
+                            document.getElementById('game-title').innerText = data.gameName;
+                            document.getElementById('game-price').innerText = priceText;
+                            document.getElementById('screenshot1').src = data.imageUrl;
+                            document.getElementById('game-description').innerText = data.description;
 
-                    // 게임 상세 정보 섹션을 보이도록 설정
-                    document.querySelector('.game-detail').style.display = 'block';
-                    document.querySelector('.game-detail').style.opacity = '1';
+                            // 게임 상세 정보 섹션을 보이도록 설정
+                            document.querySelector('.game-detail').style.display = 'block';
+                            document.querySelector('.game-detail').style.opacity = '1';
 
-                    // 스크린샷 클릭 시 상세 페이지로 이동하는 이벤트 추가
-                    document.getElementById('screenshot1').addEventListener('click', function () {
-                        window.location.href = `/proj/html/game_details.html?gameId=${gameId}`;
-                    });
-                })
-                .catch(error => {
-                    console.error('게임 상세 정보를 불러오는 중 오류 발생:', error);
-                });
-        }
+                            // 스크린샷 클릭 시 상세 페이지로 이동하는 이벤트 추가
+                            document.getElementById('screenshot1').addEventListener('click', function () {
+                                window.location.href = `/proj/html/game_details.html?gameId=${gameId}`;
+                            });
+                        })
+                        .catch(error => {
+                            console.error('게임 상세 정보를 불러오는 중 오류 발생:', error);
+                        });
+                }
 
-        const categories = [
-            { id: 1, name: '액션', imageUrl: '../assets/images/ex.jpg' },
-            { id: 2, name: '어드벤처', imageUrl: '../assets/images/ex.jpg' },
-            { id: 3, name: '롤플레잉 게임', imageUrl: '../assets/images/ex.jpg' },
-            { id: 4, name: '전략', imageUrl: '../assets/images/ex.jpg' },
-            { id: 5, name: '인디', imageUrl: '../assets/images/ex.jpg' },
-            { id: 6, name: '캐주얼', imageUrl: '../assets/images/ex.jpg' },
-            { id: 7, name: '시뮬레이션', imageUrl: '../assets/images/ex.jpg' },
-            { id: 8, name: '공포', imageUrl: '../assets/images/ex.jpg' },
-            { id: 9, name: '멀티플레이어', imageUrl: '../assets/images/ex.jpg' },
-            { id: 10, name: '협동 플레이', imageUrl: '../assets/images/ex.jpg' },
-            { id: 11, name: '싱글플레이어', imageUrl: '../assets/images/ex.jpg' },
-            { id: 12, name: '오픈 월드', imageUrl: '../assets/images/ex.jpg' },
-            { id: 13, name: '퍼즐', imageUrl: '../assets/images/ex.jpg' },
-            { id: 14, name: '생존', imageUrl: '../assets/images/ex.jpg' },
-            { id: 15, name: 'SF', imageUrl: '../assets/images/ex.jpg' },
-            { id: 16, name: '판타지', imageUrl: '../assets/images/ex.jpg' },
-            { id: 17, name: '플랫포머', imageUrl: '../assets/images/ex.jpg' },
-            { id: 18, name: '1인칭', imageUrl: '../assets/images/ex.jpg' },
-            { id: 19, name: '3인칭', imageUrl: '../assets/images/ex.jpg' },
-            { id: 20, name: '샌드박스', imageUrl: '../assets/images/ex.jpg' },
-            { id: 21, name: '스포츠', imageUrl: '../assets/images/ex.jpg' },
-            { id: 22, name: '무료 플레이', imageUrl: '../assets/images/ex.jpg' }
-        ];
+                const categories = [
+                    { id: 1, name: '액션', imageUrl: '../assets/images/ex.jpg' },
+                    { id: 2, name: '어드벤처', imageUrl: '../assets/images/ex.jpg' },
+                    { id: 3, name: '롤플레잉 게임', imageUrl: '../assets/images/ex.jpg' },
+                    { id: 4, name: '전략', imageUrl: '../assets/images/ex.jpg' },
+                    { id: 5, name: '인디', imageUrl: '../assets/images/ex.jpg' },
+                    { id: 6, name: '캐주얼', imageUrl: '../assets/images/ex.jpg' },
+                    { id: 7, name: '시뮬레이션', imageUrl: '../assets/images/ex.jpg' },
+                    { id: 8, name: '공포', imageUrl: '../assets/images/ex.jpg' },
+                    { id: 9, name: '멀티플레이어', imageUrl: '../assets/images/ex.jpg' },
+                    { id: 10, name: '협동 플레이', imageUrl: '../assets/images/ex.jpg' },
+                    { id: 11, name: '싱글플레이어', imageUrl: '../assets/images/ex.jpg' },
+                    { id: 12, name: '오픈 월드', imageUrl: '../assets/images/ex.jpg' },
+                    { id: 13, name: '퍼즐', imageUrl: '../assets/images/ex.jpg' },
+                    { id: 14, name: '생존', imageUrl: '../assets/images/ex.jpg' },
+                    { id: 15, name: 'SF', imageUrl: '../assets/images/ex.jpg' },
+                    { id: 16, name: '판타지', imageUrl: '../assets/images/ex.jpg' },
+                    { id: 17, name: '플랫포머', imageUrl: '../assets/images/ex.jpg' },
+                    { id: 18, name: '1인칭', imageUrl: '../assets/images/ex.jpg' },
+                    { id: 19, name: '3인칭', imageUrl: '../assets/images/ex.jpg' },
+                    { id: 20, name: '샌드박스', imageUrl: '../assets/images/ex.jpg' },
+                    { id: 21, name: '스포츠', imageUrl: '../assets/images/ex.jpg' },
+                    { id: 22, name: '무료 플레이', imageUrl: '../assets/images/ex.jpg' }
+                ];
 
-        const categoryContainer = document.querySelector('.category-wrapper'); // 'category' -> 'categoryContainer'로 변경
-        categories.forEach(category => {
-            const categoryItem = `
+                const categoryContainer = document.querySelector('.category-wrapper'); // 'category' -> 'categoryContainer'로 변경
+                categories.forEach(category => {
+                    const categoryItem = `
         <div class="category-item" data-tag-id="${category.id}" style="background-image: url('${category.imageUrl}');">
             <span>${category.name}</span>
         </div>
     `;
-            categoryContainer.innerHTML += categoryItem;
-        });
-        // 이미지 클릭 시 페이지 이동 이벤트 추가
-        document.querySelectorAll('.category-item').forEach(item => {
-            item.addEventListener('click', function () {
-                const tagId = this.getAttribute('data-tag-id');
-                window.location.href = `/proj/html/tage.html?tagId=${tagId}`;
-            });
-        });
+                    categoryContainer.innerHTML += categoryItem;
+                });
+                // 이미지 클릭 시 페이지 이동 이벤트 추가
+                document.querySelectorAll('.category-item').forEach(item => {
+                    item.addEventListener('click', function () {
+                        const tagId = this.getAttribute('data-tag-id');
+                        window.location.href = `/proj/html/tage.html?tagId=${tagId}`;
+                    });
+                });
 
-    </script>
+            </script>
 
 </body>
 
