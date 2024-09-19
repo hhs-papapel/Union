@@ -324,6 +324,10 @@
             document.querySelector('.update img').src = game.imageUrl;
             document.querySelector('.update p').textContent = getRandomValue(updateTextOptions);
 
+            sessionStorage.setItem('currentGameId', game.gameId); // 게임 이름 저장
+            sessionStorage.setItem('currentGameName', game.gameName); // 게임 이름 저장
+            
+
             // 홈 화면 숨기기
             document.getElementById('home-section').style.display = 'none';
 
@@ -332,6 +336,7 @@
         }
         // 설치 버튼 클릭 이벤트 처리
         document.querySelector('.install-btn').addEventListener('click', function () {
+            console.log('currentGameId:', sessionStorage.getItem('currentGameId')); // 확인용 로그
             // 확인 창 표시
             const confirmInstall = confirm("설치하시겠습니까?");
             if (confirmInstall) {
@@ -347,8 +352,9 @@
             document.getElementById('reviewForm').addEventListener('submit', function (event) {
                 event.preventDefault();  // 폼 제출 기본 동작 방지
 
+
+                const gameId = sessionStorage.getItem('currentGameId');
                 const userId = sessionStorage.getItem('loggedInUser');
-                const gameId = sessionStorage.getItem('currentGameId'); // 선택된 게임의 ID 저장
                 const content = document.getElementById('reviewContent').value;
                 const rating = document.getElementById('reviewRating').value;
 
@@ -453,6 +459,11 @@
             document.querySelector('.game-header p:nth-of-type(2)').textContent = `도전 과제: ${getRandomValue(achievementsOptions)}`;
             document.querySelector('.update img').src = game.imageUrl;
             document.querySelector('.update p').textContent = getRandomValue(updateTextOptions);
+
+
+
+            sessionStorage.setItem('currentGameId', game.gameId); // 게임 이름 저장
+            sessionStorage.setItem('currentGameName', game.gameName); // 게임 이름 저장
 
             // 홈 화면 숨기기
             document.getElementById('home-section').style.display = 'none';
