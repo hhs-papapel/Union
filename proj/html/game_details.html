@@ -164,7 +164,7 @@
         <section class="review-section">
             <div class="container">
                 <div class="review-form">
-                    <img src="../assets/images/user_avatar.png" alt="유저 아바타" class="user-avatar">
+                    <img src="../assets/images/default_avatar.png" alt="유저 아바타" class="user-avatar" id="profilePic">
                     <textarea id="user-review" placeholder="이 게임에 대한 리뷰를 작성하세요…"></textarea>
                     <!-- 임시 평점 -->
                     <label for="rating">임시 평점:</label>
@@ -239,7 +239,18 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             const userId = sessionStorage.getItem('loggedInUser');
-            console.log(userId);  // 여기에 저장된 값을 확인
+            // 서버에서 사용자 프로필 이미지 가져오기
+            fetch(`http://localhost:3000/api/user/profile?userId=${userId}`)
+                .then(response => response.json())
+                .then(data => {
+                    // 프로필 이미지가 존재하면 표시하고, 없으면 기본 아바타 이미지를 표시
+                    const profileImageElement = document.getElementById('profilePic');
+                    profileImageElement.src = '../../server' + data.profilePic || '../assets/images/default_avatar.png';
+                })
+                .catch(error => {
+                    console.error('프로필 이미지를 불러오는 중 오류 발생:', error);
+                });
+
         });
         // 리뷰 게시 버튼 클릭 시 리뷰를 추가하는 기능
         const postReviewBtn = document.querySelector('.post-review-btn');
@@ -261,7 +272,7 @@
                     fetch('http://localhost:3000/api/review', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ userId, gameId, content: reviewText, rating }) // 평점 추가
+                        body: JSON.stringify({ userId, gameId, content: reviewText, rating, profilePic }) // 평점 추가
                     })
                         .then(response => response.json())
                         .then(data => {
@@ -277,7 +288,7 @@
                     // 작성된 리뷰를 화면에 추가 (미리보기)
                     var newReview = `
                 <div class="review-item">
-                    <img src="../assets/images/user_avatar.png" alt="리뷰 유저 아바타" class="user-avatar">
+                    <img src="../../server${data.profilePic}" alt="리뷰 유저 아바타" class="user-avatar">
                     <div class="review-content">
                         <p><strong> ${reviewText}</strong></p>
                         <p>평점: ${rating}/5</p> <!-- 평점 표시 -->
@@ -293,9 +304,11 @@
         }
 
         /* ─────────────────────────────────────────────────────────────────────────────────────────── */
+
+
         // 리뷰 목록 불러오기 기능
         function loadReviews() {
-            const gameId = getGameIdFromURL();
+            const gameId = getGameIdFromURL();  // 현재 게임의 gameId 가져오기
 
             fetch(`http://localhost:3000/api/review/${gameId}`)  // 리뷰 조회 API 경로
                 .then(response => response.json())
@@ -304,16 +317,24 @@
                     reviewList.innerHTML = ''; // 기존 리뷰를 초기화
 
                     reviews.forEach(review => {
+                        // 추천 또는 비추천에 따른 아이콘 결정
+                        const thumbsUpIcon = review.rating >= 3 ? '../assets/images/good.png' : '../assets/images/bad.png';
+                        // 각 리뷰 항목을 동적으로 생성 (이미지 + 리뷰 내용 포함)
                         var reviewItem = `
-                    <div class="review-item">
-                        <img src="../assets/images/user_avatar.png" alt="리뷰 유저 아바타" class="user-avatar">
-                        <div class="review-content">
-                            <p><strong> ${review.userName}</strong></p>
-                            <p>${review.content}</p>
-                            <p>평점: ${review.rating}/5</p>
+                        <div class="review-box" style="background-color: #222222; color: #fff; margin: 20px 0; padding: 20px; border-radius: 8px; display: flex; align-items: center;">
+                            <div class="thumbs-up" style="margin-right: 10px;">
+                                <img src="${thumbsUpIcon}" alt="Thumbs Icon" width="40px" height="40px">
+                            </div>
+                            <div class="review-content">
+                                <h3 style="margin-bottom: 10px;">${review.userName}</h3>
+                                <p>게임이용시간: ${getRandomPlaytime()}</p> 
+                                <p>평점: ${getRatingText(review.rating)}</p> 
+                                <p>게시 일: ${new Date(review.reviewDate).toLocaleDateString()}</p>
+                                <p>${review.content}</p>
+                                <p>${review.rating}점 리뷰</p>
+                            </div>
                         </div>
-                    </div>
-                `;
+                        `;
                         reviewList.insertAdjacentHTML('beforeend', reviewItem);
                     });
                 })
@@ -565,6 +586,34 @@
                     window.location.href = '/proj/html/login.html';  // 로그인 페이지로 리디렉션
                 }
             });
+        }
+
+        /* ─────────────────────────────────────────────────────────────────────────────────────────── */
+
+        function getRatingText(rating) {
+            if (rating >= 5) return '매우 긍정적 (Very Positive)';
+            else if (rating >= 4) return '대체로 긍정적 (Mostly Positive)';
+            else if (rating >= 3) return '복합적 (Mixed)';
+            else if (rating >= 2) return '대체로 부정적 (Mostly Negative)';
+            else return '매우 부정적 (Very Negative)';
+        }
+
+        // 임의의 플레이 시간을 반환하는 함수
+        function getRandomPlaytime() {
+            const hoursArray = [
+                '0.5시간', '1시간', '1.2시간', '1.8시간', '2시간',
+                '2.7시간', '3.5시간', '4시간', '4.9시간', '5시간',
+                '6.3시간', '7시간', '8.1시간', '9.6시간', '10시간',
+                '12.4시간', '13시간', '14.8시간', '15시간', '16시간',
+                '18.7시간', '19시간', '20.5시간', '21.3시간', '22.7시간',
+                '23시간', '24.2시간', '26시간', '27.5시간', '29시간',
+                '30.6시간', '32시간', '34.8시간', '36시간', '38시간',
+                '40.3시간', '42시간', '43.6시간', '45시간', '48시간',
+                '50.2시간', '53시간', '55.5시간', '58시간', '60.7시간',
+                '63시간', '65.9시간', '68시간', '72시간', '75.4시간'
+            ];
+
+            return hoursArray[Math.floor(Math.random() * hoursArray.length)];
         }
 
 

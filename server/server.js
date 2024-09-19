@@ -663,12 +663,11 @@ app.post('/api/review', (req, res) => {
 app.get('/api/review/:gameId', (req, res) => {
     const gameId = req.params.gameId;
 
-    console.log('리뷰 조회 요청 받음:', gameId); // 로그 추가
-
     const query = `
-        SELECT r.*, u.name AS userName 
+        SELECT r.*, u.name AS userName, u.profilePic, g.* 
         FROM Review r 
         JOIN User u ON r.userId = u.userId 
+        JOIN Game g ON r.gameId = g.gameId 
         WHERE r.gameId = ?
         ORDER BY r.reviewDate DESC
     `;
@@ -1635,5 +1634,27 @@ app.post('/admin/support/answer', (req, res) => {
             return res.status(500).json({ success: false, message: '서버 오류 발생' });
         }
         res.json({ success: true });
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+app.get('/api/user/profile', (req, res) => {
+    const userId = req.query.userId;
+    console.log(userId)
+    const query = `SELECT profilePic FROM User WHERE userId = ?`;
+
+    connection.query(query, [userId], (err, results) => {
+        if (err) {
+            console.error('프로필 이미지를 불러오는 중 오류 발생:', err);
+            return res.status(500).json({ success: false, message: '서버 오류 발생' });
+        }
+
+        if (results.length > 0) {
+            res.json({ profilePic: results[0].profilePic });
+        } else {
+            res.status(404).json({ success: false, message: '사용자를 찾을 수 없습니다.' });
+        }
     });
 });
