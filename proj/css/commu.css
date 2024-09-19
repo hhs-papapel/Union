@@ -239,7 +239,7 @@ hr {
     justify-content: flex-start; /* 아이템들을 왼쪽 정렬 */
     width: 50%;
     border: 1px solid #1ABC9C;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 .review-item img {
     width: 40px; /* 따봉 이미지 크기 조정 */

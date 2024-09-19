@@ -642,7 +642,7 @@ app.get('/api/game/:gameId/discount', (req, res) => {
 app.post('/api/review', (req, res) => {
     const { userId, gameId, rating, content } = req.body;
     const reviewDate = new Date();  // 리뷰 작성 날짜
-
+    console.log(req.body)
     if (!rating) {
         return res.status(400).json({ message: '평점을 입력해주세요.' });
     }
@@ -657,6 +657,7 @@ app.post('/api/review', (req, res) => {
             console.error('리뷰 저장 중 오류 발생:', err);
             return res.status(500).json({ message: '리뷰 저장 중 오류 발생' });
         }
+
 
         res.json({ message: '리뷰가 성공적으로 저장되었습니다.' });
     });
