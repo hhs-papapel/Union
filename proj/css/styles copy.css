@@ -548,11 +548,7 @@ body {
 .slider-navigation {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
 }
-
 .category-wrapper {
     display: grid; 
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* 각 열의 최소 너비 설정 */
