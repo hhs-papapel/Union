@@ -8,13 +8,14 @@
 /* 필터 영역 */
 .filter-section {
     margin-top: 110px;
+    height: 100px;
     background-color: #222;
     padding: 10px 20px;
 }
 
 .filter-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 
@@ -49,6 +50,7 @@
 }
 
 .game-card {
+    color: white;
     background-color: #333;
     border-radius: 10px;
     padding: 15px;
@@ -76,3 +78,85 @@
     font-weight: bold;
 }
 
+
+
+
+
+
+fieldset {
+    margin-top: 20px;
+    position: relative;
+    padding: 0 0 0 40px;
+    background: #fff;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  button {
+    
+    position: relative;
+    width: 200px;
+    height: 40px;
+    padding: 0;
+    display: inline-block;
+  }
+
+  input {
+      position: relative;
+      width: 200px;
+      height: 40px;
+      padding: 0;
+      display: inline-block;
+      float: left;
+      
+      color: #666;
+      z-index: 2;
+      border: 0 none;
+  }
+  input:focus {
+    outline: 0 none;
+  }
+  input:focus + button {
+    -webkit-transform: translate(0, 0);
+        -ms-transform: translate(0, 0);
+            transform: translate(0, 0);
+    -webkit-transition-duration: 0.3s;
+            transition-duration: 0.3s;
+  }
+  input:focus + button .fa {
+    -webkit-transform: translate(0px, 0);
+        -ms-transform: translate(0px, 0);
+            transform: translate(0px, 0);
+    -webkit-transition-duration: 0.3s;
+            transition-duration: 0.3s;
+    color: #BFFF00;
+  }
+  
+  button {
+    z-index: 1;
+    width: 50px;
+    border: 0 none;
+    background: #000000;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0;  
+    -webkit-transform: translate(-50px, 0);
+        -ms-transform: translate(-50px, 0);
+            transform: translate(-50px, 0);
+    -webkit-transition-duration: 0.3s;
+            transition-duration: 0.3s;
+  }
+  
+  .fa-search {
+    font-size: 1.4rem;
+    color: #000000;
+    z-index: 3;
+    top: 25%;
+    -webkit-transform: translate(-190px, 0);
+        -ms-transform: translate(-190px, 0);
+            transform: translate(-190px, 0);
+    -webkit-transition-duration: 0.3s;
+            transition-duration: 0.3s;
+    -webkit-transition: all 0.1s ease-in-out;
+            transition: all 0.1s ease-in-out;
+  }
+  
