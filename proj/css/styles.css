@@ -1154,3 +1154,32 @@ body {
     background-color: #d596f7; /* 신규 업데이트 뱃지 색상 */
 }
 
+.video-section {
+    width: 100%; /* 전체 너비를 차지하도록 설정 */
+    max-width: 1200px; /* 최대 너비 설정 */
+    margin: 0 auto; /* 가운데 정렬 */
+    position: relative; /* 다른 요소와 겹치지 않도록 위치 설정 */
+    padding: 20px; /* 비디오 섹션의 여백 설정 */
+    background-color: #0e1a2b; /* 배경색 설정 */
+    border-radius: 10px; /* 모서리 둥글게 */
+    margin-top: 80px;
+    margin-bottom: 60px;
+}
+
+.video-section video {
+    width: 100%; /* 비디오가 섹션의 전체 너비를 차지하도록 설정 */
+    height: auto; /* 비율에 맞게 높이 자동 조절 */
+    border-radius: 10px; /* 비디오 모서리 둥글게 */
+}
+
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .video-section {
+        padding: 10px; /* 모바일에서 여백 줄이기 */
+    }
+
+    .video-section video {
+        border-radius: 5px; /* 모바일에서 모서리 둥글게 */
+    }
+}

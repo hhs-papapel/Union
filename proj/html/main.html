@@ -415,12 +415,18 @@
             </div>
         </div>
 
-        <!-- 비디오 -->
-
         
 
         
 <div class="update-sale-section">
+    
+        <!-- 비디오 -->
+        <div class="video-section">
+            <video id="myVideo" width="100%" height="auto" muted loop>
+                <source src="../assets/movie/deck_banner_animated_webm_koreana.webm" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
     <h2>업데이트 및 할인</h2>
 
     <div class="game-grid">
@@ -677,7 +683,10 @@
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
 
-        
+    document.addEventListener('DOMContentLoaded', function() {
+            var video = document.getElementById('myVideo');
+            video.play();  // 비디오 재생
+        });
 
     // 페이지가 로드되면 함수 실행
     document.addEventListener('DOMContentLoaded', function () {
