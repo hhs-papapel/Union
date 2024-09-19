@@ -88,7 +88,7 @@ h1, h2, h3, h4 {
     gap: 10px;
     max-width: 300px;
     margin: 0 auto;
-    background-color: #a7e2a8; /* 밝은 라임색 */
+    background-color: #b0f3b1; /* 밝은 라임색 */
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 살짝 그림자 */
@@ -208,6 +208,7 @@ hr {
     color: #82e27a; /* 연한 라임색 */
 }
 
+
 /* 리뷰 섹션 */
 .review-section {
     padding: 20px;
@@ -217,6 +218,7 @@ hr {
     width: 90%;
     max-width: 900px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+
 }
 
 .review-box {
@@ -237,8 +239,13 @@ hr {
     display: flex;
     align-items: center; /* 아이템들을 세로 중앙 정렬 */
     justify-content: flex-start; /* 아이템들을 왼쪽 정렬 */
-    width: 50%;
+    width: 30%;
     border: 1px solid #1ABC9C;
+    margin-left: 75px;
+    margin-top: 10px;
+    flex-direction: column; /* 세로 방향으로 정렬 */
+    align-items: flex-start; /* 아이템들을 왼쪽 정렬 */
+
 }
 .review-item img {
     width: 40px; /* 따봉 이미지 크기 조정 */
