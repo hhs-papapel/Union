@@ -16,13 +16,16 @@ body {
 }
 
 .payment-top {
-    background-color: #4C6D0E;
+    background-color: #363636;
     display: flex;
     justify-content: space-between;
     margin-bottom: 50px;
 }
 
 .payment-head{
+    color: white;
+    font-weight: bold;
+    padding-top: 40px;
     width: 870px;
     height: 100px;
 }
@@ -38,7 +41,7 @@ body {
     width: 250px;
     height: 160px;
     padding: 20px;
-    background-color: #80a902c2;
+    background-color: #bfff0037;
     border-radius: 15px;
 }
 
@@ -51,14 +54,15 @@ body {
 .container {
     width: 600px;
     padding: 20px;
-    background-color: #bfff008c;
+    background-color: #171717;
+    color: white;
 }
 
 .cart-item {
     display: flex;
     justify-content: space-between;
     padding: 15px;
-    border-bottom: 3px solid #000000;
+    border-bottom: 3px solid #bfff00;
     border-radius: 5px;
 }
 .cart-item img {
@@ -80,9 +84,10 @@ body {
     margin-top: 20px;
 }
 .point-box, .payment-method, .terms {
+    color: #000000;
     margin-top: 20px;
     padding: 15px;
-    background-color: #ffffff9b;
+    background-color: #ffffff;
     border-radius: 5px;
 }
 .point-box span, .payment-method span, .terms span {
@@ -93,17 +98,58 @@ body {
     display: flex;
     justify-content: space-between;
 }
-.confirm-btn {
+.btn {
+    border: none;
+    display: block;
+    text-align: center;
+    cursor: pointer;
+    text-transform: uppercase;
+    outline: none;
+    overflow: hidden;
+    position: relative;
+    color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+    background-color: #000000;
+    padding: 13px 126px;
+    margin: 0 auto;
+    transition: color .5s ease-in-out;
     display: block;
     width: 100%;
-    background-color: #5C7E10;
-    color: #fff;
+    background-color: #bfff00;
+    color: #000000;
     text-align: center;
     padding: 10px 0;
     border-radius: 5px;
     margin-top: 20px;
     text-decoration: none;
+    overflow: hidden;
 }
-.confirm-btn:hover {
-    background-color: #4C6D0E;
-}
+
+.btn span {
+    position: relative; 
+    z-index: 1;
+    }
+    
+    .btn:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 480px;
+    width: 140%;
+    background: #000000;
+    -webkit-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+    -webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
+    transform: translateX(-98%) translateY(-25%) rotate(45deg);
+    }
+    
+    .btn:hover:after {
+    -webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
+    transform: translateX(-9%) translateY(-25%) rotate(45deg);
+    }
+    
+    .btn:hover {
+    color: #ffffff;
+    }
