@@ -34,18 +34,25 @@
     <main class="main-content">
         <section class="profile-section">
             <div class="profile-header">
-                <img src="../assets/images/ex.jpg" alt="프로필 아이콘" class="profile-image">
+                <img src="../../server/profile/default-profile.jpg" alt="프로필 아이콘" class="profile-image">
                 <div class="profile-info">
                     <h1>유저네임</h1>
-                    <p>상태 메시지: 프로필 소개를 여기에 입력하세요.</p>
-                    <button class="edit-button">프로필 수정</button>
+                    <!-- 상태 메시지 표시 -->
+                    <p id="statusMessage">상태 메시지: </p>
+
+                    <!-- 프로필 수정 버튼 -->
+                    <button class="edit-button" onclick="toggleEditMode();">수정</button>
+
+                    <!-- 파일 입력 필드 -->
+                    <input type="file" id="profilePicInput" style="display:none;" accept="image/*"
+                        onchange="uploadProfilePic()">
                 </div>
             </div>
 
             <!-- 최근 활동 -->
-            <section class="recent-activity">
+            <section class="recent-activity" id="recentGames">
                 <h2>최근 활동</h2>
-                <div class="activity-item">
+                <!-- <div class="activity-item" >
                     <img src="https://via.placeholder.com/200x100?text=Game+1" alt="Game 1">
                     <div class="activity-details">
                         <h3>게임 1</h3>
@@ -71,15 +78,16 @@
                         <p>마지막으로 플레이한 날짜: 2024년 7월 14일</p>
                         <p>도전 과제 진행률: 40/49</p>
                     </div>
-                </div>
+                </div> -->
             </section>
 
-            <!-- 댓글 섹션 -->
+            <!-- 댓글 섹션
+             댓글.. 친구기능 못할거 같습니다..
             <section class="comments-section">
                 <h3>댓글</h3>
                 <input type="text" placeholder="댓글 남기기">
-                <button class="edit-button">등록</button>
-            </section>
+                <button class="edit-button">프로필 수정</button>
+            </section> -->
         </section>
 
         <!-- 사이드바 -->
@@ -94,23 +102,23 @@
                 </ul>
             </div>
             <div class="games">
-                <h3>게임 20</h3>
-                <ul>
-                    <li>보관함</li>
+                <h3>게임 리스트</h3>
+                <ul id="gameList">
+                    <!-- <li>보관함</li>
                     <li>스크린샷</li>
                     <li>동영상</li>
                     <li>창작마당 아이템</li>
-                    <li>가이드</li>
+                    <li>가이드</li> -->
                 </ul>
             </div>
-            <div class="friends">
+            <!-- <div class="friends">
                 <h3>친구 6</h3>
                 <ul>
                     <li>친구1 - 마지막 접속 6일 전</li>
                     <li>친구2 - 마지막 접속 18시간 전</li>
                     <li>친구3 - 마지막 접속 29일 전</li>
                 </ul>
-            </div>
+            </div> -->
         </aside>
     </main>
 
@@ -119,6 +127,242 @@
     </footer>
     <!-- 로그인 체크 js 추가 -->
     <script src="../assets/js/checkLogin.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const userId = sessionStorage.getItem('loggedInUser');
+            console.log(userId);
+
+            if (!userId) {
+                console.error("로그인 정보가 없습니다.");
+                return;
+            }
+
+            // API 요청으로 유저 정보를 가져옴
+            fetch(`http://localhost:3000/api/profile/${userId}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.profilePic);
+                    // 가져온 데이터를 프로필 섹션에 반영
+                    document.querySelector('.profile-info h1').textContent = data.name; // 유저네임
+                    document.getElementById('statusMessage').textContent = `상태 메시지: ${data.statusMessage}`; // 상태 메시지
+
+                    // 프로필 이미지 설정, undefined-profile 방지
+                    const profilePicUrl = data.profilePic ? `../../server${data.profilePic}` : '../../server/profile/undefined-profile.jpg';
+                    document.querySelector('.profile-image').src = profilePicUrl; // 프로필 이미지
+                })
+                .catch(error => {
+                    console.error('유저 정보를 불러오는 중 오류 발생:', error);
+                });
+
+
+            const gameList = document.getElementById('gameList');
+
+            // API 요청으로 게임 목록을 가져옴
+            fetch(`http://localhost:3000/api/users/games?userId=${userId}`)
+                .then(response => response.json())
+                .then(data => {
+
+
+                    const gameList = document.getElementById('gameList');
+
+                    // 게임 목록을 반복문으로 생성하여 추가
+                    data.forEach(game => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = game.gameName;  // 게임 이름만 추가
+                        gameList.appendChild(listItem);  // 목록에 추가
+                    });
+                })
+                .catch(error => {
+                    console.error('게임 목록을 불러오는 중 오류 발생:', error);
+                });
+
+            // 임의 데이터 배열
+            const gameDataArray = [
+                { playTime: '2.9시간', lastPlayed: '2024년 8월 26일', achievement: '2/22' },
+                { playTime: '15.4시간', lastPlayed: '2024년 7월 23일', achievement: '6/43' },
+                { playTime: '58시간', lastPlayed: '2024년 7월 14일', achievement: '42/49' },
+                { playTime: '12시간', lastPlayed: '2024년 6월 10일', achievement: '5/22' },
+                { playTime: '40시간', lastPlayed: '2024년 5월 18일', achievement: '22/30' },
+                { playTime: '9.2시간', lastPlayed: '2024년 3월 21일', achievement: '10/12' },
+                { playTime: '22시간', lastPlayed: '2024년 2월 28일', achievement: '4/18' },
+                { playTime: '5시간', lastPlayed: '2024년 1월 15일', achievement: '7/20' },
+                { playTime: '17.5시간', lastPlayed: '2024년 8월 26일', achievement: '3/15' },
+                { playTime: '25시간', lastPlayed: '2024년 9월 1일', achievement: '20/25' }
+            ];
+            // 무작위로 데이터 배열에서 선택하는 함수
+            function getRandomGameData() {
+                const randomIndex = Math.floor(Math.random() * gameDataArray.length);
+                return gameDataArray[randomIndex];
+            }
+
+
+            fetch(`http://localhost:3000/api/users/games/recent?userId=${userId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const recentGamesDiv = document.getElementById('recentGames');
+
+                    // 가져온 게임 목록을 반복문으로 생성하여 추가
+                    data.forEach((game) => {
+                        const activityItem = document.createElement('div');
+                        activityItem.classList.add('activity-item');
+
+                        const gameImage = document.createElement('img');
+                        gameImage.src = game.imageUrl || 'https://via.placeholder.com/200x100?text=No+Image';
+                        gameImage.alt = game.gameName;
+
+                        const activityDetails = document.createElement('div');
+                        activityDetails.classList.add('activity-details');
+
+                        const gameTitle = document.createElement('h3');
+                        gameTitle.textContent = game.gameName;
+
+                        // 무작위 임의 데이터 추가
+                        const randomGameData = getRandomGameData();
+
+                        const playTime = document.createElement('p');
+                        playTime.textContent = `기록상 ${randomGameData.playTime}`;
+
+                        const lastPlayed = document.createElement('p');
+                        lastPlayed.textContent = `마지막으로 플레이한 날짜: ${randomGameData.lastPlayed}`;
+
+                        const achievement = document.createElement('p');
+                        achievement.textContent = `도전 과제 진행률: ${randomGameData.achievement}`;
+
+                        // Activity details에 추가
+                        activityDetails.appendChild(gameTitle);
+                        activityDetails.appendChild(playTime);
+                        activityDetails.appendChild(lastPlayed);
+                        activityDetails.appendChild(achievement);
+
+                        // 전체 항목에 추가
+                        activityItem.appendChild(gameImage);
+                        activityItem.appendChild(activityDetails);
+                        recentGamesDiv.appendChild(activityItem);
+                    });
+                })
+                .catch(error => {
+                    console.error('게임 목록을 불러오는 중 오류 발생:', error);
+                });
+
+
+
+
+
+            // 임의의 배지 배열
+            const badgesArray = [
+                '10년 이상 서비스',
+                '레벨 1',
+                '2022 배지',
+                '최고의 리뷰어',
+                '이달의 게임 마스터',
+                '모든 도전 과제 달성',
+                '베스트 게임 콜렉터',
+                '커뮤니티 리더',
+                '특별 기여자',
+                '2023 배지',
+                '게임 100개 구매',
+                '플레이 시간 1000시간 돌파',
+                '첫 리뷰 작성',
+                '첫 도전 과제 달성',
+                '연속 365일 접속',
+                '최고의 협동 플레이어',
+                '평화주의자 배지',
+                '최고의 전략가',
+                '매달 할인 이벤트 참여자',
+                '친구 초대왕'
+            ];
+
+            // 20개의 배지 중 3개의 배지를 랜덤으로 선택
+            const randomBadges = [];
+            while (randomBadges.length < 3) {
+                const randomIndex = Math.floor(Math.random() * badgesArray.length);
+                const selectedBadge = badgesArray[randomIndex];
+                if (!randomBadges.includes(selectedBadge)) {
+                    randomBadges.push(selectedBadge);
+                }
+            }
+
+            const badgesList = document.querySelector('.badges ul');
+            badgesList.innerHTML = '';  // 기존 내용을 초기화
+
+            // 랜덤으로 선택한 3개의 배지를 추가
+            randomBadges.forEach(badge => {
+                const badgeItem = document.createElement('li');
+                badgeItem.textContent = badge;
+                badgesList.appendChild(badgeItem);
+            });
+
+        });
+
+        // 프로필 사진이 미리 보기로 바로 변경되도록 설정
+        function uploadProfilePic() {
+            const fileInput = document.getElementById('profilePicInput');
+            const profileImage = document.getElementById('profileImage');
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    profileImage.src = e.target.result; // 프로필 이미지 미리 보기
+                };
+                reader.readAsDataURL(fileInput.files[0]); // 파일을 읽어서 미리보기로 보여줌
+            }
+        }
+
+        // 수정 모드 토글 (프로필 사진 선택 + 상태 메시지 수정 가능)
+        function toggleEditMode() {
+            const editButton = document.querySelector('.edit-button');
+            const statusMessageElement = document.getElementById('statusMessage');
+            const fileInput = document.getElementById('profilePicInput');
+
+            if (editButton.textContent === '수정') {
+                // 수정 모드 활성화
+                editButton.textContent = '저장'; // 버튼 텍스트를 '저장'으로 변경
+                statusMessageElement.contentEditable = true; // 상태 메시지 수정 가능
+                fileInput.style.display = 'block'; // 파일 선택 버튼 보이기
+            } else {
+                // 저장 모드 실행
+                uploadProfileAndStatus(); // 프로필 사진과 상태 메시지 함께 저장
+            }
+        }
+
+        // 프로필 사진과 상태 메시지 업로드 함수
+        function uploadProfileAndStatus() {
+            const fileInput = document.getElementById('profilePicInput');
+            const statusMessage = document.getElementById('statusMessage').textContent.replace('상태 메시지: ', ''); // 상태 메시지 값 추출
+            const formData = new FormData();
+
+            formData.append('profilePic', fileInput.files[0]);  // 파일 데이터를 FormData에 추가
+            formData.append('userId', sessionStorage.getItem('loggedInUser'));  // userId 추가
+            formData.append('statusMessage', statusMessage); // 상태 메시지 추가
+
+            fetch('http://localhost:3000/api/users/profile-pic', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.success) {
+                        alert('프로필과 상태 메시지가 성공적으로 업로드되었습니다.');
+                        const newProfilePicUrl = data.profilePicUrl ? `../../server${data.profilePicUrl}` : '../../server/profile/undefined-profile.jpg';
+                        document.querySelector('.profile-image').src = newProfilePicUrl;  // 새 프로필 사진 표시
+                        document.querySelector('.edit-button').textContent = '수정'; // 버튼을 다시 '수정'으로 변경
+                        document.getElementById('statusMessage').contentEditable = false; // 상태 메시지 입력 비활성화
+                        document.getElementById('profilePicInput').style.display = 'none'; // 파일 선택 버튼 숨기기
+                    } else {
+                        alert('업로드에 실패했습니다.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+
+    </script>
+
+
 </body>
 
 </html>
