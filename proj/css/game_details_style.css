@@ -107,7 +107,7 @@ body {
 .tags span {
     font-size: 12px;
     font-weight: bold;
-    background-color: #a1e44d;
+    background-color: #bfff00;
     padding: 5px 5px;
     border-radius: 5px;
     display: inline-block;
@@ -122,13 +122,14 @@ body {
 /* 버튼 스타일 */
 .buy-btn, .wishlist-btn, .cart-btn, .community-btn {
     font-weight: bold;
-    background-color: #a1e44d;
+    background-color: #bfff00;
     border: none;
     padding: 8px 20px;
     cursor: pointer;
     margin-right: 10px;
     border-radius: 5px;
     text-decoration: none; /* 밑줄 제거 */
+    transition: all 0.5s;
 }
 
 .wishlist-btn i {
@@ -165,7 +166,8 @@ body {
 
 /* 버튼 hover 효과 */
 .buy-btn:hover, .wishlist-btn:hover, .cart-btn:hover, .community-btn:hover {
-    background-color: #549bbd;
+    background-color: #000000;
+    color: white;
 }
 
 footer {
@@ -275,7 +277,7 @@ footer {
 /* 리뷰 작성 섹션 */
 .review-section {
     margin-top: 50px;
-    background-color: #2a475e;
+    background-color: #000000;
     padding: 20px;
     border-radius: 10px;
     color: white;

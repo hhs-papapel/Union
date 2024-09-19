@@ -58,7 +58,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: linear-gradient(#abff76, #adf4a900);
+    background: linear-gradient(#bfff00, #adf4a900);
     padding: 15px;
     margin-bottom: 15px;
     border-radius: 5px;
@@ -101,19 +101,24 @@
 }
 
 .add-to-cart,
-.remove-from-wishlist {
+.remove-from-wishlist,
+.wishlist-search button {
     background-color: #363636;
     border: none;
     padding: 10px 15px;
     border-radius: 5px;
     color: white;
     cursor: pointer;
+    font-weight: bold;
     margin-bottom: 5px;
+    transition: all 0.5s;
 }
 
 .add-to-cart:hover,
-.remove-from-wishlist:hover {
-    background-color: #549bbd;
+.remove-from-wishlist:hover,
+.wishlist-search button:hover {
+    color: black;
+    background-color: #ffffff;
 }
 
 .tags {
