@@ -1113,25 +1113,26 @@ body {
 .view-all-btn {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #66c0f4;
-    color: #fff;
+    background-color: #44ca73;
+    color: #000000;
     border: none;
     border-radius: 4px;
+    margin-bottom: 20px;
     margin-top: 20px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
 .view-all-btn:hover {
-    background-color: #4b9bd8;
+    background-color: #8ce654;
 }
 
 .live-badge, .library-badge, .wishlist-badge, .new-badge {
     position: absolute;
     top: 10px;
     left: 10px;
-    background-color: #ff5555;
-    color: #fff;
+    background-color: #edc7c7;
+    color: #454545;
     font-size: 12px;
     padding: 5px;
     border-radius: 4px;
@@ -1139,7 +1140,7 @@ body {
 }
 
 .library-badge {
-    background-color: #4caf50; /* 라이브러리 뱃지 색상 */
+    background-color: #89e58c; /* 라이브러리 뱃지 색상 */
 }
 
 .wishlist-badge {
@@ -1147,5 +1148,5 @@ body {
 }
 
 .new-badge {
-    background-color: #ffd700; /* 신규 업데이트 뱃지 색상 */
+    background-color: #d596f7; /* 신규 업데이트 뱃지 색상 */
 }
