@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>관리자 페이지</title>
+    <link rel="stylesheet" href="../css/Customer_Support_Center.CSS">
+    <link rel="stylesheet" href="../css/inquiry.css">
     <style>
         body {
             padding-top: 110px;
@@ -110,6 +112,15 @@
 </head>
 
 <body>
+
+
+
+
+
+
+
+
+
     <!-- 헤더 -->
     <header>
         <script>loadHTML("./header2.html")</script>
@@ -172,14 +183,15 @@
                         <th>관리</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="inquiry-table-body">
                     <tr>
                         <td>inquiry123</td>
                         <td>user123</td>
                         <td>로그인 문제</td>
                         <td>2024-08-20</td>
                         <td>처리 중</td>
-                        <td><button class="btn">상세 보기</button></td>
+                        <td><a class=" inquiry-btn btn " id="cd-popup-trigger" onclick="popup()"><span>상세 보기</span></a>
+                        </td>
                     </tr>
                     <tr>
                         <td>inquiry456</td>
@@ -187,11 +199,38 @@
                         <td>비밀번호 변경</td>
                         <td>2024-08-22</td>
                         <td>완료</td>
-                        <td><button class="btn">상세 보기</button></td>
+                        <td><a class=" inquiry-btn btn " id="cd-popup-trigger" onclick="popup()"><span>상세 보기</span></a>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
+
+
+
+
+
+        <!-- 상세 보기 팝업 -->
+        <div class="cd-popup" id="cd-popup" role="alert" data-support-id="">
+            <div class="cd-popup-container">
+                <h2 id="inquiry-subject"><label for="subject">문의 제목</label></h2>
+                <p><label for="description">문의 내용: </label> <span id="inquiry-content"></span></p>
+                <p><label for="description">문의 날짜: </label> <span id="inquiry-date"></span></p>
+                <p><label for="description">문의 상태: </label> <span id="inquiry-status"></span></p>
+
+                <label for="description">문의 답변: </label>
+                <textarea id="description" name="description" rows="5" style="width: 90%;" required></textarea>
+
+                <button type="button" class="submit-btn">제출</button>
+
+                <a href="#0" class="cd-popup-close img-replace"></a>
+            </div>
+        </div>
+
+
+
+
+
 
         <!-- 커뮤니티 관리 섹션 -->
         <div id="community-management" class="content table-section">
@@ -410,6 +449,133 @@
             document.getElementById('loadMoreBtn').addEventListener('click', function () {
                 loadCommunityData();
             });
+        });
+
+
+
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+    <script src="/proj/assets/lib/jquery-3.7.1.min.js"></script>
+    <script>
+        // 페이지 로드 시 문의 내역을 서버에서 가져와서 테이블에 추가하는 함수
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('http://localhost:3000/admin/support/list') // 서버의 API 경로에 맞게 수정
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById('inquiry-table-body');
+                    tableBody.innerHTML = ''; // 테이블 초기화
+
+                    // 문의 내역 데이터를 반복하며 테이블에 추가
+                    data.forEach(item => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                    <td>${item.supportId}</td>
+                    <td>${item.userId}</td>
+                    <td>${item.subject}</td>
+                    <td>${new Date(item.supportDate).toLocaleDateString()}</td>
+                    <td>${item.status}</td>
+                    <td><a class="inquiry-btn btn" onclick="showInquiryDetail(${item.supportId})"><span>상세 보기</span></a></td>
+                `;
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('문의 내역을 불러오는 중 오류 발생:', error);
+                });
+        });
+
+        // 상세 보기 팝업을 보여주는 함수
+        function showInquiryDetail(supportId) {
+            fetch(`http://localhost:3000/admin/support/detail?supportId=${supportId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === '완료') {
+                        alert('이미 답변이 완료된 문의입니다.');
+                        return;
+                    }
+                    // 팝업의 제목, 내용, 날짜, 상태를 동적으로 업데이트
+                    document.getElementById('inquiry-subject').innerText = data.subject;
+                    document.getElementById('inquiry-content').innerText = data.content;
+                    document.getElementById('inquiry-date').innerText = new Date(data.supportDate).toLocaleDateString();
+                    document.getElementById('inquiry-status').innerText = data.status;
+
+                    // supportId를 팝업의 data-support-id에 설정
+                    document.querySelector('.cd-popup').setAttribute('data-support-id', supportId);
+
+                    // 팝업을 열기
+                    document.querySelector('.cd-popup').classList.add('is-visible');
+                })
+                .catch(error => {
+                    console.error('상세 문의 내역을 불러오는 중 오류 발생:', error);
+                });
+        }
+
+        // 팝업 닫기 기능
+        document.querySelector('.cd-popup-close').addEventListener('click', function () {
+            document.querySelector('.cd-popup').classList.remove('is-visible');
+        });
+
+        // 팝업 닫기 (esc 키 눌렀을 때)
+        document.addEventListener('keyup', function (event) {
+            if (event.which === 27) { // esc 키
+                document.querySelector('.cd-popup').classList.remove('is-visible');
+            }
+        });
+        function saveAnswer(supportId) {
+            const answer = document.getElementById('description').value;
+
+            if (answer.trim() === '') {
+                alert('답변을 입력해주세요.');
+                return;
+            }
+
+            const answerData = {
+                supportId: supportId,
+                answer: answer
+            };
+
+            // 서버로 답변 데이터를 전송
+            fetch(`http://localhost:3000/admin/support/answer`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(answerData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('답변이 성공적으로 저장되었습니다.');
+                        location.reload();
+                        document.querySelector('.cd-popup').classList.remove('is-visible');
+                    } else {
+                        alert('답변 저장 중 오류가 발생했습니다.');
+                    }
+                })
+                .catch(error => {
+                    console.error('답변 저장 중 오류 발생:', error);
+                });
+        }
+
+        // 팝업에서 답변 저장 버튼 클릭 시 실행
+        document.querySelector('.submit-btn').addEventListener('click', function () {
+            const supportId = document.querySelector('.cd-popup').getAttribute('data-support-id');
+            if (supportId) {
+                saveAnswer(supportId);
+            } else {
+                console.error('supportId를 찾을 수 없습니다.');
+                alert('지원 ID를 찾을 수 없습니다.');
+            }
         });
     </script>
 

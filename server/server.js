@@ -1351,13 +1351,17 @@ app.get('/api/community/recent-with-images', (req, res) => {
 
 
     const query = `
-        SELECT c.content, g.gameName, u.name, MIN(gi.imageUrl) AS imageUrl, MAX(c.postDate) AS postDate
+        SELECT c.content, g.gameName, u.name, 
+               (SELECT gi.imageUrl 
+                FROM GameImage gi 
+                WHERE gi.gameId = g.gameId 
+                ORDER BY RAND() 
+                LIMIT 1) AS imageUrl, 
+               c.postDate
         FROM Community c
         JOIN Game g ON c.gameId = g.gameId
-        JOIN GameImage gi ON g.gameId = gi.gameId
         JOIN User u ON c.userId = u.userId
-        GROUP BY c.content, g.gameName, u.name
-        ORDER BY postDate DESC
+        ORDER BY c.postDate DESC
         LIMIT ? OFFSET ?
     `;
 
@@ -1377,14 +1381,18 @@ app.get('/api/community/search', (req, res) => {
     const userName = req.query.userName; // 검색할 사용자 이름
 
     const query = `
-        SELECT c.content, g.gameName, u.name, MIN(gi.imageUrl) AS imageUrl, MAX(c.postDate) AS postDate
+        SELECT c.content, g.gameName, u.name, 
+               (SELECT gi.imageUrl 
+                FROM GameImage gi 
+                WHERE gi.gameId = g.gameId 
+                ORDER BY RAND() 
+                LIMIT 1) AS imageUrl, 
+               c.postDate
         FROM Community c
         JOIN Game g ON c.gameId = g.gameId
-        JOIN GameImage gi ON g.gameId = gi.gameId
         JOIN User u ON c.userId = u.userId
         WHERE u.name LIKE ?
-        GROUP BY c.content, g.gameName, u.name
-        ORDER BY postDate DESC
+        ORDER BY c.postDate DESC
     `;
 
     connection.query(query, [`%${userName}%`], (err, results) => {
@@ -1399,17 +1407,21 @@ app.get('/api/community/search', (req, res) => {
 /*───────────────────────────────────────────────────────────────────────────────────────────*/
 
 app.get('/api/community/search/game', (req, res) => {
-    const gameName = req.query.gameName; // 검색할 사용자 이름
-    console.log(req.query.gameName)
+    const gameName = req.query.gameName; // 검색할 게임 이름
+
     const query = `
-        SELECT c.content, g.gameName, u.name, MIN(gi.imageUrl) AS imageUrl, MAX(c.postDate) AS postDate
+        SELECT c.content, g.gameName, u.name, 
+               (SELECT gi.imageUrl 
+                FROM GameImage gi 
+                WHERE gi.gameId = g.gameId 
+                ORDER BY RAND() 
+                LIMIT 1) AS imageUrl, 
+               c.postDate
         FROM Community c
         JOIN Game g ON c.gameId = g.gameId
-        JOIN GameImage gi ON g.gameId = gi.gameId
         JOIN User u ON c.userId = u.userId
         WHERE g.gameName LIKE ?
-        GROUP BY c.content, g.gameName, u.name
-        ORDER BY postDate DESC
+        ORDER BY c.postDate DESC
     `;
 
     connection.query(query, [`%${gameName}%`], (err, results) => {
@@ -1417,7 +1429,6 @@ app.get('/api/community/search/game', (req, res) => {
             console.error('커뮤니티 글을 검색하는 중 오류 발생:', err);
             return res.status(500).json({ message: '서버 오류 발생' });
         }
-        console.log(results)
         res.json(results); // 검색 결과를 클라이언트에 전달
     });
 });
@@ -1488,7 +1499,7 @@ app.post('/support/add', (req, res) => {
     let subject = req.body.subject;
     let content = req.body.content;
     let regDate = new Date();
-    let status = '처리중'; 
+    let status = '처리중';
     connection.query(
         'INSERT INTO customersupport (userId, subject, content, supportDate, status) VALUES (?, ?, ?, ?, ?)',
         [id, subject, content, regDate, status],
@@ -1502,7 +1513,7 @@ app.post('/support/add', (req, res) => {
             res.json(responseData);
         }
     );
-        
+
 });
 /*───────────────────────────────────────────────────────────────────────────────────────────*/
 /*───────────────────────────────────────────────────────────────────────────────────────────*/
@@ -1543,3 +1554,91 @@ app.get('/support/list/details', (req, res) => {
 
 /*───────────────────────────────────────────────────────────────────────────────────────────*/
 
+
+// 특정 문의 내역
+app.get('/support/detail', (req, res) => {
+    const supportId = req.query.supportId; // 문의 ID
+    const query = `
+        SELECT supportId, subject, content, supportDate, status
+        FROM CustomerSupport
+        WHERE supportId = ?
+    `;
+    connection.query(query, [supportId], (err, result) => {
+        if (err) {
+            console.log('DB Error:', err);
+            return res.status(500).json({ error: 'DB Error' });
+        }
+        if (result.length > 0) {
+            res.json(result[0]); // 첫 번째 결과 반환
+        } else {
+            res.status(404).json({ message: '해당 문의 내역을 찾을 수 없습니다.' });
+        }
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+/*관리자 문의 리스트*/
+app.get('/admin/support/list', (req, res) => {
+    const query = `
+        SELECT supportId, userId, subject, supportDate, status
+        FROM CustomerSupport
+        ORDER BY supportDate ASC
+    `;
+
+    connection.query(query, (err, results) => {
+        if (err) {
+            console.error('문의 내역을 가져오는 중 오류 발생:', err);
+            return res.status(500).json({ message: '서버 오류 발생' });
+        }
+        res.json(results); // 결과를 클라이언트로 반환
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+app.get('/admin/support/detail', (req, res) => {
+    const supportId = req.query.supportId; // 지원 ID 가져오기
+
+    const query = `
+        SELECT supportId, subject, content, supportDate, status
+        FROM CustomerSupport
+        WHERE supportId = ?
+    `;
+
+    connection.query(query, [supportId], (err, results) => {
+        if (err) {
+            console.error('상세 문의 내역을 가져오는 중 오류 발생:', err);
+            return res.status(500).json({ message: '서버 오류 발생' });
+        }
+
+        // 문의 내역이 있으면 해당 데이터를 전달
+        if (results.length > 0) {
+            res.json(results[0]); // 첫 번째 결과만 전달
+        } else {
+            res.status(404).json({ message: '문의 내역을 찾을 수 없습니다.' });
+        }
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+app.post('/admin/support/answer', (req, res) => {
+    const { supportId, answer } = req.body;
+
+    console.log('Received supportId:', supportId);
+    console.log('Received answer:', answer);
+
+    // 문의 답변과 상태를 업데이트하는 쿼리
+    const query = `UPDATE CustomerSupport SET response = ?, status = '완료' WHERE supportId = ?`;
+
+    connection.query(query, [answer, supportId], (err, result) => {
+        if (err) {
+            console.error('답변 저장 중 오류 발생:', err);
+            return res.status(500).json({ success: false, message: '서버 오류 발생' });
+        }
+
+        console.log('Query Result:', result);
+        res.json({ success: true });
+    });
+});

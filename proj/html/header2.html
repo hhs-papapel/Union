@@ -1,115 +1,119 @@
 <head>
     <style>
-/* Reset 스타일 */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+        /* Reset 스타일 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #ffffff;
-    overflow-x: hidden;
-}
-/* 상단 네비게이션 */
-header {
-    background-color: #000000;
-    padding: 5px 0;
-    position: fixed;
-    width: 100%;
-    z-index: 100;
-    top: 0;
-}
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            overflow-x: hidden;
+        }
 
-.nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 auto;
-    padding: 0 20px;
-}
+        /* 상단 네비게이션 */
+        header {
+            background-color: #000000;
+            padding: 5px 0;
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            top: 0;
+        }
 
-.hamburger {
-    font-size: 25px;
-    color: white;
-    cursor: pointer;
-}
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
 
-.logo {
-    font-size: 50px;
-    color: white;
-}
+        .hamburger {
+            font-size: 25px;
+            color: white;
+            cursor: pointer;
+        }
 
-.nav-right {
-    margin-left: auto;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
+        .logo {
+            font-size: 50px;
+            color: white;
+        }
 
-.nav-right a {
-    margin-left: 15px;
-    text-decoration: none;
-    color: white;
-}
+        .nav-right {
+            margin-left: auto;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
 
-.nav-right a img {
-    width: 25px;
-}
+        .nav-right a {
+            margin-left: 15px;
+            text-decoration: none;
+            color: white;
+        }
 
-
-
-/* -------------------- */
-
-@font-face {
-    font-family: 'KOHIBaeum';
-    font-weight: normal;
-    font-style: normal;
-    src: url('https://cdn.jsdelivr.net/gh/webfontworld/kohi/KOHIBaeum.eot');
-    src: url('https://cdn.jsdelivr.net/gh/webfontworld/kohi/KOHIBaeum.eot?#iefix') format('embedded-opentype'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/kohi/KOHIBaeum.woff2') format('woff2'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/kohi/KOHIBaeum.woff') format('woff'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/kohi/KOHIBaeum.ttf') format("truetype");
-    font-display: swap;
-}
-svg {
-  font-family: 'KOHIBaeum';
-  font-size: 140px;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  text-transform: uppercase;
-  animation: stroke 5s 1 alternate ;
-  animation-iteration-count: infinite;
-  fill: black;
-}
-@keyframes stroke {
-  0% {
-    stroke-dashoffset: 25%;
-    stroke-dasharray: 0 50%;
-    fill: rgba(72, 138, 204, 0);
-    stroke: #BFFF00;
-    stroke-width: 2;
-  }
-  70% {
-    fill: rgba(72, 138, 204, 0);
-    stroke: #BFFF00;
-  }
-  80% {
-    fill: rgba(72, 138, 204, 0);
-    stroke: #BFFF00;
-  }
-  100% {
-    stroke-dashoffset: -25%;
-    stroke-dasharray: 50% 0;
-    fill: #BFFF00;
-    stroke: rgba(54, 95, 160, 0);
-    stroke-width: 2;
-}
-}
+        .nav-right a img {
+            width: 25px;
+        }
 
 
+
+        /* -------------------- */
+
+        @font-face {
+            font-family: 'KOHIBaeum';
+            font-weight: normal;
+            font-style: normal;
+            src: url('https://cdn.jsdelivr.net/gh/webfontworld/kohi/KOHIBaeum.eot');
+            src: url('https://cdn.jsdelivr.net/gh/webfontworld/kohi/KOHIBaeum.eot?#iefix') format('embedded-opentype'),
+                url('https://cdn.jsdelivr.net/gh/webfontworld/kohi/KOHIBaeum.woff2') format('woff2'),
+                url('https://cdn.jsdelivr.net/gh/webfontworld/kohi/KOHIBaeum.woff') format('woff'),
+                url('https://cdn.jsdelivr.net/gh/webfontworld/kohi/KOHIBaeum.ttf') format("truetype");
+            font-display: swap;
+        }
+
+        svg {
+            font-family: 'KOHIBaeum';
+            font-size: 140px;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            text-transform: uppercase;
+            animation: stroke 5s 1 alternate;
+            animation-iteration-count: infinite;
+            fill: black;
+        }
+
+        @keyframes stroke {
+            0% {
+                stroke-dashoffset: 25%;
+                stroke-dasharray: 0 50%;
+                fill: rgba(72, 138, 204, 0);
+                stroke: #BFFF00;
+                stroke-width: 2;
+            }
+
+            70% {
+                fill: rgba(72, 138, 204, 0);
+                stroke: #BFFF00;
+            }
+
+            80% {
+                fill: rgba(72, 138, 204, 0);
+                stroke: #BFFF00;
+            }
+
+            100% {
+                stroke-dashoffset: -25%;
+                stroke-dasharray: 50% 0;
+                fill: #BFFF00;
+                stroke: rgba(54, 95, 160, 0);
+                stroke-width: 2;
+            }
+        }
     </style>
 </head>
 
@@ -117,27 +121,29 @@ svg {
     <header>
         <div class="nav-container">
             <div class="hamburger" onclick="openNav()">☰</div> <!-- 햄버거 아이콘 -->
-            
+
             <div class="nav-right">
                 <a href="#"><img src="../assets/images/로그인.png" alt="Login">로그아웃</a>
             </div>
         </div>
         <div style="height: 70px;">
             <svg viewBox="0 0 1320 300">
-                <text x="50%" y="21%" dy="40px" text-anchor="middle" >UNION</text>
+                <a href="main.html">
+                    <text x="50%" y="21%" dy="40px" text-anchor="middle">UNION</text>
+                </a>
             </svg>
         </div>
-        
+
     </header>
 
-    
+
     <script>
 
         // 검색창 슬라이드 토글
         var searchButton = document.querySelector('.search-button');
         var searchInput = document.getElementById('search-input');
 
-        searchButton.addEventListener('click', function() {
+        searchButton.addEventListener('click', function () {
             if (searchInput.classList.contains('active')) {
                 searchInput.classList.remove('active');
             } else {

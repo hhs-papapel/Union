@@ -102,8 +102,18 @@
     <section class="main-content">
         <!-- 탭 메뉴 -->
         <nav class="tabs">
-            
-        </nav> 
+            <ul>
+                <li><a href="#">전체</a></li>
+                <li><a href="#">스크린샷</a></li>
+                <li><a href="#">아트워크</a></li>
+                <li><a href="#">방송</a></li>
+                <li><a href="#">동영상</a></li>
+                <li><a href="#">창작마당</a></li>
+                <li><a href="#">뉴스</a></li>
+                <li><a href="#">가이드</a></li>
+                <li><a href="#">평가</a></li>
+            </ul>
+        </nav>
         <br>
         <!--리뷰 섹션 (탭 메뉴 바로 밑) -->
 
@@ -330,6 +340,10 @@
                             return;
                         }
 
+                        if (offset > 0) {
+                            communityRecentContainer.innerHTML += '<hr class="group-divider" style="border: 3px solid ">';
+                        }
+
                         data.forEach(item => {
                             const guideItem = `
                             <div class="guide-item">
@@ -356,7 +370,6 @@
                     });
             }
 
-            // 초기 데이터 5개 불러오기
             loadCommunityPosts();
 
             // 스크롤이 페이지 끝에 도달하면 추가 데이터 로드
