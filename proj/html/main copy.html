@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게임 메인 페이지</title>
     <script>
-        function loadHTML(file) {
+        function loadHTML(file)
+        {
             var rawFile = new XMLHttpRequest();
             rawFile.open("GET", file, false);
-            rawFile.onreadystatechange = function () {
-                if (rawFile.readyState === 4) {
-                    if (rawFile.status === 200 || rawFile.status == 0) {
+            rawFile.onreadystatechange = function ()
+            {
+                if(rawFile.readyState === 4)
+                {
+                    if(rawFile.status === 200 || rawFile.status == 0)
+                    {
                         var allText = rawFile.responseText;
                         document.write(allText);
                     }
@@ -19,12 +22,14 @@
             }
             rawFile.send(null);
         }
+
+        
+        
     </script>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/styles copy.css"> <!-- 분리된 스타일시트 -->
 </head>
-
 <body>
 
     <!-- 상단 네비게이션 -->
@@ -43,14 +48,13 @@
 
     <!-- 메인 컨텐츠 -->
     <div class="main-content">
-
+        
         <!-- 메인 배너 슬라이더 -->
         <div class="swiper-containers">
             <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                 viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
                 <defs>
-                    <path id="gentle-wave"
-                        d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
                 </defs>
                 <g class="parallax">
                     <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
@@ -59,33 +63,33 @@
                     <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
                 </g>
             </svg>
-            <div class="swiper-container2 swiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <img src="../assets/images/hogwarts.jpg" alt="배너3">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="배너1">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="../assets/images/shogun_Showdown.jpg" alt="배너2">
-                    </div>
-
+        <div class="swiper-container2 swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="../assets/images/hogwarts.jpg" alt="배너3">
+                </div>
+                <div class="swiper-slide">
+                    <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="배너1">
+                </div>
+                <div class="swiper-slide">
+                    <img src="../assets/images/shogun_Showdown.jpg" alt="배너2">
+                </div>
+                
+            </div>
+        </div>
+        <div class="swiper-container3 swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="../assets/images/shogun_Showdown.jpg" alt="배너2">
+                </div>
+                <div class="swiper-slide">
+                    <img src="../assets/images/hogwarts.jpg" alt="배너3">
+                </div>
+                <div class="swiper-slide">
+                    <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="배너1">
                 </div>
             </div>
-            <div class="swiper-container3 swiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <img src="../assets/images/shogun_Showdown.jpg" alt="배너2">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="../assets/images/hogwarts.jpg" alt="배너3">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="배너1">
-                    </div>
-                </div>
-            </div>
+        </div>
             <div class="swiper-container swiper">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
@@ -116,402 +120,485 @@
         <div class="discount-container">
             <h2>특별 할인</h2>
             <br>
-
+        
             <div class="swiper discount-swiper">
                 <div class="swiper-wrapper">
-
+        
                     <!-- 첫 번째 페이지 -->
                     <div class="swiper-slide">
                         <div class="discount-grid">
                             <div class="discount-item large">
-                                <img src="../assets/images/A_DANCE_OF.jpg" alt="Image 3">
-                                <span class="discount">55%</span>
-                                <div class="price-info">
-                                    <span class="price">
-                                        <span class="original-price">₩ 21,500</span><span>₩ 7,420</span> 
-                                    </span>
+                                <img src="../assets/images/A_DANCE_OF.jpg" alt="Image 1">
+                                <br>
+                                <div class="discount-info">
+                                    <p>주중 특가</p>
+                                    <p>할인 혜택은 2024년 9월 19일 오전 2시 00분에 종료됩니다.</p>
+                                    <div class="price-info">
+                                        <span class="discount">-60%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 8,600
+                                        </span>
+                                    </div>
                                 </div>
-                                <!-- <div class="discount-info">
-                                    <p>오늘의 할인</p>
-                                </div> -->
                             </div>
-
+        
                             <div class="discount-item large">
-                                <img src="../assets/images/A_DANCE_OF.jpg" alt="Image 3">
-                                <span class="discount">55%</span>
-                                <div class="price-info">
-                                    <span class="price">
-                                        <span class="original-price">₩ 21,500</span><span>₩ 7,420</span> 
-                                    </span>
+                                <img src="path_to_image2.jpg" alt="Image 2">
+                                <div class="discount-info">
+                                    <p>주중 특가</p>
+                                    <p>할인 혜택은 2024년 9월 13일 오전 2시 00분에 종료됩니다.</p>
+                                    <div class="price-info">
+                                        <span class="discount">-55%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 7,420
+                                        </span>
+                                    </div>
                                 </div>
-                                <!-- <div class="discount-info">
-                                    <p>오늘의 할인</p>
-                                </div> -->
                             </div>
-
-                            <div class="discount-item large do">
-                                <img src="../assets/images/A_DANCE_OF.jpg" alt="Image 3">
-                                <span class="discount">55%</span>
-                                <div class="price-info">
-                                    <span class="price">
-                                        <span class="original-price">₩ 21,500</span><span>₩ 7,420</span> 
-                                    </span>
-                                </div>
+        
+                            <div class="discount-item small">
+                                <img src="path_to_image3.jpg" alt="Image 3">
                                 <div class="discount-info">
                                     <p>오늘의 할인</p>
+                                    <div class="price-info">
+                                        <span class="discount">-55%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 7,420
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="discount-item small">
+                                <img src="path_to_image4.jpg" alt="Image 4">
+                                <div class="discount-info">
+                                    <p>오늘의 할인</p>
+                                    <div class="price-info">
+                                        <span class="discount">-55%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 7,420
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="discount-item large">
-                                <img src="../assets/images/A_DANCE_OF.jpg" alt="Image 3">
-                                <span class="discount">55%</span>
-                                <div class="price-info">
-                                    <span class="price">
-                                        <span class="original-price">₩ 21,500</span><span>₩ 7,420</span> 
-                                    </span>
-                                </div>
-                                <!-- <div class="discount-info">
+                            <div class="discount-item small">
+                                <img src="path_to_image4.jpg" alt="Image 5">
+                                <div class="discount-info">
                                     <p>오늘의 할인</p>
-                                </div> -->
-                            </div>
-
-                            <div class="discount-item large">
-                                <img src="../assets/images/A_DANCE_OF.jpg" alt="Image 3">
-                                <span class="discount">55%</span>
-                                <div class="price-info">
-                                    <span class="price">
-                                        <span class="original-price">₩ 21,500</span><span>₩ 7,420</span> 
-                                    </span>
+                                    <div class="price-info">
+                                        <span class="discount">-55%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 7,420
+                                        </span>
+                                    </div>
                                 </div>
-                                <!-- <div class="discount-info">
-                                    <p>오늘의 할인</p>
-                                </div> -->
                             </div>
                         </div>
                     </div>
-
+        
                     <!-- 두 번째 페이지 -->
                     <div class="swiper-slide">
                         <div class="discount-grid">
                             <div class="discount-item large">
-                                <img src="../assets/images/A_DANCE_OF.jpg" alt="Image 3">
-                                <span class="discount">55%</span>
-                                <div class="price-info">
-                                    <span class="price">
-                                        <span class="original-price">₩ 21,500</span><span>₩ 7,420</span> 
-                                    </span>
+                                <img src="path_to_image5.jpg" alt="Image 6">
+                                <div class="discount-info">
+                                    <p>주중 특가</p>
+                                    <p>할인 혜택은 2024년 9월 19일 오전 2시 00분에 종료됩니다.</p>
+                                    <div class="price-info">
+                                        <span class="discount">-60%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 8,600
+                                        </span>
+                                    </div>
                                 </div>
-                                <!-- <div class="discount-info">
-                                    <p>오늘의 할인</p>
-                                </div> -->
                             </div>
-
+        
                             <div class="discount-item large">
-                                <img src="../assets/images/A_DANCE_OF.jpg" alt="Image 3">
-                                <span class="discount">55%</span>
-                                <div class="price-info">
-                                    <span class="price">
-                                        <span class="original-price">₩ 21,500</span><span>₩ 7,420</span> 
-                                    </span>
+                                <img src="path_to_image6.jpg" alt="Image 7">
+                                <div class="discount-info">
+                                    <p>주중 특가</p>
+                                    <p>할인 혜택은 2024년 9월 13일 오전 2시 00분에 종료됩니다.</p>
+                                    <div class="price-info">
+                                        <span class="discount">-55%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 7,420
+                                        </span>
+                                    </div>
                                 </div>
-                                <!-- <div class="discount-info">
-                                    <p>오늘의 할인</p>
-                                </div> -->
                             </div>
-
-                            <div class="discount-item large">
-                                <img src="../assets/images/A_DANCE_OF.jpg" alt="Image 3">
-                                <span class="discount">55%</span>
-                                <div class="price-info">
-                                    <span class="price">
-                                        <span class="original-price">₩ 21,500</span><span>₩ 7,420</span> 
-                                    </span>
-                                </div>
-                                <!-- <div class="discount-info">
+        
+                            <div class="discount-item small">
+                                <img src="path_to_image7.jpg" alt="Image 8">
+                                <div class="discount-info">
                                     <p>오늘의 할인</p>
-                                </div> -->
+                                    <div class="price-info">
+                                        <span class="discount">-55%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 7,420
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
-
-                            <div class="discount-item large">
-                                <img src="../assets/images/A_DANCE_OF.jpg" alt="Image 3">
-                                <span class="discount">55%</span>
-                                <div class="price-info">
-                                    <span class="price">
-                                        <span class="original-price">₩ 21,500</span><span>₩ 7,420</span> 
-                                    </span>
-                                </div>
-                                <!-- <div class="discount-info">
+        
+                            <div class="discount-item small">
+                                <img src="path_to_image8.jpg" alt="Image 9">
+                                <div class="discount-info">
                                     <p>오늘의 할인</p>
-                                </div> -->
+                                    <div class="price-info">
+                                        <span class="discount">-55%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 7,420
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
-
-                            <div class="discount-item large">
-                                <img src="../assets/images/A_DANCE_OF.jpg" alt="Image 3">
-                                <span class="discount">55%</span>
-                                <div class="price-info">
-                                    <span class="price">
-                                        <span class="original-price">₩ 21,500</span><span>₩ 7,420</span> 
-                                    </span>
-                                </div>
-                                <!-- <div class="discount-info">
+                            <div class="discount-item small">
+                                <img src="path_to_image4.jpg" alt="Image 10">
+                                <div class="discount-info">
                                     <p>오늘의 할인</p>
-                                </div> -->
+                                    <div class="price-info">
+                                        <span class="discount">-55%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 7,420
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-
+        
                     <!-- 세 번째 페이지 -->
                     <div class="swiper-slide">
                         <div class="discount-grid">
                             <div class="discount-item large">
-                                <img src="../assets/images/A_DANCE_OF.jpg" alt="Image 3">
-                                <span class="discount">55%</span>
-                                <div class="price-info">
-                                    <span class="price">
-                                        <span class="original-price">₩ 21,500</span><span>₩ 7,420</span> 
-                                    </span>
+                                <img src="path_to_image9.jpg" alt="Image 11">
+                                <div class="discount-info">
+                                    <p>주중 특가</p>
+                                    <p>할인 혜택은 2024년 9월 19일 오전 2시 00분에 종료됩니다.</p>
+                                    <div class="price-info">
+                                        <span class="discount">-60%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 8,600
+                                        </span>
+                                    </div>
                                 </div>
-                                <!-- <div class="discount-info">
-                                    <p>오늘의 할인</p>
-                                </div> -->
                             </div>
-
+        
                             <div class="discount-item large">
-                                <img src="../assets/images/A_DANCE_OF.jpg" alt="Image 3">
-                                <span class="discount">55%</span>
-                                <div class="price-info">
-                                    <span class="price">
-                                        <span class="original-price">₩ 21,500</span><span>₩ 7,420</span> 
-                                    </span>
+                                <img src="path_to_image10.jpg" alt="Image 12">
+                                <div class="discount-info">
+                                    <p>주중 특가</p>
+                                    <p>할인 혜택은 2024년 9월 13일 오전 2시 00분에 종료됩니다.</p>
+                                    <div class="price-info">
+                                        <span class="discount">-55%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 7,420
+                                        </span>
+                                    </div>
                                 </div>
-                                <!-- <div class="discount-info">
-                                    <p>오늘의 할인</p>
-                                </div> -->
                             </div>
-
-                            <div class="discount-item large">
-                                <img src="../assets/images/A_DANCE_OF.jpg" alt="Image 3">
-                                <span class="discount">55%</span>
-                                <div class="price-info">
-                                    <span class="price">
-                                        <span class="original-price">₩ 21,500</span><span>₩ 7,420</span> 
-                                    </span>
-                                </div>
-                                <!-- <div class="discount-info">
+        
+                            <div class="discount-item small">
+                                <img src="path_to_image11.jpg" alt="Image 13">
+                                <div class="discount-info">
                                     <p>오늘의 할인</p>
-                                </div> -->
+                                    <div class="price-info">
+                                        <span class="discount">-55%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 7,420
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
-
-                            <div class="discount-item large">
-                                <img src="../assets/images/A_DANCE_OF.jpg" alt="Image 3">
-                                <span class="discount">55%</span>
-                                <div class="price-info">
-                                    <span class="price">
-                                        <span class="original-price">₩ 21,500</span><span>₩ 7,420</span> 
-                                    </span>
-                                </div>
-                                <!-- <div class="discount-info">
+        
+                            <div class="discount-item small">
+                                <img src="path_to_image12.jpg" alt="Image 14">
+                                <div class="discount-info">
                                     <p>오늘의 할인</p>
-                                </div> -->
+                                    <div class="price-info">
+                                        <span class="discount">-55%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 7,420
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
-
-                            <div class="discount-item large">
-                                <img src="../assets/images/A_DANCE_OF.jpg" alt="Image 3">
-                                <span class="discount">55%</span>
-                                <div class="price-info">
-                                    <span class="price">
-                                        <span class="original-price">₩ 21,500</span><span>₩ 7,420</span> 
-                                    </span>
-                                </div>
-                                <!-- <div class="discount-info">
+                            <div class="discount-item small">
+                                <img src="path_to_image4.jpg" alt="Image 15">
+                                <div class="discount-info">
                                     <p>오늘의 할인</p>
-                                </div> -->
+                                    <div class="price-info">
+                                        <span class="discount">-55%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 7,420
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-
+        
                     <!-- 네 번째 페이지 -->
                     <div class="swiper-slide">
                         <div class="discount-grid">
                             <div class="discount-item large">
-                                <img src="../assets/images/A_DANCE_OF.jpg" alt="Image 3">
-                                <span class="discount">55%</span>
-                                <div class="price-info">
-                                    <span class="price">
-                                        <span class="original-price">₩ 21,500</span><span>₩ 7,420</span> 
-                                    </span>
+                                <img src="path_to_image13.jpg" alt="Image 16">
+                                <div class="discount-info">
+                                    <p>주중 특가</p>
+                                    <p>할인 혜택은 2024년 9월 19일 오전 2시 00분에 종료됩니다.</p>
+                                    <div class="price-info">
+                                        <span class="discount">-60%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 8,600
+                                        </span>
+                                    </div>
                                 </div>
-                                <!-- <div class="discount-info">
-                                    <p>오늘의 할인</p>
-                                </div> -->
                             </div>
-
+        
                             <div class="discount-item large">
-                                <img src="../assets/images/A_DANCE_OF.jpg" alt="Image 3">
-                                <span class="discount">55%</span>
-                                <div class="price-info">
-                                    <span class="price">
-                                        <span class="original-price">₩ 21,500</span><span>₩ 7,420</span> 
-                                    </span>
+                                <img src="path_to_image14.jpg" alt="Image 17">
+                                <div class="discount-info">
+                                    <p>주중 특가</p>
+                                    <p>할인 혜택은 2024년 9월 13일 오전 2시 00분에 종료됩니다.</p>
+                                    <div class="price-info">
+                                        <span class="discount">-55%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 7,420
+                                        </span>
+                                    </div>
                                 </div>
-                                <!-- <div class="discount-info">
-                                    <p>오늘의 할인</p>
-                                </div> -->
                             </div>
-
-                            <div class="discount-item large">
-                                <img src="../assets/images/A_DANCE_OF.jpg" alt="Image 3">
-                                <span class="discount">55%</span>
-                                <div class="price-info">
-                                    <span class="price">
-                                        <span class="original-price">₩ 21,500</span><span>₩ 7,420</span> 
-                                    </span>
-                                </div>
-                                <!-- <div class="discount-info">
+        
+                            <div class="discount-item small">
+                                <img src="path_to_image15.jpg" alt="Image 18">
+                                <div class="discount-info">
                                     <p>오늘의 할인</p>
-                                </div> -->
+                                    <div class="price-info">
+                                        <span class="discount">-55%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 7,420
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
-
-                            <div class="discount-item large">
-                                <img src="../assets/images/A_DANCE_OF.jpg" alt="Image 3">
-                                <span class="discount">55%</span>
-                                <div class="price-info">
-                                    <span class="price">
-                                        <span class="original-price">₩ 21,500</span><span>₩ 7,420</span> 
-                                    </span>
-                                </div>
-                                <!-- <div class="discount-info">
+        
+                            <div class="discount-item small">
+                                <img src="path_to_image16.jpg" alt="Image 19">
+                                <div class="discount-info">
                                     <p>오늘의 할인</p>
-                                </div> -->
+                                    <div class="price-info">
+                                        <span class="discount">-55%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 7,420
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
-
-                            <div class="discount-item large">
-                                <img src="../assets/images/A_DANCE_OF.jpg" alt="Image 3">
-                                <span class="discount">55%</span>
-                                <div class="price-info">
-                                    <span class="price">
-                                        <span class="original-price">₩ 21,500</span><span>₩ 7,420</span> 
-                                    </span>
-                                </div>
-                                <!-- <div class="discount-info">
+                            <div class="discount-item small">
+                                <img src="path_to_image4.jpg" alt="Image 20">
+                                <div class="discount-info">
                                     <p>오늘의 할인</p>
-                                </div> -->
+                                    <div class="price-info">
+                                        <span class="discount">-55%</span>
+                                        <span class="price">
+                                            <span class="original-price">₩ 21,500</span> ₩ 7,420
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-
+        
                 </div>
-
+        
+                <br>
                 <!-- 페이지네이션 -->
                 <!-- <div class="swiper-pagination"></div> -->
-
-
             </div>
         </div>
 
+        
+
+        
+<div class="update-sale-section">
+    
+        <!-- 비디오 -->
+        <div class="video-section">
+            <video id="myVideo" width="100%" height="auto" muted loop>
+                <source src="../assets/movie/deck_banner_animated_webm_koreana.webm" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    <h2>업데이트 및 할인</h2>
+
+    <div class="game-grid">
+        <!-- FC 25 - 더 큰 타일 -->
+        <div class="game-card large-card">
+            <img src="../assets/images/hogwarts.jpg" alt="FC 25 이미지">
+            <div class="game-details">
+                <p>지금 예약 구매하세요</p>
+                <span class="game-price">₩ 85,000</span>
+            </div>
+        </div>
+
+        <!-- 나머지 게임 타일 -->
+        <div class="game-card">
+            <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="할인 게임 1 이미지">
+            <div class="game-details">
+                <p>주중 특가</p>
+                <span class="discount-tag">최대 -90% 할인</span>
+                <span class="game-price">₩ 32,000</span>
+            </div>
+        </div>
+
+        <div class="game-card">
+            <img src="../assets/images/" alt="할인 게임 2 이미지">
+            <div class="game-details">
+                <p>주중 특가</p>
+                <span class="discount-tag">최대 -85% 할인</span>
+                <span class="game-price">₩ 69,800</span>
+            </div>
+        </div>
+
+        <div class="game-card">
+            <img src="path_to_game3_image.jpg" alt="할인 게임 3 이미지">
+            <div class="game-details">
+                <p>주중 특가</p>
+                <span class="game-price">₩ 62,880</span>
+            </div>
+        </div>
+
+        <div class="game-card">
+            <img src="../assets/images/A_DANCE_OF.jpg" alt="할인 게임 4 이미지">
+            <div class="game-details">
+                <p>주중 특가</p>
+                <span class="game-price">₩ 58,800</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- 최근 업데이트된 제품 섹션 -->
+<div class="recent-update-section">
+    <h2>최근에 업데이트된 제품</h2>
+    <button class="view-all-btn">모두 보기</button>
+    <div class="update-products">
+
+        <div class="product-card">
+            <div class="live-badge">🔴 실시간 방송</div>
+            <div class="product-image">
+                <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="House Builder">
+            </div>
+            <div class="product-info">
+                <div class="discount-tag">-40%</div>
+                <div class="price">
+                    <span class="original-price">₩ 21,500</span>
+                    <span class="discounted-price">₩ 12,900</span>
+                </div>
+                <p class="product-title">House Builder</p>
+                <p class="product-description">협동 플레이와 다양한 신규 기능이 포함된 업데이트 2.0이 도입되었습니다.</p>
+                <a href="#" class="detail-link">업데이트 상세 내역 보기</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="library-badge">📚 라이브러리에 있음</div>
+            <div class="product-image">
+                <img src="biped.jpg" alt="Biped">
+            </div>
+            <div class="product-info">
+                <div class="price">
+                    <span class="discounted-price">₩ 15,500</span>
+                </div>
+                <p class="product-title">Biped</p>
+                <p class="product-description">온라인 협동 모드 및 새로운 안정성 업데이트가 도입된 v2.0 버전입니다.</p>
+                <a href="#" class="detail-link">업데이트 상세 내역 보기</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="wishlist-badge">📋 찜 목록에 있음</div>
+            <div class="product-image">
+                <img src="forest.jpg" alt="비밀의 숲">
+            </div>
+            <div class="product-info">
+                <div class="discount-tag">-20%</div>
+                <div class="price">
+                    <span class="original-price">₩ 24,000</span>
+                    <span class="discounted-price">₩ 19,200</span>
+                </div>
+                <p class="product-title">비밀의 숲</p>
+                <p class="product-description">새로운 랜덤 인카운터와 편의성 개선이 반영된 v1.1 업데이트.</p>
+                <a href="#" class="detail-link">업데이트 상세 내역 보기</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="new-badge">🌟 신규 업데이트</div>
+            <div class="product-image">
+                <img src="../assets/images/A_DANCE_OF.jpg" alt="Nine Souls">
+            </div>
+            <div class="product-info">
+                <div class="price">
+                    <span class="discounted-price">₩ 32,000</span>
+                </div>
+                <p class="product-title">Nine Souls</p>
+                <p class="product-description">6개의 새로운 언어 지원 및 다양한 버그 수정이 포함된 업데이트.</p>
+                <a href="#" class="detail-link">업데이트 상세 내역 보기</a>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="new-badge">🌟 신규 업데이트</div>
+            <div class="product-image">
+                <img src="../assets/images/A_DANCE_OF.jpg" alt="Nine Souls">
+            </div>
+            <div class="product-info">
+                <div class="price">
+                    <span class="discounted-price">₩ 32,000</span>
+                </div>
+                <p class="product-title">Nine Souls</p>
+                <p class="product-description">6개의 새로운 언어 지원 및 다양한 버그 수정이 포함된 업데이트.</p>
+                <a href="#" class="detail-link">업데이트 상세 내역 보기</a>
+            </div>
+        </div>
+        
+    </div>
+
+</div>
+
+
         <div class="category-slider">
+       
             <h3>카테고리별로 살펴보기</h3>
             <div class="slider-navigation">
-                <!-- 왼쪽 화살표 버튼 -->
-                <button class="prev-btn">←</button>
-
-                <div class="category-wrapper">
-                    <div class="category-item" data-tag-id="22"
-                        style="background-image: url('../assets/images/ex.jpg');">
-                        <span>무료 플레이</span>
-                    </div>
-                    <div class="category-item" data-tag-id="2"
-                        style="background-image: url('../assets/images/ex.jpg');">
-                        <span>어드벤처</span>
-                    </div>
-                    <div class="category-item" data-tag-id="3"
-                        style="background-image: url('../assets/images/ex.jpg');">
-                        <span>롤플레잉 게임</span>
-                    </div>
-                    <div class="category-item" data-tag-id="4"
-                        style="background-image: url('../assets/images/ex.jpg');">
-                        <span>전략</span>
-                    </div>
-                    <div class="category-item" data-tag-id="5"
-                        style="background-image: url('../assets/images/ex.jpg');">
-                        <span>인디</span>
-                    </div>
-                    <div class="category-item" data-tag-id="6"
-                        style="background-image: url('../assets/images/ex.jpg');">
-                        <span>캐주얼</span>
-                    </div>
-                    <div class="category-item" data-tag-id="7"
-                        style="background-image: url('../assets/images/ex.jpg');">
-                        <span>시뮬레이션</span>
-                    </div>
-                    <div class="category-item" data-tag-id="21"
-                        style="background-image: url('../assets/images/ex.jpg');">
-                        <span>스포츠</span>
-                    </div>
-                    <div class="category-item" data-tag-id="8"
-                        style="background-image: url('../assets/images/ex.jpg');">
-                        <span>액션</span>
-                    </div>
-                    <div class="category-item" data-tag-id="9"
-                        style="background-image: url('../assets/images/ex.jpg');">
-                        <span>공포</span>
-                    </div>
-                    <div class="category-item" data-tag-id="10"
-                        style="background-image: url('../assets/images/ex.jpg');">
-                        <span>멀티플레이어</span>
-                    </div>
-                    <div class="category-item" data-tag-id="11"
-                        style="background-image: url('../assets/images/ex.jpg');">
-                        <span>협동 플레이</span>
-                    </div>
-                    <div class="category-item" data-tag-id="12"
-                        style="background-image: url('../assets/images/ex.jpg');">
-                        <span>싱글플레이어</span>
-                    </div>
-                    <div class="category-item" data-tag-id="13"
-                        style="background-image: url('../assets/images/ex.jpg');">
-                        <span>오픈 월드</span>
-                    </div>
-                    <div class="category-item" data-tag-id="14"
-                        style="background-image: url('../assets/images/ex.jpg');">
-                        <span>퍼즐</span>
-                    </div>
-                    <div class="category-item" data-tag-id="15"
-                        style="background-image: url('../assets/images/ex.jpg');">
-                        <span>생존</span>
-                    </div>
-                    <div class="category-item" data-tag-id="16"
-                        style="background-image: url('../assets/images/ex.jpg');">
-                        <span>SF</span>
-                    </div>
-                    <div class="category-item" data-tag-id="17"
-                        style="background-image: url('../assets/images/ex.jpg');">
-                        <span>판타지</span>
-                    </div>
-                    <div class="category-item" data-tag-id="18"
-                        style="background-image: url('../assets/images/ex.jpg');">
-                        <span>플랫포머</span>
-                    </div>
-                    <div class="category-item" data-tag-id="19"
-                        style="background-image: url('../assets/images/ex.jpg');">
-                        <span>1인칭</span>
-                    </div>
-                    <div class="category-item" data-tag-id="20"
-                        style="background-image: url('../assets/images/ex.jpg');">
-                        <span>3인칭</span>
-                    </div>
-                    <div class="category-item" data-tag-id="20"
-                        style="background-image: url('../assets/images/ex.jpg');">
-                        <span>샌드박스</span>
-                    </div>
-
-
+                 <!-- 왼쪽 화살표 버튼 -->
+                 <button class="prev-btn">←</button>
+                           
+            <div class="category-wrapper">
+                
+                <!-- 메인 큰 슬라이드 -->
+                <div class="category-item large" style="background-image: url('image1.jpg');">
+                    <span>메인 아이템</span>
                 </div>
-
-                <!-- 오른쪽 화살표 버튼 -->
-                <button class="next-btn">→</button>
+                <!-- 나머지 작은 슬라이드 -->
+                <div class="category-item small" style="background-image: url('image2.jpg');">
+                    <span>아이템 1</span>
+                </div>
+                <div class="category-item small" style="background-image: url('image3.jpg');">
+                    <span>아이템 2</span>
+                </div>
+                <div class="category-item small" style="background-image: url('image4.jpg');">
+                    <span>아이템 3</span>
+                </div>
+                <div class="category-item small" style="background-image: url('image5.jpg');">
+                    <span>아이템 4</span>
+                </div>
+                <!-- 더 많은 아이템들... -->
+                  <!-- 오른쪽 화살표 버튼 -->
+                  <button class="next-btn">→</button>
+                </div>
             </div>
-
             <div class="slider-pagination">
                 <span class="dot"></span>
                 <span class="dot"></span>
@@ -520,65 +607,91 @@
             </div>
         </div>
 
-        <!-- 카테고리 선택 -->
-        <br>
-        <br>
-        <nav class="category-nav">
-            <ul>
-                <li><a href="#">인기 신작</a></li>
-                <li><a href="#">최고 인기게임</a></li>
-                <li><a href="#">최고 인기제품</a></li>
-                <li><a href="#">최고 인기제목</a></li>
-                <li><a href="#">최고 인기시리즈</a></li>
-            </ul>
-        </nav>
 
-        <!-- 게임 목록 및 상세 화면 -->
-        <div class="game-list-section">
-            <!-- 왼쪽 게임 목록 -->
-            <div class="game-list">
-                <ul>
-                    <!-- <li class="game-item" data-game-id="1" data-title="게임 1" data-price="₩ 37,800">
-                        <div class="game-info">
-                            <img src="../assets/images/A_DANCE_OF.jpg" alt="게임 1 이미지">
-                            <span>게임 1</span>
-                        </div>
-                    </li>
-                    <li class="game-item" data-game-id="2" data-title="게임 2" data-price="₩ 69,800">
-                        <div class="game-info">
-                            <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="게임 2 이미지">
-                            <span>게임 2</span>
-                        </div>
-                    </li>
-                    <li class="game-item" data-game-id="3" data-title="게임 3" data-price="₩ 20,500">
-                        <div class="game-info">
-                            <img src="../assets/images/shogun_Showdown.jpg" alt="게임 3 이미지">
-                            <span>게임 3</span>
-                        </div>
-                    </li> -->
-                </ul>
-            </div>
+        
+        
+    <!-- 카테고리 선택 -->
 
-            <!-- 오른쪽 게임 상세 정보 (처음에는 숨김) -->
-            <div class="game-detail" style="display: none;">
-                <div id="game-detail-header">
-                    <h3 id="game-title">게임 제목</h3>
-                    <p id="game-price">가격</p>
-                </div>
-                <div class="game-screenshots">
-                    <img id="screenshot1" src="" alt="스크린샷 1">
-                    <p id="game-description">게임 설명</p>
-                </div>
-            </div>
+<!-- 카테고리 선택 -->
+<nav class="category-nav">
+    <ul>
+        <li><a href="#">인기 신작</a></li>
+        <li><a href="#">최고 인기게임</a></li>
+        <li><a href="#">최고 인기제품</a></li>
+        <li><a href="#">최고 인기제목</a></li>
+        <li><a href="#">최고 인기시리즈</a></li>
+    </ul>
+</nav>
+
+<div class="game-list-container">
+<!-- 첫 번째 게임 항목 -->
+
+<div class="game-list-item" data-game-id="1">
+    <!-- 게임 썸네일 -->
+    <div class="game-thumbnail">
+        <img src="../assets/images/A_DANCE_OF.jpg" alt="게임 이미지">
+    </div>
+    <!-- 게임 정보 -->
+    <div class="game-info-container">
+        <!-- 게임 제목 -->
+        <div class="game-title">
+            <h2>PICO PARK 2</h2>
         </div>
+        <!-- 게임 할인 정보 -->
+        <div class="game-price-container">
+            <div class="discount-rate">20%</div>
+            <div class="price">₩8,910</div>
+            <div class="original-price">₩9,900</div>
+        </div>
+    </div>
+</div>
+
+<!-- 클릭 시 펼쳐질 상세 정보 - game-detail은 게임 리스트 항목 외부에 배치 -->
+<div class="game-detail" id="game-detail-1">
+    <div class="detail-left">
+        <div class="game-title">
+            <h2>PICO PARK 2</h2>
+        </div>
+        <div class="game-description">
+
+            <p>PICO PARK가 아주 새로운 스테이지와 함께 돌아왔습니다! 이 협동 액션 퍼즐 게임에서 플레이어 2-8인과 로컬이나 온라인에서 플레이하세요!</p>
+        </div>
+                <!-- 게임 태그 섹션 -->
+                <div class="game-tags">
+                    <span class="tag">액션</span>
+                    <span class="tag">캐주얼</span>
+                    <span class="tag">플랫폼</span>
+                    <span class="tag">귀여운</span>
+                </div>
+        
+        <button class="add-to-cart-btn">장바구니에 추가</button>
+
+    </div>
+    <div class="detail-right">
+        <div class="game-images">
+            <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="스크린샷 1">
+            <img src="../assets/images/A_DANCE_OF.jpg" alt="스크린샷 2">
+            <img src="../assets/images/A_DANCE_OF.jpg" alt="스크린샷 3">
+            <!-- <img src="../assets/images/A_DANCE_OF.jpg" alt="스크린샷 4"> -->
+        </div>
+        
+    </div>
+</div>
 
 
-        <!-- <div class="game-list-footer">
-            <p>검색을 이용해 더 많은 제품을 확인해 보세요</p>
-        </div> -->
 
-        <div class="recommend-section">
-            <img src="path_to_steam_logo.png" alt="Steam Logo" class="steam-logo">
+    <!-- 두 번째 게임 항목 -->
+
+
+    
+    <!-- 세 번째 게임 항목 추가 -->
+
+    </div>
+</div>
+
+
+         <div class="recommend-section">
+            <img src="../assets/images/logo4.png" alt="Steam Logo" class="steam-logo">
             <h2>계속 스크롤해 내려가 더 많은 추천 제품을 확인해 보세요.</h2>
             <p>아래에서 흥미로운 여러 제품을 카테고리별로 확인할 수 있습니다.</p>
         </div>
@@ -586,109 +699,242 @@
         <footer>
             <script>loadHTML("./footer.html")</script>
         </footer>
-    </div>
+
+        <!-- 페이지 맨 위로 이동 버튼 -->
+<button id="scrollToTopBtn" class="scroll-to-top-btn">▲</button>
+
+</div>
 
     <!-- Swiper.js 추가 -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <!-- 로그인 체크 js 추가 -->
-    <script src="../assets/js/checkLogin.js"></script>
     <script>
-        console.log(sessionStorage.getItem('loggedInUser'));
-        const categoryWrapper = document.querySelector('.category-wrapper');
-        const nextBtn = document.querySelector('.next-btn');
-        const prevBtn = document.querySelector('.prev-btn');
-        const dots = document.querySelectorAll('.dot');
 
-        let currentIndex = 0;
-        const itemsPerPage = 4; // 한 페이지에 보여질 카테고리 수
-        const totalItems = document.querySelectorAll('.category-item').length;
-        const totalPages = Math.ceil(totalItems / itemsPerPage); // 총 페이지 수
+document.addEventListener("DOMContentLoaded", function() {
+    const itemsPerPage = 6; // 한 페이지에 표시할 아이템 수
+    const categoryItems = document.querySelectorAll(".category-item");
+    const totalPages = Math.ceil(categoryItems.length / itemsPerPage);
 
-        // 카테고리 슬라이더의 너비 가져오기
-        const categoryWrapperWidth = categoryWrapper.offsetWidth;
+    let currentPage = 1;
 
-        // 슬라이더 초기화
-        updateDots();
-
-        // 다음 버튼 클릭 이벤트
-        nextBtn.addEventListener('click', () => {
-            if (currentIndex < totalPages - 1) {
-                currentIndex++;
-                categoryWrapper.scrollLeft = categoryWrapperWidth * currentIndex;
-                updateDots();
-            }
+    function showPage(page) {
+        // 모든 아이템 숨기기
+        categoryItems.forEach((item, index) => {
+            item.style.display = 'none';
         });
 
-        // 이전 버튼 클릭 이벤트
-        prevBtn.addEventListener('click', () => {
-            if (currentIndex > 0) {
-                currentIndex--;
-                categoryWrapper.scrollLeft = categoryWrapperWidth * currentIndex;
-                updateDots();
-            }
-        });
-
-        // 페이지네이션 업데이트
-        function updateDots() {
-            dots.forEach((dot, index) => {
-                if (index === currentIndex) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
-            });
+        // 현재 페이지 아이템만 표시하기
+        const start = (page - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        for (let i = start; i < end && i < categoryItems.length; i++) {
+            categoryItems[i].style.display = 'flex';
         }
+    }
 
-        // 페이지네이션 클릭 이벤트
+    // 페이지네이션 초기화
+    function setupPagination() {
+        const pagination = document.querySelector(".slider-pagination");
+        pagination.innerHTML = ''; // 기존 페이지네이션 버튼 초기화
+
+        for (let i = 1; i <= totalPages; i++) {
+            const dot = document.createElement("span");
+            dot.classList.add("dot");
+            if (i === currentPage) dot.classList.add("active");
+            dot.addEventListener("click", function() {
+                currentPage = i;
+                showPage(currentPage);
+                updatePagination();
+            });
+            pagination.appendChild(dot);
+        }
+    }
+
+    // 현재 페이지 갱신
+    function updatePagination() {
+        const dots = document.querySelectorAll(".dot");
         dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                currentIndex = index;
-                categoryWrapper.scrollLeft = categoryWrapperWidth * currentIndex;
-                updateDots();
-            });
+            dot.classList.toggle("active", index + 1 === currentPage);
+        });
+    }
+
+    // 초기 페이지 표시 및 페이지네이션 설정
+    showPage(currentPage);
+    setupPagination();
+});
+
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+            var video = document.getElementById('myVideo');
+            video.play();  // 비디오 재생
         });
 
+    // 페이지가 로드되면 함수 실행
+    document.addEventListener('DOMContentLoaded', function () {
+        // 버튼 요소 선택
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
 
-        document.querySelectorAll('.game-item').forEach(item => {
-            item.addEventListener('click', function () {
-                const title = this.getAttribute('data-title');
-                const price = this.getAttribute('data-price');
-                const img1 = this.getAttribute('data-img1');
-                const img2 = this.getAttribute('data-img2');
-
-                // 제목과 가격 업데이트
-                document.getElementById('game-title').innerText = title;
-                document.getElementById('game-price').innerText = price;
-
-                // 스크린샷 이미지 업데이트
-                document.getElementById('screenshot1').src = img1;
-                // document.getElementById('screenshot2').src = img2;
-
-                // 상세 정보 보이기
-                document.querySelector('.game-detail').style.display = 'block';
-                document.querySelector('.game-detail').style.opacity = '1';
-            });
+        // 스크롤 이벤트 리스너 추가
+        window.addEventListener('scroll', () => {
+            // 현재 스크롤 위치가 300px을 넘으면 버튼 표시
+            if (window.scrollY > 300) {
+                scrollToTopBtn.style.display = 'flex'; // 버튼 보이기
+            } else {
+                scrollToTopBtn.style.display = 'none'; // 버튼 숨기기
+            }
         });
 
-        var swiper1 = new Swiper('.swiper', {
-            loop: true,
-            breakpoints: {
-                1023: {
-                    allowTouchMove: false
+        // 버튼 클릭 이벤트 리스너 추가
+        scrollToTopBtn.addEventListener('click', () => {
+            // 페이지 상단으로 부드럽게 스크롤
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    });
+
+const categoryWrapper = document.querySelector('.category-wrapper');
+const nextBtn = document.querySelector('.next-btn');
+const prevBtn = document.querySelector('.prev-btn');
+const dots = document.querySelectorAll('.dot');
+
+let currentIndex = 0;
+const itemsPerPage = 4; // 한 페이지에 보여질 카테고리 수
+const totalItems = document.querySelectorAll('.category-item').length;
+const totalPages = Math.ceil(totalItems / itemsPerPage); // 총 페이지 수
+
+// 카테고리 슬라이더의 너비 가져오기
+const categoryWrapperWidth = categoryWrapper.offsetWidth;
+
+// 슬라이더 초기화
+updateDots();
+
+// 다음 버튼 클릭 이벤트
+nextBtn.addEventListener('click', () => {
+    if (currentIndex < totalPages - 1) {
+        currentIndex++;
+        categoryWrapper.scrollLeft = categoryWrapperWidth * currentIndex;
+        updateDots();
+    }
+});
+
+// 이전 버튼 클릭 이벤트
+prevBtn.addEventListener('click', () => {
+    if (currentIndex > 0) {
+        currentIndex--;
+        categoryWrapper.scrollLeft = categoryWrapperWidth * currentIndex;
+        updateDots();
+    }
+});
+
+// 페이지네이션 업데이트
+function updateDots() {
+    dots.forEach((dot, index) => {
+        if (index === currentIndex) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
+    });
+}
+
+// 페이지네이션 클릭 이벤트
+dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+        currentIndex = index;
+        categoryWrapper.scrollLeft = categoryWrapperWidth * currentIndex;
+        updateDots();
+    });
+});
+
+
+// 클릭 이벤트로 상세 정보 표시 및 숨기기
+// document.addEventListener("DOMContentLoaded", function () {
+//     const gameItems = document.querySelectorAll(".game-list-item");
+//     let activeDetail = null;
+
+//     gameItems.forEach(function (item) {
+//         item.addEventListener("click", function (e) {
+//             e.stopPropagation(); // 클릭 이벤트가 부모 요소로 전달되지 않도록 차단
+
+//             const gameDetail = this.querySelector(".game-detail");
+
+//             if (gameDetail === activeDetail) {
+//                 gameDetail.classList.remove("active");
+//                 gameDetail.style.maxHeight = "0";
+//                 activeDetail = null;
+//                 return;
+//             }
+
+//             if (activeDetail) {
+//                 activeDetail.classList.remove("active");
+//                 activeDetail.style.maxHeight = "0";
+//             }
+
+//             gameDetail.classList.add("active");
+//             gameDetail.style.maxHeight = "400px";
+//             activeDetail = gameDetail;
+//         });
+//     });
+
+//     document.addEventListener("click", function () {
+//         if (activeDetail) {
+//             activeDetail.classList.remove("active");
+//             activeDetail.style.maxHeight = "0";
+//             activeDetail = null;
+//         }
+//     });
+// });
+
+// JavaScript 수정
+// JavaScript 코드 수정
+document.addEventListener("DOMContentLoaded", function() {
+    // 모든 게임 리스트 항목을 가져옴
+    const gameListItems = document.querySelectorAll(".game-list-item");
+
+    // 게임 리스트 항목마다 클릭 이벤트 추가
+    gameListItems.forEach(function(item) {
+        item.addEventListener("click", function() {
+            // 클릭한 항목의 data-game-id를 가져옴
+            const gameId = this.getAttribute("data-game-id");
+            // 해당 게임의 상세 정보 선택
+            const detail = document.getElementById(`game-detail-${gameId}`);
+
+            // 다른 모든 상세 정보를 숨김
+            document.querySelectorAll(".game-detail").forEach(function(detail) {
+                if (detail !== document.getElementById(`game-detail-${gameId}`)) {
+                    detail.classList.remove("active");
+                    detail.style.display = "none";
+                    detail.style.maxHeight = "0"; // 높이 0으로 설정하여 숨김
                 }
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            autoplay: {
-                delay: 3000,
-                disableOnInteraction: false,
-            },
+            });
+
+            // 클릭한 상세 정보가 이미 보이는 상태면 숨김
+            if (detail.classList.contains("active")) {
+                detail.classList.remove("active");
+                detail.style.display = "none";
+                detail.style.maxHeight = "0";
+            } else {
+                // 클릭한 상세 정보를 표시
+                detail.classList.add("active");
+                detail.style.display = "block";
+                detail.style.maxHeight = "1000px"; // 최대 높이 설정하여 표시
+
+                // 상세 정보를 클릭한 리스트 항목 바로 아래로 이동
+                this.parentNode.insertBefore(detail, this.nextSibling);
+            }
         });
+    });
+});
 
 
-        // 카테고리 슬라이더 (움직이지 않도록 autoplay 설정을 제거)
+
+
+
+
+        
+        // 특별 할인 슬라이더
+        // 배너 슬라이더 (움직이지 않도록 autoplay 설정을 제거)
         var bannerSwiper = new Swiper('.banner-container .swiper', {
             loop: false, // 슬라이드 반복 제거
             autoplay: false, // 자동 슬라이드 비활성화
@@ -701,27 +947,37 @@
         // 특별 할인 슬라이더 (자동 슬라이드와 페이지네이션 활성화)
         var discountSwiper = new Swiper('.discount-swiper', {
             loop: true,
-            autoplay: false,
-            // autoplay: {
-            //     delay: 3000, // 3초마다 슬라이드
-            //     disableOnInteraction: false,
-            // },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
+            autoplay: {
+                delay: 3000, // 3초마다 슬라이드
+                disableOnInteraction: false,
             },
             pagination: {
                 el: '.swiper-pagination',
                 clickable: true, // 페이지네이션을 클릭할 수 있도록 설정
-            }
-            
+            },
         });
 
+        var swiper1 = new Swiper('.swiper', {
+            loop: true,
+            breakpoints: {
+            1023: {
+                allowTouchMove: false
+            }
+        },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+        });
     </script>
 
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+                document.addEventListener('DOMContentLoaded', function () {
             fetch('http://localhost:3000/api/games/banner')
                 .then(response => response.json())
                 .then(data => {
@@ -958,7 +1214,5 @@
 
     </script>
 
-
 </body>
-
 </html>
