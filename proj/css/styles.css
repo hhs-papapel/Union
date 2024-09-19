@@ -541,8 +541,9 @@ body {
 }
 
 .category-slider h3 {
-    margin-bottom: 20px;
-    font-size: 18px;
+    margin-top: 80px;
+    margin-bottom: 50px;
+    font-size: 25px;
     color: #a1e44d;
 }
 
@@ -589,6 +590,8 @@ body {
 }
 
 .category-nav ul li {
+    margin-top: 80px;
+    margin-bottom: 60px;
     display: inline-block;
     margin-right: 20px;
 }
@@ -913,9 +916,11 @@ body {
 }
 
 .update-sale-section h2 {
-    color: #c6d4df;
+    text-align: center;
+    color: #7ffe92;
     font-size: 24px;
-    margin-bottom: 20px;
+    margin-top: 30px;
+    margin-bottom: 40px;
 }
 
 .game-grid {
