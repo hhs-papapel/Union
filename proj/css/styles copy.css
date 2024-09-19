@@ -347,7 +347,7 @@ body {
 
 .discount-container {
     padding: 10px;
-    background-color: #ffffff;
+    background-color: #f5f4f4;
     color: rgb(47, 47, 47);
     border-radius: 10px;
     margin: 10px auto; /* auto로 중앙 정렬 */
@@ -425,7 +425,6 @@ body {
     margin-top: -120px;
     transition: all 1s;
 }
-
 /* 할인율과 가격을 포함하는 박스 */
 .price-info {
     position: absolute;
