@@ -375,6 +375,17 @@
             document.getElementById('service-additional').innerHTML = details[document.getElementById('serviceSelect').value] || '';
         }
 
+        // 자주 묻는 질문 답변 표시
+        function showFaqAnswer(questionId) {
+            const answers = {
+                q1: `비밀번호를 변경하려면 설정 메뉴에서 "비밀번호 변경"을 선택하세요.`,
+                q2: `계정을 삭제하려면 고객센터로 연락하여 삭제 요청을 하세요.`,
+                q3: `서비스 이용 요금은 [여기 링크]에서 확인할 수 있습니다.`,
+                q4: `이용 제한 사유는 서비스 약관에 명시된 바와 같습니다. 자세한 사항은 고객센터로 문의하세요.`
+            };
+            document.getElementById('faq-answer').innerHTML = answers[questionId] || '답변을 찾을 수 없습니다.';
+        }
+
         // 검색 기능
         function searchFaq() {
             const query = document.getElementById('searchInput').value.toLowerCase();
