@@ -7,20 +7,20 @@
     <title>찜 목록</title>
     <link rel="stylesheet" href="../css/wish_list.css">
 
-    
+
     <!-- Font Awesome CDN 추가 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-     <script>
-        function loadHTML(file)
-        {
+
+    <!-- 로그인 체크 js 추가 -->
+    <script src="../assets/js/checkLogin.js"></script>
+
+    <script>
+        function loadHTML(file) {
             var rawFile = new XMLHttpRequest();
             rawFile.open("GET", file, false);
-            rawFile.onreadystatechange = function ()
-            {
-                if(rawFile.readyState === 4)
-                {
-                    if(rawFile.status === 200 || rawFile.status == 0)
-                    {
+            rawFile.onreadystatechange = function () {
+                if (rawFile.readyState === 4) {
+                    if (rawFile.status === 200 || rawFile.status == 0) {
                         var allText = rawFile.responseText;
                         document.write(allText);
                     }
@@ -183,6 +183,8 @@
                 wishlistContainer.innerHTML += wishlistItem;
             });
 
+            /*───────────────────────────────────────────────────────────────────────────────────────────*/
+
             // 장바구니에 추가하는 기능 구현
             const addToCartButtons = document.querySelectorAll('.add-to-cart');
             addToCartButtons.forEach(button => {
@@ -202,14 +204,22 @@
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
-                                alert('장바구니에 추가되었습니다.');
+                                // 장바구니 추가 성공 시 확인 메시지와 함께 장바구니 이동 여부 묻기
+                                if (confirm('장바구니에 추가되었습니다. 장바구니로 이동하시겠습니까?')) {
+                                    window.location.href = '/proj/html/shoppingBasket.html';  // "예" 선택 시 장바구니 페이지로 이동
+                                } else {
+                                    alert('장바구니에 추가되었습니다.');
+                                }
                             } else {
                                 alert('장바구니 추가에 실패했습니다.');
                             }
+                        })
+                        .catch(error => {
+                            console.error('장바구니 추가 중 오류 발생:', error);
                         });
                 });
             });
-
+            /*───────────────────────────────────────────────────────────────────────────────────────────*/
             // 찜 취소 기능 구현
             const removeFromWishlistButtons = document.querySelectorAll('.remove-from-wishlist');
             removeFromWishlistButtons.forEach(button => {
