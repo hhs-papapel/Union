@@ -418,8 +418,7 @@
         
 
     <!-- 카테고리 선택 -->
-     <br>
-     <br>
+
     <nav class="category-nav">
         <ul>
             <li><a href="#">인기 신작</a></li>
@@ -430,27 +429,30 @@
         </ul>
     </nav>
 
- <!-- 게임 목록 및 상세 화면 -->
+<!-- 게임 목록 및 상세 화면 -->
 <div class="game-list-section">
     <!-- 왼쪽 게임 목록 -->
     <div class="game-list">
         <ul>
-            <li class="game-item" data-title="게임 1" data-price="₩ 37,800" data-img1="../assets/images/A_DANCE_OF.jpg" data-description="대충 게임 1에 대한 설명">
+            <li class="game-item" data-title="게임 1" data-price="₩ 37,800" data-img1="../assets/images/A_DANCE_OF.jpg" data-description="게임 1은 매우 흥미로운 모험 게임입니다.">
                 <div class="game-info">
-                    <img src="../assets/images/A_DANCE_OF.jpg" alt="게임 1 이미지"> 
+                    <img src="../assets/images/A_DANCE_OF.jpg" alt="게임 1 이미지">
                     <span>게임 1</span>
+                    <span class="game-price">₩ 37,800</span>
                 </div>
             </li>
-            <li class="game-item" data-title="게임 2" data-price="₩ 69,800" data-img1="../assets/images/DAVE_THE_DIVER.jpg" data-description="대충 게임 2에 대한 설명">
+            <li class="game-item" data-title="게임 2" data-price="₩ 69,800" data-img1="../assets/images/DAVE_THE_DIVER.jpg" data-description="게임 2는 심해를 탐험하는 게임입니다.">
                 <div class="game-info">
-                    <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="게임 2 이미지"> 
+                    <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="게임 2 이미지">
                     <span>게임 2</span>
+                    <span class="game-price">₩ 69,800</span>
                 </div>
             </li>
-            <li class="game-item" data-title="게임 3" data-price="₩ 20,500" data-img1="../assets/images/shogun_Showdown.jpg" data-description="대충 게임 3에 대한 설명">
+            <li class="game-item" data-title="게임 3" data-price="₩ 20,500" data-img1="../assets/images/shogun_Showdown.jpg" data-description="게임 3은 전략적인 RPG 게임입니다.">
                 <div class="game-info">
-                    <img src="../assets/images/shogun_Showdown.jpg" alt="게임 3 이미지"> 
+                    <img src="../assets/images/shogun_Showdown.jpg" alt="게임 3 이미지">
                     <span>게임 3</span>
+                    <span class="game-price">₩ 20,500</span>
                 </div>
             </li>
         </ul>
@@ -464,18 +466,14 @@
         </div>
         <div class="game-screenshots">
             <img id="screenshot1" src="" alt="스크린샷 1">
-            <p id="game-description">대충 게임 설명이라는 뭐시기 저시기</p>
+            <p id="game-description">게임 설명</p>
         </div>
     </div>
 </div>
         
         
-        <!-- <div class="game-list-footer">
-            <p>검색을 이용해 더 많은 제품을 확인해 보세요</p>
-        </div> -->
-        
         <div class="recommend-section">
-            <img src="path_to_steam_logo.png" alt="Steam Logo" class="steam-logo">
+            <img src="../assets/images/logo4.png" alt="Steam Logo" class="steam-logo">
             <h2>계속 스크롤해 내려가 더 많은 추천 제품을 확인해 보세요.</h2>
             <p>아래에서 흥미로운 여러 제품을 카테고리별로 확인할 수 있습니다.</p>
         </div>
@@ -543,26 +541,28 @@ dots.forEach((dot, index) => {
 });
 
 
-        document.querySelectorAll('.game-item').forEach(item => {
-            item.addEventListener('click', function() {
-                const title = this.getAttribute('data-title');
-                const price = this.getAttribute('data-price');
-                const img1 = this.getAttribute('data-img1');
-                const img2 = this.getAttribute('data-img2');
-        
-                // 제목과 가격 업데이트
-                document.getElementById('game-title').innerText = title;
-                document.getElementById('game-price').innerText = price;
-        
-                // 스크린샷 이미지 업데이트
-                document.getElementById('screenshot1').src = img1;
-                // document.getElementById('screenshot2').src = img2;
-        
-                // 상세 정보 보이기
-                document.querySelector('.game-detail').style.display = 'block';
-                document.querySelector('.game-detail').style.opacity = '1';
-            });
+    // 게임 목록 클릭 이벤트 처리
+    document.querySelectorAll('.game-item').forEach(item => {
+        item.addEventListener('click', function() {
+            const title = this.getAttribute('data-title');
+            const price = this.getAttribute('data-price');
+            const img1 = this.getAttribute('data-img1');
+            const description = this.getAttribute('data-description');
+
+            // 제목과 가격 업데이트
+            document.getElementById('game-title').innerText = title;
+            document.getElementById('game-price').innerText = price;
+
+            // 스크린샷 이미지 업데이트
+            document.getElementById('screenshot1').src = img1;
+
+            // 설명 업데이트
+            document.getElementById('game-description').innerText = description;
+
+            // 상세 정보 보이기
+            document.querySelector('.game-detail').style.display = 'block';
         });
+    });
         
         
         

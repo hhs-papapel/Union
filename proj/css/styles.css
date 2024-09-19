@@ -571,6 +571,7 @@ body {
 
 /* 왼쪽 게임 목록 */
 .game-list {
+    margin-left: 120px;
     flex: 1;
     max-width: 40%;
     margin-right: 20px;
@@ -704,7 +705,7 @@ body {
 
 .recommend-section h2 {
     font-size: 24px; /* 제목 크기 */
-    color: #58a6ff; /* 파란색 텍스트 */
+    color: #34c142; /* 파란색 텍스트 */
     margin-bottom: 10px;
 }
 
@@ -815,4 +816,7 @@ body {
     color: #dddddd;
     line-height: 1.6;
     margin-top: 20px;
+}
+.game-price{
+    margin-left: 20px;
 }
