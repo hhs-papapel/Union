@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>추천 게임</title>
+    <title>게임 검색</title>
     <!-- Font Awesome 및 스타일시트 추가 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="../css/suggestion.css">
@@ -35,18 +35,15 @@
     <!-- 필터 영역 -->
     <section class="filter-section">
         <div class="filter-container">
-            <select>
-                <option value="recent">최근순</option>
-                <option value="popular">인기순</option>
-            </select>
-            <div class="category-icons">
+            <form><fieldset><input type="search" id="searchText" /><button type="button" onclick="searchs()"><i class="fa fa-search"></i></button></fieldset></form>
+            <!-- <div class="category-icons">
                 <i class="fas fa-th-large"></i>
                 <i class="fas fa-fist-raised"></i>
                 <i class="fas fa-dice"></i>
                 <i class="fas fa-football-ball"></i>
                 <i class="fas fa-basketball-ball"></i>
                 <i class="fas fa-gamepad"></i>
-            </div>
+            </div> -->
         </div>
     </section>
 
@@ -54,7 +51,7 @@
     <section class="game-list-section">
         <div class="game-list">
             <!-- 게임 카드 -->
-            <div class="game-card">
+            <!-- <div class="game-card">
                 <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="APEX">
                 <h3>DAVE THE DIVER</h3>
                 <p>무료</p>
@@ -84,6 +81,12 @@
                 <h3>FINAL FANTASY VII REMAKE</h3>
                 <p>₩79,800</p>
             </div>
+            <div class="game-card">
+                <img src="finalfantasy.jpg" alt="FINAL FANTASY VII REMAKE">
+                <h3>FINAL FANTASY VII REMAKE</h3>
+                <p>₩79,800</p>
+            </div> -->
+
         </div>
     </section>
 
@@ -94,21 +97,24 @@
     <!-- 로그인 체크 js 추가 -->
     <script src="../assets/js/checkLogin.js"></script>
 
-    <!-- JavaScript for hamburger menu and search -->
     <script>
-        // 검색창 토글
-        const searchIcon = document.querySelector('.search-icon');
-        const searchInput = document.querySelector('.search-input');
 
-        searchIcon.addEventListener('click', () => {
-            searchInput.classList.toggle('active');
-            searchInput.focus();
-        });
-    </script>
+        function searchs(){
+            let searchB = document.getElementById('searchText').value;
+            fetch(`http://localhost:3000/api/games/random2?gamename=${searchB}`)
+                    .then(response => response.json())
+                    .then(randomGames => {
+                        displayRandomGames(randomGames);  // 장바구니 데이터를 화면에 표시
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+        }
 
-    <script>
+
         document.addEventListener('DOMContentLoaded', () => {
-            fetch('http://localhost:3000/api/games/random')  // 랜덤 게임 5개를 가져오는 API
+            let searchB = "";
+            fetch(`http://localhost:3000/api/games/random2?gamename=${searchB}`)  // 랜덤 게임 5개를 가져오는 API
                 .then(response => response.json())
                 .then(randomGames => {
                     displayRandomGames(randomGames);  // 랜덤 게임 목록 표시
