@@ -306,6 +306,7 @@
                 return;
             }
             alert('아이디 찾기 성공: 입력하신 이메일로 아이디 정보가 발송되었습니다.');
+            document.getElementById('idFindEmail').value = ''; // 이메일 필드 초기화
         }
 
         // 비밀번호 찾기 로직
@@ -317,6 +318,8 @@
                 return;
             }
             alert('비밀번호 재설정 메일이 발송되었습니다.');
+            document.getElementById('passwordFindId').value = ''; // 아이디 필드 초기화
+            document.getElementById('passwordFindEmail').value = ''; // 이메일 필드 초기화
         }
 
         // 서비스 문의 선택에 따라 상세 내용 표시
