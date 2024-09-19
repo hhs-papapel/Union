@@ -347,7 +347,7 @@ body {
 
 .discount-container {
     padding: 10px;
-    background-color: #ffffff;
+    background-color: #f5f4f4;
     color: rgb(47, 47, 47);
     border-radius: 10px;
     margin: 10px auto; /* auto로 중앙 정렬 */
@@ -425,7 +425,6 @@ body {
     margin-top: -120px;
     transition: all 1s;
 }
-
 /* 할인율과 가격을 포함하는 박스 */
 .price-info {
     position: absolute;
@@ -563,7 +562,6 @@ body {
     border-radius: 10px;
     margin: 0 10px;
     position: relative;
-    margin-right: 15px;
 }
 
 .category-item span {
@@ -645,12 +643,10 @@ body {
     flex-wrap: nowrap; /* 요소가 줄 바꿈되지 않도록 설정 */
     width: 100%; /* 섹션이 전체 화면을 채우도록 */
     overflow-x: hidden; /* 좌우로 넘치는 요소를 숨기기 */
-    gap: 30px;
 }
 
 /* 왼쪽 게임 목록 */
 .game-list {
-    margin-left: 120px;
     flex: 1;
     max-width: 40%;
     margin-right: 20px;
@@ -659,11 +655,6 @@ body {
 .game-list ul {
     list-style: none;
     padding: 0;
-}
-
-/* 게임 리스트 간격 */
-.game-list ul li {
-    margin-bottom: 20px; /* 게임 리스트 아이템 사이의 간격 */
 }
 
 .game-item {
@@ -786,7 +777,7 @@ body {
 
 .recommend-section h2 {
     font-size: 24px; /* 제목 크기 */
-    color: #34c142; /* 파란색 텍스트 */
+    color: #58a6ff; /* 파란색 텍스트 */
     margin-bottom: 10px;
 }
 
@@ -897,77 +888,4 @@ body {
     color: #dddddd;
     line-height: 1.6;
     margin-top: 20px;
-}
-.game-price{
-    margin-left: 20px;
-}
-
-
-
-
-.update-sale-section {
-    width: 100%;
-    padding: 20px;
-    background-color: #1b2838;
-    color: #fff;
-}
-
-.update-sale-section h2 {
-    color: #c6d4df;
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
-.game-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 세 개의 열을 생성 */
-    gap: 20px;
-}
-
-.game-card {
-    background-color: #2a475e;
-    border-radius: 8px;
-    overflow: hidden;
-    text-align: center;
-    transition: transform 0.2s ease;
-}
-
-.large-card {
-    grid-column: span 2; /* 두 칸을 차지하는 카드 */
-    grid-row: span 2; /* 두 줄을 차지하는 카드 */
-}
-
-.game-card img {
-    width: 100%;
-    height: auto;
-    display: block; /* 흰색 줄 제거를 위해 이미지가 블록 요소로 취급되도록 설정 */
-}
-
-.game-details {
-    padding: 15px;
-}
-
-.game-details p {
-    margin: 0;
-    font-size: 14px;
-    color: #c6d4df;
-}
-
-.discount-tag {
-    display: block;
-    color: #41ff7d;
-    font-weight: bold;
-    margin-top: 5px;
-}
-
-.game-price {
-    display: block;
-    margin-top: 10px;
-    font-size: 18px;
-    color: #66f4e6;
-    font-weight: bold;
-}
-
-.game-card:hover {
-    transform: scale(1.05); /* 마우스를 올렸을 때 확대 효과 */
 }
