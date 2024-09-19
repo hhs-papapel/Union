@@ -274,137 +274,157 @@
 
     <!-- 자바스크립트 -->
     <script>
-        // 탭 전환 함수
-        function showTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
+    // 탭 전환 함수
+    function showTab(tabId) {
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+    }
+
+    // 이메일, 아이디 유효성 검사
+    function isValidInput(type, value) {
+        const patterns = {
+            email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            id: /^[a-zA-Z0-9]{4,20}$/
+        };
+        return patterns[type].test(value);
+    }
+
+    // 공통 제출 처리
+    function submitForm(nameId, contentId, successMessage, listId, isInquiry = false) {
+        const name = document.getElementById(nameId).value;
+        const content = document.getElementById(contentId).value;
+
+        if (!name || !content) {
+            alert('모든 필드를 입력해주세요.');
+            return;
         }
 
-        // 이메일, 아이디 유효성 검사
-        function isValidInput(type, value) {
-            const patterns = {
-                email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                id: /^[a-zA-Z0-9]{4,20}$/
-            };
-            return patterns[type].test(value);
+        alert(successMessage);
+
+        // 제출된 내용을 추가
+        const submissionList = document.getElementById(listId);
+        const submissionDiv = document.createElement('div');
+        submissionDiv.innerHTML = `<strong>${name}</strong>: ${content}`;
+        submissionList.appendChild(submissionDiv);
+
+        // 필드 초기화
+        document.getElementById(nameId).value = '';
+        document.getElementById(contentId).value = '';
+
+        if (isInquiry) {
+            // 문의 게시판에서 제출된 후 필드도 초기화
+            document.getElementById('userName').value = '';
+            document.getElementById('userQuestion').value = '';
+        }
+    }
+
+    function submitErrorForm() {
+        submitForm('errorName', 'errorDescription', '오류 신고가 완료되었습니다.', 'error-list');
+    }
+
+    function submitInquiryForm() {
+        submitForm('userName', 'userQuestion', '문의가 성공적으로 등록되었습니다.', 'questionList', true);
+    }
+
+    function submitUnsubscribeForm() {
+        const name = document.getElementById('unsubscribeName').value;
+        const email = document.getElementById('unsubscribeEmail').value;
+
+        if (!name || !email) {
+            alert('모든 필드를 입력해주세요.');
+            return;
         }
 
-        // 공통 제출 처리
-        function submitForm(nameId, contentId, successMessage, listId, isInquiry = false) {
-            const name = document.getElementById(nameId).value;
-            const content = document.getElementById(contentId).value;
+        if (!isValidInput('email', email)) {
+            alert('유효한 이메일 주소를 입력해주세요.');
+            return;
+        }
 
-            if (!name || !content) {
-                alert('모든 필드를 입력해주세요.');
-                return;
+        alert('광고성 정보 수신 동의가 해제되었습니다.');
+
+        // 필드 초기화
+        document.getElementById('unsubscribeName').value = '';
+        document.getElementById('unsubscribeEmail').value = '';
+    }
+
+    // 아이디/비밀번호 찾기 폼 생성
+    function showFindForm(type) {
+        const placeholder = type === 'id' ? '이메일을 입력하세요' : '아이디와 이메일을 입력하세요';
+        const formHtml = `
+            <div class="form-style">
+                <h3>${type === 'id' ? '아이디 찾기' : '비밀번호 찾기'}</h3>
+                <input type="email" id="${type}FindEmail" placeholder="등록된 이메일 주소를 입력하세요">
+                ${type === 'password' ? '<input type="text" id="passwordFindId" placeholder="아이디를 입력하세요">' : ''}
+                <button onclick="${type === 'id' ? 'findId()' : 'findPassword()'}">${type === 'id' ? '아이디 찾기' : '비밀번호 찾기'}</button>
+            </div>
+        `;
+        document.getElementById('id-find-content').innerHTML = formHtml;
+    }
+
+    // 아이디 찾기 로직
+    function findId() {
+        const email = document.getElementById('idFindEmail').value;
+        if (!isValidInput('email', email)) {
+            alert('유효한 이메일 주소를 입력해주세요.');
+            return;
+        }
+        alert('아이디 찾기 성공: 입력하신 이메일로 아이디 정보가 발송되었습니다.');
+        document.getElementById('idFindEmail').value = ''; // 이메일 필드 초기화
+    }
+
+    // 비밀번호 찾기 로직
+    function findPassword() {
+        const id = document.getElementById('passwordFindId').value;
+        const email = document.getElementById('passwordFindEmail').value;
+        if (!isValidInput('id', id) || !isValidInput('email', email)) {
+            alert('유효한 아이디 및 이메일을 입력해주세요.');
+            return;
+        }
+        alert('비밀번호 재설정 메일이 발송되었습니다.');
+        document.getElementById('passwordFindId').value = ''; // 아이디 필드 초기화
+        document.getElementById('passwordFindEmail').value = ''; // 이메일 필드 초기화
+    }
+
+    // 서비스 문의 선택에 따라 상세 내용 표시
+    function showServiceDetails() {
+        const details = {
+            billing: `결제 관련 문의는 고객센터로 연락해 주세요.`,
+            technical: `기술 지원이 필요하시면 지원팀에 문의해 주세요.`,
+            general: `일반적인 문의는 고객센터로 연락해 주세요.`,
+            feedback: `서비스에 대한 피드백은 아래 이메일로 보내 주세요.`
+        };
+        document.getElementById('service-additional').innerHTML = details[document.getElementById('serviceSelect').value] || '';
+    }
+
+    // 자주 묻는 질문 답변 표시
+    function showFaqAnswer(questionId) {
+        const answers = {
+            q1: `비밀번호를 변경하려면 설정 메뉴에서 "비밀번호 변경"을 선택하세요.`,
+            q2: `계정을 삭제하려면 고객센터로 연락하여 삭제 요청을 하세요.`,
+            q3: `서비스 이용 요금은 [여기 링크]에서 확인할 수 있습니다.`,
+            q4: `이용 제한 사유는 서비스 약관에 명시된 바와 같습니다. 자세한 사항은 고객센터로 문의하세요.`
+        };
+        document.getElementById('faq-answer').innerHTML = answers[questionId] || '답변을 찾을 수 없습니다.';
+    }
+
+    // 검색 기능
+    function searchFaq() {
+        const query = document.getElementById('searchInput').value.toLowerCase();
+        const tabs = ['faq-general', 'faq', 'service', 'error', 'ad', 'inquiry'];
+        let found = false;
+
+        for (let tabId of tabs) {
+            const tabContent = document.getElementById(tabId).textContent.toLowerCase();
+            if (tabContent.includes(query)) {
+                showTab(tabId);
+                found = true;
+                break;
             }
-
-            alert(successMessage);
-
-            // 제출된 내용을 추가
-            const submissionList = document.getElementById(listId);
-            const submissionDiv = document.createElement('div');
-            submissionDiv.innerHTML = `<strong>${name}</strong>: ${content}`;
-            submissionList.appendChild(submissionDiv);
-
-            // 필드 초기화
-            document.getElementById(nameId).value = '';
-            document.getElementById(contentId).value = '';
-
-            if (isInquiry) {
-                // 문의 게시판에서 제출된 후 필드도 초기화
-                document.getElementById('userName').value = '';
-                document.getElementById('userQuestion').value = '';
-            }
         }
 
-        function submitErrorForm() {
-            submitForm('errorName', 'errorDescription', '오류 신고가 완료되었습니다.', 'error-list');
+        if (!found) {
+            alert('검색 결과가 없습니다.');
         }
+    }
+</script>
 
-        function submitInquiryForm() {
-            submitForm('userName', 'userQuestion', '문의가 성공적으로 등록되었습니다.', 'questionList', true);
-        }
-
-        // 아이디/비밀번호 찾기 폼 생성
-        function showFindForm(type) {
-            const placeholder = type === 'id' ? '이메일을 입력하세요' : '아이디와 이메일을 입력하세요';
-            const formHtml = `
-                <div class="form-style">
-                    <h3>${type === 'id' ? '아이디 찾기' : '비밀번호 찾기'}</h3>
-                    <input type="email" id="${type}FindEmail" placeholder="등록된 이메일 주소를 입력하세요">
-                    ${type === 'password' ? '<input type="text" id="passwordFindId" placeholder="아이디를 입력하세요">' : ''}
-                    <button onclick="${type === 'id' ? 'findId()' : 'findPassword()'}">${type === 'id' ? '아이디 찾기' : '비밀번호 찾기'}</button>
-                </div>
-            `;
-            document.getElementById('id-find-content').innerHTML = formHtml;
-        }
-
-        // 아이디 찾기 로직
-        function findId() {
-            const email = document.getElementById('idFindEmail').value;
-            if (!isValidInput('email', email)) {
-                alert('유효한 이메일 주소를 입력해주세요.');
-                return;
-            }
-            alert('아이디 찾기 성공: 입력하신 이메일로 아이디 정보가 발송되었습니다.');
-            document.getElementById('idFindEmail').value = ''; // 이메일 필드 초기화
-        }
-
-        // 비밀번호 찾기 로직
-        function findPassword() {
-            const id = document.getElementById('passwordFindId').value;
-            const email = document.getElementById('passwordFindEmail').value;
-            if (!isValidInput('id', id) || !isValidInput('email', email)) {
-                alert('유효한 아이디 및 이메일을 입력해주세요.');
-                return;
-            }
-            alert('비밀번호 재설정 메일이 발송되었습니다.');
-            document.getElementById('passwordFindId').value = ''; // 아이디 필드 초기화
-            document.getElementById('passwordFindEmail').value = ''; // 이메일 필드 초기화
-        }
-
-        // 서비스 문의 선택에 따라 상세 내용 표시
-        function showServiceDetails() {
-            const details = {
-                billing: `결제 관련 문의는 고객센터로 연락해 주세요.`,
-                technical: `기술 지원이 필요하시면 지원팀에 문의해 주세요.`,
-                general: `일반적인 문의는 고객센터로 연락해 주세요.`,
-                feedback: `서비스에 대한 피드백은 아래 이메일로 보내 주세요.`
-            };
-            document.getElementById('service-additional').innerHTML = details[document.getElementById('serviceSelect').value] || '';
-        }
-
-        // 자주 묻는 질문 답변 표시
-        function showFaqAnswer(questionId) {
-            const answers = {
-                q1: `비밀번호를 변경하려면 설정 메뉴에서 "비밀번호 변경"을 선택하세요.`,
-                q2: `계정을 삭제하려면 고객센터로 연락하여 삭제 요청을 하세요.`,
-                q3: `서비스 이용 요금은 [여기 링크]에서 확인할 수 있습니다.`,
-                q4: `이용 제한 사유는 서비스 약관에 명시된 바와 같습니다. 자세한 사항은 고객센터로 문의하세요.`
-            };
-            document.getElementById('faq-answer').innerHTML = answers[questionId] || '답변을 찾을 수 없습니다.';
-        }
-
-        // 검색 기능
-        function searchFaq() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const tabs = ['faq-general', 'faq', 'service', 'error', 'ad', 'inquiry'];
-            let found = false;
-
-            for (let tabId of tabs) {
-                const tabContent = document.getElementById(tabId).textContent.toLowerCase();
-                if (tabContent.includes(query)) {
-                    showTab(tabId);
-                    found = true;
-                    break;
-                }
-            }
-
-            if (!found) {
-                alert('검색 결과가 없습니다.');
-            }
-        }
-    </script>
-</body>
-</html>
