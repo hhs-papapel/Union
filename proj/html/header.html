@@ -220,32 +220,39 @@
 
         // 로그인 후 로그아웃으로 변경
         document.addEventListener('DOMContentLoaded', function () {
-            // sessionStorage에서 userId를 가져옴
-            const userId = sessionStorage.getItem('userId');
-            console.log('userId:', userId);  // userId 값 확인
+            // sessionStorage에서 loggedInUser를 가져옴
+            const userId = sessionStorage.getItem('loggedInUser');
 
-            // 로그인/로그아웃 버튼 요소 가져오기
+            // 로그인/로그아웃 버튼과 메뉴 요소 가져오기
             const loginButton = document.querySelector('.nav-right a[href="/proj/html/login.html"]');
-            console.log('loginButton:', loginButton);  // 로그인 버튼 요소 확인
+            const navRight = document.querySelector('.nav-right'); // 메뉴 전체를 감싸는 요소
 
-            if (loginButton) {
-                // userId가 있으면 로그아웃으로 버튼 변경
+            if (loginButton && navRight) {
+                // userId가 있으면 로그아웃으로 버튼 변경 및 '내 정보', '라이브러리' 추가
                 if (userId) {
+                    // 로그인 버튼을 로그아웃으로 변경
                     loginButton.innerHTML = `<img src="../assets/images/로그인.png" alt="Logout">로그아웃`;
                     loginButton.href = "#"; // 로그아웃 시 동작을 설정
-                    console.log('로그인 상태입니다. 로그아웃 버튼으로 변경합니다.');  // 상태 확인
 
-                    // 로그아웃 클릭 시 sessionStorage에서 id 삭제 및 페이지 리로드
+                    // 로그아웃 클릭 시 sessionStorage에서 'loggedInUser' 삭제 및 페이지 리로드
                     loginButton.addEventListener('click', function () {
-                        console.log('로그아웃 버튼 클릭');  // 로그아웃 클릭 확인
-                        sessionStorage.removeItem('userId');
+                        sessionStorage.removeItem('loggedInUser');  // 여기서 'loggedInUser'를 제거해야 함
                         window.location.reload(); // 페이지 새로고침
                     });
-                } else {
-                    console.log('로그인 상태가 아닙니다. 로그인 버튼 유지');  // 로그인 상태가 아님
+
+                    // '내 정보'와 '라이브러리' 메뉴 추가
+                    const myInfoLink = document.createElement('a');
+                    myInfoLink.href = '/proj/html/mypage.html';
+                    myInfoLink.innerHTML = `<img src="../assets/images/로그인.png" alt="My Info">내 정보`;
+
+                    const libraryLink = document.createElement('a');
+                    libraryLink.href = '/proj/html/library.html';
+                    libraryLink.innerHTML = `<img src="../assets/images/로그인.png" alt="Library">라이브러리`;
+
+                    // 메뉴에 '내 정보'와 '라이브러리' 추가
+                    navRight.insertBefore(myInfoLink, loginButton);
+                    navRight.insertBefore(libraryLink, loginButton);
                 }
-            } else {
-                console.error('로그인 버튼을 찾을 수 없습니다.');
             }
         });
 
@@ -272,6 +279,6 @@
         function closeNav() {
             document.getElementById("mySidebar").style.width = "0";
         }
-        
+
     </script>
 </body>

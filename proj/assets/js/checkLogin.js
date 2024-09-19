@@ -18,8 +18,5 @@ document.addEventListener('DOMContentLoaded', function () {
                 window.location.reload();
             });
         }
-    } else {
-        // 로그인되지 않은 경우, 콘솔 로그로 상태 확인
-        console.log('로그인 상태가 아닙니다. 로그인 버튼 유지');
     }
 });
