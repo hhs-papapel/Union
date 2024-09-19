@@ -665,6 +665,7 @@ body {
 }
 
 .game-list {
+    margin-left: 400px;
     flex: 1;
     max-width: 40%;
 }
@@ -691,10 +692,10 @@ body {
 .game-item:hover {
     background-color: #34495e;
 }
-
 .game-info {
+    flex: 1;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: space-between;
 }
 
@@ -1219,4 +1220,108 @@ body {
     .video-section video {
         border-radius: 5px; /* 모바일에서 모서리 둥글게 */
     }
+}
+/* 게임 리스트 전체 컨테이너 스타일 */
+.game-list-container {
+    width: 100%;
+    background-color: #333; /* 배경 색상 */
+    padding: 20px; /* 전체 패딩 */
+    box-sizing: border-box;
+}
+
+/* 게임 리스트 항목 스타일 */
+.game-list-item {
+    cursor: pointer; /* 마우스가 손가락 모양으로 변경되도록 설정 */
+    display: flex;
+    align-items: center;
+    background-color: #444; /* 항목 배경 색상 */
+    margin-bottom: 15px; /* 항목 간격 */
+    padding: 15px;
+    border-radius: 10px;
+    pointer-events: auto; /* 클릭이 가능하도록 설정 */
+    z-index: 10; /* 다른 요소 위에 위치하도록 설정 */
+}
+.game-list-item .game-thumbnail img,
+.game-list-item .game-info,
+.game-list-item .game-discount {
+    cursor: pointer; /* 내부 요소들에도 동일하게 설정 */
+}
+
+/* 게임 썸네일 이미지 */
+.game-thumbnail img {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+/* 게임 제목 스타일 */
+.game-title h2 {
+    font-size: 24px;
+    color: #BFFF00;
+    margin: 0;
+}
+
+.game-title p {
+    font-size: 16px;
+    color: #fff;
+}
+/* 게임 태그 스타일 */
+.game-tags span {
+    background-color: #555;
+    color: #fff;
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-right: 5px;
+    display: inline-block;
+}
+
+/* 게임 설명 */
+.game-description p {
+    font-size: 14px;
+    color: #aaa;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* 장바구니 버튼 */
+.add-to-cart-btn {
+    background-color: #BFFF00;
+    color: #333;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #88dd91;
+}
+
+/* 게임 이미지 섹션 */
+.game-images {
+    display: flex;
+    margin-top: 10px;
+}
+
+.game-images img {
+    width: 100px;
+    height: 80px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+/* 게임 할인 정보 */
+.game-discount {
+    text-align: right;
+}
+
+.discount-rate {
+    font-size: 24px;
+    font-weight: bold;
+    color: #FFD700;
 }
