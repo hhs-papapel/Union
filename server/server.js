@@ -1543,3 +1543,25 @@ app.get('/support/list/details', (req, res) => {
 
 /*───────────────────────────────────────────────────────────────────────────────────────────*/
 
+
+app.get('/support/detail', (req, res) => {
+    const supportId = req.query.supportId; // 문의 ID
+    const query = `
+        SELECT subject, content, supportDate, status
+        FROM customersupport
+        WHERE supportId = ?
+    `;
+    connection.query(query, [supportId], (err, result) => {
+        if (err) {
+            console.log('DB Error:', err);
+            return res.status(500).json({ error: 'DB Error' });
+        }
+        if (result.length > 0) {
+            res.json(result[0]); // 결과가 있으면 첫 번째 결과를 반환
+        } else {
+            res.status(404).json({ message: '해당 문의 내역을 찾을 수 없습니다.' });
+        }
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
