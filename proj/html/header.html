@@ -101,9 +101,9 @@
         }
 
         .sidebar a:hover {
-            background-color: #1abc9c;
+            background-color: #000000;
             font-weight: bold;
-            color: #2b2b2b;
+            color: #ffffff;
         }
 
         .sidebar .closebtn {
@@ -166,6 +166,55 @@
                 stroke-width: 2;
             }
         }
+
+        /* 페이지 맨 위로 이동 버튼 스타일 */
+.scroll-to-top-btn {
+    position: fixed;
+    bottom: 30px; /* 화면 하단에서의 위치 */
+    right: 30px; /* 화면 오른쪽에서의 위치 */
+    width: 50px;
+    height: 50px;
+    background-color: #BFFF00; /* 버튼 배경색 */
+    color: #000000; /* 버튼 글자색 */
+    border: none;
+    border-radius: 50%; /* 둥근 버튼 모양 */
+    cursor: pointer;
+    display: none; /* 기본적으로 버튼 숨김 */
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* 그림자 효과 */
+    z-index: 1000; /* 다른 요소들보다 위에 표시되도록 설정 */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* 호버 시 배경색 및 크기 전환 애니메이션 */
+}
+
+/* 호버 효과 */
+.scroll-to-top-btn:hover {
+    color: #ffffff;
+    background-color: #000000; /* 호버 시 배경색 변경 */
+    border: 2px solid #BFFF00;
+    transform: scale(1.1); /* 호버 시 약간 확대 */
+}
+
+/* 버튼이 화면에 보일 때 애니메이션 효과 추가 */
+.scroll-to-top-btn.show {
+    display: flex; /* 버튼 보이기 */
+    opacity: 1;
+    animation: fadeIn 0.5s; /* 페이드 인 애니메이션 */
+}
+
+/* 페이드 인 애니메이션 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px); /* 아래에서 위로 이동 */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
     </style>
 </head>
 
@@ -222,10 +271,40 @@
             <a href="/proj/html/tage.html?tagId=20">샌드박스</a>
 
         </div>
+
+            <!-- 페이지 맨 위로 이동 버튼 -->
+    <button id="scrollToTopBtn" class="scroll-to-top-btn">▲</button>
+
+
     </header>
 
 
     <script>
+                // 페이지가 로드되면 함수 실행
+                document.addEventListener('DOMContentLoaded', function () {
+            // 버튼 요소 선택
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+            // 스크롤 이벤트 리스너 추가
+            window.addEventListener('scroll', () => {
+                // 현재 스크롤 위치가 300px을 넘으면 버튼 표시
+                if (window.scrollY > 250) {
+                    scrollToTopBtn.style.display = 'flex'; // 버튼 보이기
+                } else {
+                    scrollToTopBtn.style.display = 'none'; // 버튼 숨기기
+                }
+            });
+
+            // 버튼 클릭 이벤트 리스너 추가
+            scrollToTopBtn.addEventListener('click', () => {
+                // 페이지 상단으로 부드럽게 스크롤
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
 
         // 로그인 후 로그아웃으로 변경
         document.addEventListener('DOMContentLoaded', function () {

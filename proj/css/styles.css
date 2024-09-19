@@ -855,6 +855,7 @@ body {
     border-radius: 50%;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     transition: background-color 0.3s ease;
+    opacity: 0;
 }
 
 /* 버튼 호버 효과 */

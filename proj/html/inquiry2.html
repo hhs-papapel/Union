@@ -3,14 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/inquiry2.css">
     <title>문의 리스트</title>
     <style>
         /* 전체 레이아웃 스타일 */
+        * {
+
+            margin: 0;
+            padding: 0;
+            }
         body {
-            font-family: Arial, sans-serif;
             background-color: #f4f4f9;
             margin: 0;
-            padding: 20px;
+            margin-top: 150px;
         }
 
         h1 {
@@ -32,7 +37,7 @@
         }
 
         .inquiry-table th {
-            background-color: #66c0f4;
+            background-color: #000000;
             color: white;
         }
 
@@ -62,17 +67,21 @@
 
         /* 상세보기 버튼 스타일 */
         .details-btn {
-            background-color: #ff4a4a;
-            color: white;
+            font-weight: bold;
+            font-size: 15px;
+            background-color: #bfff00;
+            color: rgb(0, 0, 0);
             border: none;
             padding: 8px 16px;
             border-radius: 5px;
             cursor: pointer;
             text-decoration: none;
+            transition: all 0.5s;
         }
 
         .details-btn:hover {
-            background-color: #ff2a2a;
+            color: white;
+            background-color: #000000;
         }
 
         /* 필터 섹션 스타일 */
@@ -98,36 +107,49 @@
         }
 
     </style>
+        <script>
+            function loadHTML(file) {
+                var rawFile = new XMLHttpRequest();
+                rawFile.open("GET", file, false);
+                rawFile.onreadystatechange = function () {
+                    if (rawFile.readyState === 4) {
+                        if (rawFile.status === 200 || rawFile.status == 0) {
+                            var allText = rawFile.responseText;
+                            document.write(allText);
+                        }
+                    }
+                }
+                rawFile.send(null);
+            }
+        </script>
 </head>
 <body>
+    <div class="cd-popup" id="cd-popup" role="alert">
+        <div class="cd-popup-container">
+              <!-- 문의 등록 폼 -->
+              <section id="inquiry-form" class="inquiry-form">
+                <h2>문의 상세보기</h2>
+                <div class="details" id="details">
+                    <p><strong>문의 제목:</strong> 비밀번호 변경 요청</p>
+                    <p><strong>작성일:</strong> 2024-09-01</p>
+                    <p><strong>상태:</strong> <span class="status">접수 완료</span></p>
+                    <p><strong>문의 내용:</strong></p>
+                    <p>비밀번호를 변경하고 싶습니다. 절차가 궁금합니다.</p>
+                </div>
+            </section>
+          <a href="#0" class="cd-popup-close img-replace"></a>
+        </div> <!-- cd-popup-container -->
+      </div> <!-- cd-popup -->
 
+    <header>
+        <script>loadHTML("./header.html")</script>
+    </header>
     <h1>문의 리스트</h1>
 
-    <!-- 필터 섹션 -->
-    <div class="filter-section">
-        <div>
-            <label for="status-filter">상태별 필터:</label>
-            <select id="status-filter" name="status-filter">
-                <option value="all">전체</option>
-                <option value="pending">처리 중</option>
-                <option value="processed">접수 완료</option>
-                <option value="completed">처리 완료</option>
-            </select>
-        </div>
-        <input type="text" id="search-input" class="search-input" placeholder="검색어를 입력하세요...">
-        <div>
-            <label for="date-filter">날짜별 필터:</label>
-            <select id="date-filter" name="date-filter">
-                <option value="all">전체</option>
-                <option value="last-week">지난 주</option>
-                <option value="last-month">지난 달</option>
-                <option value="last-year">지난 해</option>
-            </select>
-        </div>
-    </div>
+
 
     <!-- 문의 리스트 테이블 -->
-    <table class="inquiry-table" id="inquiry-list">
+    <table class="inquiry-table">
         <thead>
             <tr>
                 <th>문의 제목</th>
@@ -137,13 +159,13 @@
                 <th>상세보기</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="inquiry-list">
             <tr>
                 <td>비밀번호 변경 요청</td>
                 <td>비밀번호를 변경하고 싶습니다. 절차가 궁금합니다.</td>
                 <td>2024-09-01</td>
                 <td class="status-processed">접수 완료</td>
-                <td><a href="./inquiry3.html" class="details-btn">상세보기</a></td>
+                <td><button id="cd-popup-trigger" class="details-btn" value="1">상세보기</button></td>
             </tr>
             <tr>
                 <td>계정 삭제 요청</td>
@@ -197,6 +219,100 @@
             });
         }
     </script>
+    <footer style="margin-top: 200px;">
+        <script>loadHTML("./footer.html")</script>
+    </footer>
 
+    <script src="/proj/assets/lib/jquery-3.7.1.min.js"></script>
+<script>
+            /*로그인정보로 장바구니 테이블에 있는 정보 가져오기*/
+            document.addEventListener('DOMContentLoaded', () => {
+            // sessionStorage에서 로그인된 사용자 ID 가져오기
+            const loggedInUser = sessionStorage.getItem('loggedInUser');
+
+            if (loggedInUser) {
+                // 장바구니 데이터를 서버에서 가져오기
+                fetch(`http://localhost:3000/support/list?userId=${loggedInUser}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        displayCartItems(data);  // 장바구니 데이터를 화면에 표시
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            } else {
+                alert('로그인이 필요합니다.');
+                window.location.href = '/proj/html/login.html';  // 로그인 페이지로 리다이렉트
+            }
+        });
+        /*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+
+        function displayCartItems(inquirtyItems) {
+            const inquirtyContainer = document.getElementById('inquiry-list');
+            inquirtyContainer.innerHTML = '';  // 기존 항목 초기화
+
+            inquirtyItems.forEach(({ supportId, subject, content, supportDate, status}) => {
+                inquirtyContainer.innerHTML += `
+                    <tr>
+                        <td>${subject}</td>
+                        <td>${content}</td>
+                        <td>${supportDate}</td>
+                        <td class="status-processed">${status}</td>
+                        <td><button id="cd-popup-trigger" class="details-btn" onclick="popup(${supportId})">상세보기</button></td>
+                    </tr>
+                `;
+            });
+
+            /*───────────────────────────────────────────────────────────────────────────────────────────*/
+        }
+
+</script>
+
+    <script>
+        function popup(sid){
+            let detail= document.getElementById('cd-popup');
+            let details= document.getElementById('details');
+            details.innerHTML = '';
+            detail.classList.add('is-visible');
+                fetch(`http://localhost:3000/support/list/details?userId=${sid}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        data.forEach(({ supportID, subject, content, supportDate, status}) => {
+                            
+                            details.innerHTML = `
+                                <p><strong>문의 제목:</strong> ${subject}</p>
+                                <p><strong>작성일:</strong> ${supportDate}</p>
+                                <p><strong>상태:</strong> <span class="status">${status}</span></p>
+                                <p><strong>문의 내용:</strong></p>
+                                <pre>${content}</pre>
+                            `;
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+        }
+
+        jQuery(document).ready(function($){
+      //open popup
+
+      
+      //close popup
+      $('.cd-popup').on('click', function(event){
+        if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') ) {
+          event.preventDefault();
+          $(this).removeClass('is-visible');
+        }
+      });
+      //close popup when clicking the esc keyboard button
+      $(document).keyup(function(event){
+          if(event.which=='27'){
+            $('.cd-popup').removeClass('is-visible');
+          }
+        });
+    });
+    </script>
 </body>
 </html>
