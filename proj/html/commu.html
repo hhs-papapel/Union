@@ -113,7 +113,7 @@
                 <li><a href="#">가이드</a></li>
                 <li><a href="#">평가</a></li>
             </ul>
-        </nav> 
+        </nav>
         <br>
         <!--리뷰 섹션 (탭 메뉴 바로 밑) -->
 
@@ -340,6 +340,10 @@
                             return;
                         }
 
+                        if (offset > 0) {
+                            communityRecentContainer.innerHTML += '<hr class="group-divider" style="border: 3px solid ">';
+                        }
+
                         data.forEach(item => {
                             const guideItem = `
                             <div class="guide-item">
@@ -366,7 +370,6 @@
                     });
             }
 
-            // 초기 데이터 5개 불러오기
             loadCommunityPosts();
 
             // 스크롤이 페이지 끝에 도달하면 추가 데이터 로드
