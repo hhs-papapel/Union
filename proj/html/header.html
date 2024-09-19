@@ -325,7 +325,7 @@
                     // 로그아웃 클릭 시 sessionStorage에서 'loggedInUser' 삭제 및 페이지 리로드
                     loginButton.addEventListener('click', function () {
                         sessionStorage.removeItem('loggedInUser');  // 여기서 'loggedInUser'를 제거해야 함
-                        window.location.reload(); // 페이지 새로고침
+                        window.location.href='../html/main.html'; // 페이지 새로고침
                     });
 
                     // '내 정보'와 '라이브러리' 메뉴 추가
