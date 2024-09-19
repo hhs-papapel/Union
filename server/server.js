@@ -1626,9 +1626,6 @@ app.get('/admin/support/detail', (req, res) => {
 app.post('/admin/support/answer', (req, res) => {
     const { supportId, answer } = req.body;
 
-    console.log('Received supportId:', supportId);
-    console.log('Received answer:', answer);
-
     // 문의 답변과 상태를 업데이트하는 쿼리
     const query = `UPDATE CustomerSupport SET response = ?, status = '완료' WHERE supportId = ?`;
 
@@ -1637,8 +1634,6 @@ app.post('/admin/support/answer', (req, res) => {
             console.error('답변 저장 중 오류 발생:', err);
             return res.status(500).json({ success: false, message: '서버 오류 발생' });
         }
-
-        console.log('Query Result:', result);
         res.json({ success: true });
     });
 });
