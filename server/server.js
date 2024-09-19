@@ -642,7 +642,7 @@ app.get('/api/game/:gameId/discount', (req, res) => {
 app.post('/api/review', (req, res) => {
     const { userId, gameId, rating, content } = req.body;
     const reviewDate = new Date();  // 리뷰 작성 날짜
-
+    console.log(req.body)
     if (!rating) {
         return res.status(400).json({ message: '평점을 입력해주세요.' });
     }
@@ -657,6 +657,7 @@ app.post('/api/review', (req, res) => {
             console.error('리뷰 저장 중 오류 발생:', err);
             return res.status(500).json({ message: '리뷰 저장 중 오류 발생' });
         }
+
 
         res.json({ message: '리뷰가 성공적으로 저장되었습니다.' });
     });
@@ -1024,7 +1025,7 @@ app.get('/api/user/username', (req, res) => {
 
 // 게임검색
 // app.get('/api/games/random', (req, res) => {
-    
+
 //     const gamename = "%"+req.query.gamename+"%";
 
 //     const query = `SELECT * FROM Game where gameName like ?;`;
@@ -1041,11 +1042,11 @@ app.get('/api/user/username', (req, res) => {
 // 추천게임 5가지
 app.get('/api/games/random2', (req, res) => {
     console.log(req.query.gamename);
-    const gamename = "%"+req.query.gamename+"%";
+    const gamename = "%" + req.query.gamename + "%";
 
     const query = `SELECT * FROM Game where gameName like ?;`;
 
-    connection.query(query,[gamename] ,(error, results) => {
+    connection.query(query, [gamename], (error, results) => {
         if (error) {
             console.error('Error fetching random games:', error);
             return res.status(500).json({ error: 'DB Error' });
@@ -1181,11 +1182,11 @@ app.post('/api/users/profile-pic', (req, res) => {
                 return res.status(500).json({ success: false, message: '파일 업로드 실패' });
             }
 
-            const profilePicUrl = `/profile/${req.file.filename}`;  // 파일 경로 설정
+            const profilePicUrl = req.file ? `/profile/${req.file.filename}` : null;  // 파일이 있으면 URL 설정, 없으면 null
 
-            // DB 업데이트 쿼리
-            const query = 'UPDATE User SET profilePic = ?, statusMessage = ? WHERE userId = ?';
-            connection.query(query, [profilePicUrl, req.body.statusMessage, req.body.userId], (err) => {
+            // DB 업데이트 쿼리 (파일이 없는 경우 기본 프로필 사진 유지)
+            const query = 'UPDATE User SET profilePic = COALESCE(?, profilePic), statusMessage = ? WHERE userId = ?';
+            connection.query(query, [profilePicUrl, req.body.statusMessage || '없음', req.body.userId], (err) => {
                 if (err) {
                     console.error('프로필 사진 및 상태 메시지 업데이트 중 오류:', err);
                     return res.status(500).json({ success: false, message: '프로필 사진 및 상태 메시지 업데이트 실패' });
@@ -1280,7 +1281,208 @@ app.get('/api/faqs/search', (req, res) => {
     });
 });
 
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
 
+// 리뷰 데이터 가져오기 라우트
+app.get('/api/reviews', (req, res) => {
+    const query = `
+        SELECT r.reviewDate, r.rating, r.content, g.gameName, u.userName, r.lastUpdated, g.imageUrl
+        FROM Review r
+        JOIN Game g ON r.gameId = g.gameId
+        JOIN User u ON r.userId = u.userId
+        ORDER BY r.reviewDate DESC
+    `;
+    connection.query(query, (err, results) => {
+        if (err) {
+            console.error('리뷰 데이터를 불러오는 중 오류 발생:', err);
+            return res.status(500).json({ success: false, message: '리뷰 데이터를 불러오는 중 오류 발생' });
+        }
+        res.json(results); // 결과를 JSON 형식으로 클라이언트에 전달
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+app.get('/api/community/recent', (req, res) => {
+    const query = `
+        SELECT c.content, c.postDate, g.gameName, u.profilePic
+        FROM Community c
+        JOIN Game g ON c.gameId = g.gameId
+        JOIN User u ON c.userId = u.userId
+        ORDER BY c.postDate DESC
+        LIMIT 4
+    `;
+
+    connection.query(query, (err, results) => {
+        if (err) {
+
+            console.error('커뮤니티 글을 가져오는 중 오류 발생:', err);
+            return res.status(500).json({ message: '서버 오류 발생' });
+        }
+        res.json(results); // 결과를 JSON 형식으로 클라이언트에 전달
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+app.get('/api/community/random', (req, res) => {
+    const query = `
+        SELECT c.content, c.postDate, g.gameName, u.profilePic
+        FROM Community c
+        JOIN Game g ON c.gameId = g.gameId
+        JOIN User u ON c.userId = u.userId
+        ORDER BY RAND()
+        LIMIT 4
+    `;
+
+    connection.query(query, (err, results) => {
+        if (err) {
+            console.error('커뮤니티 글을 랜덤으로 가져오는 중 오류 발생:', err);
+            return res.status(500).json({ message: '서버 오류 발생' });
+        }
+
+        res.json(results); // 결과를 JSON 형식으로 클라이언트에 전달
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+app.get('/api/community/recent-with-images', (req, res) => {
+    const limit = parseInt(req.query.limit) || 10; // 기본값 5개
+    const offset = parseInt(req.query.offset) || 0;
+
+
+
+    const query = `
+        SELECT c.content, g.gameName, u.name, MIN(gi.imageUrl) AS imageUrl, MAX(c.postDate) AS postDate
+        FROM Community c
+        JOIN Game g ON c.gameId = g.gameId
+        JOIN GameImage gi ON g.gameId = gi.gameId
+        JOIN User u ON c.userId = u.userId
+        GROUP BY c.content, g.gameName, u.name
+        ORDER BY postDate DESC
+        LIMIT ? OFFSET ?
+    `;
+
+    connection.query(query, [limit, offset], (err, results) => {
+        if (err) {
+            console.error('커뮤니티 글을 가져오는 중 오류 발생:', err);
+            return res.status(500).json({ message: '서버 오류 발생' });
+        }
+
+        res.json(results);
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+app.get('/api/community/search', (req, res) => {
+    const userName = req.query.userName; // 검색할 사용자 이름
+
+    const query = `
+        SELECT c.content, g.gameName, u.name, MIN(gi.imageUrl) AS imageUrl, MAX(c.postDate) AS postDate
+        FROM Community c
+        JOIN Game g ON c.gameId = g.gameId
+        JOIN GameImage gi ON g.gameId = gi.gameId
+        JOIN User u ON c.userId = u.userId
+        WHERE u.name LIKE ?
+        GROUP BY c.content, g.gameName, u.name
+        ORDER BY postDate DESC
+    `;
+
+    connection.query(query, [`%${userName}%`], (err, results) => {
+        if (err) {
+            console.error('커뮤니티 글을 검색하는 중 오류 발생:', err);
+            return res.status(500).json({ message: '서버 오류 발생' });
+        }
+        res.json(results); // 검색 결과를 클라이언트에 전달
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+app.get('/api/community/search/game', (req, res) => {
+    const gameName = req.query.gameName; // 검색할 사용자 이름
+    console.log(req.query.gameName)
+    const query = `
+        SELECT c.content, g.gameName, u.name, MIN(gi.imageUrl) AS imageUrl, MAX(c.postDate) AS postDate
+        FROM Community c
+        JOIN Game g ON c.gameId = g.gameId
+        JOIN GameImage gi ON g.gameId = gi.gameId
+        JOIN User u ON c.userId = u.userId
+        WHERE g.gameName LIKE ?
+        GROUP BY c.content, g.gameName, u.name
+        ORDER BY postDate DESC
+    `;
+
+    connection.query(query, [`%${gameName}%`], (err, results) => {
+        if (err) {
+            console.error('커뮤니티 글을 검색하는 중 오류 발생:', err);
+            return res.status(500).json({ message: '서버 오류 발생' });
+        }
+        console.log(results)
+        res.json(results); // 검색 결과를 클라이언트에 전달
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+// 커뮤니티 관리 
+app.get('/api/community-management', (req, res) => {
+    const limit = parseInt(req.query.limit) || 10;
+    const offset = parseInt(req.query.offset) || 0;
+
+    const query = `
+        SELECT 
+            c.postId, 
+            u.username, 
+            g.gameName, 
+            c.content, 
+            c.postDate
+        FROM 
+            Community c
+        JOIN 
+            User u ON c.userId = u.userId
+        JOIN 
+            Game g ON c.gameId = g.gameId
+        ORDER BY 
+            c.postDate DESC
+        LIMIT ? OFFSET ?
+    `;
+
+    connection.query(query, [limit, offset], (err, results) => {
+        if (err) {
+            console.error('커뮤니티 관리 데이터를 가져오는 중 오류 발생:', err);
+            return res.status(500).json({ message: '서버 오류 발생' });
+        }
+
+        res.json(results); // 데이터를 JSON 형식으로 클라이언트에 전달
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+// 게시물 삭제 API
+app.delete('/api/community-management/:postId', (req, res) => {
+    const postId = req.params.postId;
+
+    const query = 'DELETE FROM Community WHERE postId = ?';
+
+    connection.query(query, [postId], (err, result) => {
+        if (err) {
+            console.error('커뮤니티 게시물을 삭제하는 중 오류 발생:', err);
+            return res.status(500).json({ message: '서버 오류 발생' });
+        }
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: '해당 게시물을 찾을 수 없습니다.' });
+        }
+
+        res.json({ message: '게시물이 성공적으로 삭제되었습니다.' });
+    });
+});
 /*───────────────────────────────────────────────────────────────────────────────────────────*/
 /*───────────────────────────────────────────────────────────────────────────────────────────*/
 
@@ -1345,3 +1547,4 @@ app.get('/support/list/details', (req, res) => {
 });
 
 /*───────────────────────────────────────────────────────────────────────────────────────────*/
+

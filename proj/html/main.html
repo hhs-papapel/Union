@@ -1,20 +1,17 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게임 메인 페이지</title>
     <script>
-        function loadHTML(file)
-        {
+        function loadHTML(file) {
             var rawFile = new XMLHttpRequest();
             rawFile.open("GET", file, false);
-            rawFile.onreadystatechange = function ()
-            {
-                if(rawFile.readyState === 4)
-                {
-                    if(rawFile.status === 200 || rawFile.status == 0)
-                    {
+            rawFile.onreadystatechange = function () {
+                if (rawFile.readyState === 4) {
+                    if (rawFile.status === 200 || rawFile.status == 0) {
                         var allText = rawFile.responseText;
                         document.write(allText);
                     }
@@ -27,6 +24,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/styles.css"> <!-- 분리된 스타일시트 -->
 </head>
+
 <body>
 
     <!-- 상단 네비게이션 -->
@@ -45,13 +43,14 @@
 
     <!-- 메인 컨텐츠 -->
     <div class="main-content">
-        
+
         <!-- 메인 배너 슬라이더 -->
         <div class="swiper-containers">
             <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                 viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
                 <defs>
-                    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                    <path id="gentle-wave"
+                        d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
                 </defs>
                 <g class="parallax">
                     <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
@@ -60,33 +59,33 @@
                     <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
                 </g>
             </svg>
-        <div class="swiper-container2 swiper">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <img src="../assets/images/hogwarts.jpg" alt="배너3">
-                </div>
-                <div class="swiper-slide">
-                    <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="배너1">
-                </div>
-                <div class="swiper-slide">
-                    <img src="../assets/images/shogun_Showdown.jpg" alt="배너2">
-                </div>
-                
-            </div>
-        </div>
-        <div class="swiper-container3 swiper">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <img src="../assets/images/shogun_Showdown.jpg" alt="배너2">
-                </div>
-                <div class="swiper-slide">
-                    <img src="../assets/images/hogwarts.jpg" alt="배너3">
-                </div>
-                <div class="swiper-slide">
-                    <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="배너1">
+            <div class="swiper-container2 swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="../assets/images/hogwarts.jpg" alt="배너3">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="배너1">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="../assets/images/shogun_Showdown.jpg" alt="배너2">
+                    </div>
+
                 </div>
             </div>
-        </div>
+            <div class="swiper-container3 swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="../assets/images/shogun_Showdown.jpg" alt="배너2">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="../assets/images/hogwarts.jpg" alt="배너3">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="배너1">
+                    </div>
+                </div>
+            </div>
             <div class="swiper-container swiper">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
@@ -117,10 +116,10 @@
         <div class="discount-container">
             <h2>특별 할인</h2>
             <br>
-        
+
             <div class="swiper discount-swiper">
                 <div class="swiper-wrapper">
-        
+
                     <!-- 첫 번째 페이지 -->
                     <div class="swiper-slide">
                         <div class="discount-grid">
@@ -138,7 +137,7 @@
                                     </div>
                                 </div>
                             </div>
-        
+
                             <div class="discount-item large">
                                 <img src="path_to_image2.jpg" alt="Image 2">
                                 <div class="discount-info">
@@ -152,7 +151,7 @@
                                     </div>
                                 </div>
                             </div>
-        
+
                             <div class="discount-item small">
                                 <img src="path_to_image3.jpg" alt="Image 3">
                                 <div class="discount-info">
@@ -165,7 +164,7 @@
                                     </div>
                                 </div>
                             </div>
-        
+
                             <div class="discount-item small">
                                 <img src="path_to_image4.jpg" alt="Image 4">
                                 <div class="discount-info">
@@ -193,162 +192,163 @@
                             </div>
                         </div>
                     </div>
-        
+
                     <!-- 두 번째 페이지 -->
                     <div class="swiper-slide"></div>
                     <!-- 세 번째 페이지 -->
                     <div class="swiper-slide"></div>
                     <!-- 네 번째 페이지 -->
                     <div class="swiper-slide"></div>
-        
+
                 </div>
-        
+
                 <!-- 페이지네이션 -->
                 <!-- <div class="swiper-pagination"></div> -->
             </div>
         </div>
-        
-<div class="update-sale-section">
-    <h2>업데이트 및 할인</h2>
 
-    <div class="game-grid">
-        <!-- FC 25 - 더 큰 타일 -->
-        <div class="game-card large-card">
-            <img src="../assets/images/hogwarts.jpg" alt="FC 25 이미지">
-            <div class="game-details">
-                <p>지금 예약 구매하세요</p>
-                <span class="game-price">₩ 85,000</span>
-            </div>
-        </div>
+        <div class="update-sale-section">
+            <h2>업데이트 및 할인</h2>
 
-        <!-- 나머지 게임 타일 -->
-        <div class="game-card">
-            <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="할인 게임 1 이미지">
-            <div class="game-details">
-                <p>주중 특가</p>
-                <span class="discount-tag">최대 -90% 할인</span>
-                <span class="game-price">₩ 32,000</span>
-            </div>
-        </div>
-
-        <div class="game-card">
-            <img src="../assets/images/" alt="할인 게임 2 이미지">
-            <div class="game-details">
-                <p>주중 특가</p>
-                <span class="discount-tag">최대 -85% 할인</span>
-                <span class="game-price">₩ 69,800</span>
-            </div>
-        </div>
-
-        <div class="game-card">
-            <img src="path_to_game3_image.jpg" alt="할인 게임 3 이미지">
-            <div class="game-details">
-                <p>주중 특가</p>
-                <span class="game-price">₩ 62,880</span>
-            </div>
-        </div>
-
-        <div class="game-card">
-            <img src="../assets/images/A_DANCE_OF.jpg" alt="할인 게임 4 이미지">
-            <div class="game-details">
-                <p>주중 특가</p>
-                <span class="game-price">₩ 58,800</span>
-            </div>
-        </div>
-    </div>
-</div>
-
-    <!-- 최근 업데이트된 제품 섹션 -->
-<div class="recent-update-section">
-    <h2>최근에 업데이트된 제품</h2>
-    <div class="update-products">
-        <div class="product-card">
-            <div class="live-badge">🔴 실시간 방송</div>
-            <div class="product-image">
-                <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="House Builder">
-            </div>
-            <div class="product-info">
-                <div class="discount-tag">-40%</div>
-                <div class="price">
-                    <span class="original-price">₩ 21,500</span>
-                    <span class="discounted-price">₩ 12,900</span>
+            <div class="game-grid">
+                <!-- FC 25 - 더 큰 타일 -->
+                <div class="game-card large-card">
+                    <img src="../assets/images/hogwarts.jpg" alt="FC 25 이미지">
+                    <div class="game-details">
+                        <p>지금 예약 구매하세요</p>
+                        <span class="game-price">₩ 85,000</span>
+                    </div>
                 </div>
-                <p class="product-title">House Builder</p>
-                <p class="product-description">협동 플레이와 다양한 신규 기능이 포함된 업데이트 2.0이 도입되었습니다.</p>
-                <a href="#" class="detail-link">업데이트 상세 내역 보기</a>
+
+                <!-- 나머지 게임 타일 -->
+                <div class="game-card">
+                    <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="할인 게임 1 이미지">
+                    <div class="game-details">
+                        <p>주중 특가</p>
+                        <span class="discount-tag">최대 -90% 할인</span>
+                        <span class="game-price">₩ 32,000</span>
+                    </div>
+                </div>
+
+                <div class="game-card">
+                    <img src="../assets/images/" alt="할인 게임 2 이미지">
+                    <div class="game-details">
+                        <p>주중 특가</p>
+                        <span class="discount-tag">최대 -85% 할인</span>
+                        <span class="game-price">₩ 69,800</span>
+                    </div>
+                </div>
+
+                <div class="game-card">
+                    <img src="path_to_game3_image.jpg" alt="할인 게임 3 이미지">
+                    <div class="game-details">
+                        <p>주중 특가</p>
+                        <span class="game-price">₩ 62,880</span>
+                    </div>
+                </div>
+
+                <div class="game-card">
+                    <img src="../assets/images/A_DANCE_OF.jpg" alt="할인 게임 4 이미지">
+                    <div class="game-details">
+                        <p>주중 특가</p>
+                        <span class="game-price">₩ 58,800</span>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="product-card">
-            <div class="library-badge">📚 라이브러리에 있음</div>
-            <div class="product-image">
-                <img src="biped.jpg" alt="Biped">
-            </div>
-            <div class="product-info">
-                <div class="price">
-                    <span class="discounted-price">₩ 15,500</span>
+        <!-- 최근 업데이트된 제품 섹션 -->
+        <div class="recent-update-section">
+            <h2>최근에 업데이트된 제품</h2>
+            <div class="update-products">
+                <div class="product-card">
+                    <div class="live-badge">🔴 실시간 방송</div>
+                    <div class="product-image">
+                        <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="House Builder">
+                    </div>
+                    <div class="product-info">
+                        <div class="discount-tag">-40%</div>
+                        <div class="price">
+                            <span class="original-price">₩ 21,500</span>
+                            <span class="discounted-price">₩ 12,900</span>
+                        </div>
+                        <p class="product-title">House Builder</p>
+                        <p class="product-description">협동 플레이와 다양한 신규 기능이 포함된 업데이트 2.0이 도입되었습니다.</p>
+                        <a href="#" class="detail-link">업데이트 상세 내역 보기</a>
+                    </div>
                 </div>
-                <p class="product-title">Biped</p>
-                <p class="product-description">온라인 협동 모드 및 새로운 안정성 업데이트가 도입된 v2.0 버전입니다.</p>
-                <a href="#" class="detail-link">업데이트 상세 내역 보기</a>
-            </div>
-        </div>
 
-        <div class="product-card">
-            <div class="wishlist-badge">📋 찜 목록에 있음</div>
-            <div class="product-image">
-                <img src="forest.jpg" alt="비밀의 숲">
-            </div>
-            <div class="product-info">
-                <div class="discount-tag">-20%</div>
-                <div class="price">
-                    <span class="original-price">₩ 24,000</span>
-                    <span class="discounted-price">₩ 19,200</span>
+                <div class="product-card">
+                    <div class="library-badge">📚 라이브러리에 있음</div>
+                    <div class="product-image">
+                        <img src="biped.jpg" alt="Biped">
+                    </div>
+                    <div class="product-info">
+                        <div class="price">
+                            <span class="discounted-price">₩ 15,500</span>
+                        </div>
+                        <p class="product-title">Biped</p>
+                        <p class="product-description">온라인 협동 모드 및 새로운 안정성 업데이트가 도입된 v2.0 버전입니다.</p>
+                        <a href="#" class="detail-link">업데이트 상세 내역 보기</a>
+                    </div>
                 </div>
-                <p class="product-title">비밀의 숲</p>
-                <p class="product-description">새로운 랜덤 인카운터와 편의성 개선이 반영된 v1.1 업데이트.</p>
-                <a href="#" class="detail-link">업데이트 상세 내역 보기</a>
-            </div>
-        </div>
 
-        <div class="product-card">
-            <div class="new-badge">🌟 신규 업데이트</div>
-            <div class="product-image">
-                <img src="../assets/images/A_DANCE_OF.jpg" alt="Nine Souls">
-            </div>
-            <div class="product-info">
-                <div class="price">
-                    <span class="discounted-price">₩ 32,000</span>
+                <div class="product-card">
+                    <div class="wishlist-badge">📋 찜 목록에 있음</div>
+                    <div class="product-image">
+                        <img src="forest.jpg" alt="비밀의 숲">
+                    </div>
+                    <div class="product-info">
+                        <div class="discount-tag">-20%</div>
+                        <div class="price">
+                            <span class="original-price">₩ 24,000</span>
+                            <span class="discounted-price">₩ 19,200</span>
+                        </div>
+                        <p class="product-title">비밀의 숲</p>
+                        <p class="product-description">새로운 랜덤 인카운터와 편의성 개선이 반영된 v1.1 업데이트.</p>
+                        <a href="#" class="detail-link">업데이트 상세 내역 보기</a>
+                    </div>
                 </div>
-                <p class="product-title">Nine Souls</p>
-                <p class="product-description">6개의 새로운 언어 지원 및 다양한 버그 수정이 포함된 업데이트.</p>
-                <a href="#" class="detail-link">업데이트 상세 내역 보기</a>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="new-badge">🌟 신규 업데이트</div>
-            <div class="product-image">
-                <img src="../assets/images/A_DANCE_OF.jpg" alt="Nine Souls">
-            </div>
-            <div class="product-info">
-                <div class="price">
-                    <span class="discounted-price">₩ 32,000</span>
+
+                <div class="product-card">
+                    <div class="new-badge">🌟 신규 업데이트</div>
+                    <div class="product-image">
+                        <img src="../assets/images/A_DANCE_OF.jpg" alt="Nine Souls">
+                    </div>
+                    <div class="product-info">
+                        <div class="price">
+                            <span class="discounted-price">₩ 32,000</span>
+                        </div>
+                        <p class="product-title">Nine Souls</p>
+                        <p class="product-description">6개의 새로운 언어 지원 및 다양한 버그 수정이 포함된 업데이트.</p>
+                        <a href="#" class="detail-link">업데이트 상세 내역 보기</a>
+                    </div>
                 </div>
-                <p class="product-title">Nine Souls</p>
-                <p class="product-description">6개의 새로운 언어 지원 및 다양한 버그 수정이 포함된 업데이트.</p>
-                <a href="#" class="detail-link">업데이트 상세 내역 보기</a>
+                <div class="product-card">
+                    <div class="new-badge">🌟 신규 업데이트</div>
+                    <div class="product-image">
+                        <img src="../assets/images/A_DANCE_OF.jpg" alt="Nine Souls">
+                    </div>
+                    <div class="product-info">
+                        <div class="price">
+                            <span class="discounted-price">₩ 32,000</span>
+                        </div>
+                        <p class="product-title">Nine Souls</p>
+                        <p class="product-description">6개의 새로운 언어 지원 및 다양한 버그 수정이 포함된 업데이트.</p>
+                        <a href="#" class="detail-link">업데이트 상세 내역 보기</a>
+                    </div>
+                </div>
+
             </div>
+            <!-- <button class="view-all-btn">모두 보기</button> -->
         </div>
-        
-    </div>
-    <!-- <button class="view-all-btn">모두 보기</button> -->
-</div>
 
 
         <div class="category-slider">
 
             <h3>카테고리별로 살펴보기</h3>
             <div class="slider-navigation">
+
                 <!-- 왼쪽 화살표 버튼 -->
                 <button class="prev-btn">←</button>
         
@@ -382,7 +382,7 @@
                 <!-- 오른쪽 화살표 버튼 -->
                 <button class="next-btn">→</button>
             </div>
-        
+
             <div class="slider-pagination">
                 <span class="dot"></span>
                 <span class="dot"></span>
@@ -391,64 +391,66 @@
             </div>
         </div>
 
-        
-        
-    <!-- 카테고리 선택 -->
 
-    <nav class="category-nav">
-        <ul>
-            <li><a href="#">인기 신작</a></li>
-            <li><a href="#">최고 인기게임</a></li>
-            <li><a href="#">최고 인기제품</a></li>
-            <li><a href="#">최고 인기제목</a></li>
-            <li><a href="#">최고 인기시리즈</a></li>
-        </ul>
-    </nav>
+        <!-- 카테고리 선택 -->
 
-<!-- 게임 목록 및 상세 화면 -->
-<div class="game-list-section">
-    <!-- 왼쪽 게임 목록 -->
-    <div class="game-list">
-        <ul>
-            <li class="game-item" data-title="게임 1" data-price="₩ 37,800" data-img1="../assets/images/A_DANCE_OF.jpg" data-description="게임 1은 매우 흥미로운 모험 게임입니다.">
-                <div class="game-info">
-                    <img src="../assets/images/A_DANCE_OF.jpg" alt="게임 1 이미지">
-                    <span>게임 1</span>
-                    <span class="game-price">₩ 37,800</span>
-                </div>
-            </li>
-            <li class="game-item" data-title="게임 2" data-price="₩ 69,800" data-img1="../assets/images/DAVE_THE_DIVER.jpg" data-description="게임 2는 심해를 탐험하는 게임입니다.">
-                <div class="game-info">
-                    <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="게임 2 이미지">
-                    <span>게임 2</span>
-                    <span class="game-price">₩ 69,800</span>
-                </div>
-            </li>
-            <li class="game-item" data-title="게임 3" data-price="₩ 20,500" data-img1="../assets/images/shogun_Showdown.jpg" data-description="게임 3은 전략적인 RPG 게임입니다.">
-                <div class="game-info">
-                    <img src="../assets/images/shogun_Showdown.jpg" alt="게임 3 이미지">
-                    <span>게임 3</span>
-                    <span class="game-price">₩ 20,500</span>
-                </div>
-            </li>
-        </ul>
-    </div>
+        <nav class="category-nav">
+            <ul>
+                <li><a href="#">인기 신작</a></li>
+                <li><a href="#">최고 인기게임</a></li>
+                <li><a href="#">최고 인기제품</a></li>
+                <li><a href="#">최고 인기제목</a></li>
+                <li><a href="#">최고 인기시리즈</a></li>
+            </ul>
+        </nav>
 
-    <!-- 오른쪽 게임 상세 정보 (처음에는 숨김) -->
-    <div class="game-detail" style="display: none;">
-        <div id="game-detail-header">
-            <h3 id="game-title">게임 제목</h3>
-            <p id="game-price">가격</p>
+        <!-- 게임 목록 및 상세 화면 -->
+        <div class="game-list-section">
+            <!-- 왼쪽 게임 목록 -->
+            <div class="game-list">
+                <ul>
+                    <li class="game-item" data-title="게임 1" data-price="₩ 37,800"
+                        data-img1="../assets/images/A_DANCE_OF.jpg" data-description="게임 1은 매우 흥미로운 모험 게임입니다.">
+                        <div class="game-info">
+                            <img src="../assets/images/A_DANCE_OF.jpg" alt="게임 1 이미지">
+                            <span>게임 1</span>
+                            <span class="game-price">₩ 37,800</span>
+                        </div>
+                    </li>
+                    <li class="game-item" data-title="게임 2" data-price="₩ 69,800"
+                        data-img1="../assets/images/DAVE_THE_DIVER.jpg" data-description="게임 2는 심해를 탐험하는 게임입니다.">
+                        <div class="game-info">
+                            <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="게임 2 이미지">
+                            <span>게임 2</span>
+                            <span class="game-price">₩ 69,800</span>
+                        </div>
+                    </li>
+                    <li class="game-item" data-title="게임 3" data-price="₩ 20,500"
+                        data-img1="../assets/images/shogun_Showdown.jpg" data-description="게임 3은 전략적인 RPG 게임입니다.">
+                        <div class="game-info">
+                            <img src="../assets/images/shogun_Showdown.jpg" alt="게임 3 이미지">
+                            <span>게임 3</span>
+                            <span class="game-price">₩ 20,500</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 오른쪽 게임 상세 정보 (처음에는 숨김) -->
+            <div class="game-detail" style="display: none;">
+                <div id="game-detail-header">
+                    <h3 id="game-title">게임 제목</h3>
+                    <p id="game-price">가격</p>
+                </div>
+                <div class="game-screenshots">
+                    <img id="screenshot1" src="" alt="스크린샷 1">
+                    <p id="game-description">게임 설명</p>
+                </div>
+            </div>
         </div>
-        <div class="game-screenshots">
-            <img id="screenshot1" src="" alt="스크린샷 1">
-            <p id="game-description">게임 설명</p>
-        </div>
-    </div>
-</div>
 
 
-         <div class="recommend-section">
+        <div class="recommend-section">
             <img src="../assets/images/logo4.png" alt="Steam Logo" class="steam-logo">
             <h2>계속 스크롤해 내려가 더 많은 추천 제품을 확인해 보세요.</h2>
             <p>아래에서 흥미로운 여러 제품을 카테고리별로 확인할 수 있습니다.</p>
@@ -459,125 +461,125 @@
         </footer>
 
         <!-- 페이지 맨 위로 이동 버튼 -->
-<button id="scrollToTopBtn" class="scroll-to-top-btn">▲</button>
+        <button id="scrollToTopBtn" class="scroll-to-top-btn">▲</button>
 
-</div>
+    </div>
 
     <!-- Swiper.js 추가 -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="../assets/js/checkLogin.js"></script>
     <script>
 
-        
 
-    // 페이지가 로드되면 함수 실행
-    document.addEventListener('DOMContentLoaded', function () {
-        // 버튼 요소 선택
-        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
 
-        // 스크롤 이벤트 리스너 추가
-        window.addEventListener('scroll', () => {
-            // 현재 스크롤 위치가 300px을 넘으면 버튼 표시
-            if (window.scrollY > 300) {
-                scrollToTopBtn.style.display = 'flex'; // 버튼 보이기
-            } else {
-                scrollToTopBtn.style.display = 'none'; // 버튼 숨기기
+        // 페이지가 로드되면 함수 실행
+        document.addEventListener('DOMContentLoaded', function () {
+            // 버튼 요소 선택
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+            // 스크롤 이벤트 리스너 추가
+            window.addEventListener('scroll', () => {
+                // 현재 스크롤 위치가 300px을 넘으면 버튼 표시
+                if (window.scrollY > 300) {
+                    scrollToTopBtn.style.display = 'flex'; // 버튼 보이기
+                } else {
+                    scrollToTopBtn.style.display = 'none'; // 버튼 숨기기
+                }
+            });
+
+            // 버튼 클릭 이벤트 리스너 추가
+            scrollToTopBtn.addEventListener('click', () => {
+                // 페이지 상단으로 부드럽게 스크롤
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+
+
+
+        const categoryWrapper = document.querySelector('.category-wrapper');
+        const nextBtn = document.querySelector('.next-btn');
+        const prevBtn = document.querySelector('.prev-btn');
+        const dots = document.querySelectorAll('.dot');
+
+        let currentIndex = 0;
+        const itemsPerPage = 4; // 한 페이지에 보여질 카테고리 수
+        const totalItems = document.querySelectorAll('.category-item').length;
+        const totalPages = Math.ceil(totalItems / itemsPerPage); // 총 페이지 수
+
+        // 카테고리 슬라이더의 너비 가져오기
+        const categoryWrapperWidth = categoryWrapper.offsetWidth;
+
+        // 슬라이더 초기화
+        updateDots();
+
+        // 다음 버튼 클릭 이벤트
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < totalPages - 1) {
+                currentIndex++;
+                categoryWrapper.scrollLeft = categoryWrapperWidth * currentIndex;
+                updateDots();
             }
         });
 
-        // 버튼 클릭 이벤트 리스너 추가
-        scrollToTopBtn.addEventListener('click', () => {
-            // 페이지 상단으로 부드럽게 스크롤
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
+        // 이전 버튼 클릭 이벤트
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                categoryWrapper.scrollLeft = categoryWrapperWidth * currentIndex;
+                updateDots();
+            }
+        });
+
+        // 페이지네이션 업데이트
+        function updateDots() {
+            dots.forEach((dot, index) => {
+                if (index === currentIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        // 페이지네이션 클릭 이벤트
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentIndex = index;
+                categoryWrapper.scrollLeft = categoryWrapperWidth * currentIndex;
+                updateDots();
             });
         });
-    });
 
 
+        // 게임 목록 클릭 이벤트 처리
+        document.querySelectorAll('.game-item').forEach(item => {
+            item.addEventListener('click', function () {
+                const title = this.getAttribute('data-title');
+                const price = this.getAttribute('data-price');
+                const img1 = this.getAttribute('data-img1');
+                const description = this.getAttribute('data-description');
 
+                // 제목과 가격 업데이트
+                document.getElementById('game-title').innerText = title;
+                document.getElementById('game-price').innerText = price;
 
-const categoryWrapper = document.querySelector('.category-wrapper');
-const nextBtn = document.querySelector('.next-btn');
-const prevBtn = document.querySelector('.prev-btn');
-const dots = document.querySelectorAll('.dot');
+                // 스크린샷 이미지 업데이트
+                document.getElementById('screenshot1').src = img1;
 
-let currentIndex = 0;
-const itemsPerPage = 4; // 한 페이지에 보여질 카테고리 수
-const totalItems = document.querySelectorAll('.category-item').length;
-const totalPages = Math.ceil(totalItems / itemsPerPage); // 총 페이지 수
+                // 설명 업데이트
+                document.getElementById('game-description').innerText = description;
 
-// 카테고리 슬라이더의 너비 가져오기
-const categoryWrapperWidth = categoryWrapper.offsetWidth;
-
-// 슬라이더 초기화
-updateDots();
-
-// 다음 버튼 클릭 이벤트
-nextBtn.addEventListener('click', () => {
-    if (currentIndex < totalPages - 1) {
-        currentIndex++;
-        categoryWrapper.scrollLeft = categoryWrapperWidth * currentIndex;
-        updateDots();
-    }
-});
-
-// 이전 버튼 클릭 이벤트
-prevBtn.addEventListener('click', () => {
-    if (currentIndex > 0) {
-        currentIndex--;
-        categoryWrapper.scrollLeft = categoryWrapperWidth * currentIndex;
-        updateDots();
-    }
-});
-
-// 페이지네이션 업데이트
-function updateDots() {
-    dots.forEach((dot, index) => {
-        if (index === currentIndex) {
-            dot.classList.add('active');
-        } else {
-            dot.classList.remove('active');
-        }
-    });
-}
-
-// 페이지네이션 클릭 이벤트
-dots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-        currentIndex = index;
-        categoryWrapper.scrollLeft = categoryWrapperWidth * currentIndex;
-        updateDots();
-    });
-});
-
-
-    // 게임 목록 클릭 이벤트 처리
-    document.querySelectorAll('.game-item').forEach(item => {
-        item.addEventListener('click', function() {
-            const title = this.getAttribute('data-title');
-            const price = this.getAttribute('data-price');
-            const img1 = this.getAttribute('data-img1');
-            const description = this.getAttribute('data-description');
-
-            // 제목과 가격 업데이트
-            document.getElementById('game-title').innerText = title;
-            document.getElementById('game-price').innerText = price;
-
-            // 스크린샷 이미지 업데이트
-            document.getElementById('screenshot1').src = img1;
-
-            // 설명 업데이트
-            document.getElementById('game-description').innerText = description;
-
-            // 상세 정보 보이기
-            document.querySelector('.game-detail').style.display = 'block';
+                // 상세 정보 보이기
+                document.querySelector('.game-detail').style.display = 'block';
+            });
         });
-    });
-        
-        
-        
+
+
+
         // 특별 할인 슬라이더
         // 배너 슬라이더 (움직이지 않도록 autoplay 설정을 제거)
         var bannerSwiper = new Swiper('.banner-container .swiper', {
@@ -605,10 +607,10 @@ dots.forEach((dot, index) => {
         var swiper1 = new Swiper('.swiper', {
             loop: true,
             breakpoints: {
-            1023: {
-                allowTouchMove: false
-            }
-        },
+                1023: {
+                    allowTouchMove: false
+                }
+            },
             navigation: {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
@@ -840,7 +842,7 @@ dots.forEach((dot, index) => {
             { id: 22, name: '무료 플레이', imageUrl: '../assets/images/ex.jpg' }
         ];
 
-        const categoryContainer = document.querySelector('.category-wrapper'); // 'category' -> 'categoryContainer'로 변경
+        const categoryContainer = document.querySelector('.category-wrapper');
         categories.forEach(category => {
             const categoryItem = `
         <div class="category-item" data-tag-id="${category.id}" style="background-image: url('${category.imageUrl}');">
@@ -860,4 +862,5 @@ dots.forEach((dot, index) => {
     </script>
 
 </body>
+
 </html>

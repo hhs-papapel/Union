@@ -201,13 +201,14 @@
                     <tr>
                         <th>게시물 ID</th>
                         <th>작성자 ID</th>
-                        <th>제목</th>
+                        <th>게임이름</th>
+                        <th>작성 내용</th>
                         <th>작성일</th>
                         <th>관리</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <!-- <tr>
                         <td>post123</td>
                         <td>user123</td>
                         <td>게임 추천</td>
@@ -220,9 +221,17 @@
                         <td>이벤트 안내</td>
                         <td>2024-07-12</td>
                         <td><button class="btn">삭제</button></td>
-                    </tr>
+                    </tr> -->
                 </tbody>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th><button id="loadMoreBtn" class="btn">더보기</button> <!-- 더보기 버튼 추가 --></th>
+                <th></th>
+                <th></th>
+                <th></th>
             </table>
+
         </div>
     </div>
     <footer style="z-index: 2;">
@@ -334,6 +343,74 @@
                     alert('오류가 발생했습니다.');
                 });
         }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            let offset = 0;  // 처음 시작은 0
+            const limit = 10;  // 한 번에 10개씩 가져옴
+
+            function loadCommunityData() {
+                fetch(`http://localhost:3000/api/community-management?limit=${limit}&offset=${offset}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const tableBody = document.querySelector('#community-management tbody');
+
+                        data.forEach(item => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                        <td>${item.postId}</td> <!-- 게시물 ID -->
+                        <td>${item.username}</td> <!-- 작성자 ID -->
+                        <td>${item.gameName}</td> <!-- 게임 이름 -->
+                        <td>${item.content}</td> <!-- 내용 -->
+                        <td>${new Date(item.postDate).toLocaleDateString()}</td> <!-- 작성 날짜 -->
+                        <td><button class="btn delete-btn" data-post-id="${item.postId}">삭제</button></td> <!-- 삭제 버튼 -->
+                    `;
+
+                            tableBody.appendChild(row);
+                        });
+
+                        offset += limit;  // 다음 offset 설정
+
+                        // 기존 이벤트 리스너 제거 후 다시 등록 (중복 방지)
+                        document.querySelectorAll('.delete-btn').forEach(button => {
+                            button.removeEventListener('click', handleDeletePost); // 기존 이벤트 제거
+                            button.addEventListener('click', handleDeletePost);    // 새로운 이벤트 추가
+                        });
+                    })
+                    .catch(error => {
+                        console.error('커뮤니티 관리 데이터를 가져오는 중 오류 발생:', error);
+                    });
+            }
+
+            // 게시물 삭제 함수
+            function handleDeletePost(event) {
+                const postId = event.target.getAttribute('data-post-id');
+
+                if (confirm('정말로 이 게시물을 삭제하시겠습니까?')) {
+                    fetch(`http://localhost:3000/api/community-management/${postId}`, {
+                        method: 'DELETE'
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            alert(data.message);  // 삭제 완료 메시지
+
+                            // 삭제된 게시물의 행을 테이블에서 제거
+                            const row = event.target.closest('tr');
+                            row.remove();
+                        })
+                        .catch(error => {
+                            console.error('게시물 삭제 중 오류 발생:', error);
+                        });
+                }
+            }
+
+            // 처음 10개 로드
+            loadCommunityData();
+
+            // 더보기 버튼 클릭 시 추가 데이터 로드
+            document.getElementById('loadMoreBtn').addEventListener('click', function () {
+                loadCommunityData();
+            });
+        });
     </script>
 
 </body>

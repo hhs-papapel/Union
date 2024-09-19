@@ -19,7 +19,7 @@
     <div class="community-main">
         <section class="recently-visited">
             <h3>최근에 방문한 허브</h3>
-            <ul>
+            <ul id="recent-hubs">
                 <li class="community-item">
                     <img src="path-to-game-image1.png" alt="Game 1 Thumbnail" class="game-thumbnail">
                     <div class="game-info">
@@ -40,7 +40,7 @@
         <!-- 인기 허브 -->
         <section class="popular-hubs">
             <h3>인기 허브</h3>
-            <ul>
+            <ul id="random-hubs">
                 <li class="community-item">
                     <img src="../assets/images/user_test.png" alt="Game 3 Thumbnail" class="game-thumbnail">
                     <div class="game-info">
@@ -75,11 +75,11 @@
         <!-- 검색 섹션 -->
         <div class="search-section">
             <div class="search-container">
-                <label for="search-product">허브 찾기</label>
+                <label for="search-product">게임 찾기</label>
                 <div class="search-box">
                     <input type="text" id="search-product" class="search-bar" placeholder="제품 검색">
                     <button class="search-button">
-                        <img src="../assets/images/search.png" alt="Search Icon">
+                        <img src="../assets/images/search.png" alt="Search Icon" id="searchGame">
                     </button>
                 </div>
             </div>
@@ -91,7 +91,7 @@
                 <div class="search-box">
                     <input type="text" id="search-friend" class="search-bar" placeholder="친구 찾기">
                     <button class="search-button">
-                        <img src="../assets/images/search.png" alt="Search Icon">
+                        <img src="../assets/images/search.png" alt="Search Icon" id="searchname">
                     </button>
                 </div>
             </div>
@@ -113,13 +113,13 @@
                 <li><a href="#">가이드</a></li>
                 <li><a href="#">평가</a></li>
             </ul>
-        </nav>
+        </nav> 
         <br>
-        <!-- 리뷰 섹션 (탭 메뉴 바로 밑) -->
+        <!--리뷰 섹션 (탭 메뉴 바로 밑) -->
 
         <!-- 리뷰 박스들 -->
         <div class="reviews">
-            <div class="review-item">
+            <!-- <div class="review-item">
                 <div class="thumbs-up">
                     <img src="../assets/images/good.png" alt="Thumbs Up">
                 </div>
@@ -135,7 +135,6 @@
                     <p>댓글 2</p>
                 </div>
             </div>
-            <br>
 
             <div class="review-item">
                 <div class="thumbs-up">
@@ -152,14 +151,14 @@
                     <p>60명이 이 평가가 유용하다고 함</p>
                     <p>댓글 9</p>
                 </div>
-            </div>
+            </div> -->
         </div>
 
 
 
         <!-- 콘텐츠 영역 -->
         <div class="content-section">
-            <div class="community-main">
+            <!-- <div class="community-main">
                 <div class="main-video">
                     <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="Main">
                     <h3>World of Warships 9th Anniversary</h3>
@@ -172,11 +171,11 @@
                     </video>
                     <p>World of Warships</p>
                 </div>
-            </div>
+            </div> -->
 
             <!-- 가이드 콘텐츠 -->
-            <div class="guide-section">
-                <div class="guide-item">
+            <div class="guide-section" id="community-recent">
+                <!-- <div class="guide-item">
                     <h3>Dota 2: 가이드</h3>
                     <div class="guide-content">
                         <img src="../assets/images/ex.jpg" alt="Guide Thumbnail">
@@ -197,12 +196,281 @@
                             <span>★ 4.8/5 (평가 94개)</span>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </section>
     <!-- 로그인 체크 js 추가 -->
     <script src="../assets/js/checkLogin.js"></script>
+
+    <script>
+        // 평점을 텍스트로 변환하는 함수
+        function getRatingText(rating) {
+            if (rating >= 5) return '매우 긍정적 (Very Positive)';
+            else if (rating >= 4) return '대체로 긍정적 (Mostly Positive)';
+            else if (rating >= 3) return '복합적 (Mixed)';
+            else if (rating >= 2) return '대체로 부정적 (Mostly Negative)';
+            else return '매우 부정적 (Very Negative)';
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // 서버에서 리뷰 데이터를 가져옴
+            fetch('http://localhost:3000/api/reviews')
+                .then(response => response.json())
+                .then(reviews => {
+                    const reviewsContainer = document.querySelector('.reviews');
+                    const hoursArray = [
+                        '1시간', '2시간', '3시간', '4시간', '6시간',
+                        '7시간', '8시간', '9시간', '12시간', '14시간',
+                        '16시간', '18시간', '21시간', '23시간', '26시간',
+                        '29시간', '32시간', '36시간', '40시간', '45시간',
+                        '50시간', '55시간', '60시간', '70시간', '75시간',
+                        '80시간', '85시간', '90시간', '95시간', '99시간'
+                    ];
+                    reviews.forEach(review => {
+                        // 리뷰 아이템을 생성
+                        const reviewItem = document.createElement('div');
+                        reviewItem.classList.add('review-item');
+
+                        // 추천 또는 비추천에 따른 아이콘 결정
+                        const thumbsUpDiv = document.createElement('div');
+                        thumbsUpDiv.classList.add('thumbs-up');
+                        const thumbsUpImg = document.createElement('img');
+                        thumbsUpImg.src = review.rating >= 3 ? '../assets/images/good.png' : '../assets/images/bad.png';
+                        thumbsUpDiv.appendChild(thumbsUpImg);
+
+
+                        const randomHours = hoursArray[Math.floor(Math.random() * hoursArray.length)];
+
+
+                        // 리뷰 정보
+                        const reviewInfoDiv = document.createElement('div');
+                        reviewInfoDiv.classList.add('review-info');
+                        reviewInfoDiv.innerHTML = `
+                            <h3>${review.gameName}</h3>
+                            <p>게임이용시간:  ${randomHours}</p> 
+                            <p>평점: ${getRatingText(review.rating)}</p> 
+                            <p>게시 일시: ${new Date(review.reviewDate).toLocaleDateString()}</p>
+                            <p>${review.content}</p>
+                        `;
+
+                        // 리뷰 아이템에 구성 요소 추가
+                        reviewItem.appendChild(thumbsUpDiv);
+                        reviewItem.appendChild(reviewInfoDiv);
+                        reviewsContainer.appendChild(reviewItem);
+                    });
+                })
+                .catch(error => {
+                    console.error('리뷰 데이터를 불러오는 중 오류 발생:', error);
+                });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // 최근에 올라온 커뮤니티 글을 가져오는 함수
+            fetch('http://localhost:3000/api/community/recent')
+                .then(response => response.json())
+                .then(data => {
+                    const recentHubsContainer = document.getElementById('recent-hubs');
+                    recentHubsContainer.innerHTML = ''; // 기존 내용을 비움
+
+                    data.forEach(item => {
+                        const hubItem = `
+                    <li class="community-item">
+                        <img src="../../server${item.profilePic}" alt="${item.profilePic} Thumbnail" class="game-thumbnail">
+                        <div class="game-info">
+                            <a href="#" class="game-link" data-game-name="${item.gameName}">${item.gameName}</a>
+                            <p>${item.content}</p>
+                        </div>
+                    </li>
+                `;
+
+                        recentHubsContainer.innerHTML += hubItem; // 동적으로 항목을 추가
+                    });
+                })
+                .catch(error => {
+                    console.error('커뮤니티 글을 가져오는 중 오류 발생:', error);
+                });
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            // 최근에 올라온 커뮤니티 글을 가져오는 함수
+            fetch('http://localhost:3000/api/community/random')
+                .then(response => response.json())
+                .then(data => {
+                    const recentHubsContainer = document.getElementById('random-hubs');
+                    recentHubsContainer.innerHTML = ''; // 기존 내용을 비움
+
+                    data.forEach(item => {
+                        const hubItem = `
+                    <li class="community-item">
+                        <img src="../../server${item.profilePic}" alt="${item.profilePic} Thumbnail" class="game-thumbnail">
+                        <div class="game-info">
+                            <a href="#" class="game-link" data-game-name="${item.gameName}">${item.gameName}</a>
+                            <p>${item.content}</p>
+                        </div>
+                    </li>
+                `;
+
+                        recentHubsContainer.innerHTML += hubItem; // 동적으로 항목을 추가
+                    });
+                })
+                .catch(error => {
+                    console.error('커뮤니티 글을 가져오는 중 오류 발생:', error);
+                });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            let offset = 0; // 처음 데이터의 시작점
+            const limit = 10; // 한 번에 불러올 데이터 개수
+            let isLoading = false; // 데이터 로딩 중인지 확인
+            let noMoreData = false; // 더 이상 데이터가 없는지 확인
+
+            // 커뮤니티 글을 불러오는 함수
+            function loadCommunityPosts() {
+                if (isLoading || noMoreData) return; // 이미 로딩 중이거나 더 이상 데이터가 없으면 중복 요청 방지
+                isLoading = true;
+
+                fetch(`http://localhost:3000/api/community/recent-with-images?limit=${limit}&offset=${offset}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const communityRecentContainer = document.getElementById('community-recent');
+
+                        // 만약 서버에서 받은 데이터가 없으면 noMoreData 설정
+                        if (data.length === 0) {
+                            noMoreData = true; // 더 이상 불러올 데이터가 없음을 표시
+                            return;
+                        }
+
+                        data.forEach(item => {
+                            const guideItem = `
+                            <div class="guide-item">
+                                <h3>${item.gameName} 게임</h3>
+                                <div class="guide-content">
+                                    <img src="${item.imageUrl}" alt="Guide Thumbnail">
+                                    <div class="guide-info">
+                                        <h4>${item.name}</h4>
+                                        <p>${item.content}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                            communityRecentContainer.innerHTML += guideItem;
+                        });
+
+                        // 다음에 불러올 데이터의 offset 증가
+                        offset += limit;
+                        isLoading = false; // 로딩 완료 후 로딩 상태 해제
+                    })
+                    .catch(error => {
+                        console.error('커뮤니티 글을 가져오는 중 오류 발생:', error);
+                        isLoading = false; // 에러가 발생해도 로딩 중 상태를 해제
+                    });
+            }
+
+            // 초기 데이터 5개 불러오기
+            loadCommunityPosts();
+
+            // 스크롤이 페이지 끝에 도달하면 추가 데이터 로드
+            window.addEventListener('scroll', function () {
+                if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
+                    loadCommunityPosts(); // 스크롤이 끝에 도달할 때 데이터 추가 로드
+                }
+            });
+        });
+
+        document.getElementById('searchname').addEventListener('click', function () {
+            const searchQuery = document.getElementById('search-friend').value.trim(); // 검색어 입력값
+
+            if (!searchQuery) {
+                alert('검색어를 입력해주세요.');
+                return;
+            }
+
+            fetch(`http://localhost:3000/api/community/search?userName=${encodeURIComponent(searchQuery)}`)
+                .then(response => response.json())
+                .then(data => {
+                    const communityRecentContainer = document.getElementById('community-recent');
+                    communityRecentContainer.innerHTML = ''; // 기존 내용을 비움
+
+                    if (data.length === 0) {
+                        communityRecentContainer.innerHTML = '<p>검색 결과가 없습니다.</p>';
+                        return;
+                    }
+
+                    data.forEach(item => {
+                        const guideItem = `
+                    <div class="guide-item">
+                        <h3>${item.gameName}: 게임</h3> <!-- 게임 이름 -->
+                        <div class="guide-content">
+                            <img src="${item.imageUrl}" alt="Guide Thumbnail"> <!-- 이미지 URL -->
+                            <div class="guide-info">
+                                <h4>${item.name}</h4> <!-- 유저 이름 -->
+                                <p>${item.content}</p> <!-- 커뮤니티 글 내용 -->
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                        communityRecentContainer.innerHTML += guideItem; // 동적으로 항목 추가
+                    });
+                })
+                .catch(error => {
+                    console.error('검색 중 오류 발생:', error);
+                });
+        });
+
+
+        document.getElementById('searchGame').addEventListener('click', function () {
+            const searchQuery = document.getElementById('search-product').value.trim(); // 검색어 입력값
+            if (!searchQuery) {
+                alert('검색어를 입력해주세요.');
+                return;
+            }
+
+            fetch(`http://localhost:3000/api/community/search/game?gameName=${encodeURIComponent(searchQuery)}`)
+                .then(response => response.json())
+                .then(data => {
+                    const gameResultsContainer = document.getElementById('community-recent');
+                    gameResultsContainer.innerHTML = ''; // 기존 내용을 비움
+
+                    if (data.length === 0) {
+                        gameResultsContainer.innerHTML = '<p>검색 결과가 없습니다.</p>';
+                        return;
+                    }
+
+                    data.forEach(item => {
+                        const gameItem = `
+                    <div class="guide-item">
+                        <h3>${item.gameName}: 게임</h3> <!-- 게임 이름 -->
+                        <div class="guide-content">
+                            <img src="${item.imageUrl}" alt="Guide Thumbnail"> <!-- 이미지 URL -->
+                            <div class="guide-info">
+                                <h4>${item.name}</h4> <!-- 유저 이름 -->
+                                <p>${item.content}</p> <!-- 커뮤니티 글 내용 -->
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                        gameResultsContainer.innerHTML += gameItem; // 동적으로 항목 추가
+                    });
+                })
+                .catch(error => {
+                    console.error('검색 중 오류 발생:', error);
+                });
+        });
+        document.addEventListener('click', function (event) {
+            if (event.target.classList.contains('game-link')) {
+                event.preventDefault(); // 기본 링크 동작 방지
+                const gameName = event.target.getAttribute('data-game-name'); // 게임 이름 가져오기
+                document.getElementById('search-product').value = gameName; // 검색창에 게임 이름 설정
+
+                // 검색 요청 실행
+                document.getElementById('searchGame').click();
+            }
+        });
+
+    </script>
+
 </body>
 
 </html>

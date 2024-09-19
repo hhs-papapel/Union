@@ -239,6 +239,7 @@ hr {
     justify-content: flex-start; /* 아이템들을 왼쪽 정렬 */
     width: 50%;
     border: 1px solid #1ABC9C;
+    margin-bottom: 25px;
 }
 .review-item img {
     width: 40px; /* 따봉 이미지 크기 조정 */
@@ -272,6 +273,14 @@ hr {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 박스에 그림자 추가 */
     border: 2px solid #27AE60; /* 라임색 테두리 */
 }
+
+.guide-item img {
+    width: 100%; /* 부모 div의 너비에 맞게 이미지 크기 조정 */
+    height: auto; /* 이미지의 가로 세로 비율을 유지 */
+    object-fit: cover; /* 이미지가 잘리지 않게 조정 */
+    border-radius: 10px; /* 이미지 모서리 둥글게 설정 (박스와 동일하게 적용) */
+}
+
 .game-info a {
     font-size: 16px;
     color: #2ECC71; /* 라임색 */
