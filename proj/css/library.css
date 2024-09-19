@@ -6,7 +6,8 @@
 }
 
 body {
-    background: linear-gradient(to right, #f8ffe4, #A3E635);
+    background: linear-gradient(to right, #f8ffe4, #96e635);
+    /* background-color: white; */
     color: #333; /* 다크 그레이 텍스트 */
     margin-top: 110px;
 }
