@@ -107,7 +107,7 @@
         }
 
         /* 문의 게시판 스타일 */
-        .question-form, .error-report-form, .ad-unsubscribe-form, .id-find-form, .password-find-form {
+        .form-style {
             margin-top: 20px;
             padding: 10px;
             background-color: #f9f9f9;
@@ -115,9 +115,7 @@
             border-radius: 5px;
         }
 
-        .question-form input, .question-form textarea,
-        .error-report-form input, .error-report-form textarea,
-        .ad-unsubscribe-form input, .id-find-form input, .password-find-form input {
+        .form-style input, .form-style textarea {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
@@ -125,7 +123,7 @@
             border-radius: 4px;
         }
 
-        .question-form button, .error-report-form button, .ad-unsubscribe-form button, .id-find-form button, .password-find-form button {
+        .form-style button {
             padding: 10px 20px;
             background-color: #007bff;
             border: none;
@@ -134,7 +132,7 @@
             cursor: pointer;
         }
 
-        .question-form button:hover, .error-report-form button:hover, .ad-unsubscribe-form button:hover, .id-find-form button:hover, .password-find-form button:hover {
+        .form-style button:hover {
             background-color: #0056b3;
         }
 
@@ -192,72 +190,59 @@
         <section id="faq" class="tab-content">
             <h2>아이디/비밀번호 찾기</h2>
             <ul>
-                <li><a href="#" onclick="showFindId()">아이디 찾기</a></li>
-                <li><a href="#" onclick="showFindPassword()">비밀번호 찾기</a></li>
+                <li><a href="#" onclick="showFindForm('id')">아이디 찾기</a></li>
+                <li><a href="#" onclick="showFindForm('password')">비밀번호 찾기</a></li>
             </ul>
-            <div id="id-find-content"></div> <!-- 아이디/비밀번호 찾기 결과를 표시할 공간 -->
+            <div id="id-find-content"></div>
         </section>
 
         <!-- 서비스 문의 탭 -->
         <section id="service" class="tab-content">
             <h2>서비스 문의</h2>
             <p>서비스 관련 문의 사항을 선택하세요.</p>
-    
-        <!-- 드롭다운 메뉴 -->
-         <select id="serviceSelect" onchange="showServiceDetails()">
-            <option value="">문의 사항을 선택하세요</option>
-            <option value="billing">결제 문의</option>
-            <option value="technical">기술 지원</option>
-            <option value="general">일반 문의</option>
-            <option value="feedback">피드백 제출</option>
-    </select>
-
-        <!-- 추가적으로 표시할 콘텐츠 영역 -->
+            <select id="serviceSelect" onchange="showServiceDetails()">
+                <option value="">문의 사항을 선택하세요</option>
+                <option value="billing">결제 문의</option>
+                <option value="technical">기술 지원</option>
+                <option value="general">일반 문의</option>
+                <option value="feedback">피드백 제출</option>
+            </select>
             <div id="service-additional"></div>
-    </section>
-
+        </section>
 
         <!-- 오류 신고 탭 -->
         <section id="error" class="tab-content">
             <h2>오류</h2>
-            <p>서비스 이용 중 발생한 오류를 신고하세요.</p>
-            <div class="error-report-form">
+            <div class="form-style">
                 <h3>오류 신고하기</h3>
                 <input type="text" id="errorName" placeholder="이름을 입력하세요">
                 <textarea id="errorDescription" rows="5" placeholder="오류 내용을 입력하세요"></textarea>
-                <button onclick="reportError()">오류 신고하기</button>
+                <button onclick="submitForm('errorName', 'errorDescription', '오류 신고가 완료되었습니다.')">오류 신고하기</button>
             </div>
-            <div class="error-list">
-                <h3>신고된 오류 목록</h3>
-                <ul id="errorList"></ul>
-            </div>
+            <div id="error-list"></div>
         </section>
 
         <!-- 광고성 정보 동의 해제 탭 -->
         <section id="ad" class="tab-content">
             <h2>광고성 정보 동의 해제</h2>
-            <p>광고성 정보 수신 동의를 해제하려면 아래 폼을 작성해 주세요.</p>
-            <div class="ad-unsubscribe-form">
+            <div class="form-style">
                 <h3>광고성 정보 동의 해제 요청</h3>
                 <input type="text" id="unsubscribeName" placeholder="이름을 입력하세요">
                 <input type="email" id="unsubscribeEmail" placeholder="이메일을 입력하세요">
-                <button onclick="unsubscribe()">동의 해제 요청하기</button>
+                <button onclick="submitForm('unsubscribeName', 'unsubscribeEmail', '광고성 정보 수신 동의가 해제되었습니다.')">동의 해제 요청하기</button>
             </div>
         </section>
 
         <!-- 문의 게시판 탭 -->
         <section id="inquiry" class="tab-content">
             <h2>문의 게시판</h2>
-            <div class="question-form">
+            <div class="form-style">
                 <h3>문의하기</h3>
                 <input type="text" id="userName" placeholder="이름을 입력하세요">
                 <textarea id="userQuestion" rows="5" placeholder="문의 내용을 입력하세요"></textarea>
-                <button onclick="addQuestion()">문의 남기기</button>
+                <button onclick="submitForm('userName', 'userQuestion', '문의가 성공적으로 등록되었습니다.')">문의 남기기</button>
             </div>
-            <div class="question-list">
-                <h3>문의 목록</h3>
-                <ul id="questionList"></ul>
-            </div>
+            <div id="questionList"></div>
         </section>
 
         <!-- 푸터 -->
@@ -271,246 +256,99 @@
     <script>
         // 탭 전환 함수
         function showTab(tabId) {
-            var tabs = document.querySelectorAll('.tab-content');
-            tabs.forEach(tab => {
-                tab.classList.remove('active');
-            });
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
         }
 
-        // 자주 묻는 질문 답변 표시
-        function showFaqAnswer(questionId) {
-            var answers = {
-                'q1': '비밀번호를 변경하려면 먼저 로그인 후 계정 설정에서 비밀번호 변경 메뉴를 선택하세요.',
-                'q2': '계정 삭제는 고객센터에 문의 후 절차를 따르시면 됩니다.',
-                'q3': '서비스 이용 요금은 상품에 따라 다릅니다. 자세한 내용은 요금 안내 페이지를 참고하세요.',
-                'q4': '이용 제한 사유는 약관 위반 및 부정 이용 등이 있을 수 있습니다.'
+        // 이메일, 아이디 유효성 검사
+        function isValidInput(type, value) {
+            const patterns = {
+                email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                id: /^[a-zA-Z0-9]{4,20}$/
             };
-            document.getElementById('faq-answer').innerHTML = '<p>' + answers[questionId] + '</p>';
-        }
-    // 아이디 찾기 기능
-    function showFindId() {
-        var idContent = `
-            <div class="id-find-form">
-            <h3>아이디 찾기</h3>
-            <input type="email" id="idFindEmail" placeholder="등록된 이메일 주소를 입력하세요">
-            <button onclick="findId()">아이디 찾기</button>
-        </div>`;
-    document.getElementById('id-find-content').innerHTML = idContent;
-}
-
-    // 이메일 유효성 검사
-    function isValidEmail(email) {
-        var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        return emailPattern.test(email);
-}
-
-    // 아이디 찾기 로직
-    function findId() {
-        var email = document.getElementById('idFindEmail').value;
-
-        if (!email) {
-        alert('이메일 주소를 입력해주세요.');
-        return;
-    }
-
-        if (!isValidEmail(email)) {
-        alert('유효한 이메일 주소를 입력해주세요.');
-        return;
-    }
-
-        // 예시: 실제로 서버에서 이메일에 해당하는 아이디를 찾아오는 부분이 필요
-        // 여기서는 간단하게 성공 메시지만 출력합니다.
-        alert('아이디 찾기 성공: 입력하신 이메일로 아이디 정보가 발송되었습니다.');
-
-        // 입력 필드 초기화
-        document.getElementById('idFindEmail').value = '';
-}
-
-
-        // 비밀번호 찾기 기능
-        function showFindPassword() {
-            var passwordContent = `
-                <div class="password-find-form">
-                    <h3>비밀번호 찾기</h3>
-                    <input type="text" id="passwordFindId" placeholder="아이디를 입력하세요">
-                    <input type="email" id="passwordFindEmail" placeholder="등록된 이메일 주소를 입력하세요">
-                    <button onclick="findPassword()">비밀번호 찾기</button>
-                </div>`;
-            document.getElementById('id-find-content').innerHTML = passwordContent;
+            return patterns[type].test(value);
         }
 
-        // 이메일 유효성 검사
-        function isValidEmail(email) {
-            var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-            return emailPattern.test(email);
+        // 공통 제출 처리
+        function submitForm(nameId, contentId, successMessage) {
+            const name = document.getElementById(nameId).value;
+            const content = document.getElementById(contentId).value;
+
+            if (!name || !content) {
+                alert('모든 필드를 입력해주세요.');
+                return;
+            }
+
+            alert(successMessage);
+            document.getElementById(nameId).value = '';
+            document.getElementById(contentId).value = '';
         }
 
-        // 아이디 유효성 검사 (영문자, 숫자만 허용, 4~20자리)
-        function isValidId(id) {
-            var idPattern = /^[a-zA-Z0-9]{4,20}$/;
-            return idPattern.test(id);
+        // 아이디/비밀번호 찾기 폼 생성
+        function showFindForm(type) {
+            const placeholder = type === 'id' ? '이메일을 입력하세요' : '아이디와 이메일을 입력하세요';
+            const formHtml = `
+                <div class="form-style">
+                    <h3>${type === 'id' ? '아이디 찾기' : '비밀번호 찾기'}</h3>
+                    <input type="email" id="${type}FindEmail" placeholder="등록된 이메일 주소를 입력하세요">
+                    ${type === 'password' ? '<input type="text" id="passwordFindId" placeholder="아이디를 입력하세요">' : ''}
+                    <button onclick="${type === 'id' ? 'findId()' : 'findPassword()'}">${type === 'id' ? '아이디 찾기' : '비밀번호 찾기'}</button>
+                </div>
+            `;
+            document.getElementById('id-find-content').innerHTML = formHtml;
+        }
+
+        // 아이디 찾기 로직
+        function findId() {
+            const email = document.getElementById('idFindEmail').value;
+            if (!isValidInput('email', email)) {
+                alert('유효한 이메일 주소를 입력해주세요.');
+                return;
+            }
+            alert('아이디 찾기 성공: 입력하신 이메일로 아이디 정보가 발송되었습니다.');
         }
 
         // 비밀번호 찾기 로직
         function findPassword() {
-            var id = document.getElementById('passwordFindId').value;
-            var email = document.getElementById('passwordFindEmail').value;
-
-            if (!id) {
-                alert('아이디를 입력해주세요.');
-                return;
-            } 
-            
-            if (!isValidId(id)) {
-                alert('아이디는 영문자, 숫자로 구성된 4~20자리여야 합니다.');
+            const id = document.getElementById('passwordFindId').value;
+            const email = document.getElementById('passwordFindEmail').value;
+            if (!isValidInput('id', id) || !isValidInput('email', email)) {
+                alert('유효한 아이디 및 이메일을 입력해주세요.');
                 return;
             }
-
-            if (!email) {
-                alert('이메일 주소를 입력해주세요.');
-                return;
-            } 
-            
-            if (!isValidEmail(email)) {
-                alert('아이디는 올바르지만 이메일 형식이 잘못되었습니다. 유효한 이메일 주소를 다시 입력해주세요.');
-                return;
-            }
-
-            alert('입력된 이메일 주소로 비밀번호 재설정 메일이 발송되었습니다.');
-            document.getElementById('passwordFindId').value = ''; // 입력 필드 초기화
-            document.getElementById('passwordFindEmail').value = ''; // 입력 필드 초기화
+            alert('비밀번호 재설정 메일이 발송되었습니다.');
         }
 
-        // 오류 신고 기능
-        function reportError() {
-            var errorName = document.getElementById('errorName').value;
-            var errorDescription = document.getElementById('errorDescription').value;
-            if (errorName && errorDescription) {
-                var errorList = document.getElementById('errorList');
-                var li = document.createElement('li');
-                li.textContent = errorName + ': ' + errorDescription;
-                errorList.appendChild(li);
-
-                // 입력 필드 초기화
-                document.getElementById('errorName').value = '';
-                document.getElementById('errorDescription').value = '';
-
-                // 신고 완료 메시지 표시
-                alert('오류 신고가 완료되었습니다.');
-            } else {
-                alert('이름과 오류 내용을 입력해주세요.');
-            }
+        // 서비스 문의 선택에 따라 상세 내용 표시
+        function showServiceDetails() {
+            const details = {
+                billing: `결제 관련 문의는 고객센터로 연락해 주세요.`,
+                technical: `기술 지원이 필요하시면 지원팀에 문의해 주세요.`,
+                general: `일반적인 문의는 고객센터로 연락해 주세요.`,
+                feedback: `서비스에 대한 피드백은 아래 이메일로 보내 주세요.`
+            };
+            document.getElementById('service-additional').innerHTML = details[document.getElementById('serviceSelect').value] || '';
         }
 
-        // 광고성 정보 동의 해제 기능
-        function unsubscribe() {
-            var name = document.getElementById('unsubscribeName').value;
-            var email = document.getElementById('unsubscribeEmail').value;
-            if (name && email) {
-                // 동의 해제 완료 메시지 표시
-                alert('광고성 정보 수신 동의가 해제되었습니다.');
-
-                // 입력 필드 초기화
-                document.getElementById('unsubscribeName').value = '';
-                document.getElementById('unsubscribeEmail').value = '';
-            } else {
-                alert('이름과 이메일을 입력해주세요.');
-            }
-        }
-
-        // 문의 추가 기능
-        function addQuestion() {
-            var userName = document.getElementById('userName').value;
-            var userQuestion = document.getElementById('userQuestion').value;
-            if (userName && userQuestion) {
-                var questionList = document.getElementById('questionList');
-                var li = document.createElement('li');
-                li.textContent = userName + ': ' + userQuestion;
-                questionList.appendChild(li);
-
-                // 입력 필드 초기화
-                document.getElementById('userName').value = '';
-                document.getElementById('userQuestion').value = '';
-
-                // 문의 완료 메시지 표시
-                alert('문의가 성공적으로 등록되었습니다.');
-            } else {
-                alert('이름과 문의 내용을 입력해주세요.');
-            }
-        }
-
-        // 서비스 문의 선택에 따라 상세 내용을 표시하는 함수
-    function showServiceDetails() {
-        var serviceSelect = document.getElementById('serviceSelect').value;
-        var serviceContent = document.getElementById('service-additional');
-
-        // 각 문의 사항에 맞는 내용을 동적으로 변경
-        var details = {
-        billing: `
-            <h3>결제 문의</h3>
-            <p>결제 관련 문제에 대해 문의하려면, 결제 영수증 번호와 함께 고객센터에 연락해 주세요.</p>
-            <p>전화: 123-456-7890</p>
-            <p>이메일: billing@service.com</p>`,
-        technical: `
-            <h3>기술 지원</h3>
-            <p>기술적인 문제에 대해 지원이 필요하신 경우, 아래 기술 지원팀에 문의해 주세요.</p>
-            <p>전화: 123-456-7891</p>
-            <p>이메일: support@service.com</p>`,
-        general: `
-            <h3>일반 문의</h3>
-            <p>일반적인 서비스 문의 사항이 있으시면 고객센터로 연락해 주세요.</p>
-            <p>전화: 123-456-7892</p>
-            <p>이메일: info@service.com</p>`,
-        feedback: `
-            <h3>피드백 제출</h3>
-            <p>서비스에 대한 의견을 남기고 싶으시면 피드백을 보내 주세요.</p>
-            <p>이메일: feedback@service.com</p>`
-    };
-
-    // 선택한 옵션에 해당하는 내용을 표시
-    serviceContent.innerHTML = details[serviceSelect] || '';
-}
         // 검색 기능
-function searchFaq() {
-    var query = document.getElementById('searchInput').value.toLowerCase();
-    var found = false;  // 검색 결과가 있는지 확인
+        function searchFaq() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const tabs = ['faq-general', 'faq', 'service', 'error', 'ad', 'inquiry'];
+            let found = false;
 
-    // 각 탭에 대한 검색
-    var tabs = {
-        'faq-general': document.querySelector('#faq-general'),
-        'faq': document.querySelector('#faq'),
-        'service': document.querySelector('#service'),
-        'error': document.querySelector('#error'),
-        'ad': document.querySelector('#ad'),
-        'inquiry': document.querySelector('#inquiry')
-    };
+            for (let tabId of tabs) {
+                const tabContent = document.getElementById(tabId).textContent.toLowerCase();
+                if (tabContent.includes(query)) {
+                    showTab(tabId);
+                    found = true;
+                    break;
+                }
+            }
 
-    // 각 탭의 콘텐츠에서 검색어를 찾습니다.
-    for (let tabId in tabs) {
-        let tabContent = tabs[tabId].textContent.toLowerCase();
-        
-        if (tabContent.includes(query)) {
-            showTab(tabId);  // 검색어가 있으면 해당 탭을 보여줌
-            found = true;
-            break;  // 첫 번째로 찾은 탭으로 이동하고 종료
+            if (!found) {
+                alert('검색 결과가 없습니다.');
+            }
         }
-    }
-
-    // 검색 결과가 없는 경우
-    if (!found) {
-        alert('검색 결과가 없습니다.');
-    }
-}
-
-// 탭 전환 함수
-function showTab(tabId) {
-    var tabs = document.querySelectorAll('.tab-content');
-    tabs.forEach(tab => {
-        tab.classList.remove('active');
-    });
-    document.getElementById(tabId).classList.add('active');
-}
     </script>
 </body>
 </html>
