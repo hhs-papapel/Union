@@ -326,7 +326,7 @@
                     loginButton.addEventListener('click', function () {
                         sessionStorage.removeItem('loggedInUser');
                         sessionStorage.removeItem('isAdmin'); // isAdmin 값도 삭제
-                        window.location.reload();
+                        window.location.href='../html/main.html'; // 페이지 새로고침
                     });
 
                     const myInfoLink = document.createElement('a');
