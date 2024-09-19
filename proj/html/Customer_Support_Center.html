@@ -13,11 +13,11 @@
     <header class="header-banner">
         <div class="search-bar-container">
             <h1>무엇을 도와드릴까요?</h1>
-            <input type="text" class="search-input" placeholder="검색어를 입력하세요...">
+            <input type="text" class="search-input" placeholder="검색어를 입력하세요..." oninput="searchFAQs()">
         </div>
     </header>
 
-    <!-- 아이콘 메뉴 -->
+    <!-- 아이콘 메뉴
     <section class="main-icons">
         <div class="icon-item">
             <img src="../assets/images/결제.png" alt="결제 및 RP 문제">
@@ -47,48 +47,23 @@
                 <p>게임 종료 후 플레이어를 신고하려면 리플레이를 확인하고 신고 기능을 통해 문제를 보고하세요.</p>
             </div>
         </div>
-    </section>
+    </section> -->
 
 
     <section class="qa">
         <h2>많이 하는 질문 TOP4</h2>
-        <div class="qa-item">
-            <p class="question">Q1. 비밀번호는 어떻게 변경하나요?</p>
-            <div class="answer">
-                <p>A1. 비밀번호를 변경하려면 설정 페이지에서 "비밀번호 변경" 옵션을 선택하고, 현재 비밀번호와 새로운 비밀번호를 입력하세요.</p>
-            </div>
-        </div>
-        <div class="qa-item">
-            <p class="question">Q2. 계정을 삭제하고 싶습니다.</p>
-            <div class="answer">
-                <p>A2. 계정 삭제는 고객센터를 통해 요청해야 하며, 모든 데이터가 복구 불가능하게 삭제됩니다.</p>
-            </div>
-        </div>
-        <div class="qa-item">
-            <p class="question">Q3. 서비스 이용 요금은 얼마인가요?</p>
-            <div class="answer">
-                <p>A3. 서비스는 기본적으로 무료로 제공되지만, 특정 프리미엄 기능이나 추가적인 옵션은 유료로 제공됩니다.</p>
-            </div>
-        </div>
-        <div class="qa-item">
-            <p class="question">Q4. 이용 제한 사유는 무엇인가요?</p>
-            <div class="answer">
-                <p>A4. 이용 제한은 계정 도용, 불법적인 활동, 이용 약관 위반 시 발생할 수 있습니다. 자세한 내용은 고객센터로 문의하세요.</p>
-            </div>
-        </div>
+
     </section>
     <!-- 세부 카테고리 -->
     <section class="help-categories">
         <h2>도움이 필요한 유형을 선택해주세요.</h2>
         <div class="category-grid">
-            <div class="category-item">리그 오브 레전드 기본</div>
-            <div class="category-item">계정 정보 및 보안</div>
-            <div class="category-item">게임, 명예, 점수 및 랭킹</div>
-            <div class="category-item">성능, 하드웨어 문제, 버그</div>
-            <div class="category-item">로그인, 패치, 연결 및 충돌</div>
-            <div class="category-item">상점, 신용카드 및 구독</div>
-            <div class="category-item">신고, 제재 및 이용 제한</div>
-            <div class="category-item">이벤트, 상품 및 기타</div>
+            <div class="category-item" data-category="1-10">계정 정보 및 보안</div>
+            <div class="category-item" data-category="11-20">게임, 명예, 점수 및 랭킹</div>
+            <div class="category-item" data-category="21-30">성능, 하드웨어 문제, 버그</div>
+            <div class="category-item" data-category="31-40">로그인, 패치, 연결 및 충돌</div>
+            <div class="category-item" data-category="41-50">상점, 신용카드 및 구독</div>
+            <div class="category-item" data-category="51-60">이벤트, 상품 및 기타</div>
         </div>
     </section>
 
@@ -100,52 +75,178 @@
         <a href="./inquiry.html" class="inquiry-btn">문의하기</a> <!-- <a> 태그 사용 -->
     </section>
 
-        <!-- 페이지 맨 위로 이동 버튼 -->
-        <button id="scrollToTopBtn" class="scroll-to-top-btn">▲</button>
+    <!-- 페이지 맨 위로 이동 버튼 -->
+    <button id="scrollToTopBtn" class="scroll-to-top-btn">▲</button>
 
     <!-- 로그인 체크 js 추가 -->
     <script src="../assets/js/checkLogin.js"></script>
+    =======
     <script>
 
-            // 페이지가 로드되면 함수 실행
-    document.addEventListener('DOMContentLoaded', function () {
-        // 버튼 요소 선택
-        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+        // 페이지가 로드되면 함수 실행
+        document.addEventListener('DOMContentLoaded', function () {
+            // 버튼 요소 선택
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
 
-        // 스크롤 이벤트 리스너 추가
-        window.addEventListener('scroll', () => {
-            // 현재 스크롤 위치가 300px을 넘으면 버튼 표시
-            if (window.scrollY > 300) {
-                scrollToTopBtn.style.display = 'flex'; // 버튼 보이기
-            } else {
-                scrollToTopBtn.style.display = 'none'; // 버튼 숨기기
-            }
-        });
+            // 스크롤 이벤트 리스너 추가
+            window.addEventListener('scroll', () => {
+                // 현재 스크롤 위치가 300px을 넘으면 버튼 표시
+                if (window.scrollY > 300) {
+                    scrollToTopBtn.style.display = 'flex'; // 버튼 보이기
+                } else {
+                    scrollToTopBtn.style.display = 'none'; // 버튼 숨기기
+                }
+            });
 
-        // 버튼 클릭 이벤트 리스너 추가
-        scrollToTopBtn.addEventListener('click', () => {
-            // 페이지 상단으로 부드럽게 스크롤
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
+            // 버튼 클릭 이벤트 리스너 추가
+            scrollToTopBtn.addEventListener('click', () => {
+                // 페이지 상단으로 부드럽게 스크롤
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
             });
         });
-    });
 
 
         // 모든 질문을 선택
         const questions = document.querySelectorAll('.question');
 
-        // 각 질문에 클릭 이벤트를 추가
-        questions.forEach(question => {
-            question.addEventListener('click', () => {
-                // 클릭한 질문에 해당하는 답변을 토글 (보이거나 숨김)
-                const answer = question.nextElementSibling;
-                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 카테고리를 선택하면 FAQ 데이터를 불러와서 갱신하는 함수
+            function loadFAQByCategory(startId, endId, categoryTitle = '많이 하는 질문 TOP4') {
+                const qaSection = document.querySelector('.qa');
+                let h2Element = qaSection.querySelector('h2');
+
+                // h2 요소가 없다면 새로 추가
+                if (!h2Element) {
+                    h2Element = document.createElement('h2');
+                    qaSection.prepend(h2Element);
+                }
+
+                h2Element.textContent = categoryTitle; // 제목을 해당 카테고리로 변경
+
+                qaSection.innerHTML = ''; // 기존 질문을 모두 제거
+
+                // h2를 다시 추가 (모든 내용이 지워졌으므로)
+                qaSection.prepend(h2Element);
+
+                // 선택된 카테고리의 FAQ를 불러오기
+                fetch(`http://localhost:3000/api/faqs?startId=${startId}&endId=${endId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // 데이터가 성공적으로 받아지면, 해당 FAQ 항목들을 동적으로 삽입
+                        data.forEach(faq => {
+                            const qaItem = document.createElement('div');
+                            qaItem.classList.add('qa-item');
+
+                            const question = document.createElement('p');
+                            question.classList.add('question');
+                            question.textContent = `Q${faq.faqId}. ${faq.question}`;
+
+                            const answerDiv = document.createElement('div');
+                            answerDiv.classList.add('answer');
+                            answerDiv.style.display = 'none';  // 기본적으로 숨김
+                            const answerText = document.createElement('p');
+                            answerText.textContent = `A${faq.faqId}. ${faq.answer}`;
+
+                            answerDiv.appendChild(answerText);
+                            qaItem.appendChild(question);
+                            qaItem.appendChild(answerDiv);
+                            qaSection.appendChild(qaItem);
+
+                            // 클릭 시 답변을 토글하는 이벤트
+                            question.addEventListener('click', () => {
+                                answerDiv.style.display = answerDiv.style.display === 'block' ? 'none' : 'block';
+                            });
+                        });
+                    })
+                    .catch(error => {
+                        console.error('FAQ 데이터를 불러오는 중 오류 발생:', error);
+                    });
+            }
+
+            // 카테고리 클릭 이벤트 추가
+            const categories = document.querySelectorAll('.category-item');
+            const categoryRanges = [
+                { startId: 1, endId: 10 },    // 계정 정보 및 보안
+                { startId: 11, endId: 20 },   // 게임, 명예, 점수 및 랭킹
+                { startId: 21, endId: 30 },   // 성능, 하드웨어 문제, 버그
+                { startId: 31, endId: 40 },   // 로그인, 패치, 연결 및 충돌
+                { startId: 41, endId: 50 },   // 상점, 신용카드 및 구독
+                { startId: 51, endId: 60 }    // 이벤트, 상품 및 기타
+            ];
+            const categoryTitles = [
+                '계정 정보 및 보안',
+                '게임, 명예, 점수 및 랭킹',
+                '성능, 하드웨어 문제, 버그',
+                '로그인, 패치, 연결 및 충돌',
+                '상점, 신용카드 및 구독',
+                '이벤트, 상품 및 기타'
+            ];
+
+            categories.forEach((category, index) => {
+                category.addEventListener('click', () => {
+                    const { startId, endId } = categoryRanges[index];
+                    const categoryTitle = categoryTitles[index];
+                    loadFAQByCategory(startId, endId, categoryTitle);
+                });
             });
+
+            // 페이지 로드 시 기본적으로 61~64번 질문을 로드하고 제목을 '많이 하는 질문 TOP4'로 설정
+            loadFAQByCategory(61, 64, '많이 하는 질문 TOP4');
         });
 
+        function searchFAQs() {
+            const query = document.querySelector('.search-input').value.trim();
+            const qaSection = document.querySelector('.qa');
 
+            if (query.length < 2) {
+                return;  // 최소 2글자 입력 시부터 검색 시작
+            }
+
+            qaSection.innerHTML = '';  // 기존 질문 목록 삭제
+
+            fetch(`http://localhost:3000/api/faqs/search?q=${encodeURIComponent(query)}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length === 0) {
+                        qaSection.innerHTML = '<p>검색 결과가 없습니다.</p>';
+                        return;
+                    }
+
+                    // 데이터가 성공적으로 받아지면, 해당 FAQ 항목들을 동적으로 삽입
+                    data.forEach(faq => {
+                        const qaItem = document.createElement('div');
+                        qaItem.classList.add('qa-item');
+
+                        const question = document.createElement('p');
+                        question.classList.add('question');
+                        question.textContent = `Q${faq.faqId}. ${faq.question}`;
+
+                        const answerDiv = document.createElement('div');
+                        answerDiv.classList.add('answer');
+                        answerDiv.style.display = 'none';  // 기본적으로 숨김
+                        const answerText = document.createElement('p');
+                        answerText.textContent = `A${faq.faqId}. ${faq.answer}`;
+
+                        answerDiv.appendChild(answerText);
+                        qaItem.appendChild(question);
+                        qaItem.appendChild(answerDiv);
+                        qaSection.appendChild(qaItem);
+
+                        // 클릭 시 답변을 토글하는 이벤트
+                        question.addEventListener('click', () => {
+                            answerDiv.style.display = answerDiv.style.display === 'block' ? 'none' : 'block';
+                        });
+                    });
+                })
+                .catch(error => {
+                    console.error('검색 결과를 불러오는 중 오류 발생:', error);
+                });
+        }
     </script>
 
 </body>

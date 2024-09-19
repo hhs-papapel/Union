@@ -1251,3 +1251,31 @@ app.get('/api/users/games/recent', (req, res) => {
         res.json(results);
     });
 });
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+app.get('/api/faqs', (req, res) => {
+    const startId = parseInt(req.query.startId);
+    const endId = parseInt(req.query.endId);
+    const query = 'SELECT faqId, question, answer FROM FAQ WHERE faqId BETWEEN ? AND ?';
+    connection.query(query, [startId, endId], (err, results) => {
+        if (err) {
+            return res.status(500).json({ success: false, message: 'FAQ 데이터를 불러오는 중 오류 발생' });
+        }
+        res.json(results);
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+app.get('/api/faqs/search', (req, res) => {
+    const searchTerm = req.query.q;  // 검색어를 쿼리 파라미터로 받음
+    const query = 'SELECT faqId, question, answer FROM FAQ WHERE question LIKE ?';
+    connection.query(query, [`%${searchTerm}%`], (err, results) => {
+        if (err) {
+            return res.status(500).json({ success: false, message: '검색 중 오류 발생' });
+        }
+        res.json(results);
+    });
+});
