@@ -185,21 +185,21 @@ font-size: 35px;
 }
 
 .btn {
-border: none;
-display: block;
-text-align: center;
-cursor: pointer;
-text-transform: uppercase;
-outline: none;
-overflow: hidden;
-position: relative;
-color: #fff;
-font-weight: 700;
-font-size: 15px;
-background-color: #000000;
-padding: 13px 126px;
-margin: 0 auto;
-transition: color .5s ease-in-out;
+    border: none;
+    display: block;
+    text-align: center;
+    cursor: pointer;
+    text-transform: uppercase;
+    outline: none;
+    overflow: hidden;
+    position: relative;
+    color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+    background-color: #000000;
+    padding: 13px 126px;
+    margin: 0 auto;
+    transition: color .5s ease-in-out;
 }
 
 .btn span {
