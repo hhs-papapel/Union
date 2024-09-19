@@ -5,18 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인 페이지</title>
     <link rel="stylesheet" href="../css/stylesLogin.css">
-   
+
     <script>
-        function loadHTML(file)
-        {
+        function loadHTML(file) {
             var rawFile = new XMLHttpRequest();
             rawFile.open("GET", file, false);
-            rawFile.onreadystatechange = function ()
-            {
-                if(rawFile.readyState === 4)
-                {
-                    if(rawFile.status === 200 || rawFile.status == 0)
-                    {
+            rawFile.onreadystatechange = function () {
+                if (rawFile.readyState === 4) {
+                    if (rawFile.status === 200 || rawFile.status == 0) {
                         var allText = rawFile.responseText;
                         document.write(allText);
                     }
@@ -32,7 +28,7 @@
         <script>loadHTML("./header.html")</script>
     </header>
     <div class="backimg">
-        
+
     </div>
     <div class="login-container">
         <div class="login-box">
@@ -73,7 +69,7 @@
 
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
-        
+
         var swiper = new Swiper('.swiper-container', {
             loop: true,
             navigation: {
@@ -90,7 +86,7 @@
         var searchButton = document.querySelector('.search-button');
         var searchInput = document.getElementById('search-input');
 
-        searchButton.addEventListener('click', function() {
+        searchButton.addEventListener('click', function () {
             if (searchInput.classList.contains('active')) {
                 searchInput.classList.remove('active');
             } else {
@@ -148,8 +144,13 @@
                             // 로그인 정보를 sessionStorage에 저장
                             sessionStorage.setItem('loggedInUser', res.userId);
 
-                            //테스트중
-                            window.location.href = '/proj/html/wish_list.html';
+                            const previousPage = document.referrer;
+
+                            if (previousPage) {
+                                window.location.href = previousPage;
+                            } else {
+                                window.location.href = '/proj/html/main.html';  // 이전 페이지가 없으면 메인 페이지로 이동
+                            }
                         }
 
                         // 로그인 성공 후 입력 필드를 초기화

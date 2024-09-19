@@ -1,22 +1,19 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shogun Showdown - 게임 상세 페이지</title>
+    <title>게임 상세 페이지</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/game_details_style.css"> <!-- 외부 스타일시트 -->
     <script>
-        function loadHTML(file)
-        {
+        function loadHTML(file) {
             var rawFile = new XMLHttpRequest();
             rawFile.open("GET", file, false);
-            rawFile.onreadystatechange = function ()
-            {
-                if(rawFile.readyState === 4)
-                {
-                    if(rawFile.status === 200 || rawFile.status == 0)
-                    {
+            rawFile.onreadystatechange = function () {
+                if (rawFile.readyState === 4) {
+                    if (rawFile.status === 200 || rawFile.status == 0) {
                         var allText = rawFile.responseText;
                         document.write(allText);
                     }
@@ -26,6 +23,7 @@
         }
     </script>
 </head>
+
 <body>
 
     <!-- 헤더 영역 -->
@@ -51,29 +49,34 @@
                 <!-- 왼쪽 게임 이미지 및 비디오 -->
                 <div class="game-media">
                     <div id="media-display">
-                        <video id="main-video" controls autoplay>
-                            <source src="../assets/movie/shogun_movie.webm" type="video/webm">
-                            Your browser does not support the video tag.
-                        </video>
+                        <img src="../assets/images/shogun_Showdown2.jpg" alt="비디오 썸네일"
+                            onclick="showVideo('../assets/movie/shogun_movie.webm')">
                     </div>
                     <div class="media-thumbnails">
-                        <img src="../assets/images/shogun_Showdown2.jpg" alt="비디오 썸네일" onclick="showVideo('../assets/movie/shogun_movie.webm')">
-                        <img src="../assets/images/shogun_Showdown.jpg" alt="스크린샷 1" onclick="showImage('../assets/images/shogun_Showdown.jpg')">
-                        <img src="../assets/images/shogun_Showdown3.jpg" alt="스크린샷 2" onclick="showImage('../assets/images/shogun_Showdown3.jpg')">
-                        <img src="../assets/images/shogun_Showdown4.jpg" alt="스크린샷 3" onclick="showImage('../assets/images/shogun_Showdown4.jpg')">
-                        <img src="../assets/images/shogun_Showdown4.jpg" alt="스크린샷 3" onclick="showImage('../assets/images/shogun_Showdown4.jpg')">
+                        <img src="../assets/images/shogun_Showdown2.jpg" alt="비디오 썸네일"
+                            onclick="showVideo('../assets/movie/shogun_movie.webm')">
+                        <img src="../assets/images/shogun_Showdown.jpg" alt="스크린샷 1"
+                            onclick="showImage('../assets/images/shogun_Showdown.jpg')">
+                        <img src="../assets/images/shogun_Showdown3.jpg" alt="스크린샷 2"
+                            onclick="showImage('../assets/images/shogun_Showdown3.jpg')">
+                        <img src="../assets/images/shogun_Showdown4.jpg" alt="스크린샷 3"
+                            onclick="showImage('../assets/images/shogun_Showdown4.jpg')">
+                        <img src="../assets/images/shogun_Showdown4.jpg" alt="스크린샷 3"
+                            onclick="showImage('../assets/images/shogun_Showdown4.jpg')">
                     </div>
 
                     <!-- 구매, 찜, 장바구니, 커뮤니티 버튼 -->
                     <div class="buy-options">
-                        <button class="wishlist-btn"><i class="fas fa-heart"></i> 찜</button>
+                        <button class="wishlist-btn" id="wishlistbtn"><i class="fas fa-heart"></i> 찜</button>
                     </div>
                 </div>
 
                 <!-- 오른쪽 게임 정보 -->
                 <div class="game-info">
-                    <img src="../assets/images/shogun_Showdown.jpg" alt="스크린샷 1" onclick="showImage('../assets/images/shogun_Showdown.jpg')">
-                    <p>Shogun Showdown은 로그라이크 및 덱 구성 요소가 포함된 턴 기반 전투 게임입니다. 위치를 선정하고 적절한 시점에 적을 공격하고, 타일을 업그레이드하고 콤보 공격을 하며 쇼군을 상대할 준비를 하세요!</p>
+                    <img src="../assets/images/shogun_Showdown.jpg" alt="스크린샷 1"
+                        onclick="showImage('../assets/images/shogun_Showdown.jpg')" id="gameimg">
+                    <p>Shogun Showdown은 로그라이크 및 덱 구성 요소가 포함된 턴 기반 전투 게임입니다. 위치를 선정하고 적절한 시점에 적을 공격하고, 타일을 업그레이드하고 콤보 공격을
+                        하며 쇼군을 상대할 준비를 하세요!</p>
                     <ul>
                         <li>출시일: 2024년 9월 6일</li>
                         <li>개발사: Robotaino</li>
@@ -97,25 +100,19 @@
 
                     <!-- 할인버전 -->
                     <div class="game-buy">
-                        <p>Shogun Showdown 구매</p>
+                        <p id="purchase-text">Shogun Showdown 구매</p>
                         <div class="basket">
                             <div>
-                                <div class="cart-item-price">
-                                    <div class="sale">
-                                        -10%
-                                    </div>
-                                    <div>
-                                        <p class="sale-price"><del>₩16,500</del></p>
-                                        <p>₩14,850</p>
-                                    </div>
+                                <div class="cart-item-price" id="price-info">
+                                    <!-- 여기에 할인 정보와 가격이 동적으로 들어감 -->
                                 </div>
-                                <button>장바구니에 추가</button>
+                                <button id="shopping">장바구니에 추가</button>
                             </div>
                         </div>
                     </div>
 
                     <!-- 할인x -->
-                    <div class="game-buy">
+                    <!-- <div class="game-buy">
                         <p>Shogun Showdown 구매</p>
                         <div class="basket">
                             <div>
@@ -125,11 +122,12 @@
                                 <button>장바구니에 추가</button>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
 
                     <div class="info-text">
-                        <div>게임정보</div>
+                        <!-- API에서 게임정보를 못불러와서... -->
+                        <!-- <div>게임정보</div>
                         <div></div>
                         <pre>
 모든 행동이 중요한 턴 기반 전투. 신중하게 위치를 선정하고, 공격을 계획하고, 적절한 순간에 적을 공격하세요!
@@ -140,20 +138,20 @@
 로그라이크: 죽음은 끝이 아니라 게임을 정복하기 위한 새로운 여정의 시작일 뿐입니다. 게임을 플레이하면서 새로운 캐릭터와 공격, 기술 등을 잠금 해제하세요!
 픽셀 아트 그래픽으로 완성된 일본풍 배경에 흠뻑 빠져 보세요.
                         </pre>
+                    </div> -->
+                    </div>
+                    <div class="info2-right">
+                        <div class="quest-list">
+
+                        </div>
+                        <div class="language-table">
+
+                        </div>
+                        <div class="button-option">
+                            <button class="wishlist-btn">공유하기</button>
+                        </div>
                     </div>
                 </div>
-                <div class="info2-right">
-                    <div class="quest-list">
-
-                    </div>
-                    <div class="language-table">
-
-                    </div>
-                    <div class="button-option">
-                        <button class="wishlist-btn">공유하기</button>
-                    </div>
-                </div>
-            </div>
         </section>
 
 
@@ -163,38 +161,48 @@
                 <div class="review-form">
                     <img src="../assets/images/user_avatar.png" alt="유저 아바타" class="user-avatar">
                     <textarea id="user-review" placeholder="이 게임에 대한 리뷰를 작성하세요…"></textarea>
+                    <!-- 임시 평점 -->
+                    <label for="rating">임시 평점:</label>
+                    <select id="rating">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
                     <button class="post-review-btn">리뷰 게시</button>
+
                 </div>
+
             </div>
+            <!-- 임시 리뷰 나오는 곳 -->
+            <div id="review-list"></div>
         </section>
+
     </main>
 
-    <!-- 푸터 영역 -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 게임 스토어. 모든 권리 보유.</p>
-        </div>
-    </footer>
-
     <!-- JavaScript -->
+    <script src="../assets/lib/jquery-3.7.1.min.js"></script>
+    <!-- 로그인 체크 js 추가 -->
+    <script src="../assets/js/checkLogin.js"></script>
     <script>
-        function showImage(imageSrc) {
-            var mediaDisplay = document.getElementById('media-display');
-            mediaDisplay.innerHTML = '<img src="' + imageSrc + '" alt="이미지" class="media-thumbnail">';
-        }
+        // function showImage(imageSrc) {
+        //     var mediaDisplay = document.getElementById('media-display');
+        //     mediaDisplay.innerHTML = '<img src="' + imageSrc + '" alt="이미지" class="media-thumbnail">';
+        // }
 
-        function showVideo(videoSrc) {
-            var mediaDisplay = document.getElementById('media-display');
-            mediaDisplay.innerHTML = '<video id="main-video" controls autoplay><source src="' + videoSrc + '" type="video/webm">Your browser does not support the video tag.</video>';
-        }
+        // function showVideo(videoSrc) {
+        //     var mediaDisplay = document.getElementById('media-display');
+        //     mediaDisplay.innerHTML = '<video id="main-video" controls autoplay><source src="' + videoSrc + '" type="video/webm">Your browser does not support the video tag.</video>';
+        // }
 
-        // 페이지 로드 시 비디오 자동 재생
-        window.onload = function() {
-            var video = document.getElementById('main-video');
-            if (video) {
-                video.play();
-            }
-        };
+        // // 페이지 로드 시 비디오 자동 재생
+        // window.onload = function () {
+        //     var video = document.getElementById('main-video');
+        //     if (video) {
+        //         video.play();
+        //     }
+        // };
 
         // 사이드바 열기
         function openNav() {
@@ -207,34 +215,359 @@
         }
 
         // 검색창 토글
-        const searchIcon = document.querySelector('.search-icon');
-        const searchInput = document.querySelector('.search-input');
+        //                  ※오류걸려서 주석처리※
+        // const searchIcon = document.querySelector('.search-icon');
+        // const searchInput = document.querySelector('.search-input');
 
-        searchIcon.addEventListener('click', () => {
-            searchInput.classList.toggle('active');
-            searchInput.focus();
+        // if (searchIcon && searchInput) {  // 두 요소가 존재하는지 확인
+        //     searchIcon.addEventListener('click', () => {
+        //         searchInput.classList.toggle('active');
+        //         searchInput.focus();
+        //     });
+        // } else {
+        //     console.log("검색 아이콘 또는 검색 입력창을 찾을 수 없습니다.");
+        // }
+
+
+        /*─────────────────────────────────────── 김기현 코드 ────────────────────────────────────────────────────*/
+        /* ─────────────────────────────────────────────────────────────────────────────────────────── */
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const userId = sessionStorage.getItem('loggedInUser');
+            console.log(userId);  // 여기에 저장된 값을 확인
         });
-
         // 리뷰 게시 버튼 클릭 시 리뷰를 추가하는 기능
-        document.querySelector('.post-review-btn').addEventListener('click', function() {
-            var reviewText = document.getElementById('user-review').value;
-            if (reviewText) {
-                var newReview = `
+        const postReviewBtn = document.querySelector('.post-review-btn');
+        if (postReviewBtn) {
+            postReviewBtn.addEventListener('click', function () {
+                var reviewText = document.getElementById('user-review').value;
+                var rating = document.getElementById('rating').value; // 평점 값 가져오기
+                var userId = sessionStorage.getItem('loggedInUser'); // sessionStorage에서 userId 가져오기
+                var gameId = getGameIdFromURL(); // 현재 게임의 gameId 가져오기
+                if (!userId) {
+                    // 비로그인 상태일 경우
+                    alert('리뷰를 작성하려면 로그인이 필요합니다.');
+                    window.location.href = '/proj/html/login.html';  // 로그인 페이지로 리디렉션
+                    return;
+                }
+
+                if (reviewText && rating) { // 평점과 리뷰 텍스트가 모두 있는지 확인
+                    // 서버로 POST 요청 보내기
+                    fetch('http://localhost:3000/api/review', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ userId, gameId, content: reviewText, rating }) // 평점 추가
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.message) {
+                                alert(data.message);
+                                loadReviews(); // 리뷰 목록을 다시 불러옴
+                            }
+                        })
+                        .catch(error => {
+                            console.error('리뷰 저장 중 오류:', error);
+                        });
+
+                    // 작성된 리뷰를 화면에 추가 (미리보기)
+                    var newReview = `
+                <div class="review-item">
+                    <img src="../assets/images/user_avatar.png" alt="리뷰 유저 아바타" class="user-avatar">
+                    <div class="review-content">
+                        <p><strong> ${reviewText}</strong></p>
+                        <p>평점: ${rating}/5</p> <!-- 평점 표시 -->
+                    </div>
+                </div>
+            `;
+                    document.querySelector('.review-section').insertAdjacentHTML('beforeend', newReview);
+                    document.getElementById('user-review').value = ''; // 텍스트 초기화
+                } else {
+                    alert('리뷰와 평점을 모두 입력하세요!');
+                }
+            });
+        }
+
+        /* ─────────────────────────────────────────────────────────────────────────────────────────── */
+        // 리뷰 목록 불러오기 기능
+        function loadReviews() {
+            const gameId = getGameIdFromURL();
+
+            fetch(`http://localhost:3000/api/review/${gameId}`)  // 리뷰 조회 API 경로
+                .then(response => response.json())
+                .then(reviews => {
+                    const reviewList = document.getElementById('review-list');
+                    reviewList.innerHTML = ''; // 기존 리뷰를 초기화
+
+                    reviews.forEach(review => {
+                        var reviewItem = `
                     <div class="review-item">
                         <img src="../assets/images/user_avatar.png" alt="리뷰 유저 아바타" class="user-avatar">
                         <div class="review-content">
-                            <p><strong>유저:</strong> ${reviewText}</p>
+                            <p><strong> ${review.userName}</strong></p>
+                            <p>${review.content}</p>
+                            <p>평점: ${review.rating}/5</p>
                         </div>
                     </div>
                 `;
-                document.querySelector('.review-section').insertAdjacentHTML('beforeend', newReview);
-                document.getElementById('user-review').value = ''; // 텍스트 초기화
+                        reviewList.insertAdjacentHTML('beforeend', reviewItem);
+                    });
+                })
+                .catch(error => {
+                    console.error('리뷰 불러오는 중 오류:', error);
+                });
+        }
+
+
+
+        /* ─────────────────────────────────────────────────────────────────────────────────────────── */
+
+        // 게임 이름이 길 경우 25글자로 제한하고 뒤에 '...' 추가
+        function truncateGameName(name, maxLength) {
+            if (name.length > maxLength) {
+                return name.slice(0, maxLength) + '...';
+            }
+            return name;
+        }
+
+        // 게임 데이터를 페이지에 적용하는 함수
+        function displayGameDetails(game) {
+            console.log('게임 데이터:', game);
+            const truncatedGameName = truncateGameName(game.gameName, 25);  // 게임 이름을 제한
+
+            // 게임 이름, 설명, 가격 등을 동적으로 변경
+            document.querySelector('.game-title-left p').textContent = game.gameName;
+            document.querySelector('.game-info p').textContent = game.description;
+            document.querySelector('.game-info ul').innerHTML = `
+        <li>출시일: ${new Date(game.releaseDate).toLocaleDateString()}</li>
+        <li>개발사: ${game.developer}</li>
+        <li>배급사: ${game.publisher}</li>
+    `;
+
+            // 게임 태그 표시
+            document.querySelector('.tags').innerHTML = game.tags.map(tag => `<span>${tag}</span>`).join(' ');
+
+
+
+
+
+
+
+            // 구매 버튼에 게임 이름 동적으로 추가
+            document.querySelectorAll('.game-buy p').forEach(p => {
+                p.textContent = `${truncatedGameName} 구매`;
+            });
+
+
+
+
+            // 오른쪽 작은 이미지 변경 (기본 이미지 로드)
+            const gameInfoImage = document.getElementById('gameimg');
+            if (gameInfoImage) {
+                gameInfoImage.src = game.imageUrl;  // 게임 데이터의 대표 이미지 URL로 변경
+                gameInfoImage.alt = game.gameName;  // 이미지 alt 속성도 게임 이름으로 설정
+            }
+
+
+
+
+            // 대표 이미지로 변경 (기본 이미지 로드)
+            const mediaDisplay = document.getElementById('media-display');
+            mediaDisplay.innerHTML = `<img src="${game.imageUrl}" alt="대표 이미지" class="media-thumbnail" id="main-image">`;
+
+
+
+
+            // 스크린샷 목록 표시 (최대 5개만 표시)
+            const screenshotsToShow = game.screenshots.slice(0, 5);  // 최대 5개의 스크린샷만 가져옴
+            document.querySelector('.media-thumbnails').innerHTML = screenshotsToShow.map((screenshot, index) => `
+        <img src="${screenshot}" alt="스크린샷 ${index + 1}" class="screenshot-thumbnail" onclick="changeMainImage('${screenshot}')">
+    `).join('');
+
+
+
+
+            // 가격 및 할인 정보 표시
+            let price = game.price || game.originalPrice;  // price가 0이면 originalPrice 사용
+            let discountRate = game.discountRate || 0;
+            let discountedPrice = price;
+
+            console.log('원래 가격 (price):', price);
+
+            if (discountRate > 0) {
+                discountedPrice = price - (price * discountRate / 100);
+            }
+
+            // 가격이 0이면 "무료"로 표시
+            if (price === 0) {
+                document.querySelector('.cart-item-price').innerHTML = `<p>무료</p>`;
+            } else if (discountRate > 0) {
+                document.querySelector('.cart-item-price').innerHTML = `
+            <div class="sale">-${discountRate}%</div>
+            <div>
+                <p class="sale-price"><del>₩${price.toLocaleString()}</del></p>
+                <p>₩${discountedPrice.toLocaleString()}</p>
+            </div>
+        `;
             } else {
-                alert('리뷰를 작성하세요!');
+                document.querySelector('.cart-item-price').innerHTML = `<p>₩${price.toLocaleString()}</p>`;
+            }
+        }
+
+
+        /* ─────────────────────────────────────────────────────────────────────────────────────────── */
+
+        // 가격 정보를 페이지에 업데이트하는 함수
+        function updatePriceInfo(game) {
+            const priceInfoElement = document.getElementById('price-info');
+
+            // 가격이 0원이면 "무료"로 표시
+            if (game.price === 0) {
+                priceInfoElement.innerHTML = `<p>무료</p>`;
+            } else if (game.discountRate > 0) {
+                // 할인율이 있는 경우 할인된 가격과 할인율 표시
+                const discountedPrice = game.price - (game.price * game.discountRate / 100);
+                priceInfoElement.innerHTML = `
+            <div class="sale">-${game.discountRate}%</div>
+            <div>
+                <p class="sale-price"><del>₩${game.price.toLocaleString()}</del></p>
+                <p>₩${discountedPrice.toLocaleString()}</p>
+            </div>
+        `;
+            } else {
+                // 할인율이 없을 때는 원래 가격만 표시
+                priceInfoElement.innerHTML = `<p>₩${game.price.toLocaleString()}</p>`;
+            }
+
+            // 구매 버튼에 게임 이름 동적으로 추가
+            document.getElementById('purchase-text').textContent = `${game.gameName} 구매`;
+        }
+
+        /* ─────────────────────────────────────────────────────────────────────────────────────────── */
+
+        // 대표 이미지를 클릭한 이미지로 변경하는 함수
+        function changeMainImage(imageUrl) {
+            const mainImage = document.getElementById('main-image');
+            if (mainImage) {
+                mainImage.src = imageUrl;  // 클릭한 이미지로 대표 이미지 변경
+            } else {
+                console.error("대표 이미지를 찾을 수 없습니다.");
+            }
+        }
+
+        /* ─────────────────────────────────────────────────────────────────────────────────────────── */
+
+        // 페이지에서 gameId를 URL에서 가져오는 함수
+        function getGameIdFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);  // 쿼리 파라미터를 처리
+            return urlParams.get('gameId');  // 'gameId'라는 파라미터 값을 가져옴
+        }
+
+        // 페이지 로드 시 데이터를 가져오는 로직
+        document.addEventListener('DOMContentLoaded', () => {
+            loadReviews();
+            const gameId = getGameIdFromURL();
+            if (gameId) {
+                fetch(`http://localhost:3000/api/game/${gameId}`)  // 게임 데이터 API 호출
+                    .then(response => response.json())
+                    .then(data => {
+                        displayGameDetails(data);  // 게임 데이터를 HTML에 표시
+                        updatePriceInfo(data);  // 게임 데이터 및 가격 정보 업데이트
+                    })
+                    .catch(error => {
+                        console.error('게임 데이터를 불러오는 중 오류가 발생했습니다.', error);
+                    });
+            } else {
+                console.error('gameId를 찾을 수 없습니다.');
             }
         });
 
-    </script>
+        /* ─────────────────────────────────────────────────────────────────────────────────────────── */
 
+
+        /* 찜하기 버튼 */
+        const wishlistBtn = document.getElementById('wishlistbtn');
+        if (wishlistBtn) {
+            wishlistBtn.addEventListener('click', function () {
+                const userId = sessionStorage.getItem('loggedInUser');  // sessionStorage에서 userId 가져오기
+                console.log('userId:', userId);  // 이 시점에 userId가 올바르게 출력되는지 확인
+                const gameId = getGameIdFromURL();  // URL에서 gameId 가져오기
+
+                if (userId && gameId) {
+                    // 로그인된 경우 찜 목록 추가 API 호출
+                    fetch('http://localhost:3000/api/wishlist/add', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ userId, gameId })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // 찜 목록 추가 성공 시 확인 메시지와 함께 장바구니 이동 여부 묻기
+                                if (confirm('찜 목록에 추가되었습니다. 찜 목록 페이지로 이동하시겠습니까?')) {
+                                    window.location.href = '/proj/html/wish_list.html';  // "예" 선택 시 찜 목록 페이지로 이동
+                                }
+                            } else {
+                                alert(data.message || '찜 목록 추가 중 문제가 발생했습니다.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('찜 목록 추가 중 오류 발생:', error);
+                        });
+                } else {
+                    // 비로그인 상태일 경우
+                    alert('찜 목록에 추가하려면 로그인이 필요합니다.');
+                    window.location.href = '/proj/html/login.html';  // 로그인 페이지로 리디렉션
+                }
+            });
+        }
+
+
+        /* ─────────────────────────────────────────────────────────────────────────────────────────── */
+
+
+        /* 장바구니 버튼 */
+        const purchaseBtn = document.getElementById('shopping');
+        if (purchaseBtn) {
+            purchaseBtn.addEventListener('click', function () {
+                const userId = sessionStorage.getItem('loggedInUser');  // sessionStorage에서 userId 가져오기
+                console.log('userId:', userId);  // 이 시점에 userId가 올바르게 출력되는지 확인
+                const gameId = getGameIdFromURL();  // URL에서 gameId 가져오기
+
+                if (userId && gameId) {
+                    // 로그인된 경우 장바구니 추가 API 호출
+                    fetch('http://localhost:3000/api/cart/add', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ userId, gameId })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // 장바구니 추가 성공 시 확인 메시지와 함께 장바구니 이동 여부 묻기
+                                if (confirm('장바구니에 추가 완료되었습니다. 장바구니로 이동하시겠습니까?')) {
+                                    window.location.href = '/proj/html/shoppingBasket.html';  // "예" 선택 시 장바구니로 이동
+                                }
+                            } else {
+                                alert(data.message || '장바구니 추가 중 문제가 발생했습니다.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('장바구니 추가 중 오류 발생:', error);
+                        });
+                } else {
+                    // 비로그인 상태일 경우
+                    alert('장바구니를 이용하시려면 로그인이 필요합니다.');
+                    window.location.href = '/proj/html/login.html';  // 로그인 페이지로 리디렉션
+                }
+            });
+        }
+
+
+
+    </script>
+    <footer>
+        <script>loadHTML("./footer.html")</script>
+    </footer>
 </body>
+
 </html>
