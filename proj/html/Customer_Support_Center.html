@@ -249,7 +249,7 @@
                 <h3>광고성 정보 동의 해제 요청</h3>
                 <input type="text" id="unsubscribeName" placeholder="이름을 입력하세요">
                 <input type="email" id="unsubscribeEmail" placeholder="이메일을 입력하세요">
-                <button onclick="submitForm('unsubscribeName', 'unsubscribeEmail', '광고성 정보 수신 동의가 해제되었습니다.')">동의 해제 요청하기</button>
+                <button onclick="submitUnsubscribeForm()">동의 해제 요청하기</button>
             </div>
         </section>
 
@@ -397,14 +397,46 @@
     }
 
     // 자주 묻는 질문 답변 표시
-    function showFaqAnswer(questionId) {
-        const answers = {
-            q1: `비밀번호를 변경하려면 설정 메뉴에서 "비밀번호 변경"을 선택하세요.`,
-            q2: `계정을 삭제하려면 고객센터로 연락하여 삭제 요청을 하세요.`,
-            q3: `서비스 이용 요금은 [여기 링크]에서 확인할 수 있습니다.`,
-            q4: `이용 제한 사유는 서비스 약관에 명시된 바와 같습니다. 자세한 사항은 고객센터로 문의하세요.`
-        };
-        document.getElementById('faq-answer').innerHTML = answers[questionId] || '답변을 찾을 수 없습니다.';
+function showFaqAnswer(questionId) {
+    const answers = {
+        q1: `비밀번호 변경은 이 변경 탭</a>을 통해 가능하십니다.`,
+        q2: `계정을 삭제하려면 1111-1111 고객센터로 연락하여 삭제 요청을 하세요.`,
+        q3: `서비스 이용 요금은 [링크]에서 확인할 수 있습니다.`,
+        q4: `이용 제한 사유는 서비스 약관에 명시된 바와 같습니다. 자세한 사항은 1234-5678 고객센터로 문의하세요.`
+    };
+    document.getElementById('faq-answer').innerHTML = answers[questionId] || '답변을 찾을 수 없습니다.';
+
+    // 비밀번호 변경 폼을 추가합니다.
+    if (questionId === 'q1') {
+        const formHtml = `
+            <div class="form-style">
+                <h3>비밀번호 변경</h3>
+                <input type="password" id="newPassword" placeholder="새 비밀번호를 입력하세요">
+                <input type="password" id="confirmPassword" placeholder="새 비밀번호 확인">
+                <button onclick="changePassword()">비밀번호 변경</button>
+            </div>
+        `;
+        document.getElementById('faq-answer').innerHTML += formHtml;
+    }
+}
+    // 비밀번호 변경 처리
+    function changePassword() {
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+
+        if (!newPassword || !confirmPassword) {
+            alert('모든 필드를 입력해주세요.');
+            return;
+        }
+
+        if (newPassword !== confirmPassword) {
+            alert('비밀번호가 일치하지 않습니다.');
+            return;
+        }
+
+        alert('비밀번호가 성공적으로 변경되었습니다.');
+        document.getElementById('newPassword').value = '';
+        document.getElementById('confirmPassword').value = '';
     }
 
     // 검색 기능
@@ -427,4 +459,5 @@
         }
     }
 </script>
-
+</body>
+</html>
