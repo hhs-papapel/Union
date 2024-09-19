@@ -923,7 +923,7 @@ app.get('/api/discounted-games', (req, res) => {
         JOIN GameDiscount gd ON g.gameId = gd.gameId
         JOIN Discount d ON gd.discountId = d.discountId
         WHERE d.discountEnd >= CURDATE()
-        LIMIT 16; -- 16개 가져오기
+        LIMIT 20; -- 16개 가져오기
     `;
 
     connection.query(query, (err, results) => {
@@ -1022,10 +1022,30 @@ app.get('/api/user/username', (req, res) => {
 
 /*───────────────────────────────────────────────────────────────────────────────────────────*/
 
+// 게임검색
+// app.get('/api/games/random', (req, res) => {
+    
+//     const gamename = "%"+req.query.gamename+"%";
+
+//     const query = `SELECT * FROM Game where gameName like ?;`;
+
+//     connection.query(query,[gamename] ,(error, results) => {
+//         if (error) {
+//             console.error('Error fetching random games:', error);
+//             return res.status(500).json({ error: 'DB Error' });
+//         }
+//         res.json(results); // 결과를 JSON으로 반환
+//     });
+// });
+
 // 추천게임 5가지
-app.get('/api/games/random', (req, res) => {
-    const query = `SELECT * FROM Game ORDER BY RAND() LIMIT 5`; // 랜덤으로 5개의 게임을 선택
-    connection.query(query, (error, results) => {
+app.get('/api/games/random2', (req, res) => {
+    console.log(req.query.gamename);
+    const gamename = "%"+req.query.gamename+"%";
+
+    const query = `SELECT * FROM Game where gameName like ?;`;
+
+    connection.query(query,[gamename] ,(error, results) => {
         if (error) {
             console.error('Error fetching random games:', error);
             return res.status(500).json({ error: 'DB Error' });

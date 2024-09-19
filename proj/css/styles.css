@@ -347,13 +347,14 @@ body {
 
 .discount-container {
     padding: 10px;
-    background-color: #f5f4f4;
+    background-color: #ffffff;
     color: rgb(47, 47, 47);
     border-radius: 10px;
     margin: 10px auto; /* auto로 중앙 정렬 */
-    width: 80%; /* 너비를 80%로 조정 */
+    width: 1000px; /* 너비를 80%로 조정 */
     max-width: 1000px; /* 최대 너비를 800px로 제한 */
-    height: auto; /* 높이를 내용에 맞춰 자동 조정 */
+    height: 500px; /* 높이를 내용에 맞춰 자동 조정 */
+    
 }
 
 .discount-grid {
@@ -369,91 +370,167 @@ body {
 /* 할인 정보 전체를 감싸는 박스 */
 .discount-item {
     background-color: #ffffff;
-    border-radius: 10px;
+    border-radius: 5px;
     overflow: hidden;
     text-align: center;
-    padding: 10px;
-    width: 400px; /* 화면 너비의 30%로 설정 */
-    height: auto; /* 높이를 내용에 맞춰 자동 조정 */
+    width: 500px; /* 화면 너비의 30%로 설정 */
+    height: 380px; /* 높이를 내용에 맞춰 자동 조정 */
     margin-bottom: 20px; /* 하단에 여백 추가 */
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
     /* justify-content: space-between; */
 }
 
-/* 긴 박스 스타일 */
-.discount-item.large {
-    width: 500px; /* 긴 박스 너비 */
-    height: 380px; /* 긴 박스 높이 */
-    margin-bottom: 20px;
-}
-/* 작은 박스 스타일 */
-.discount-item.small {
-    width: 500px;
-    height: 380px; 
-    margin-bottom: auto;
-
-}
 /* 이미지와 박스 사이 여백 */
 .discount-item img {
     width: 100%;
     height: 200px; /* 원하는 높이로 조정 */
     object-fit: cover; /* 이미지를 꽉 차게 만듦 */
-    border-radius: 10px;
+    border-radius: 5px;
+    filter: brightness(50%);
+    transition: all 1s;
 }
-
 
 /* 할인 텍스트와 정보 전체 박스 */
 .discount-info {
-    background-color: #e0f5cc; /* 초록색 배경 */
-    padding: 10px;
-    border-radius: 8px; /* 모서리 둥글게 */
-    margin-top: auto; /* 초록색 박스를 하단으로 밀기 */
+    display: none;
+    position: absolute;
+    background-color: #BFFF00; /* 초록색 배경 */
+    padding: 5px 10px;
+    margin-top: 100px; /* 초록색 박스를 하단으로 밀기 */
+    font-size: 12px;
+    font-weight: bold;
+    transition: all 1s;
+}
+
+
+
+/* 할인율 스타일 */
+.discount {
+    position: absolute;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+    background-color: transparent;
+    width: 50px;
+    height: 60px;
+    text-align: center;
+    padding-top: 19px;
+    background-image: url('/proj/assets/images/discountIMG.png');
+    background-size: cover;
+    filter: brightness(50%);
+    margin-left: -110px;
+    margin-top: -120px;
+    transition: all 1s;
 }
 
 /* 할인율과 가격을 포함하는 박스 */
 .price-info {
+    position: absolute;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #34802f; /* 할인율과 가격 배경을 초록색으로 설정 */
+    background-color: transparent; /* 할인율과 가격 배경을 초록색으로 설정 */
     padding: 5px;
     border-radius: 5px;
     font-family: Arial, sans-serif;
-    max-width: 250px; /* 너비를 조정 */
+    width: 180px; /* 너비를 조정 */
     font-size: 16px;
+    margin-top: 140px;
+    filter: brightness(50%);
+    transition: all 1s;
 }
+/* 가격 스타일 */
+.price {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
 
-/* 할인율 스타일 */
-.discount {
-    font-size: 2em; /* 할인율 크기 */
+    font-size: 1.6em;
     font-weight: bold;
-    color: #c1ff1a; /* 밝은 초록색 텍스트 */
-    background-color: transparent; /* 배경 없음 */
-    padding: 5px;
-    border-radius: 5px 0 0 5px;
-    width: 80px;
-    text-align: center;
+    color: #BFFF00; /* 밝은 색상 */
+    background-color: transparent; /* 가격 배경색 */
+    padding: 5px 10px;
+    text-align: left;
 }
 
 /* 원래 가격 (취소선 스타일) */
-.original-price {
-    font-size: 1em;
+.price .original-price {
+    font-weight: lighter;
+    font-size: 10px;
     color: #a1b5d8;
     text-decoration: line-through;
     padding-left: 10px;
 }
+/* ------------------------------------ */
+.discount-item:hover img {
+    width: 100%;
+    height: 280px; /* 원하는 높이로 조정 */
+    object-fit: cover; /* 이미지를 꽉 차게 만듦 */
+    border-radius: 5px;
+    filter: brightness(100%);
+}
+.discount-item:hover .discount {
+    position: absolute;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+    background-color: transparent;
+    width: 50px;
+    height: 60px;
+    text-align: center;
+    padding-top: 19px;
+    background-image: url('/proj/assets/images/discountIMG.png');
+    background-size: cover;
+    filter: brightness(100%);
+    margin-left: -150px;
+    margin-top: -280px;
+    z-index: 1;
+}
+.discount-item:hover .price-info {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent; /* 할인율과 가격 배경을 초록색으로 설정 */
+    padding: 5px;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    width: 180px; /* 너비를 조정 */
+    font-size: 16px;
+    margin-top: -280px;
+    margin-left: 30px;
+    height: 30px;
+    filter: brightness(100%);
+    background-color: black;
+    border-radius: 0 15px 15px 0;
+}
+
+.discount-item:hover .discount-info {
+    display: inline;
+    position: absolute;
+    background-color: #BFFF00; /* 초록색 배경 */
+    padding: 5px 10px;
+    margin-top: 330px; /* 초록색 박스를 하단으로 밀기 */
+    font-size: 12px;
+    font-weight: bold;
+    transition: all 1s;
+}
 
 /* 가격 스타일 */
-.price {
+.do .price {
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
     font-size: 1.6em;
     font-weight: bold;
-    color: #e1ff72; /* 밝은 색상 */
-    background-color: #1b2b48; /* 가격 배경색 */
+    color: #BFFF00; /* 밝은 색상 */
     padding: 5px 10px;
-    border-radius: 0 5px 5px 0;
-    text-align: center;
+    text-align: left;
 }
+
 
 /* 카테고리 슬라이더 스타일 */
 .category-slider {
@@ -464,8 +541,9 @@ body {
 }
 
 .category-slider h3 {
-    margin-bottom: 20px;
-    font-size: 18px;
+    margin-top: 80px;
+    margin-bottom: 50px;
+    font-size: 25px;
     color: #a1e44d;
 }
 
@@ -486,6 +564,7 @@ body {
     border-radius: 10px;
     margin: 0 10px;
     position: relative;
+    margin-right: 15px;
 }
 
 .category-item span {
@@ -511,16 +590,18 @@ body {
 }
 
 .category-nav ul li {
+    margin-top: 80px;
+    margin-bottom: 60px;
     display: inline-block;
     margin-right: 20px;
 }
 
 .category-nav ul li a {
-    color: #ffffff;
+    color: #000000;
     font-size: 18px;
     text-decoration: none;
     padding: 10px 15px;
-    background-color: #333;
+    background-color: #88dd91;
     border-radius: 5px;
     transition: background-color 0.3s ease;
 }
@@ -567,10 +648,12 @@ body {
     flex-wrap: nowrap; /* 요소가 줄 바꿈되지 않도록 설정 */
     width: 100%; /* 섹션이 전체 화면을 채우도록 */
     overflow-x: hidden; /* 좌우로 넘치는 요소를 숨기기 */
+    gap: 30px;
 }
 
 /* 왼쪽 게임 목록 */
 .game-list {
+    margin-left: 120px;
     flex: 1;
     max-width: 40%;
     margin-right: 20px;
@@ -579,6 +662,11 @@ body {
 .game-list ul {
     list-style: none;
     padding: 0;
+}
+
+/* 게임 리스트 간격 */
+.game-list ul li {
+    margin-bottom: 20px; /* 게임 리스트 아이템 사이의 간격 */
 }
 
 .game-item {
@@ -651,9 +739,6 @@ body {
     font-weight: bold; /* 글씨를 더 두껍게 */
 }
 
-.discount {
-    color: #a1e44d;
-}
 
 /* 게임 상세 정보 */
 .game-detail {
@@ -704,7 +789,7 @@ body {
 
 .recommend-section h2 {
     font-size: 24px; /* 제목 크기 */
-    color: #58a6ff; /* 파란색 텍스트 */
+    color: #34c142; /* 파란색 텍스트 */
     margin-bottom: 10px;
 }
 
@@ -815,4 +900,252 @@ body {
     color: #dddddd;
     line-height: 1.6;
     margin-top: 20px;
+}
+.game-price{
+    margin-left: 20px;
+}
+
+
+
+
+.update-sale-section {
+    width: 100%;
+    padding: 20px;
+    background-color: #1b2838;
+    color: #fff;
+}
+
+.update-sale-section h2 {
+    text-align: center;
+    color: #7ffe92;
+    font-size: 24px;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 세 개의 열을 생성 */
+    gap: 20px;
+}
+
+.game-card {
+    background-color: #2a475e;
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.large-card {
+    grid-column: span 2; /* 두 칸을 차지하는 카드 */
+    grid-row: span 2; /* 두 줄을 차지하는 카드 */
+}
+
+.game-card img {
+    width: 100%;
+    height: auto;
+    display: block; /* 흰색 줄 제거를 위해 이미지가 블록 요소로 취급되도록 설정 */
+}
+
+.game-details {
+    padding: 15px;
+}
+
+.game-details p {
+    margin: 0;
+    font-size: 14px;
+    color: #c6d4df;
+}
+
+.discount-tag {
+    display: block;
+    color: #41ff7d;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.game-price {
+    display: block;
+    margin-top: 10px;
+    font-size: 18px;
+    color: #66f4e6;
+    font-weight: bold;
+}
+
+.game-card:hover {
+    transform: scale(1.05); /* 마우스를 올렸을 때 확대 효과 */
+}
+
+
+
+/* 페이지 맨 위로 이동 버튼 스타일 */
+.scroll-to-top-btn {
+    position: fixed;
+    bottom: 30px; /* 화면 하단에서의 위치 */
+    right: 30px; /* 화면 오른쪽에서의 위치 */
+    width: 50px;
+    height: 50px;
+    background-color: #64be70; /* 버튼 배경색 */
+    color: #fff; /* 버튼 글자색 */
+    border: none;
+    border-radius: 50%; /* 둥근 버튼 모양 */
+    cursor: pointer;
+    display: none; /* 기본적으로 버튼 숨김 */
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* 그림자 효과 */
+    z-index: 1000; /* 다른 요소들보다 위에 표시되도록 설정 */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* 호버 시 배경색 및 크기 전환 애니메이션 */
+}
+
+/* 호버 효과 */
+.scroll-to-top-btn:hover {
+    background-color: #f3cb52; /* 호버 시 배경색 변경 */
+    transform: scale(1.1); /* 호버 시 약간 확대 */
+}
+
+/* 버튼이 화면에 보일 때 애니메이션 효과 추가 */
+.scroll-to-top-btn.show {
+    display: flex; /* 버튼 보이기 */
+    opacity: 1;
+    animation: fadeIn 0.5s; /* 페이드 인 애니메이션 */
+}
+
+/* 페이드 인 애니메이션 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px); /* 아래에서 위로 이동 */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.recent-update-section {
+    background-color: #1b2838;
+    max-width: 100%;
+    margin: auto;
+    padding: 20px;
+}
+
+.recent-update-section h2 {
+    text-align: center;
+    color: #41ff7d;
+    font-size: 24px;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+.update-products {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+}
+
+.product-card {
+    background-color: #2a475e;
+    border-radius: 8px;
+    width: 260px;
+    padding: 10px;
+    position: relative;
+    flex: 0 0 auto;
+    transition: transform 0.2s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px); /* 호버 시 위로 올라가는 효과 */
+}
+
+.product-image img {
+    width: 100%;
+    height: auto;
+}
+
+.product-info {
+    padding: 10px;
+}
+
+.discount-tag {
+    background-color: #66c0f4;
+    color: #fff;
+    font-size: 12px;
+    padding: 2px 4px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+.original-price {
+    text-decoration: line-through;
+    color: #a1a1a1;
+    margin-right: 5px;
+}
+
+.discounted-price {
+    color: #e1e1e1;
+    font-weight: bold;
+}
+
+.product-title {
+        background-color: #2a475e;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.product-description {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #d4d4d4;
+}
+
+.detail-link {
+    font-size: 12px;
+    color: #66c0f4;
+    text-decoration: none;
+    display: block;
+}
+
+.view-all-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #66c0f4;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.view-all-btn:hover {
+    background-color: #4b9bd8;
+}
+
+.live-badge, .library-badge, .wishlist-badge, .new-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #ff5555;
+    color: #fff;
+    font-size: 12px;
+    padding: 5px;
+    border-radius: 4px;
+    z-index: 1;
+}
+
+.library-badge {
+    background-color: #4caf50; /* 라이브러리 뱃지 색상 */
+}
+
+.wishlist-badge {
+    background-color: #ffb347; /* 찜 목록 뱃지 색상 */
+}
+
+.new-badge {
+    background-color: #ffd700; /* 신규 업데이트 뱃지 색상 */
 }
