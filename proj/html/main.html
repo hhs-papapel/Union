@@ -22,6 +22,7 @@
             }
             rawFile.send(null);
         }
+        
     </script>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -207,8 +208,19 @@
                 <!-- <div class="swiper-pagination"></div> -->
             </div>
         </div>
+
+        
+
         
 <div class="update-sale-section">
+    
+        <!-- 비디오 -->
+        <div class="video-section">
+            <video id="myVideo" width="100%" height="auto" muted loop>
+                <source src="../assets/movie/deck_banner_animated_webm_koreana.webm" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
     <h2>업데이트 및 할인</h2>
 
     <div class="game-grid">
@@ -261,7 +273,9 @@
     <!-- 최근 업데이트된 제품 섹션 -->
 <div class="recent-update-section">
     <h2>최근에 업데이트된 제품</h2>
+    <button class="view-all-btn">모두 보기</button>
     <div class="update-products">
+
         <div class="product-card">
             <div class="live-badge">🔴 실시간 방송</div>
             <div class="product-image">
@@ -341,43 +355,32 @@
         </div>
         
     </div>
-    <!-- <button class="view-all-btn">모두 보기</button> -->
+
 </div>
 
 
         <div class="category-slider">
             <h3>카테고리별로 살펴보기</h3>
-            <div class="slider-navigation">
-        
-                <div class="category-wrapper">
-                    <div class="category-item" style="background-image: url('../assets/images/ex.jpg');">
-                        <span>액션</span>
-                    </div>
-                    <div class="category-item" style="background-image: url('./path-to-image2.jpg');">
-                        <span>협동</span>
-                    </div>
-                    <div class="category-item" style="background-image: url('./path-to-image3.jpg');">
-                        <span>생존</span>
-                    </div>
-                    <div class="category-item" style="background-image: url('./path-to-image4.jpg');">
-                        <span>무료 플레이</span>
-                    </div>
-                    <div class="category-item" style="background-image: url('./path-to-image5.jpg');">
-                        <span>레이싱</span>
-                    </div>
-                    <div class="category-item" style="background-image: url('./path-to-image6.jpg');">
-                        <span>롤플레잉</span>
-                    </div>
-                    <div class="category-item" style="background-image: url('./path-to-image7.jpg');">
-                        <span>전략</span>
-                    </div>
-                    <div class="category-item" style="background-image: url('./path-to-image8.jpg');">
-                        <span>퍼즐</span>
-                    </div>
-
+            <div class="category-wrapper">
+                <!-- 메인 큰 슬라이드 -->
+                <div class="category-item large" style="background-image: url('image1.jpg');">
+                    <span>메인 아이템</span>
                 </div>
+                <!-- 나머지 작은 슬라이드 -->
+                <div class="category-item small" style="background-image: url('image2.jpg');">
+                    <span>아이템 1</span>
+                </div>
+                <div class="category-item small" style="background-image: url('image3.jpg');">
+                    <span>아이템 2</span>
+                </div>
+                <div class="category-item small" style="background-image: url('image4.jpg');">
+                    <span>아이템 3</span>
+                </div>
+                <div class="category-item small" style="background-image: url('image5.jpg');">
+                    <span>아이템 4</span>
+                </div>
+                <!-- 더 많은 아이템들... -->
             </div>
-        
             <div class="slider-pagination">
                 <span class="dot"></span>
                 <span class="dot"></span>
@@ -386,58 +389,135 @@
             </div>
         </div>
 
+
         
         
     <!-- 카테고리 선택 -->
 
-    <nav class="category-nav">
-        <ul>
-            <li><a href="#">인기 신작</a></li>
-            <li><a href="#">최고 인기게임</a></li>
-            <li><a href="#">최고 인기제품</a></li>
-            <li><a href="#">최고 인기제목</a></li>
-            <li><a href="#">최고 인기시리즈</a></li>
-        </ul>
-    </nav>
+<!-- 카테고리 선택 -->
+<nav class="category-nav">
+    <ul>
+        <li><a href="#">인기 신작</a></li>
+        <li><a href="#">최고 인기게임</a></li>
+        <li><a href="#">최고 인기제품</a></li>
+        <li><a href="#">최고 인기제목</a></li>
+        <li><a href="#">최고 인기시리즈</a></li>
+    </ul>
+</nav>
 
-<!-- 게임 목록 및 상세 화면 -->
-<div class="game-list-section">
-    <!-- 왼쪽 게임 목록 -->
-    <div class="game-list">
-        <ul>
-            <li class="game-item" data-title="게임 1" data-price="₩ 37,800" data-img1="../assets/images/A_DANCE_OF.jpg" data-description="게임 1은 매우 흥미로운 모험 게임입니다.">
-                <div class="game-info">
-                    <img src="../assets/images/A_DANCE_OF.jpg" alt="게임 1 이미지">
-                    <span>게임 1</span>
-                    <span class="game-price">₩ 37,800</span>
+<div class="game-list-container">
+    <!-- 첫 번째 게임 항목 -->
+    <div class="game-list-item" data-game-id="1">
+        <!-- 게임 썸네일 -->
+        <div class="game-thumbnail">
+            <img src="game_thumbnail_url" alt="게임 이미지">
+        </div>
+        <!-- 게임 정보 -->
+        <div class="game-info">
+            <div class="game-title">
+                <h2>PICO PARK 2</h2>
+                <p>전반적 사용자 평가: 매우 긍정적 (280)</p>
+            </div>
+        </div>
+        <!-- 할인 정보 -->
+        <div class="game-discount">
+            <div class="discount-rate">20%</div>
+            <div class="price">₩8,910</div>
+            <div class="original-price">₩9,900</div>
+        </div>
+        <!-- 클릭 시 펼쳐질 상세 정보 -->
+        <div class="game-detail" id="game-detail-1">
+            <div class="detail-left">
+                <div class="game-title">
+                    <h2>PICO PARK 2</h2>
+                    <p>전반적 사용자 평가: 매우 긍정적 (280)</p>
                 </div>
-            </li>
-            <li class="game-item" data-title="게임 2" data-price="₩ 69,800" data-img1="../assets/images/DAVE_THE_DIVER.jpg" data-description="게임 2는 심해를 탐험하는 게임입니다.">
-                <div class="game-info">
-                    <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="게임 2 이미지">
-                    <span>게임 2</span>
-                    <span class="game-price">₩ 69,800</span>
+                <div class="game-description">
+                    <p>PICO PARK가 아주 새로운 스테이지와 함께 돌아왔습니다! 이 협동 액션 퍼즐 게임에서 플레이어 2-8인과 로컬이나 온라인에서 플레이하세요!</p>
                 </div>
-            </li>
-            <li class="game-item" data-title="게임 3" data-price="₩ 20,500" data-img1="../assets/images/shogun_Showdown.jpg" data-description="게임 3은 전략적인 RPG 게임입니다.">
-                <div class="game-info">
-                    <img src="../assets/images/shogun_Showdown.jpg" alt="게임 3 이미지">
-                    <span>게임 3</span>
-                    <span class="game-price">₩ 20,500</span>
+                <button class="add-to-cart-btn">장바구니에 추가</button>
+            </div>
+            <div class="detail-right">
+                <div class="game-images">
+                    <img src="screenshot_1_url" alt="스크린샷 1">
+                    <img src="screenshot_2_url" alt="스크린샷 2">
+                    <img src="screenshot_3_url" alt="스크린샷 3">
                 </div>
-            </li>
-        </ul>
+            </div>
+        </div>
     </div>
 
-    <!-- 오른쪽 게임 상세 정보 (처음에는 숨김) -->
-    <div class="game-detail" style="display: none;">
-        <div id="game-detail-header">
-            <h3 id="game-title">게임 제목</h3>
-            <p id="game-price">가격</p>
+    <!-- 두 번째 게임 항목 -->
+    <div class="game-list-item" data-game-id="2">
+        <div class="game-thumbnail">
+            <img src="another_game_thumbnail_url" alt="게임 이미지">
         </div>
-        <div class="game-screenshots">
-            <img id="screenshot1" src="" alt="스크린샷 1">
-            <p id="game-description">게임 설명</p>
+        <div class="game-info">
+            <div class="game-title">
+                <h2>Another Game</h2>
+                <p>전반적 사용자 평가: 매우 긍정적 (150)</p>
+            </div>
+        </div>
+        <div class="game-discount">
+            <div class="discount-rate">30%</div>
+            <div class="price">₩15,000</div>
+            <div class="original-price">₩21,500</div>
+        </div>
+        <div class="game-detail" id="game-detail-2">
+            <div class="detail-left">
+                <div class="game-title">
+                    <h2>Another Game</h2>
+                    <p>전반적 사용자 평가: 매우 긍정적 (150)</p>
+                </div>
+                <div class="game-description">
+                    <p>새로운 재미와 놀라운 게임플레이를 제공합니다. 이 게임을 친구들과 함께 즐기세요!</p>
+                </div>
+                <button class="add-to-cart-btn">장바구니에 추가</button>
+            </div>
+            <div class="detail-right">
+                <div class="game-images">
+                    <img src="another_screenshot_1_url" alt="스크린샷 1">
+                    <img src="another_screenshot_2_url" alt="스크린샷 2">
+                    <img src="another_screenshot_3_url" alt="스크린샷 3">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 세 번째 게임 항목 추가 -->
+    <div class="game-list-item" data-game-id="3">
+        <div class="game-thumbnail">
+            <img src="game_thumbnail_url_3" alt="게임 이미지">
+        </div>
+        <div class="game-info">
+            <div class="game-title">
+                <h2>Third Game Title</h2>
+                <p>전반적 사용자 평가: 긍정적 (300)</p>
+            </div>
+        </div>
+        <div class="game-discount">
+            <div class="discount-rate">50%</div>
+            <div class="price">₩10,000</div>
+            <div class="original-price">₩20,000</div>
+        </div>
+        <div class="game-detail" id="game-detail-3">
+            <div class="detail-left">
+                <div class="game-title">
+                    <h2>Third Game Title</h2>
+                    <p>전반적 사용자 평가: 긍정적 (300)</p>
+                </div>
+                <div class="game-description">
+                    <p>이 게임은 새로운 도전과 스릴을 제공합니다. 친구들과 함께 최고의 플레이를 즐기세요!</p>
+                </div>
+                <button class="add-to-cart-btn">장바구니에 추가</button>
+            </div>
+            <div class="detail-right">
+                <div class="game-images">
+                    <img src="screenshot_3_1_url" alt="스크린샷 1">
+                    <img src="screenshot_3_2_url" alt="스크린샷 2">
+                    <img src="screenshot_3_3_url" alt="스크린샷 3">
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -462,7 +542,64 @@
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
 
-        
+document.addEventListener("DOMContentLoaded", function() {
+    const itemsPerPage = 6; // 한 페이지에 표시할 아이템 수
+    const categoryItems = document.querySelectorAll(".category-item");
+    const totalPages = Math.ceil(categoryItems.length / itemsPerPage);
+
+    let currentPage = 1;
+
+    function showPage(page) {
+        // 모든 아이템 숨기기
+        categoryItems.forEach((item, index) => {
+            item.style.display = 'none';
+        });
+
+        // 현재 페이지 아이템만 표시하기
+        const start = (page - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        for (let i = start; i < end && i < categoryItems.length; i++) {
+            categoryItems[i].style.display = 'flex';
+        }
+    }
+
+    // 페이지네이션 초기화
+    function setupPagination() {
+        const pagination = document.querySelector(".slider-pagination");
+        pagination.innerHTML = ''; // 기존 페이지네이션 버튼 초기화
+
+        for (let i = 1; i <= totalPages; i++) {
+            const dot = document.createElement("span");
+            dot.classList.add("dot");
+            if (i === currentPage) dot.classList.add("active");
+            dot.addEventListener("click", function() {
+                currentPage = i;
+                showPage(currentPage);
+                updatePagination();
+            });
+            pagination.appendChild(dot);
+        }
+    }
+
+    // 현재 페이지 갱신
+    function updatePagination() {
+        const dots = document.querySelectorAll(".dot");
+        dots.forEach((dot, index) => {
+            dot.classList.toggle("active", index + 1 === currentPage);
+        });
+    }
+
+    // 초기 페이지 표시 및 페이지네이션 설정
+    showPage(currentPage);
+    setupPagination();
+});
+
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+            var video = document.getElementById('myVideo');
+            video.play();  // 비디오 재생
+        });
 
     // 페이지가 로드되면 함수 실행
     document.addEventListener('DOMContentLoaded', function () {
@@ -488,9 +625,6 @@
             });
         });
     });
-
-
-
 
 const categoryWrapper = document.querySelector('.category-wrapper');
 const nextBtn = document.querySelector('.next-btn');
@@ -547,30 +681,69 @@ dots.forEach((dot, index) => {
 });
 
 
-    // 게임 목록 클릭 이벤트 처리
-    document.querySelectorAll('.game-item').forEach(item => {
-        item.addEventListener('click', function() {
-            const title = this.getAttribute('data-title');
-            const price = this.getAttribute('data-price');
-            const img1 = this.getAttribute('data-img1');
-            const description = this.getAttribute('data-description');
+// 클릭 이벤트로 상세 정보 표시 및 숨기기
+// document.addEventListener("DOMContentLoaded", function () {
+//     const gameItems = document.querySelectorAll(".game-list-item");
+//     let activeDetail = null;
 
-            // 제목과 가격 업데이트
-            document.getElementById('game-title').innerText = title;
-            document.getElementById('game-price').innerText = price;
+//     gameItems.forEach(function (item) {
+//         item.addEventListener("click", function (e) {
+//             e.stopPropagation(); // 클릭 이벤트가 부모 요소로 전달되지 않도록 차단
 
-            // 스크린샷 이미지 업데이트
-            document.getElementById('screenshot1').src = img1;
+//             const gameDetail = this.querySelector(".game-detail");
 
-            // 설명 업데이트
-            document.getElementById('game-description').innerText = description;
+//             if (gameDetail === activeDetail) {
+//                 gameDetail.classList.remove("active");
+//                 gameDetail.style.maxHeight = "0";
+//                 activeDetail = null;
+//                 return;
+//             }
 
-            // 상세 정보 보이기
-            document.querySelector('.game-detail').style.display = 'block';
-        });
+//             if (activeDetail) {
+//                 activeDetail.classList.remove("active");
+//                 activeDetail.style.maxHeight = "0";
+//             }
+
+//             gameDetail.classList.add("active");
+//             gameDetail.style.maxHeight = "400px";
+//             activeDetail = gameDetail;
+//         });
+//     });
+
+//     document.addEventListener("click", function () {
+//         if (activeDetail) {
+//             activeDetail.classList.remove("active");
+//             activeDetail.style.maxHeight = "0";
+//             activeDetail = null;
+//         }
+//     });
+// });
+
+document.querySelectorAll('.game-list-item').forEach(function (item) {
+    item.addEventListener('click', function (e) {
+        e.stopPropagation(); // 이벤트 버블링 차단
+        e.preventDefault(); // 기본 이벤트 차단
+        const detail = this.querySelector('.game-detail');
+
+        if (detail.style.display === 'block') {
+            detail.style.display = 'none';
+        } else {
+            document.querySelectorAll('.game-detail').forEach(function (detail) {
+                detail.style.display = 'none';
+            });
+            detail.style.display = 'block';
+        }
     });
-        
-        
+});
+document.addEventListener("click", function (event) {
+    if (!event.target.closest('.game-list-item')) {
+        document.querySelectorAll('.game-detail').forEach(function (detail) {
+            detail.style.maxHeight = '0';
+        });
+    }
+});
+
+
         
         // 특별 할인 슬라이더
         // 배너 슬라이더 (움직이지 않도록 autoplay 설정을 제거)
@@ -616,7 +789,7 @@ dots.forEach((dot, index) => {
 
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+                document.addEventListener('DOMContentLoaded', function () {
             fetch('http://localhost:3000/api/games/banner')
                 .then(response => response.json())
                 .then(data => {
