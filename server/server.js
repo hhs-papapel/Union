@@ -919,7 +919,7 @@ app.get('/api/discounted-games', (req, res) => {
         JOIN GameDiscount gd ON g.gameId = gd.gameId
         JOIN Discount d ON gd.discountId = d.discountId
         WHERE d.discountEnd >= CURDATE()
-        LIMIT 16; -- 16개 가져오기
+        LIMIT 20; -- 16개 가져오기
     `;
 
     connection.query(query, (err, results) => {
