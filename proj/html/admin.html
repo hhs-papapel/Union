@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>관리자 페이지</title>
+    <link rel="stylesheet" href="../css/Customer_Support_Center.CSS">
+    <link rel="stylesheet" href="../css/inquiry.css">
     <style>
         body {
             padding-top: 110px;
@@ -110,6 +112,15 @@
 </head>
 
 <body>
+
+
+
+
+
+
+
+
+
     <!-- 헤더 -->
     <header>
         <script>loadHTML("./header2.html")</script>
@@ -172,14 +183,15 @@
                         <th>관리</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="inquiry-table-body">
                     <tr>
                         <td>inquiry123</td>
                         <td>user123</td>
                         <td>로그인 문제</td>
                         <td>2024-08-20</td>
                         <td>처리 중</td>
-                        <td><button class="btn">상세 보기</button></td>
+                        <td><a class=" inquiry-btn btn " id="cd-popup-trigger" onclick="popup()"><span>상세 보기</span></a>
+                        </td>
                     </tr>
                     <tr>
                         <td>inquiry456</td>
@@ -187,39 +199,23 @@
                         <td>비밀번호 변경</td>
                         <td>2024-08-22</td>
                         <td>완료</td>
-                        <td><button class="btn">상세 보기</button></td>
+                        <td><a class=" inquiry-btn btn " id="cd-popup-trigger" onclick="popup()"><span>상세 보기</span></a>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
+        <!-- 상세 보기 팝업 -->
         <div class="cd-popup" id="cd-popup" role="alert">
             <div class="cd-popup-container">
-                <!-- 문의 등록 폼 -->
-                <section id="inquiry-form" class="inquiry-form">
-                    <h2>문의 등록</h2>
-                    <p>어떠한 내용이라도 답변드릴 준비가 되어 있습니다! 문의를 보내주세요! 가능한 한 빨리 답변 드리도록 하겠습니다.</p>
-                    <!-- <form action="/submit-inquiry" method="POST"> -->
-                    <label for="category">1. 어떤 문제를 겪고 계신가요?</label>
-                    <select id="category" name="category">
-                        <option value="game-issue">플레이어 신고하기</option>
-                        <option value="system-issue">시스템 문제 해결</option>
-                        <option value="account-issue">계정 및 보안</option>
-                        <option value="payment-issue">결제 및 RP 문제</option>
-                    </select>
-
-                    <label for="subject">문의 제목</label>
-                    <input type="text" id="subject" name="subject" required>
-
-                    <label for="description">문의 내용을 상세히 적어주세요</label>
-                    <textarea id="description" name="description" rows="5" required></textarea>
-
-                    <button type="button" class="submit-btn" onclick="supportAdd()">제출</button>
-                    <!-- </form> -->
-                </section>
-                <a href="#0" class="cd-popup-close img-replace"></a>
-            </div> <!-- cd-popup-container -->
-        </div> <!-- cd-popup -->
+                <h2 id="inquiry-subject">문의 제목</h2>
+                <p><strong>문의 내용:</strong> <span id="inquiry-content"></span></p>
+                <p><strong>문의 날짜:</strong> <span id="inquiry-date"></span></p>
+                <p><strong>상태:</strong> <span id="inquiry-status"></span></p>
+                <button class="cd-popup-close">닫기</button>
+            </div>
+        </div>
 
         <!-- 커뮤니티 관리 섹션 -->
         <div id="community-management" class="content table-section">
@@ -441,7 +437,6 @@
         });
 
 
-        
         // 문의 리스트를 로드하는 함수
         function loadInquiryList() {
             fetch('http://localhost:3000/support/list?userId=1')  // userId에 맞게 변경
@@ -489,6 +484,113 @@
 
         // 페이지 로드 시 문의 리스트 로드
         document.addEventListener('DOMContentLoaded', loadInquiryList);
+
+
+        // 페이지 로드 시 문의 내역을 서버에서 가져와서 테이블에 추가하는 함수
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('http://localhost:3000/admin/support/list') // 서버의 API 경로에 맞게 수정
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById('inquiry-table-body');
+                    tableBody.innerHTML = ''; // 테이블 초기화
+
+                    // 문의 내역 데이터를 반복하며 테이블에 추가
+                    data.forEach(item => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                        <td>${item.supportId}</td>
+                        <td>${item.userId}</td>
+                        <td>${item.subject}</td>
+                        <td>${new Date(item.supportDate).toLocaleDateString()}</td>
+                        <td>${item.status}</td>
+                        <td><a class="inquiry-btn btn" id="cd-popup-trigger" onclick="popup(${item.supportId})"><span>상세 보기</span></a></td>
+                    `;
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('문의 내역을 불러오는 중 오류 발생:', error);
+                });
+        });
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+    <script src="/proj/assets/lib/jquery-3.7.1.min.js"></script>
+    <script>
+        jQuery(document).ready(function ($) {
+            //open popup
+            $('#cd-popup-trigger').on('click', function (event) {
+                event.preventDefault();
+                $('.cd-popup').addClass('is-visible');
+            });
+
+            //close popup
+            $('.cd-popup').on('click', function (event) {
+                if ($(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup')) {
+                    event.preventDefault();
+                    $(this).removeClass('is-visible');
+                }
+            });
+            //close popup when clicking the esc keyboard button
+            $(document).keyup(function (event) {
+                if (event.which == '27') {
+                    $('.cd-popup').removeClass('is-visible');
+                }
+            });
+        });
+
+        function supportAdd() {
+            const id = sessionStorage.getItem('loggedInUser');
+
+            const subject = document.getElementById('subject');
+            const content = document.getElementById('description');
+
+            if (subject.value == '') {
+                alert('제목을 입력해주세요');
+                subject.focus();
+                return;
+            }
+            if (content.value == '') {
+                alert('내용을 입력해주세요');
+                content.focus();
+                return;
+            }
+
+            let supportData = {
+                id: id,
+                subject: subject.value,
+                content: content.value
+            };
+            $.ajax({
+                url: 'http://localhost:3000/support/add',
+                type: 'POST',
+                contentType: 'application/json', // 데이터를 JSON 형식으로 전송
+                data: JSON.stringify(supportData),   // 객체를 JSON 문자열로 변환하여 전송
+                dataType: 'json',
+                success: function (res) {
+                    if (res.status === 200) {
+                        alert('문의등록 성공!');
+                        subject.value = "";
+                        content.value = "";
+                        $('.cd-popup').removeClass('is-visible');
+                    } else if (res.status === 409) {
+                        alert('문의등록 중 오류가 발생했습니다.');
+                    }
+                },
+                error: function () {
+                    alert('문의등록 중 오류가 발생했습니다.');
+                }
+            });
+        }
     </script>
 
 </body>
