@@ -136,6 +136,26 @@
             background-color: #0056b3;
         }
 
+        /* 제출된 내용 표시 스타일 */
+        .submission-list {
+            margin-top: 20px;
+            padding: 10px;
+            border-top: 2px solid #007bff;
+        }
+
+        .submission-list h3 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #007bff;
+        }
+
+        .submission-list div {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
         /* 반응형 디자인 */
         @media (max-width: 768px) {
             nav {
@@ -217,9 +237,9 @@
                 <h3>오류 신고하기</h3>
                 <input type="text" id="errorName" placeholder="이름을 입력하세요">
                 <textarea id="errorDescription" rows="5" placeholder="오류 내용을 입력하세요"></textarea>
-                <button onclick="submitForm('errorName', 'errorDescription', '오류 신고가 완료되었습니다.')">오류 신고하기</button>
+                <button onclick="submitErrorForm()">오류 신고하기</button>
             </div>
-            <div id="error-list"></div>
+            <div id="error-list" class="submission-list"></div>
         </section>
 
         <!-- 광고성 정보 동의 해제 탭 -->
@@ -240,9 +260,9 @@
                 <h3>문의하기</h3>
                 <input type="text" id="userName" placeholder="이름을 입력하세요">
                 <textarea id="userQuestion" rows="5" placeholder="문의 내용을 입력하세요"></textarea>
-                <button onclick="submitForm('userName', 'userQuestion', '문의가 성공적으로 등록되었습니다.')">문의 남기기</button>
+                <button onclick="submitInquiryForm()">문의 남기기</button>
             </div>
-            <div id="questionList"></div>
+            <div id="questionList" class="submission-list"></div>
         </section>
 
         <!-- 푸터 -->
@@ -270,7 +290,7 @@
         }
 
         // 공통 제출 처리
-        function submitForm(nameId, contentId, successMessage) {
+        function submitForm(nameId, contentId, successMessage, listId, isInquiry = false) {
             const name = document.getElementById(nameId).value;
             const content = document.getElementById(contentId).value;
 
@@ -280,8 +300,30 @@
             }
 
             alert(successMessage);
+
+            // 제출된 내용을 추가
+            const submissionList = document.getElementById(listId);
+            const submissionDiv = document.createElement('div');
+            submissionDiv.innerHTML = `<strong>${name}</strong>: ${content}`;
+            submissionList.appendChild(submissionDiv);
+
+            // 필드 초기화
             document.getElementById(nameId).value = '';
             document.getElementById(contentId).value = '';
+
+            if (isInquiry) {
+                // 문의 게시판에서 제출된 후 필드도 초기화
+                document.getElementById('userName').value = '';
+                document.getElementById('userQuestion').value = '';
+            }
+        }
+
+        function submitErrorForm() {
+            submitForm('errorName', 'errorDescription', '오류 신고가 완료되었습니다.', 'error-list');
+        }
+
+        function submitInquiryForm() {
+            submitForm('userName', 'userQuestion', '문의가 성공적으로 등록되었습니다.', 'questionList', true);
         }
 
         // 아이디/비밀번호 찾기 폼 생성
