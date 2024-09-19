@@ -1483,3 +1483,68 @@ app.delete('/api/community-management/:postId', (req, res) => {
         res.json({ message: '게시물이 성공적으로 삭제되었습니다.' });
     });
 });
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+
+/*문의등록*/
+app.post('/support/add', (req, res) => {
+    let id = req.body.id;
+    let subject = req.body.subject;
+    let content = req.body.content;
+    let regDate = new Date();
+    let status = '처리중'; 
+    connection.query(
+        'INSERT INTO customersupport (userId, subject, content, supportDate, status) VALUES (?, ?, ?, ?, ?)',
+        [id, subject, content, regDate, status],
+        (err, rows) => {
+            if (err) {
+                console.log('err: ', err);
+            }
+            let responseData = new Object();
+            responseData.status = 200;  // 성공적인 응답
+            responseData.list = rows;
+            res.json(responseData);
+        }
+    );
+        
+});
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+/*문의 리스트*/
+app.get('/support/list', (req, res) => {
+    const userId = req.query.userId;
+    const query = `
+        select supportId ,subject ,content ,supportDate ,status 
+        from customersupport c 
+        where userId = ?
+    `;
+    connection.query(query, [userId], (err, results) => {
+        if (err) {
+            console.log('DB Error:', err);  // 에러 로그 추가
+            return res.status(500).json({ error: 'DB Error' });
+        }
+        res.json(results);  // 결과를 JSON으로 반환
+    });
+});
+
+/*문의 자세히 보기*/
+app.get('/support/list/details', (req, res) => {
+    const userId = req.query.userId;
+    const query = `
+        select supportId ,subject ,content ,supportDate ,status 
+        from customersupport c 
+        where supportId = ?
+    `;
+    connection.query(query, [userId], (err, results) => {
+        if (err) {
+            console.log('DB Error:', err);  // 에러 로그 추가
+            return res.status(500).json({ error: 'DB Error' });
+        }
+        res.json(results);  // 결과를 JSON으로 반환
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
