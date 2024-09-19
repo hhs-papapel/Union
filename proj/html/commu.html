@@ -113,13 +113,13 @@
                 <li><a href="#">가이드</a></li>
                 <li><a href="#">평가</a></li>
             </ul>
-        </nav>
+        </nav> 
         <br>
-        <!-- 리뷰 섹션 (탭 메뉴 바로 밑) -->
+        <!--리뷰 섹션 (탭 메뉴 바로 밑) -->
 
         <!-- 리뷰 박스들 -->
         <div class="reviews">
-            <div class="review-item">
+            <!-- <div class="review-item">
                 <div class="thumbs-up">
                     <img src="../assets/images/good.png" alt="Thumbs Up">
                 </div>
@@ -135,7 +135,6 @@
                     <p>댓글 2</p>
                 </div>
             </div>
-            <br>
 
             <div class="review-item">
                 <div class="thumbs-up">
@@ -152,14 +151,14 @@
                     <p>60명이 이 평가가 유용하다고 함</p>
                     <p>댓글 9</p>
                 </div>
-            </div>
+            </div> -->
         </div>
 
 
 
         <!-- 콘텐츠 영역 -->
         <div class="content-section">
-            <div class="community-main">
+            <!-- <div class="community-main">
                 <div class="main-video">
                     <img src="../assets/images/DAVE_THE_DIVER.jpg" alt="Main">
                     <h3>World of Warships 9th Anniversary</h3>
@@ -172,7 +171,7 @@
                     </video>
                     <p>World of Warships</p>
                 </div>
-            </div>
+            </div> -->
 
             <!-- 가이드 콘텐츠 -->
             <div class="guide-section">
@@ -203,6 +202,70 @@
     </section>
     <!-- 로그인 체크 js 추가 -->
     <script src="../assets/js/checkLogin.js"></script>
+
+    <script>
+        // 평점을 텍스트로 변환하는 함수
+        function getRatingText(rating) {
+            if (rating >= 5) return '매우 긍정적 (Very Positive)';
+            else if (rating >= 4) return '대체로 긍정적 (Mostly Positive)';
+            else if (rating >= 3) return '복합적 (Mixed)';
+            else if (rating >= 2) return '대체로 부정적 (Mostly Negative)';
+            else return '매우 부정적 (Very Negative)';
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // 서버에서 리뷰 데이터를 가져옴
+            fetch('http://localhost:3000/api/reviews')
+                .then(response => response.json())
+                .then(reviews => {
+                    const reviewsContainer = document.querySelector('.reviews');
+                    const hoursArray = [
+                        '1시간', '2시간', '3시간', '4시간', '6시간',
+                        '7시간', '8시간', '9시간', '12시간', '14시간',
+                        '16시간', '18시간', '21시간', '23시간', '26시간',
+                        '29시간', '32시간', '36시간', '40시간', '45시간',
+                        '50시간', '55시간', '60시간', '70시간', '75시간',
+                        '80시간', '85시간', '90시간', '95시간', '99시간'
+                    ];
+                    reviews.forEach(review => {
+                        // 리뷰 아이템을 생성
+                        const reviewItem = document.createElement('div');
+                        reviewItem.classList.add('review-item');
+
+                        // 추천 또는 비추천에 따른 아이콘 결정
+                        const thumbsUpDiv = document.createElement('div');
+                        thumbsUpDiv.classList.add('thumbs-up');
+                        const thumbsUpImg = document.createElement('img');
+                        thumbsUpImg.src = review.rating >= 3 ? '../assets/images/good.png' : '../assets/images/bad.png';
+                        thumbsUpDiv.appendChild(thumbsUpImg);
+
+
+                        const randomHours = hoursArray[Math.floor(Math.random() * hoursArray.length)];
+
+
+                        // 리뷰 정보
+                        const reviewInfoDiv = document.createElement('div');
+                        reviewInfoDiv.classList.add('review-info');
+                        reviewInfoDiv.innerHTML = `
+                            <h3>${review.gameName}</h3>
+                            <p>게임이용시간:  ${randomHours}</p> 
+                            <p>평점: ${getRatingText(review.rating)}</p> 
+                            <p>게시 일시: ${new Date(review.reviewDate).toLocaleDateString()}</p>
+                            <p>${review.content}</p>
+                        `;
+
+                        // 리뷰 아이템에 구성 요소 추가
+                        reviewItem.appendChild(thumbsUpDiv);
+                        reviewItem.appendChild(reviewInfoDiv);
+                        reviewsContainer.appendChild(reviewItem);
+                    });
+                })
+                .catch(error => {
+                    console.error('리뷰 데이터를 불러오는 중 오류 발생:', error);
+                });
+        });
+    </script>
+
 </body>
 
 </html>

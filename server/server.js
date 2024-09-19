@@ -642,7 +642,7 @@ app.get('/api/game/:gameId/discount', (req, res) => {
 app.post('/api/review', (req, res) => {
     const { userId, gameId, rating, content } = req.body;
     const reviewDate = new Date();  // 리뷰 작성 날짜
-
+    console.log(req.body)
     if (!rating) {
         return res.status(400).json({ message: '평점을 입력해주세요.' });
     }
@@ -657,6 +657,7 @@ app.post('/api/review', (req, res) => {
             console.error('리뷰 저장 중 오류 발생:', err);
             return res.status(500).json({ message: '리뷰 저장 중 오류 발생' });
         }
+
 
         res.json({ message: '리뷰가 성공적으로 저장되었습니다.' });
     });
@@ -1277,5 +1278,26 @@ app.get('/api/faqs/search', (req, res) => {
             return res.status(500).json({ success: false, message: '검색 중 오류 발생' });
         }
         res.json(results);
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+// 리뷰 데이터 가져오기 라우트
+app.get('/api/reviews', (req, res) => {
+    const query = `
+        SELECT r.reviewDate, r.rating, r.content, g.gameName, u.userName, r.lastUpdated, g.imageUrl
+        FROM Review r
+        JOIN Game g ON r.gameId = g.gameId
+        JOIN User u ON r.userId = u.userId
+        ORDER BY r.reviewDate DESC
+    `;
+    connection.query(query, (err, results) => {
+        if (err) {
+            console.error('리뷰 데이터를 불러오는 중 오류 발생:', err);
+            return res.status(500).json({ success: false, message: '리뷰 데이터를 불러오는 중 오류 발생' });
+        }
+        res.json(results); // 결과를 JSON 형식으로 클라이언트에 전달
     });
 });
