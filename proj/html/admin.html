@@ -193,6 +193,34 @@
             </table>
         </div>
 
+        <div class="cd-popup" id="cd-popup" role="alert">
+            <div class="cd-popup-container">
+                <!-- 문의 등록 폼 -->
+                <section id="inquiry-form" class="inquiry-form">
+                    <h2>문의 등록</h2>
+                    <p>어떠한 내용이라도 답변드릴 준비가 되어 있습니다! 문의를 보내주세요! 가능한 한 빨리 답변 드리도록 하겠습니다.</p>
+                    <!-- <form action="/submit-inquiry" method="POST"> -->
+                    <label for="category">1. 어떤 문제를 겪고 계신가요?</label>
+                    <select id="category" name="category">
+                        <option value="game-issue">플레이어 신고하기</option>
+                        <option value="system-issue">시스템 문제 해결</option>
+                        <option value="account-issue">계정 및 보안</option>
+                        <option value="payment-issue">결제 및 RP 문제</option>
+                    </select>
+
+                    <label for="subject">문의 제목</label>
+                    <input type="text" id="subject" name="subject" required>
+
+                    <label for="description">문의 내용을 상세히 적어주세요</label>
+                    <textarea id="description" name="description" rows="5" required></textarea>
+
+                    <button type="button" class="submit-btn" onclick="supportAdd()">제출</button>
+                    <!-- </form> -->
+                </section>
+                <a href="#0" class="cd-popup-close img-replace"></a>
+            </div> <!-- cd-popup-container -->
+        </div> <!-- cd-popup -->
+
         <!-- 커뮤니티 관리 섹션 -->
         <div id="community-management" class="content table-section">
             <h1>커뮤니티 관리</h1>
@@ -411,6 +439,55 @@
                 loadCommunityData();
             });
         });
+
+        
+        // 문의 리스트를 로드하는 함수
+        function loadInquiryList() {
+            fetch('http://localhost:3000/support/list?userId=1')  // userId에 맞게 변경
+                .then(response => response.json())
+                .then(data => {
+                    const inquiryList = document.getElementById('inquiry-list');
+                    inquiryList.innerHTML = ''; // 기존 목록 비우기
+
+                    data.forEach(inquiry => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                    <td>${inquiry.supportId}</td>
+                    <td>${inquiry.userId}</td>
+                    <td>${inquiry.subject}</td>
+                    <td>${new Date(inquiry.supportDate).toLocaleDateString()}</td>
+                    <td>${inquiry.status}</td>
+                    <td><button class="btn" onclick="showInquiryDetail(${inquiry.supportId})">상세 보기</button></td>
+                `;
+                        inquiryList.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('문의 내역을 불러오는 중 오류 발생:', error));
+        }
+
+        // 상세 보기 팝업을 보여주는 함수
+        function showInquiryDetail(supportId) {
+            fetch(`http://localhost:3000/support/detail?supportId=${supportId}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('inquiry-subject').innerText = data.subject;
+                    document.getElementById('inquiry-content').innerText = data.content;
+                    document.getElementById('inquiry-date').innerText = new Date(data.supportDate).toLocaleDateString();
+                    document.getElementById('inquiry-status').innerText = data.status;
+
+                    // 팝업을 보여줌
+                    document.querySelector('.cd-popup').classList.add('is-visible');
+                })
+                .catch(error => console.error('상세 문의 내역을 불러오는 중 오류 발생:', error));
+        }
+
+        // 팝업 닫기 기능
+        document.querySelector('.cd-popup-close').addEventListener('click', function () {
+            document.querySelector('.cd-popup').classList.remove('is-visible');
+        });
+
+        // 페이지 로드 시 문의 리스트 로드
+        document.addEventListener('DOMContentLoaded', loadInquiryList);
     </script>
 
 </body>
