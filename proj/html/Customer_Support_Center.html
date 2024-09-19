@@ -472,14 +472,45 @@
     serviceContent.innerHTML = details[serviceSelect] || '';
 }
         // 검색 기능
-        function searchFaq() {
-            var query = document.getElementById('searchInput').value.toLowerCase();
-            var faqs = document.querySelectorAll('.tab-content ul li a');
-            faqs.forEach(faq => {
-                var text = faq.textContent.toLowerCase();
-                faq.parentElement.style.display = text.includes(query) ? 'list-item' : 'none';
-            });
+function searchFaq() {
+    var query = document.getElementById('searchInput').value.toLowerCase();
+    var found = false;  // 검색 결과가 있는지 확인
+
+    // 각 탭에 대한 검색
+    var tabs = {
+        'faq-general': document.querySelector('#faq-general'),
+        'faq': document.querySelector('#faq'),
+        'service': document.querySelector('#service'),
+        'error': document.querySelector('#error'),
+        'ad': document.querySelector('#ad'),
+        'inquiry': document.querySelector('#inquiry')
+    };
+
+    // 각 탭의 콘텐츠에서 검색어를 찾습니다.
+    for (let tabId in tabs) {
+        let tabContent = tabs[tabId].textContent.toLowerCase();
+        
+        if (tabContent.includes(query)) {
+            showTab(tabId);  // 검색어가 있으면 해당 탭을 보여줌
+            found = true;
+            break;  // 첫 번째로 찾은 탭으로 이동하고 종료
         }
+    }
+
+    // 검색 결과가 없는 경우
+    if (!found) {
+        alert('검색 결과가 없습니다.');
+    }
+}
+
+// 탭 전환 함수
+function showTab(tabId) {
+    var tabs = document.querySelectorAll('.tab-content');
+    tabs.forEach(tab => {
+        tab.classList.remove('active');
+    });
+    document.getElementById(tabId).classList.add('active');
+}
     </script>
 </body>
 </html>
