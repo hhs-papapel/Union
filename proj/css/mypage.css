@@ -3,7 +3,6 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
@@ -32,7 +31,7 @@ body {
 .profile-section {
     width: 65%;
     padding: 20px;
-    background-color: #E6FFB3; /* 더 밝은 연두색으로 카드 배경 */
+    background-color: #ededed; /* 더 밝은 연두색으로 카드 배경 */
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
@@ -64,17 +63,19 @@ body {
 }
 
 .edit-button {
-    background-color: #a3ebb9; /* 황금색으로 버튼 포인트 */
+    background-color: #000000; /* 황금색으로 버튼 포인트 */
     border: none;
     padding: 10px 20px;
-    color: rgb(0, 0, 0);
+    font-weight: bold;
+    color: rgb(255, 255, 255);
     cursor: pointer;
     border-radius: 10px;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .edit-button:hover {
-    background-color: #FFDD44; /* 버튼 호버 시 밝게 */
+    color: #000000;
+    background-color: #BFFF00; /* 버튼 호버 시 밝게 */
 }
 
 /* 최근 활동 스타일 */
@@ -83,7 +84,7 @@ body {
 }
 
 .recent-activity h2 {
-    border-bottom: 2px solid #ffb570; /* 황금색 구분선 */
+    border-bottom: 2px solid #000000; /* 황금색 구분선 */
     padding-bottom: 10px;
     margin-bottom: 20px;
     color: #333;
@@ -93,7 +94,7 @@ body {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
-    background-color: #F0FFDA; /* 매우 밝은 연두색 */
+    background-color: #BFFF00; /* 매우 밝은 연두색 */
     border-radius: 10px;
     padding: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -120,16 +121,19 @@ body {
 .sidebars {
     width: 30%;
     padding: 20px;
-    background-color: #f3f586; /* 프로필 섹션과 동일한 배경색 */
+    background-color: #000000; /* 프로필 섹션과 동일한 배경색 */
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
-
+.sidebars p {
+    color: #BFFF00;
+    margin: 15px 0px;
+}
 .sidebars h3 {
     margin-bottom: 15px;
     border-bottom: 2px solid #70dbb8; /* 구분선 황금색 */
     padding-bottom: 10px;
-    color: #333;
+    color: #ffffff;
 }
 
 .sidebars ul {
@@ -139,7 +143,7 @@ body {
 
 .sidebars li {
     margin-bottom: 10px;
-    color: #555;
+    color: #ffffff;
 }
 
 /* 댓글 섹션 */
@@ -152,7 +156,7 @@ body {
     border-bottom: 2px solid #ffb570; /* 댓글 구분선도 황금색 */
     padding-bottom: 10px;
     margin-bottom: 10px;
-    color: #333;
+    color: #9f9f9f;
 }
 
 .comments-section input {
@@ -161,7 +165,7 @@ body {
     border-radius: 10px;
     border: none;
     background-color: #F0FFDA; /* 매우 밝은 연두색 */
-    color: #333;
+    color: #a0a0a0;
     margin-top: 10px;
     box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.1);
 }
