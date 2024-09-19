@@ -6,7 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>고객센터</title>
     <link rel="stylesheet" href="../css/Customer_Support_Center.CSS">
+
+    <!-- --------- 팝업 만든 css ---------------------------------------------------------------------------------------- -->
+     <!-- 문의등록 팝업 자체를 화면에 position: absolute 를 주어 독립적으로 배치될수 있도록 설정 -->
     <link rel="stylesheet" href="../css/inquiry.css">
+    <!-- --------------------------------------------------------------------------------------------------------------------- -->
     <script>
         function loadHTML(file) {
             var rawFile = new XMLHttpRequest();
@@ -26,6 +30,7 @@
 
 <body>
 
+    <!-- 팝업으로 된 문의 등록 폼------------------------------------------------------------------------------------------ -->
     <div class="cd-popup" id="cd-popup" role="alert">
         <div class="cd-popup-container">
               <!-- 문의 등록 폼 -->
@@ -53,7 +58,7 @@
           <a href="#0" class="cd-popup-close img-replace"></a>
         </div> <!-- cd-popup-container -->
       </div> <!-- cd-popup -->
-
+<!-- 팝업으로 된 문의 등록 폼------------------------------------------------------------------------------------------ -->
       
 
     <header>
@@ -294,6 +299,9 @@
     </script>
 <script src="/proj/assets/lib/jquery-3.7.1.min.js"></script>
 <script>
+    // 팝업 띄우고 없애는 부분-----------------------------------------------------------------
+
+    // id (#) 과 style(.) 을 찾아서 js로 class를 add remove 시켜서 visible을 보이고 안보이게 설정
     jQuery(document).ready(function($){
   //open popup
   $('#cd-popup-trigger').on('click', function(event){
@@ -315,7 +323,9 @@
       }
     });
 });
+// 팝업 띄우고 없애는 부분-----------------------------------------------------------------
 
+// 등록 버튼 부분-------------------------------------------------------------------------
     function supportAdd(){
         const id = sessionStorage.getItem('loggedInUser');
 
@@ -359,6 +369,7 @@
             }
         });
     }
+// 등록 버튼 부분-------------------------------------------------------------------------
 </script>
 </body>
 
