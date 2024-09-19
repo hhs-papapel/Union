@@ -185,88 +185,84 @@
 
         /* -------------------------------- */
 
-.button_container {
-position: absolute;
-left: 0;
-right: 0;
-top: 30%;
-}
+        .button_container {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 30%;
+        }
 
-.description, .link {
-font-family: 'Amatic SC', cursive;
-text-align: center;
-}
+        .description,
+        .link {
+            font-family: 'Amatic SC', cursive;
+            text-align: center;
+        }
 
-.description {
-font-size: 35px;
-}
+        .description {
+            font-size: 35px;
+        }
 
-.btn {
-border: none;
-display: block;
-text-align: center;
-cursor: pointer;
-text-transform: uppercase;
-outline: none;
-overflow: hidden;
-position: relative;
-color: #fff;
-font-weight: 700;
-font-size: 15px;
-background-color: #000000;
-padding: 13px 126px;
-margin: 0 auto;
-transition: color .5s ease-in-out;
-}
+        .btn {
+            border: none;
+            display: block;
+            text-align: center;
+            cursor: pointer;
+            text-transform: uppercase;
+            outline: none;
+            overflow: hidden;
+            position: relative;
+            color: #fff;
+            font-weight: 700;
+            font-size: 15px;
+            background-color: #000000;
+            padding: 13px 126px;
+            margin: 0 auto;
+            transition: color .5s ease-in-out;
+        }
 
-.btn span {
-position: relative; 
-z-index: 1;
-}
+        .btn span {
+            position: relative;
+            z-index: 1;
+        }
 
-.btn:after {
-content: "";
-position: absolute;
-left: 0;
-top: 0;
-height: 490%;
-width: 140%;
-background: #abff76;
--webkit-transition: all .5s ease-in-out;
-transition: all .5s ease-in-out;
--webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
-transform: translateX(-98%) translateY(-25%) rotate(45deg);
-}
+        .btn:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 490%;
+            width: 140%;
+            background: #abff76;
+            -webkit-transition: all .5s ease-in-out;
+            transition: all .5s ease-in-out;
+            -webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
+            transform: translateX(-98%) translateY(-25%) rotate(45deg);
+        }
 
-.btn:hover:after {
--webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
-transform: translateX(-9%) translateY(-25%) rotate(45deg);
-}
+        .btn:hover:after {
+            -webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
+            transform: translateX(-9%) translateY(-25%) rotate(45deg);
+        }
 
-.btn:hover {
-color: #000000;
-}
-
+        .btn:hover {
+            color: #000000;
+        }
     </style>
-        <script>
-            function loadHTML(file)
-            {
-                var rawFile = new XMLHttpRequest();
-                rawFile.open("GET", file, false);
-                rawFile.onreadystatechange = function ()
-                {
-                    if(rawFile.readyState === 4)
-                    {
-                        if(rawFile.status === 200 || rawFile.status == 0)
-                        {
-                            var allText = rawFile.responseText;
-                            document.write(allText);
-                        }
+    <script>
+        function loadHTML(file) {
+            var rawFile = new XMLHttpRequest();
+            rawFile.open("GET", file, false);
+            rawFile.onreadystatechange = function () {
+                if (rawFile.readyState === 4) {
+                    if (rawFile.status === 200 || rawFile.status == 0) {
+                        var allText = rawFile.responseText;
+                        document.write(allText);
                     }
                 }
-                rawFile.send(null);
             }
-        </script>
+            rawFile.send(null);
+        }
+    </script>
 </head>
 
 <body>
@@ -357,6 +353,8 @@ color: #000000;
         <script>loadHTML("./footer.html")</script>
     </footer>
 
+    <!-- 로그인 체크 js 추가 -->
+    <script src="../assets/js/checkLogin.js"></script>
     <script>
 
 
@@ -399,13 +397,13 @@ color: #000000;
             cartContainer.innerHTML = '';  // 기존 항목 초기화
 
             // 장바구니 항목을 하나씩 추가
-            cartItems.forEach(({ imageUrl, gameName, price, cartId, gameId }) => { 
+            cartItems.forEach(({ imageUrl, gameName, price, cartId, gameId }) => {
                 totalPrice += price;  // 총합 계산
 
                 cartContainer.innerHTML += `
             <div class="cart-item" data-cartid="${cartId}" data-gameid="${gameId}">
                 <div class="cart-item-img">
-                    <img src="${imageUrl}" alt="${gameName}">
+                    <img id="details-${gameId}" src="${imageUrl}" alt="${gameName}" class="game-image" data-gameid="${gameId}">
                 </div>
                 <div class="cart-item-info">
                     <h2>${gameName}</h2>
@@ -430,6 +428,19 @@ color: #000000;
 
             /*───────────────────────────────────────────────────────────────────────────────────────────*/
 
+            // 이미지에 클릭 이벤트 추가
+            const gameImages = document.querySelectorAll('.game-image');
+            gameImages.forEach(image => {
+                image.addEventListener('click', function () {
+                    const gameId = this.getAttribute('data-gameid');
+                    // 게임 상세 페이지로 이동 // 게임 아이디를 이용해서 게임 나누기...................... help me..
+                    window.location.href = `/proj/html/game_details.html?gameId=${gameId}`;
+                });
+            });
+
+
+            /*───────────────────────────────────────────────────────────────────────────────────────────*/
+
             // "제거" 버튼에 이벤트 리스너 추가
             const removeButtons = document.querySelectorAll('.remove-item');
             removeButtons.forEach(button => {
@@ -439,19 +450,19 @@ color: #000000;
 
                     // 장바구니에서 해당 항목 삭제 요청
                     fetch(`http://localhost:3000/api/cart/delete`, {
-                        method: 'POST', 
+                        method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify({
-                            cartId: cartId 
+                            cartId: cartId
                         })
                     })
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
                                 alert('항목이 제거되었습니다.');
-                                location.reload(); 
+                                location.reload();
                             } else {
                                 alert('항목 제거에 실패했습니다.');
                             }
@@ -470,8 +481,8 @@ color: #000000;
                 button.addEventListener('click', function (event) {
                     event.preventDefault();
 
-                    const gameId = this.getAttribute('data-gameid'); 
-                    const userId = sessionStorage.getItem('loggedInUser'); 
+                    const gameId = this.getAttribute('data-gameid');
+                    const userId = sessionStorage.getItem('loggedInUser');
 
 
                     // 찜 목록에 추가 요청
@@ -499,8 +510,9 @@ color: #000000;
                         });
                 });
             });
+
+            /*───────────────────────────────────────────────────────────────────────────────────────────*/
         }
-        /*───────────────────────────────────────────────────────────────────────────────────────────*/
 
         /* 구매하기 버튼 동작 => 결제테이블안에 넣고 장바구니 테이블 비우기 */
         document.addEventListener('DOMContentLoaded', () => {
@@ -508,51 +520,16 @@ color: #000000;
 
             if (paymentButton) {
                 paymentButton.addEventListener('click', () => {
-                    const userId = sessionStorage.getItem('loggedInUser');
-
-                    fetch(`http://localhost:3000/api/cart?userId=${userId}`)
-                        .then(response => response.json())
-                        .then(cartItems => {
-                            cartItems.forEach(item => {
-                            });
-
-                            const paymentData = cartItems.map(item => ({
-                                gameId: item.gameId, 
-                                amount: item.price
-                            }));
-
-
-                            // 결제 요청 전송
-                            fetch(`http://localhost:3000/api/payment`, {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                },
-                                body: JSON.stringify({
-                                    userId: userId,
-                                    paymentItems: paymentData
-                                })
-                            })
-                                .then(response => response.json())
-                                .then(data => {
-                                    if (data.success) {
-                                        alert('결제가 완료되었습니다!');
-
-
-                                    } else {
-                                        alert('결제에 실패했습니다.');
-                                    }
-                                })
-                                .catch(error => {
-                                    console.error('Error:', error);
-                                });
-                        })
-                        .catch(error => {
-                            console.error('장바구니 데이터를 가져오는 중 오류:', error);
-                        });
+                    try {
+                        window.location.href = '/proj/html/payment.html';  // 결제 페이지로 이동
+                    } catch (error) {
+                        console.error('결제 페이지로 이동 중 오류 발생:', error);
+                        alert('결제 페이지로 이동하는 중 문제가 발생했습니다. 다시 시도해주세요.');
+                    }
                 });
             }
         });
+
 
         /*───────────────────────────────────────────────────────────────────────────────────────────*/
 

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 페이지</title>
+    <style>
+        body {
+            padding-top: 110px;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+
+        /* 사이드바 스타일 */
+        .sidebar {
+            margin-top: 110px;
+            width: 250px;
+            background-color: #BFFF00;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-top: 20px;
+            z-index: 1;
+        }
+
+        .sidebar a {
+            padding: 15px;
+            text-decoration: none;
+            display: block;
+            color: rgb(0, 0, 0);
+            font-size: 18px;
+            margin: 5px 0;
+        }
+
+        .sidebar a:hover {
+            background-color: #1abc9c;
+        }
+
+        /* 메인 컨텐츠 영역 */
+        .main-content {
+            margin-left: 300px;
+            padding: 20px;
+        }
+
+        .content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th,
+        table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #f4f4f9;
+        }
+
+        .btn {
+            background-color: #77c556;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #44853c;
+        }
+
+        /* 문의 내역 및 커뮤니티 관리 테이블 */
+        .table-section {
+            margin-top: 30px;
+        }
+    </style>
+
+    <script>
+        function loadHTML(file) {
+            var rawFile = new XMLHttpRequest();
+            rawFile.open("GET", file, false);
+            rawFile.onreadystatechange = function () {
+                if (rawFile.readyState === 4) {
+                    if (rawFile.status === 200 || rawFile.status == 0) {
+                        var allText = rawFile.responseText;
+                        document.write(allText);
+                    }
+                }
+            }
+            rawFile.send(null);
+        }
+    </script>
+</head>
+
+<body>
+    <!-- 헤더 -->
+    <header>
+        <script>loadHTML("./header2.html")</script>
+    </header>
+    <!-- 사이드바 -->
+    <div class="sidebar">
+        <a href="#user-management">사용자 관리</a>
+        <a href="#inquiry-management">문의 내역 관리</a>
+        <a href="#community-management">커뮤니티 관리</a>
+    </div>
+
+    <!-- 메인 컨텐츠 -->
+    <div class="main-content">
+        <!-- 사용자 관리 섹션 -->
+        <div id="user-management" class="content">
+            <h1>사용자 관리</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>사용자 ID</th>
+                        <th>이름</th>
+                        <th>이메일</th>
+                        <th>가입일</th>
+                        <th>마지막 로그인</th>
+                        <th>관리</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>user123</td>
+                        <td>김철수</td>
+                        <td>example@example.com</td>
+                        <td>2024-01-01</td>
+                        <td>활성</td>
+                        <td><button class="btn">수정</button></td>
+                    </tr>
+                    <tr>
+                        <td>user456</td>
+                        <td>이영희</td>
+                        <td>lee@example.com</td>
+                        <td>2024-02-15</td>
+                        <td>비활성</td>
+                        <td><button class="btn">수정</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 문의 내역 관리 섹션 -->
+        <div id="inquiry-management" class="content table-section">
+            <h1>문의 내역 관리</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>문의 ID</th>
+                        <th>사용자 ID</th>
+                        <th>제목</th>
+                        <th>날짜</th>
+                        <th>상태</th>
+                        <th>관리</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>inquiry123</td>
+                        <td>user123</td>
+                        <td>로그인 문제</td>
+                        <td>2024-08-20</td>
+                        <td>처리 중</td>
+                        <td><button class="btn">상세 보기</button></td>
+                    </tr>
+                    <tr>
+                        <td>inquiry456</td>
+                        <td>user456</td>
+                        <td>비밀번호 변경</td>
+                        <td>2024-08-22</td>
+                        <td>완료</td>
+                        <td><button class="btn">상세 보기</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 커뮤니티 관리 섹션 -->
+        <div id="community-management" class="content table-section">
+            <h1>커뮤니티 관리</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>게시물 ID</th>
+                        <th>작성자 ID</th>
+                        <th>제목</th>
+                        <th>작성일</th>
+                        <th>관리</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>post123</td>
+                        <td>user123</td>
+                        <td>게임 추천</td>
+                        <td>2024-07-10</td>
+                        <td><button class="btn">삭제</button></td>
+                    </tr>
+                    <tr>
+                        <td>post456</td>
+                        <td>user456</td>
+                        <td>이벤트 안내</td>
+                        <td>2024-07-12</td>
+                        <td><button class="btn">삭제</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <footer style="z-index: 2;">
+        <script>loadHTML("./footer.html")</script>
+    </footer>
+
+
+    <!-- 사용자 목록을 동적으로 생성 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('http://localhost:3000/api/users')
+                .then(response => response.json())
+                .then(users => {
+                    displayUsers(users); // 사용자 목록을 화면에 표시하는 함수 호출
+                })
+                .catch(error => {
+                    console.error('사용자 목록을 가져오는 중 오류 발생:', error);
+                });
+        });
+
+        function displayUsers(users) {
+            const userTableBody = document.querySelector('tbody');
+            userTableBody.innerHTML = ''; // 기존 내용을 비움
+
+            users.forEach(user => {
+                const row = document.createElement('tr');
+
+                // 각 사용자 데이터를 <td>로 추가
+                row.innerHTML = `
+                <td>${user.username}</td>
+                <td>${user.name}</td>
+                <td>${user.email}</td>
+                <td>${new Date(user.regDate).toLocaleDateString()}</td>
+                <td>${user.lastLogin ? new Date(user.lastLogin).toLocaleDateString() : '없음'}</td>
+                <td><button class="btn edit-btn">수정</button></td>
+            `;
+
+                // 버튼에 이벤트 리스너 추가
+                row.querySelector('.edit-btn').addEventListener('click', () => editRow(row, user));
+
+                // 테이블에 추가
+                userTableBody.appendChild(row);
+            });
+        }
+
+        function editRow(row, user) {
+            const cells = row.getElementsByTagName('td');
+
+            if (row.dataset.editing === 'true') {
+                saveRow(row, user.userId);
+            } else {
+                // 기존 내용을 input 필드로 변환
+                cells[0].innerHTML = `<input type="text" value="${user.username}" />`;
+                cells[1].innerHTML = `<input type="text" value="${user.name}" />`;
+                cells[2].innerHTML = `<input type="email" value="${user.email}" />`;
+                cells[3].innerHTML = `<input type="date" value="${new Date(user.regDate).toISOString().substring(0, 10)}" />`;
+                cells[4].innerHTML = `<input type="datetime-local" value="${user.lastLogin ? new Date(user.lastLogin).toISOString().substring(0, 16) : ''}" />`;
+
+                // 버튼을 저장으로 변경
+                row.querySelector('.edit-btn').innerText = '저장';
+
+                // 수정 상태 플래그 설정
+                row.dataset.editing = 'true';
+            }
+        }
+
+        function saveRow(row, userId) {
+            const cells = row.getElementsByTagName('td');
+
+            const updatedUser = {
+                username: cells[0].querySelector('input').value,
+                name: cells[1].querySelector('input').value,
+                email: cells[2].querySelector('input').value,
+                regDate: cells[3].querySelector('input').value,
+                lastLogin: cells[4].querySelector('input').value
+            };
+
+            // 서버로 업데이트된 데이터를 전송 (AJAX 사용)
+            fetch(`http://localhost:3000/api/users/${userId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedUser)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('수정이 완료되었습니다.');
+
+                        // 수정 후 td로 다시 변경
+                        cells[0].innerText = updatedUser.username;
+                        cells[1].innerText = updatedUser.name;
+                        cells[2].innerText = updatedUser.email;
+                        cells[3].innerText = new Date(updatedUser.regDate).toLocaleDateString();
+                        cells[4].innerText = updatedUser.lastLogin ? new Date(updatedUser.lastLogin).toLocaleString('ko-KR', { month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '없음';
+
+                        // 저장 버튼을 수정 버튼으로 전환
+                        row.querySelector('.edit-btn').innerText = '수정';
+
+                        // 수정 상태 플래그 해제
+                        row.dataset.editing = 'false';
+                    } else {
+                        alert('수정에 실패했습니다.');
+                    }
+                })
+                .catch(error => {
+                    console.error('오류 발생:', error);
+                    alert('오류가 발생했습니다.');
+                });
+        }
+    </script>
+
+</body>
+
+</html>

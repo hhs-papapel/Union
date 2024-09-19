@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>결제 창</title>
     <link rel="stylesheet" href="../css/payment.css">
     <script>
-        function loadHTML(file)
-        {
+        function loadHTML(file) {
             var rawFile = new XMLHttpRequest();
             rawFile.open("GET", file, false);
-            rawFile.onreadystatechange = function ()
-            {
-                if(rawFile.readyState === 4)
-                {
-                    if(rawFile.status === 200 || rawFile.status == 0)
-                    {
+            rawFile.onreadystatechange = function () {
+                if (rawFile.readyState === 4) {
+                    if (rawFile.status === 200 || rawFile.status == 0) {
                         var allText = rawFile.responseText;
                         document.write(allText);
                     }
@@ -25,58 +22,202 @@
         }
     </script>
 </head>
+
 <body>
     <header>
         <script>loadHTML("./header.html")</script>
     </header>
-    <!-- 결제 정보 상단 -->
-    <header class="payment-header">
-        <h2>결제 정보</h2>
-        <!-- <button class="confirm-button">확인 + 구매</button> -->
-    </header>
+    <section class="payment-top">
+        <div class="containers">
+            <div class="payment-head">
+                결제정보 > 확인+구매
+            </div>
+        </div>
+    </section>
 
     <!-- 결제 항목 리스트 -->
+    <!-- 결제 항목 리스트 -->
     <section class="payment-details">
-        <div class="item">
-            <img src="https://via.placeholder.com/100x100?text=Nine+Sols" alt="Nine Sols">
-            <div class="item-info">
-                <p class="item-name">Nine Sols</p>
-                <p class="item-price">₩ 32,000</p>
+        <div class="containers">
+
+            <div class="container">
+                <!-- 추가된 cart-items 요소 -->
+                <div class="cart-items"></div> <!-- 장바구니 항목이 추가될 부분 -->
+
+                <div class="total">
+                    <p>소계: ₩0</p>
+                    <p>합계: ₩0 (모든 가격은 VAT 포함)</p>
+                </div>
+
+                <div class="point-box">
+                    <span>이 구매로 UNION 포인트를 획득하세요</span>
+                    <span>0 포인트</span>
+                </div>
+
+                <div class="payment-method">
+                    <span>결제 수단: 신용카드(한국 국내)</span>
+                    <span>UNION 계정: </span>
+                </div>
+
+                <div class="terms">
+                    <span>UNION 이용 약관에 동의합니다. 마지막 업데이트: 2023년 4월 26일.</span>
+                    <span>거래를 시작하기 위한 새로운 웹 브라우저를 열기 위해 아래에 있는 버튼을 클릭하세요.</span>
+                </div>
+
+                <a href="#" class="confirm-btn" id="pay">결제</a>
             </div>
-        </div>
-        <div class="item">
-            <img src="https://via.placeholder.com/100x100?text=Persona+3" alt="Persona 3">
-            <div class="item-info">
-                <p class="item-name">페르소나3 리로드</p>
-                <p class="item-price">₩ 79,800</p>
+            <div class="container2">
+                <p>UNION에서 구매</p>
+                <p>이 거래를 완료하면 사용한 결제 수단으로 금액이 차감되며 구매가 완료됩니다.</p>
             </div>
-        </div>
-        <div class="total-price">
-            <p>합계:</p>
-            <p>₩ 111,800</p>
         </div>
     </section>
 
-    <!-- 포인트 및 결제 수단 -->
-    <section class="payment-summary">
-        <div class="steam-points">
-            <p>이 구매로 Steam 포인트를 획득하세요</p>
-            <p class="points">8,163</p>
-        </div>
-        <div class="payment-method">
-            <p>결제 수단:</p>
-            <p class="method">어떤걸로 결제.? (결제)</p>
-            <p>Steam 계정: 계정주 이름</p>
-        </div>
-    </section>
-
-    <!-- 이용 약관 -->
-    <section class="terms">
-        <p>Steam <a href="#">이용 약관</a>에 동의합니다. <br> 거래를 시작하기 위한 새로운 웹 브라우저를 열기 위해 아래에 있는 버튼을 클릭하세요.</p>
-        <button class="payment-button">구매</button>
-    </section>
     <footer>
         <script>loadHTML("./footer.html")</script>
     </footer>
+    <!-- 로그인 체크 js 추가 -->
+    <script src="../assets/js/checkLogin.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loggedInUser = sessionStorage.getItem('loggedInUser');
+
+            if (loggedInUser) {
+                // 장바구니 데이터를 서버에서 가져오기
+                fetch(`http://localhost:3000/api/cart?userId=${loggedInUser}`)
+                    .then(response => response.json())
+                    .then(cartItems => {
+                        displayCartItems(cartItems);  // 장바구니 데이터를 화면에 표시
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            } else {
+                alert('로그인이 필요합니다.');
+                window.location.href = '/proj/html/login.html';  // 로그인 페이지로 리다이렉트
+            }
+        });
+
+        function displayCartItems(cartItems) {
+            const cartContainer = document.querySelector('.cart-items');
+            const subtotalElement = document.querySelector('.total p:first-child'); // 소계
+            const totalElement = document.querySelector('.total p:last-child'); // 합계
+            const pointBox = document.querySelector('.point-box span:last-child'); // 포인트 표시할 부분
+            let totalPrice = 0;
+
+            cartContainer.innerHTML = '';  // 기존 항목 초기화
+
+            // 장바구니 항목을 동적으로 추가
+            cartItems.forEach(({ imageUrl, gameName, price }) => {
+                totalPrice += price;
+
+                cartContainer.innerHTML += `
+        <div class="cart-item">
+            <img src="${imageUrl}" alt="${gameName}" class="game-image">
+            <div class="item-details">
+                <div>${gameName}</div>
+                <div>₩${price.toLocaleString()}</div>
+            </div>
+        </div>`;
+            });
+
+            // 소계와 합계 텍스트 업데이트
+            if (subtotalElement && totalElement) {
+                subtotalElement.innerHTML = `소계: ₩${totalPrice.toLocaleString()}`;
+                totalElement.innerHTML = `합계: ₩${totalPrice.toLocaleString()} (모든 가격은 VAT 포함)`;
+            } else {
+                console.error('소계 또는 합계 요소를 찾을 수 없습니다.');
+            }
+
+            // 포인트 계산 및 업데이트 (12.3%)
+            const points = Math.floor(totalPrice * 0.123);  // 소수점 버림 처리
+            if (pointBox) {
+                pointBox.innerHTML = `${points.toLocaleString()} 포인트`;
+            } else {
+                console.error('포인트 표시 요소를 찾을 수 없습니다.');
+            }
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            const userId = sessionStorage.getItem('loggedInUser');
+
+            if (userId) {
+                // 서버에서 username을 가져오기
+                fetch(`http://localhost:3000/api/user/username?userId=${userId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // 결제 수단 및 사용자 계정 정보 업데이트
+                        const usernameSpan = document.querySelector('.payment-method span:last-child');
+                        if (usernameSpan) {
+                            usernameSpan.innerHTML = `UNION 계정: ${data.username}`;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching username:', error);
+                    });
+            } else {
+                alert('로그인이 필요합니다.');
+                window.location.href = '/proj/html/login.html';  // 로그인 페이지로 리다이렉트
+            }
+        });
+    </script>
+
+    <script>
+        /* 구매하기 버튼 동작 => 결제테이블안에 넣고 장바구니 테이블 비우기 */
+        document.addEventListener('DOMContentLoaded', () => {
+            const paymentButton = document.getElementById('pay');
+
+            if (paymentButton) {
+                paymentButton.addEventListener('click', () => {
+                    const confirmPurchase = window.confirm('정말로 결제를 진행하시겠습니까?');
+
+                    if (confirmPurchase) {
+                        const userId = sessionStorage.getItem('loggedInUser');
+
+                        fetch(`http://localhost:3000/api/cart?userId=${userId}`)
+                            .then(response => response.json())
+                            .then(cartItems => {
+                                const paymentData = cartItems.map(item => ({
+                                    gameId: item.gameId,
+                                    amount: item.price
+                                }));
+
+                                // 결제 요청 전송
+                                fetch(`http://localhost:3000/api/payment`, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        userId: userId,
+                                        paymentItems: paymentData
+                                    })
+                                })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data.success) {
+                                            alert('결제가 완료되었습니다!');
+                                            // 결제가 완료되면 다른 페이지로 이동 (예: 라이브러리 페이지)
+                                            window.location.href = '/proj/html/library.html';
+                                        } else {
+                                            alert('결제에 실패했습니다.');
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error('Error:', error);
+                                    });
+                            })
+                            .catch(error => {
+                                console.error('장바구니 데이터를 가져오는 중 오류:', error);
+                            });
+                    } else {
+                        alert('결제가 취소되었습니다.');
+                    }
+                });
+            }
+        });
+
+    </script>
 </body>
+
 </html>
