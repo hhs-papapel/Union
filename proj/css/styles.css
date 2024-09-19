@@ -866,7 +866,7 @@ body {
 .game-card img {
     width: 100%;
     height: auto;
-    border-bottom: 1px solid #c6d4df;
+    display: block; /* 흰색 줄 제거를 위해 이미지가 블록 요소로 취급되도록 설정 */
 }
 
 .game-details {
