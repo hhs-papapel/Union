@@ -6,16 +6,20 @@
             padding: 0;
             box-sizing: border-box;
         }
+
         /* 스크롤바 */
         html::-webkit-scrollbar {
-                width:20px;
-            }
+            width: 20px;
+        }
+
         html::-webkit-scrollbar-thumb {
             background: #BFFF00;
         }
+
         html::-webkit-scrollbar-track {
             background: #000000;
         }
+
         body {
             font-family: Arial, sans-serif;
             background-color: #ffffff;
@@ -308,36 +312,35 @@
 
         // 로그인 후 로그아웃으로 변경
         document.addEventListener('DOMContentLoaded', function () {
-            // sessionStorage에서 loggedInUser를 가져옴
             const userId = sessionStorage.getItem('loggedInUser');
+            const isAdmin = sessionStorage.getItem('isAdmin'); // isAdmin 값 가져오기
 
-            // 로그인/로그아웃 버튼과 메뉴 요소 가져오기
             const loginButton = document.querySelector('.nav-right a[href="/proj/html/login.html"]');
-            const navRight = document.querySelector('.nav-right'); // 메뉴 전체를 감싸는 요소
+            const navRight = document.querySelector('.nav-right');
 
             if (loginButton && navRight) {
-                // userId가 있으면 로그아웃으로 버튼 변경 및 '내 정보', '라이브러리' 추가
                 if (userId) {
-                    // 로그인 버튼을 로그아웃으로 변경
                     loginButton.innerHTML = `<img src="../assets/images/로그인.png" alt="Logout">로그아웃`;
-                    loginButton.href = "#"; // 로그아웃 시 동작을 설정
+                    loginButton.href = "#";
 
-                    // 로그아웃 클릭 시 sessionStorage에서 'loggedInUser' 삭제 및 페이지 리로드
                     loginButton.addEventListener('click', function () {
-                        sessionStorage.removeItem('loggedInUser');  // 여기서 'loggedInUser'를 제거해야 함
+                        sessionStorage.removeItem('loggedInUser');
+                        sessionStorage.removeItem('isAdmin'); // isAdmin 값도 삭제
                         window.location.href='../html/main.html'; // 페이지 새로고침
                     });
 
-                    // '내 정보'와 '라이브러리' 메뉴 추가
                     const myInfoLink = document.createElement('a');
-                    myInfoLink.href = '/proj/html/mypage.html';
+                    if (isAdmin === '1') {
+                        myInfoLink.href = '/proj/html/admin.html'; // 관리자는 관리자 페이지로 이동
+                    } else {
+                        myInfoLink.href = '/proj/html/mypage.html'; // 일반 유저는 마이페이지로 이동
+                    }
                     myInfoLink.innerHTML = `<img src="../assets/images/로그인.png" alt="My Info">내 정보`;
 
                     const libraryLink = document.createElement('a');
                     libraryLink.href = '/proj/html/library.html';
                     libraryLink.innerHTML = `<img src="../assets/images/로그인.png" alt="Library">라이브러리`;
 
-                    // 메뉴에 '내 정보'와 '라이브러리' 추가
                     navRight.insertBefore(myInfoLink, loginButton);
                     navRight.insertBefore(libraryLink, loginButton);
                 }

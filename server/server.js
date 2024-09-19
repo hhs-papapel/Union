@@ -95,8 +95,7 @@ app.post('/join', (req, res) => {
 });
 /*───────────────────────────────────────────────────────────────────────────────────────────*/
 
-
-/*로그인 기능*/
+/* 로그인 기능 */
 app.get('/login', (req, res) => {
     let userName = req.query.userId;
     let pwd = req.query.pwd;
@@ -108,9 +107,8 @@ app.get('/login', (req, res) => {
         }
 
         if (rows.length > 0) {
-            // 로그인 성공 시 lastLogin 필드 업데이트
             let userId = rows[0].userId;
-            let currentTime = new Date(); // 현재 시간
+            let currentTime = new Date();
 
             connection.query('UPDATE User SET lastLogin = ? WHERE userId = ?', [currentTime, userId], (updateErr) => {
                 if (updateErr) {
@@ -118,21 +116,18 @@ app.get('/login', (req, res) => {
                     return res.status(500).json({ error: '로그인 시간 업데이트 실패' });
                 }
 
-                // 로그인 성공 시 응답 데이터
+                // 로그인 성공 시, isAdmin 값도 함께 응답
                 let responseData = {
                     status: 200,
                     userId: rows[0].userId,
-                    name: rows[0].name // 유저의 이름을 rows[0]에서 가져옴
+                    name: rows[0].name,
+                    isAdmin: rows[0].isAdmin // isAdmin 값도 클라이언트로 전송
                 };
-                res.json(responseData); // 클라이언트에게 전달
+                res.json(responseData);
             });
 
         } else {
-            // 로그인 실패 시 응답 데이터
-            let responseData = {
-                status: 409
-            };
-            res.json(responseData);
+            res.json({ status: 409 });
         }
     });
 });

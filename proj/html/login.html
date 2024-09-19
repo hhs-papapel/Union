@@ -138,11 +138,13 @@
                         if (rememberMe) {
                             // 로그인 정보를 localStorage에 저장  쿠키 지워야됨
                             // 일단 지금은 sessionStorage으로 저장해서 테스트
-                            //localStorage.setItem('loggedInUser', userId);
+                            //localStorage.setItem('loggedInUser', res.userId);
                             sessionStorage.setItem('loggedInUser', res.userId);
+                            sessionStorage.setItem('isAdmin', res.isAdmin); // isAdmin 값 저장
                         } else {
                             // 로그인 정보를 sessionStorage에 저장
                             sessionStorage.setItem('loggedInUser', res.userId);
+                            sessionStorage.setItem('isAdmin', res.isAdmin); // isAdmin 값 저장
 
                             const previousPage = document.referrer;
 
