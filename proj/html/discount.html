@@ -136,6 +136,13 @@
         `;
                 gameContainer.innerHTML += gameCard;
             });
+            const gameCards = document.querySelectorAll('.game-card');
+            gameCards.forEach(card => {
+                card.addEventListener('click', function () {
+                    const gameId = this.getAttribute('data-game-id');
+                    window.location.href = `/proj/html/game_details.html?gameId=${gameId}`;
+                });
+            });
         }
     </script>
 </body>
