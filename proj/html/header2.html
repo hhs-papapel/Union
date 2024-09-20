@@ -123,7 +123,7 @@
             <div class="hamburger" onclick="openNav()"></div> <!-- 햄버거 아이콘 -->
 
             <div class="nav-right">
-                <a href="#"><img src="../assets/images/로그인.png" alt="Login">로그아웃</a>
+                <a href="#" id="logout-button"><img src="../assets/images/로그인.png" alt="Login">로그아웃</a>
             </div>
         </div>
         <div style="height: 70px;">
@@ -161,5 +161,29 @@
         function closeNav() {
             document.getElementById("mySidebar").style.width = "0";
         }
+
+        document.getElementById('logout-button').addEventListener('click', function (event) {
+            event.preventDefault(); // 기본 링크 동작 방지
+
+            // 서버 로그아웃 요청 (예시: 로그아웃 API가 /logout인 경우)
+            fetch('http://localhost:3000/api/logout', {
+                method: 'POST',  // 로그아웃 방식에 따라 GET이나 POST로 변경
+                credentials: 'include' // 쿠키 기반 인증 시 필요
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // 로그아웃 성공 시, localStorage 또는 sessionStorage에서 사용자 정보를 삭제
+                        sessionStorage.removeItem('loggedInUser');  // 또는 localStorage.removeItem('loggedInUser');
+
+                        // 로그아웃 후 로그인 페이지로 리다이렉트
+                        window.location.href = 'login.html';  // 로그인 페이지로 이동
+                    } else {
+                        alert('로그아웃에 실패했습니다. 다시 시도해주세요.');
+                    }
+                })
+                .catch(error => {
+                    console.error('로그아웃 중 오류 발생:', error);
+                });
+        });
     </script>
 </body>
