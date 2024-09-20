@@ -65,34 +65,43 @@ app.post('/join', (req, res) => {
     let name = req.body.name;
     let phone = req.body.phone;
     let regDate = new Date();  // 회원가입 날짜 현재 시간으로 설정
-    let profilePic = req.file ? req.file.filename : 'default.png';  // 이미지가 없으면 기본 이미지 설정
 
-
-    connection.query('SELECT * FROM User WHERE username = ? OR email = ?', [id, ema], (err, rows) => {
+    // 아이디, 이메일, 전화번호 중복 체크
+    connection.query('SELECT * FROM User WHERE username = ? OR email = ? OR phone = ?', [id, ema, phone], (err, rows) => {
         if (err) {
             console.log('err: ', err);
+            return res.status(500).json({ error: '서버 오류 발생' });
         }
+
         if (rows.length > 0) {
-            let responseData = new Object();
-            responseData.status = 409;  // 중복 아이디가 있을 경우
-            res.json(responseData);
-        } else {
-            connection.query(
-                'INSERT INTO User(username, pwd, email, name, phone, regDate, profilePic) VALUES (?, ?, ?, ?, ?, ?, ?)',
-                [id, paw, ema, name, phone, regDate, profilePic],
-                (err, rows) => {
-                    if (err) {
-                        console.log('err: ', err);
-                    }
-                    let responseData = new Object();
-                    responseData.status = 200;  // 성공적인 응답
-                    responseData.list = rows;
-                    res.json(responseData);
-                }
-            );
+            let responseData = {
+                status: 409,  // 중복된 아이디, 이메일, 또는 전화번호가 있을 경우
+                message: '아이디, 이메일 또는 전화번호가 이미 사용 중입니다.'
+            };
+            return res.json(responseData);
         }
+
+        // 중복이 없을 경우 회원가입 진행
+        connection.query(
+            'INSERT INTO User(username, pwd, email, name, phone, regDate) VALUES (?, ?, ?, ?, ?, ?)',
+            [id, paw, ema, name, phone, regDate],
+            (err, rows) => {
+                if (err) {
+                    console.log('err: ', err);
+                    return res.status(500).json({ error: '회원가입 중 오류가 발생했습니다.' });
+                }
+
+                let responseData = {
+                    status: 200,  // 성공적인 응답
+                    message: '회원가입이 완료되었습니다.',
+                    userId: rows.insertId  // 삽입된 회원의 ID 반환
+                };
+                res.json(responseData);
+            }
+        );
     });
 });
+
 /*───────────────────────────────────────────────────────────────────────────────────────────*/
 
 /* 로그인 기능 */
@@ -100,6 +109,7 @@ app.get('/login', (req, res) => {
     let userName = req.query.userId;
     let pwd = req.query.pwd;
 
+    // 먼저 사용자 정보와 로그인 검증
     connection.query('SELECT * FROM User WHERE username = ? AND pwd = ?', [userName, pwd], (err, rows) => {
         if (err) {
             console.log('err: ', err);
@@ -108,9 +118,9 @@ app.get('/login', (req, res) => {
 
         if (rows.length > 0) {
             let userId = rows[0].userId;
-            let currentTime = new Date();
 
-            connection.query('UPDATE User SET lastLogin = ? WHERE userId = ?', [currentTime, userId], (updateErr) => {
+            // lastLogin을 MySQL의 NOW() 함수로 업데이트
+            connection.query('UPDATE User SET lastLogin = NOW() WHERE userId = ?', [userId], (updateErr) => {
                 if (updateErr) {
                     console.log('err: ', updateErr);
                     return res.status(500).json({ error: '로그인 시간 업데이트 실패' });
@@ -127,7 +137,7 @@ app.get('/login', (req, res) => {
             });
 
         } else {
-            res.json({ status: 409 });
+            res.json({ status: 409, message: '로그인 실패: 아이디나 비밀번호를 확인해주세요.' });
         }
     });
 });
