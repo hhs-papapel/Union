@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +12,8 @@
 
             margin: 0;
             padding: 0;
-            }
+        }
+
         body {
             background-color: #f4f4f9;
             margin: 0;
@@ -30,7 +32,8 @@
             margin-bottom: 20px;
         }
 
-        .inquiry-table th, .inquiry-table td {
+        .inquiry-table th,
+        .inquiry-table td {
             border: 1px solid #ddd;
             padding: 12px;
             text-align: left;
@@ -105,29 +108,29 @@
             border-radius: 5px;
             width: 300px;
         }
-
     </style>
-        <script>
-            function loadHTML(file) {
-                var rawFile = new XMLHttpRequest();
-                rawFile.open("GET", file, false);
-                rawFile.onreadystatechange = function () {
-                    if (rawFile.readyState === 4) {
-                        if (rawFile.status === 200 || rawFile.status == 0) {
-                            var allText = rawFile.responseText;
-                            document.write(allText);
-                        }
+    <script>
+        function loadHTML(file) {
+            var rawFile = new XMLHttpRequest();
+            rawFile.open("GET", file, false);
+            rawFile.onreadystatechange = function () {
+                if (rawFile.readyState === 4) {
+                    if (rawFile.status === 200 || rawFile.status == 0) {
+                        var allText = rawFile.responseText;
+                        document.write(allText);
                     }
                 }
-                rawFile.send(null);
             }
-        </script>
+            rawFile.send(null);
+        }
+    </script>
 </head>
+
 <body>
     <div class="cd-popup" id="cd-popup" role="alert">
         <div class="cd-popup-container">
-              <!-- 문의 등록 폼 -->
-              <section id="inquiry-form" class="inquiry-form">
+            <!-- 문의 등록 폼 -->
+            <section id="inquiry-form" class="inquiry-form">
                 <h2>문의 상세보기</h2>
                 <div class="details" id="details">
                     <p><strong>문의 제목:</strong> 비밀번호 변경 요청</p>
@@ -137,9 +140,9 @@
                     <p>비밀번호를 변경하고 싶습니다. 절차가 궁금합니다.</p>
                 </div>
             </section>
-          <a href="#0" class="cd-popup-close img-replace"></a>
+            <a href="#0" class="cd-popup-close img-replace"></a>
         </div> <!-- cd-popup-container -->
-      </div> <!-- cd-popup -->
+    </div> <!-- cd-popup -->
 
     <header>
         <script>loadHTML("./header.html")</script>
@@ -191,20 +194,20 @@
         const inquiries = Array.from(inquiryList.getElementsByTagName('tr'));
 
         // 상태 필터 적용
-        statusFilter.addEventListener('change', function() {
+        statusFilter.addEventListener('change', function () {
             const filterValue = this.value;
             filterInquiries(filterValue, searchInput.value);
         });
 
         // 검색 기능 적용
-        searchInput.addEventListener('keyup', function() {
+        searchInput.addEventListener('keyup', function () {
             const searchValue = this.value.toLowerCase();
             filterInquiries(statusFilter.value, searchValue);
         });
 
         // 필터링 함수
         function filterInquiries(status, searchQuery) {
-            inquiries.forEach(function(row) {
+            inquiries.forEach(function (row) {
                 const title = row.cells[0].textContent.toLowerCase();
                 const inquiryStatus = row.cells[3].textContent.trim().toLowerCase();
 
@@ -224,9 +227,9 @@
     </footer>
 
     <script src="/proj/assets/lib/jquery-3.7.1.min.js"></script>
-<script>
-            /*로그인정보로 장바구니 테이블에 있는 정보 가져오기*/
-            document.addEventListener('DOMContentLoaded', () => {
+    <script>
+        /*로그인정보로 장바구니 테이블에 있는 정보 가져오기*/
+        document.addEventListener('DOMContentLoaded', () => {
             // sessionStorage에서 로그인된 사용자 ID 가져오기
             const loggedInUser = localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser');
 
@@ -253,7 +256,7 @@
             const inquirtyContainer = document.getElementById('inquiry-list');
             inquirtyContainer.innerHTML = '';  // 기존 항목 초기화
 
-            inquirtyItems.forEach(({ supportId, subject, content, supportDate, status}) => {
+            inquirtyItems.forEach(({ supportId, subject, content, supportDate, status }) => {
                 inquirtyContainer.innerHTML += `
                     <tr>
                         <td>${subject}</td>
@@ -268,51 +271,62 @@
             /*───────────────────────────────────────────────────────────────────────────────────────────*/
         }
 
-</script>
+    </script>
 
     <script>
-        function popup(sid){
-            let detail= document.getElementById('cd-popup');
-            let details= document.getElementById('details');
+        function popup(sid) {
+            let detail = document.getElementById('cd-popup');
+            let details = document.getElementById('details');
             details.innerHTML = '';
             detail.classList.add('is-visible');
-                fetch(`http://localhost:3000/support/list/details?userId=${sid}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        data.forEach(({ supportID, subject, content, supportDate, status}) => {
-                            
-                            details.innerHTML = `
+            fetch(`http://localhost:3000/support/list/details?userId=${sid}`)
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(({ supportID, subject, content, supportDate, status, response }) => {
+                        // 날짜에서 시분초 제거
+                        const formattedDate = new Date(supportDate).toISOString().split('T')[0];
+
+                        let responseHTML = '';
+                        if (status === '완료' && response) {
+                            responseHTML = `
+                        <p><strong>문의 답변:</strong></p> 
+                        <pre>${response}</pre>
+                    `;
+                        }
+                        details.innerHTML = `
                                 <p><strong>문의 제목:</strong> ${subject}</p>
-                                <p><strong>작성일:</strong> ${supportDate}</p>
+                                <p><strong>작성일:</strong> ${formattedDate}</p>
                                 <p><strong>상태:</strong> <span class="status">${status}</span></p>
                                 <p><strong>문의 내용:</strong></p>
                                 <pre>${content}</pre>
+                                ${responseHTML}
                             `;
-                        });
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
                     });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
         }
 
-        jQuery(document).ready(function($){
-      //open popup
+        jQuery(document).ready(function ($) {
+            //open popup
 
-      
-      //close popup
-      $('.cd-popup').on('click', function(event){
-        if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') ) {
-          event.preventDefault();
-          $(this).removeClass('is-visible');
-        }
-      });
-      //close popup when clicking the esc keyboard button
-      $(document).keyup(function(event){
-          if(event.which=='27'){
-            $('.cd-popup').removeClass('is-visible');
-          }
+
+            //close popup
+            $('.cd-popup').on('click', function (event) {
+                if ($(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup')) {
+                    event.preventDefault();
+                    $(this).removeClass('is-visible');
+                }
+            });
+            //close popup when clicking the esc keyboard button
+            $(document).keyup(function (event) {
+                if (event.which == '27') {
+                    $('.cd-popup').removeClass('is-visible');
+                }
+            });
         });
-    });
     </script>
 </body>
+
 </html>

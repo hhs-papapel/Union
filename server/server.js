@@ -1589,7 +1589,7 @@ app.post('/support/add', (req, res) => {
 app.get('/support/list', (req, res) => {
     const userId = req.query.userId;
     const query = `
-        select supportId ,subject ,content ,supportDate ,status 
+        select supportId ,subject ,content ,supportDate ,status, response
         from customersupport c 
         where userId = ?
     `;
@@ -1606,7 +1606,7 @@ app.get('/support/list', (req, res) => {
 app.get('/support/list/details', (req, res) => {
     const userId = req.query.userId;
     const query = `
-        select supportId ,subject ,content ,supportDate ,status 
+        select supportId ,subject ,content ,supportDate ,status, response
         from customersupport c 
         where supportId = ?
     `;
