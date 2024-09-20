@@ -173,8 +173,8 @@
                 .then(response => {
                     if (response.ok) {
                         // 로그아웃 성공 시, localStorage 또는 sessionStorage에서 사용자 정보를 삭제
-                        sessionStorage.removeItem('loggedInUser');  // 또는 localStorage.removeItem('loggedInUser');
-
+                        sessionStorage.removeItem('loggedInUser');  
+                        localStorage.removeItem('loggedInUser');  // localStorage에서도 제거
                         // 로그아웃 후 로그인 페이지로 리다이렉트
                         window.location.href = 'login.html';  // 로그인 페이지로 이동
                     } else {
