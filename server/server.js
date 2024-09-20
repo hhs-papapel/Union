@@ -705,26 +705,46 @@ app.get('/api/game/:gameId/discount', (req, res) => {
 app.post('/api/review', (req, res) => {
     const { userId, gameId, rating, content } = req.body;
     const reviewDate = new Date();  // 리뷰 작성 날짜
-    console.log(req.body)
+
     if (!rating) {
         return res.status(400).json({ message: '평점을 입력해주세요.' });
     }
 
-    const query = `
-        INSERT INTO Review (userId, gameId, reviewDate, rating, content)
-        VALUES (?, ?, ?, ?, ?)
+    // 구매 여부 확인 쿼리
+    const purchaseCheckQuery = `
+        SELECT * FROM Library
+        WHERE userId = ? AND gameId = ?
     `;
 
-    connection.query(query, [userId, gameId, reviewDate, rating, content], (err, results) => {
+    // Library 테이블에서 해당 게임을 구매했는지 확인
+    connection.query(purchaseCheckQuery, [userId, gameId], (err, results) => {
         if (err) {
-            console.error('리뷰 저장 중 오류 발생:', err);
-            return res.status(500).json({ message: '리뷰 저장 중 오류 발생' });
+            console.error('구매 여부 확인 중 오류 발생:', err);
+            return res.status(500).json({ message: '구매 여부 확인 중 오류 발생' });
         }
 
+        if (results.length === 0) {
+            // 구매한 게임이 없을 경우
+            return res.status(400).json({ message: '이 게임을 구매해야 리뷰를 작성할 수 있습니다.' });
+        }
 
-        res.json({ message: '리뷰가 성공적으로 저장되었습니다.' });
+        // 구매한 게임이 있을 경우 리뷰 작성
+        const reviewInsertQuery = `
+            INSERT INTO Review (userId, gameId, reviewDate, rating, content)
+            VALUES (?, ?, ?, ?, ?)
+        `;
+
+        connection.query(reviewInsertQuery, [userId, gameId, reviewDate, rating, content], (err, results) => {
+            if (err) {
+                console.error('리뷰 저장 중 오류 발생:', err);
+                return res.status(500).json({ message: '리뷰 저장 중 오류 발생' });
+            }
+
+            res.json({ message: '리뷰가 성공적으로 저장되었습니다.' });
+        });
     });
 });
+
 /*───────────────────────────────────────────────────────────────────────────────────────────*/
 
 // 리뷰 조회

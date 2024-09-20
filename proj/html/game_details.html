@@ -278,6 +278,10 @@
                         .then(data => {
                             if (data.message) {
                                 alert(data.message);
+                                if (data.message === '이 게임을 구매해야 리뷰를 작성할 수 있습니다.') {
+                                    document.getElementById('user-review').value = '';
+                                    return; // 구매하지 않은 경우 리뷰를 화면에 추가하지 않음
+                                }
                                 loadReviews(); // 리뷰 목록을 다시 불러옴
                             }
                         })
