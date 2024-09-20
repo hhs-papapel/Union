@@ -424,7 +424,7 @@ closeLoading();
 
         // 로그인 후 로그아웃으로 변경
         document.addEventListener('DOMContentLoaded', function () {
-            const userId = sessionStorage.getItem('loggedInUser');
+            const userId = localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser');
             const isAdmin = sessionStorage.getItem('isAdmin'); // isAdmin 값 가져오기
 
             const loginButton = document.querySelector('.nav-right a[href="/proj/html/login.html"]');
@@ -437,6 +437,7 @@ closeLoading();
 
                     loginButton.addEventListener('click', function () {
                         sessionStorage.removeItem('loggedInUser');
+                        localStorage.removeItem('loggedInUser');
                         sessionStorage.removeItem('isAdmin'); // isAdmin 값도 삭제
                         window.location.href='../html/main.html'; // 페이지 새로고침
                     });

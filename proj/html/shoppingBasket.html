@@ -113,14 +113,14 @@
 
         /*───────────────────────────────────────────────────────────────────────────────────────────*/
         /*로그인 정보 가져오는지 확인*/
-        const loggedInUser = sessionStorage.getItem('loggedInUser');
+        const loggedInUser = localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser');
         /*───────────────────────────────────────────────────────────────────────────────────────────*/
 
 
         /*로그인정보로 장바구니 테이블에 있는 정보 가져오기*/
         document.addEventListener('DOMContentLoaded', () => {
             // sessionStorage에서 로그인된 사용자 ID 가져오기
-            const loggedInUser = sessionStorage.getItem('loggedInUser');
+            const loggedInUser = localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser');
 
             if (loggedInUser) {
                 // 장바구니 데이터를 서버에서 가져오기
@@ -163,7 +163,7 @@
                     <div class="cart-item-price">₩${price.toLocaleString()}</div>
                     <div class="cart-actions">
                         <a href="#" class="remove-item">제거</a>
-                        <a href="#" class="wishlist-item" data-gameid="${gameId}">위시리스트로 이동</a>
+                        <a href="/proj/html/wish_list.html" class="wishlist-item">위시리스트로 이동</a>
                     </div>
                 </div>
             </div>
@@ -224,41 +224,44 @@
 
             /*───────────────────────────────────────────────────────────────────────────────────────────*/
 
+
+            /* 그냥 위시리스트로 바로 이동으로 수정 */
+
             // "위시리스트로 이동" 버튼에 이벤트 리스너 추가
-            const wishlistButtons = document.querySelectorAll('.wishlist-item');
-            wishlistButtons.forEach(button => {
-                button.addEventListener('click', function (event) {
-                    event.preventDefault();
+            // const wishlistButtons = document.querySelectorAll('.wishlist-item');
+            // wishlistButtons.forEach(button => {
+            //     button.addEventListener('click', function (event) {
+            //         event.preventDefault();
 
-                    const gameId = this.getAttribute('data-gameid');
-                    const userId = sessionStorage.getItem('loggedInUser');
+            //         const gameId = this.getAttribute('data-gameid');
+            //         const userId = localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser');
 
 
-                    // 찜 목록에 추가 요청
-                    fetch(`http://localhost:3000/api/wishlist/add`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            userId: userId,
-                            gameId: gameId
-                        })
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                alert('찜 목록에 추가되었습니다.');
-                                // window.location.href = '/proj/html/wish_list.html';
-                            } else {
-                                alert('찜 목록 추가에 실패했습니다.');
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                        });
-                });
-            });
+            //         // 찜 목록에 추가 요청
+            //         fetch(`http://localhost:3000/api/wishlist/add`, {
+            //             method: 'POST',
+            //             headers: {
+            //                 'Content-Type': 'application/json',
+            //             },
+            //             body: JSON.stringify({
+            //                 userId: userId,
+            //                 gameId: gameId
+            //             })
+            //         })
+            //             .then(response => response.json())
+            //             .then(data => {
+            //                 if (data.success) {
+            //                     alert('찜 목록에 추가되었습니다.');
+            //                     // window.location.href = '/proj/html/wish_list.html';
+            //                 } else {
+            //                     alert('찜 목록 추가에 실패했습니다.');
+            //                 }
+            //             })
+            //             .catch(error => {
+            //                 console.error('Error:', error);
+            //             });
+            //     });
+            // });
 
             /*───────────────────────────────────────────────────────────────────────────────────────────*/
         }

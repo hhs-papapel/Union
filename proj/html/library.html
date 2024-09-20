@@ -223,7 +223,7 @@
     <script>
 
         document.addEventListener('DOMContentLoaded', function () {
-            const userId = sessionStorage.getItem('loggedInUser');
+            const userId = localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser');
             if (userId) {
                 fetch(`http://localhost:3000/api/user/library?userId=${userId}`)
                     .then(response => response.json())
@@ -326,7 +326,7 @@
 
             sessionStorage.setItem('currentGameId', game.gameId); // 게임 이름 저장
             sessionStorage.setItem('currentGameName', game.gameName); // 게임 이름 저장
-            
+
 
             // 홈 화면 숨기기
             document.getElementById('home-section').style.display = 'none';
@@ -336,12 +336,15 @@
         }
         // 설치 버튼 클릭 이벤트 처리
         document.querySelector('.install-btn').addEventListener('click', function () {
-            console.log('currentGameId:', sessionStorage.getItem('currentGameId')); // 확인용 로그
             // 확인 창 표시
             const confirmInstall = confirm("설치하시겠습니까?");
             if (confirmInstall) {
                 // 설치를 확인하면 여기에서 추가 작업을 수행할 수 있습니다.
                 alert("설치가 진행됩니다.");
+                // 설치가 완료되었을 때 버튼 텍스트를 변경
+                const installButton = document.querySelector('.install-btn');
+                installButton.textContent = "게임 실행";
+                installButton.disabled = true;
             } else {
                 // 설치를 취소하면 여기에서 추가 작업을 수행할 수 있습니다.
                 alert("설치가 취소되었습니다.");
@@ -354,7 +357,7 @@
 
 
                 const gameId = sessionStorage.getItem('currentGameId');
-                const userId = sessionStorage.getItem('loggedInUser');
+                const userId = localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser');
                 const content = document.getElementById('reviewContent').value;
                 const rating = document.getElementById('reviewRating').value;
 

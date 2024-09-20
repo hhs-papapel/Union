@@ -238,7 +238,7 @@
         /* ─────────────────────────────────────────────────────────────────────────────────────────── */
 
         document.addEventListener('DOMContentLoaded', function () {
-            const userId = sessionStorage.getItem('loggedInUser');
+            const userId = localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser');
             console.log(userId);  // 여기에 저장된 값을 확인
         });
         // 리뷰 게시 버튼 클릭 시 리뷰를 추가하는 기능
@@ -247,7 +247,7 @@
             postReviewBtn.addEventListener('click', function () {
                 var reviewText = document.getElementById('user-review').value;
                 var rating = document.getElementById('rating').value; // 평점 값 가져오기
-                var userId = sessionStorage.getItem('loggedInUser'); // sessionStorage에서 userId 가져오기
+                var userId = localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser'); // sessionStorage에서 userId 가져오기
                 var gameId = getGameIdFromURL(); // 현재 게임의 gameId 가져오기
                 if (!userId) {
                     // 비로그인 상태일 경우
@@ -493,7 +493,7 @@
         const wishlistBtn = document.getElementById('wishlistbtn');
         if (wishlistBtn) {
             wishlistBtn.addEventListener('click', function () {
-                const userId = sessionStorage.getItem('loggedInUser');  // sessionStorage에서 userId 가져오기
+                const userId = localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser');  // sessionStorage에서 userId 가져오기
                 console.log('userId:', userId);  // 이 시점에 userId가 올바르게 출력되는지 확인
                 const gameId = getGameIdFromURL();  // URL에서 gameId 가져오기
 
@@ -534,7 +534,7 @@
         const purchaseBtn = document.getElementById('shopping');
         if (purchaseBtn) {
             purchaseBtn.addEventListener('click', function () {
-                const userId = sessionStorage.getItem('loggedInUser');  // sessionStorage에서 userId 가져오기
+                const userId = localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser');  // sessionStorage에서 userId 가져오기
                 console.log('userId:', userId);  // 이 시점에 userId가 올바르게 출력되는지 확인
                 const gameId = getGameIdFromURL();  // URL에서 gameId 가져오기
 

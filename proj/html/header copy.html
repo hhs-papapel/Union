@@ -312,7 +312,7 @@
 
         // 로그인 후 로그아웃으로 변경
         document.addEventListener('DOMContentLoaded', function () {
-            const userId = sessionStorage.getItem('loggedInUser');
+            const userId = localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser');
             const isAdmin = sessionStorage.getItem('isAdmin'); // isAdmin 값 가져오기
 
             const loginButton = document.querySelector('.nav-right a[href="/proj/html/login.html"]');

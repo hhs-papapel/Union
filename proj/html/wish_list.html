@@ -127,7 +127,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            const loggedInUser = sessionStorage.getItem('loggedInUser');
+            const loggedInUser = localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser');
 
             if (loggedInUser) {
                 fetch(`http://localhost:3000/api/user/name?userId=${loggedInUser}`)
@@ -199,7 +199,7 @@
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify({
-                            userId: sessionStorage.getItem('loggedInUser'),
+                            userId: localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser'),
                             gameId: gameId
                         })
                     })
@@ -234,7 +234,7 @@
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify({
-                            userId: sessionStorage.getItem('loggedInUser'),
+                            userId: localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser'),
                             gameId: gameId
                         })
                     })
@@ -254,7 +254,7 @@
         // 검색 기능 구현
         document.getElementById('wishlist-search-button').addEventListener('click', () => {
             const searchTerm = document.getElementById('wishlist-search-input').value.trim();
-            const userId = sessionStorage.getItem('loggedInUser'); // 현재 로그인한 사용자 ID
+            const userId = localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser'); // 현재 로그인한 사용자 ID
 
             if (!searchTerm) {
                 alert('검색어를 입력하세요.');

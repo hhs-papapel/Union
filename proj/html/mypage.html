@@ -41,10 +41,10 @@
                     <p id="statusMessage">상태 메시지: </p>
 
                     <!-- 프로필 수정 버튼 -->
-                    <button class="edit-button" onclick="toggleEditMode();">수정</button>
+                    <a class="edit-button" onclick="toggleEditMode();" >수정</a>
                     <a class="edit-button" href="./shoppingBasket.html" style="text-decoration: none;">장바구니</a>
                     <a class="edit-button" href="./wish_list.html" style="text-decoration: none;">찜목록</a>
-
+                    <br><br>
                     <!-- 파일 입력 필드 -->
                     <input type="file" id="profilePicInput" style="display:none;" accept="image/*"
                         onchange="uploadProfilePic()">
@@ -132,7 +132,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const userId = sessionStorage.getItem('loggedInUser');
+            const userId = localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser');
             console.log(userId);
 
             if (!userId) {
@@ -335,7 +335,7 @@
             const formData = new FormData();
 
             formData.append('profilePic', fileInput.files[0]);  // 파일 데이터를 FormData에 추가
-            formData.append('userId', sessionStorage.getItem('loggedInUser'));  // userId 추가
+            formData.append('userId', localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser'));  // userId 추가
             formData.append('statusMessage', statusMessage); // 상태 메시지 추가
 
             fetch('http://localhost:3000/api/users/profile-pic', {

@@ -247,7 +247,6 @@ app.get('/api/cart', (req, res) => {
 app.post('/api/cart/add', (req, res) => {
     const { userId, gameId } = req.body;
 
-
     // 디버그: 로그로 데이터가 제대로 들어오는지 확인
     console.log('userId:', userId);
     console.log('gameId:', gameId);
@@ -266,23 +265,34 @@ app.post('/api/cart/add', (req, res) => {
             return res.status(500).json({ success: false, message: 'DB 에러 발생' });
         }
 
-        // 이미 존재하면 추가하지 않음
+        // 이미 장바구니에 존재하면 추가하지 않음
         if (results.length > 0) {
             return res.status(409).json({ success: false, message: '이미 장바구니에 존재하는 게임입니다.' });
         }
 
-        // 장바구니에 추가
-        const insertQuery = `
-            INSERT INTO Cart (gameId, userId, addedDate)
-            VALUES (?, ?, CURDATE())
+        // 장바구니에 추가하기 전에 Wishlist에서 게임 삭제
+        const deleteWishlistQuery = `
+            DELETE FROM Wishlist WHERE userId = ? AND gameId = ?
         `;
-        connection.query(insertQuery, [gameId, userId], (err, results) => {
+        connection.query(deleteWishlistQuery, [userId, gameId], (err, deleteResults) => {
             if (err) {
-                console.error('DB Error:', err);
-                return res.status(500).json({ success: false, message: 'DB 에러 발생' });
+                console.error('Wishlist 삭제 중 오류:', err);
+                return res.status(500).json({ success: false, message: 'Wishlist 삭제 중 오류 발생' });
             }
 
-            res.json({ success: true, message: '장바구니에 추가되었습니다.' });
+            // 장바구니에 게임 추가
+            const insertQuery = `
+                INSERT INTO Cart (gameId, userId, addedDate)
+                VALUES (?, ?, CURDATE())
+            `;
+            connection.query(insertQuery, [gameId, userId], (err, results) => {
+                if (err) {
+                    console.error('DB Error:', err);
+                    return res.status(500).json({ success: false, message: 'DB 에러 발생' });
+                }
+
+                res.json({ success: true, message: '장바구니에 추가되었습니다. (Wishlist에서 제거됨)' });
+            });
         });
     });
 });
@@ -316,7 +326,11 @@ app.post('/api/cart/delete', (req, res) => {
         }
     });
 });
+
+
 /*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+
 /* 구매하기 ( 결제 ) */
 app.post('/api/payment', (req, res) => {
     const { userId, paymentItems } = req.body;
@@ -327,6 +341,7 @@ app.post('/api/payment', (req, res) => {
             return res.status(500).json({ success: false, message: '트랜잭션 시작 오류' });
         }
 
+        // Payment 테이블에 결제 항목 추가
         const paymentQueries = paymentItems.map(item => {
             return new Promise((resolve, reject) => {
                 const paymentQuery = `
@@ -343,6 +358,7 @@ app.post('/api/payment', (req, res) => {
             });
         });
 
+        // Library 테이블에 구매한 게임 추가
         const libraryQueries = paymentItems.map(item => {
             return new Promise((resolve, reject) => {
                 const libraryQuery = `
@@ -360,8 +376,10 @@ app.post('/api/payment', (req, res) => {
             });
         });
 
+        // 결제와 라이브러리 처리 후 찜 목록과 장바구니에서 게임 삭제
         Promise.all([...paymentQueries, ...libraryQueries])
             .then(() => {
+                // 장바구니 삭제
                 const deleteCartQuery = `DELETE FROM Cart WHERE userId = ?`;
                 connection.query(deleteCartQuery, [userId], (err, result) => {
                     if (err) {
@@ -371,14 +389,27 @@ app.post('/api/payment', (req, res) => {
                         });
                     }
 
-                    connection.commit(err => {
+                    // 찜 목록에서 구매한 게임 삭제
+                    const deleteWishlistQuery = `DELETE FROM Wishlist WHERE userId = ? AND gameId IN (?)`;
+                    const gameIds = paymentItems.map(item => item.gameId);  // 구매한 gameId 목록
+                    connection.query(deleteWishlistQuery, [userId, gameIds], (err, result) => {
                         if (err) {
-                            console.error('트랜잭션 커밋 오류:', err);
+                            console.error('Wishlist 삭제 오류:', err);
                             return connection.rollback(() => {
-                                res.status(500).json({ success: false, message: '트랜잭션 커밋 오류' });
+                                res.status(500).json({ success: false, message: 'Wishlist 삭제 오류' });
                             });
                         }
-                        res.json({ success: true, message: '결제가 성공적으로 처리되었습니다.' });
+
+                        // 트랜잭션 커밋
+                        connection.commit(err => {
+                            if (err) {
+                                console.error('트랜잭션 커밋 오류:', err);
+                                return connection.rollback(() => {
+                                    res.status(500).json({ success: false, message: '트랜잭션 커밋 오류' });
+                                });
+                            }
+                            res.json({ success: true, message: '결제가 성공적으로 처리되었습니다.' });
+                        });
                     });
                 });
             })
@@ -423,6 +454,7 @@ app.get('/api/wishlist', (req, res) => {
 /*───────────────────────────────────────────────────────────────────────────────────────────*/
 
 /* 찜목록 테이블에 추가 하기 */
+/* 찜목록 테이블에 추가 하기 */
 app.post('/api/wishlist/add', (req, res) => {
     const { userId, gameId } = req.body;
 
@@ -434,29 +466,55 @@ app.post('/api/wishlist/add', (req, res) => {
     const checkQuery = `
         SELECT * FROM Wishlist WHERE userId = ? AND gameId = ?
     `;
+
     connection.query(checkQuery, [userId, gameId], (err, results) => {
         if (err) {
             console.error('DB Error:', err);
             return res.status(500).json({ success: false, message: 'DB 에러 발생' });
         }
 
-        // 이미 존재하면 추가하지 않음
+        // 이미 찜 목록에 있으면 추가하지 않음
         if (results.length > 0) {
             return res.status(409).json({ success: false, message: '이미 찜 목록에 존재하는 게임입니다.' });
         }
 
-        // 찜 목록에 추가
-        const insertQuery = `
-            INSERT INTO Wishlist (gameId, userId, addedDate)
-            VALUES (?, ?, CURDATE())
+        // 장바구니나 구매한 게임 확인
+        const checkCartAndLibraryQuery = `
+            SELECT 
+                (SELECT COUNT(*) FROM Cart WHERE userId = ? AND gameId = ?) AS inCart,
+                (SELECT COUNT(*) FROM Library WHERE userId = ? AND gameId = ?) AS inLibrary
         `;
-        connection.query(insertQuery, [gameId, userId], (err, results) => {
+
+        connection.query(checkCartAndLibraryQuery, [userId, gameId, userId, gameId], (err, results) => {
             if (err) {
                 console.error('DB Error:', err);
                 return res.status(500).json({ success: false, message: 'DB 에러 발생' });
             }
 
-            res.json({ success: true, message: '찜 목록에 추가되었습니다.' });
+            const inCart = results[0].inCart > 0;
+            const inLibrary = results[0].inLibrary > 0;
+
+            if (inCart) {
+                return res.status(409).json({ success: false, message: '이미 장바구니에 있는 게임입니다.' });
+            }
+
+            if (inLibrary) {
+                return res.status(409).json({ success: false, message: '이미 구매한 게임입니다.' });
+            }
+
+            // 장바구니와 구매한 게임이 없을 경우에만 찜 목록에 추가
+            const insertQuery = `
+                INSERT INTO Wishlist (gameId, userId, addedDate)
+                VALUES (?, ?, CURDATE())
+            `;
+            connection.query(insertQuery, [gameId, userId], (err, results) => {
+                if (err) {
+                    console.error('DB Error:', err);
+                    return res.status(500).json({ success: false, message: 'DB 에러 발생' });
+                }
+
+                res.json({ success: true, message: '찜 목록에 추가되었습니다.' });
+            });
         });
     });
 });
@@ -1655,6 +1713,48 @@ app.get('/api/user/profile', (req, res) => {
             res.json({ profilePic: results[0].profilePic });
         } else {
             res.status(404).json({ success: false, message: '사용자를 찾을 수 없습니다.' });
+        }
+    });
+});
+
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+/*───────────────────────────────────────────────────────────────────────────────────────────*/
+
+app.get('/api/cart/check', (req, res) => {
+    const { userId, gameId } = req.query;
+
+    if (!userId || !gameId) {
+        return res.status(400).json({ success: false, message: 'userId와 gameId가 필요합니다.' });
+    }
+
+    const query = `
+    SELECT 
+        c.cartId AS inCart,
+        l.gameId AS inLibrary
+    FROM User u
+    LEFT JOIN Cart c ON u.userId = c.userId AND c.gameId = ?
+    LEFT JOIN Library l ON u.userId = l.userId AND l.gameId = ?
+    WHERE u.userId = ?
+    `;
+
+    connection.query(query, [gameId, gameId, userId], (err, results) => {
+        if (err) {
+            console.error('DB Error:', err);
+            return res.status(500).json({ success: false, message: 'DB 에러 발생' });
+        }
+
+        if (results.length > 0) {
+            const inCart = results[0].inCart !== null;      // 장바구니에 있는지 확인
+            const inLibrary = results[0].inLibrary !== null;  // 라이브러리에 있는지 확인
+
+            return res.json({
+                success: true,
+                inCart: inCart,
+                inLibrary: inLibrary,
+                message: inCart ? '이미 장바구니에 추가된 게임입니다.' : '장바구니에 없는 게임입니다.',
+            });
+        } else {
+            return res.json({ success: false, message: '해당 유저 정보를 찾을 수 없습니다.' });
         }
     });
 });

@@ -228,7 +228,7 @@
             /*로그인정보로 장바구니 테이블에 있는 정보 가져오기*/
             document.addEventListener('DOMContentLoaded', () => {
             // sessionStorage에서 로그인된 사용자 ID 가져오기
-            const loggedInUser = sessionStorage.getItem('loggedInUser');
+            const loggedInUser = localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser');
 
             if (loggedInUser) {
                 // 장바구니 데이터를 서버에서 가져오기

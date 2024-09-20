@@ -167,7 +167,7 @@
                     <img src="../assets/images/default_avatar.png" alt="유저 아바타" class="user-avatar" id="profilePic">
                     <textarea id="user-review" placeholder="이 게임에 대한 리뷰를 작성하세요…"></textarea>
                     <!-- 임시 평점 -->
-                    <label for="rating">임시 평점:</label>
+                    <label for="rating">평점:</label>
                     <select id="rating">
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -238,7 +238,7 @@
         /* ─────────────────────────────────────────────────────────────────────────────────────────── */
 
         document.addEventListener('DOMContentLoaded', function () {
-            const userId = sessionStorage.getItem('loggedInUser');
+            const userId = localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser');
             // 서버에서 사용자 프로필 이미지 가져오기
             fetch(`http://localhost:3000/api/user/profile?userId=${userId}`)
                 .then(response => response.json())
@@ -258,7 +258,7 @@
             postReviewBtn.addEventListener('click', function () {
                 var reviewText = document.getElementById('user-review').value;
                 var rating = document.getElementById('rating').value; // 평점 값 가져오기
-                var userId = sessionStorage.getItem('loggedInUser'); // sessionStorage에서 userId 가져오기
+                var userId = localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser'); // sessionStorage에서 userId 가져오기
                 var gameId = getGameIdFromURL(); // 현재 게임의 gameId 가져오기
                 if (!userId) {
                     // 비로그인 상태일 경우
@@ -488,9 +488,11 @@
             return urlParams.get('gameId');  // 'gameId'라는 파라미터 값을 가져옴
         }
 
+
         // 페이지 로드 시 데이터를 가져오는 로직
         document.addEventListener('DOMContentLoaded', () => {
             loadReviews();
+            const userId = localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser');  // sessionStorage에서 userId 가져오기
             const gameId = getGameIdFromURL();
             if (gameId) {
                 fetch(`http://localhost:3000/api/game/${gameId}`)  // 게임 데이터 API 호출
@@ -505,6 +507,23 @@
             } else {
                 console.error('gameId를 찾을 수 없습니다.');
             }
+
+            if (userId && gameId) {
+                fetch(`http://localhost:3000/api/cart/check?userId=${userId}&gameId=${gameId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.inCart || data.inLibrary) {
+                            // 게임이 장바구니에 있거나 이미 구매했을 경우 상위 <div>를 숨기기
+                            const shoppingContainer = document.getElementById('shopping').closest('div'); // 상위 div 요소 찾기
+                            if (shoppingContainer) {
+                                shoppingContainer.style.display = 'none';  // 해당 div 숨기기
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error('장바구니 상태 확인 중 오류 발생:', error);
+                    });
+            }
         });
 
         /* ─────────────────────────────────────────────────────────────────────────────────────────── */
@@ -514,7 +533,7 @@
         const wishlistBtn = document.getElementById('wishlistbtn');
         if (wishlistBtn) {
             wishlistBtn.addEventListener('click', function () {
-                const userId = sessionStorage.getItem('loggedInUser');  // sessionStorage에서 userId 가져오기
+                const userId = localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser');  // sessionStorage에서 userId 가져오기
                 console.log('userId:', userId);  // 이 시점에 userId가 올바르게 출력되는지 확인
                 const gameId = getGameIdFromURL();  // URL에서 gameId 가져오기
 
@@ -555,7 +574,7 @@
         const purchaseBtn = document.getElementById('shopping');
         if (purchaseBtn) {
             purchaseBtn.addEventListener('click', function () {
-                const userId = sessionStorage.getItem('loggedInUser');  // sessionStorage에서 userId 가져오기
+                const userId = localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser');  // sessionStorage에서 userId 가져오기
                 console.log('userId:', userId);  // 이 시점에 userId가 올바르게 출력되는지 확인
                 const gameId = getGameIdFromURL();  // URL에서 gameId 가져오기
 
@@ -572,6 +591,9 @@
                                 // 장바구니 추가 성공 시 확인 메시지와 함께 장바구니 이동 여부 묻기
                                 if (confirm('장바구니에 추가 완료되었습니다. 장바구니로 이동하시겠습니까?')) {
                                     window.location.href = '/proj/html/shoppingBasket.html';  // "예" 선택 시 장바구니로 이동
+                                } else {
+                                    // "아니요" 선택 시 페이지 새로고침
+                                    window.location.reload();  // 페이지 새로고침
                                 }
                             } else {
                                 alert(data.message || '장바구니 추가 중 문제가 발생했습니다.');

@@ -81,7 +81,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const loggedInUser = sessionStorage.getItem('loggedInUser');
+            const loggedInUser = localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser');
 
             if (loggedInUser) {
                 // 장바구니 데이터를 서버에서 가져오기
@@ -139,7 +139,7 @@
             }
         }
         document.addEventListener('DOMContentLoaded', () => {
-            const userId = sessionStorage.getItem('loggedInUser');
+            const userId = localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser');
 
             if (userId) {
                 // 서버에서 username을 가져오기
@@ -172,7 +172,7 @@
                     const confirmPurchase = window.confirm('정말로 결제를 진행하시겠습니까?');
 
                     if (confirmPurchase) {
-                        const userId = sessionStorage.getItem('loggedInUser');
+                        const userId = localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser');
 
                         fetch(`http://localhost:3000/api/cart?userId=${userId}`)
                             .then(response => response.json())

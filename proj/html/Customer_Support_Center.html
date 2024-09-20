@@ -207,7 +207,7 @@
                         console.error('FAQ 데이터를 불러오는 중 오류 발생:', error);
                     });
 
-                    const userId = sessionStorage.getItem('loggedInUser');
+                    const userId = localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser');
                     console.log(userId);
                     const inquirySection = document.getElementById('inquiry-section');
                     if (userId) {
@@ -327,7 +327,7 @@
 
 // 등록 버튼 부분-------------------------------------------------------------------------
     function supportAdd(){
-        const id = sessionStorage.getItem('loggedInUser');
+        const id = localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser');
 
         const subject = document.getElementById('subject');
         const content = document.getElementById('description');
